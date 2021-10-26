@@ -8,14 +8,15 @@
     </provider>
 
 		<class>com.skilldistillery.enginex.entities.User</class>
+		<class>com.skilldistillery.enginex.entities.DeveloperAccount</class>
 
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/enginexdb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
-			<property name="javax.persistence.jdbc.user" value="FIXME" />
+			<property name="javax.persistence.jdbc.user" value="enginexuser" />
 			<property name="javax.persistence.jdbc.password"
-				value="FIXME" />
+				value="enginex" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 
