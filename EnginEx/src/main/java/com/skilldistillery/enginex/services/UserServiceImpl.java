@@ -8,12 +8,12 @@ import com.skilldistillery.enginex.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-	@Autowired
-	private UserRepository userRepo;
-
-	@Override
-	public User getUserByName(String username) {
-		return userRepo.findByUsername(username);
-	}
+//	@Autowired
+//	private UserRepository userRepo;
+//
+//	@Override
+//	public User getUserByName(String username) {
+//		return userRepo.findByUsername(username);
+//	}
 
 }
