@@ -12,7 +12,7 @@ public class DeveloperAccountImpl implements DeveloperAccountService {
 	private DeveloperAccountRepository devRepo;
 
 	@Override
-	public DeveloperAccount getAcctByName(String username) {
+	public DeveloperAccount getAcctByUsername(String username) {
 		return devRepo.findByUsername(username);
 	}
 
