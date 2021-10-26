@@ -11,7 +11,7 @@ import com.skilldistillery.enginex.services.DeveloperAccountService;
 
 @RestController
 @RequestMapping("api")
-@CrossOrigin({"*", "http://localhost:4301"})
+@CrossOrigin({"*", "http://localhost:4300"})
 public class DeveloperAccountController {
 	
 	@Autowired
