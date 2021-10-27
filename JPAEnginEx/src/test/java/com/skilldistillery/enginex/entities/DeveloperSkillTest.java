@@ -13,10 +13,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class DeveloperAccountTest {
+class DeveloperSkillTest {
 	public static EntityManagerFactory emf;
 	private EntityManager em;
-	private DeveloperAccount devAcct;
+	private DeveloperSkill skill;
 	
 	
 	@BeforeAll
@@ -34,21 +34,21 @@ class DeveloperAccountTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		devAcct = em.find(DeveloperAccount.class, 1);
+		skill = em.find(DeveloperSkill.class, 1);
 		
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		devAcct = null;
+		skill = null;
 		
 	}
 
 	@Test
 	void test() {
-		assertNotNull(devAcct);
-		assertEquals("Ron", devAcct.getFirstName());
+		assertNotNull(skill);
+		assertEquals("Java", skill.getSkillTitle());
 	}
 
 }

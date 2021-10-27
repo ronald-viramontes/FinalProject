@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.enginex.services.DeveloperAccountService;
+import com.skilldistillery.enginex.services.DeveloperService;
 
 
 @RestController
@@ -15,7 +15,7 @@ import com.skilldistillery.enginex.services.DeveloperAccountService;
 public class DeveloperAccountController {
 	
 	@Autowired
-	private DeveloperAccountService devServ;
+	private DeveloperService devServ;
 	
 	@GetMapping("ping")
 	public String ping() {

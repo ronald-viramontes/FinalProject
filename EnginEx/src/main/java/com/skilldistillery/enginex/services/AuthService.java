@@ -1,9 +1,9 @@
 package com.skilldistillery.enginex.services;
 
-import com.skilldistillery.enginex.entities.DeveloperAccount;
+import com.skilldistillery.enginex.entities.Developer;
 
 public interface AuthService {
 
-	public DeveloperAccount register(DeveloperAccount developer);
-	public DeveloperAccount getUser(String username);
+	public Developer register(Developer developer);
+	public Developer getUser(String username);
 }

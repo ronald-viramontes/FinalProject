@@ -10,13 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="developer_account")
-public class DeveloperAccount {
+public class Developer {
 
-	public DeveloperAccount() {
+	public Developer() {
 		super();
 	}
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,20 +25,12 @@ public class DeveloperAccount {
 	
 	@Column(name="last_name")
 	private String lastName;
-	
-	private String username;
-	
-	private String password;
 
 	private String email;
 	
 	@Column(name="phone_number")
-	private int phoneNumber;
+	private String phoneNumber;
 
-	
-	@Column(name="account_active")
-	private boolean accountActive;
-	
 	
 	@Column(name="image_url")
 	private String imageUrl;
@@ -76,26 +66,6 @@ public class DeveloperAccount {
 	}
 
 
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
 	public String getEmail() {
 		return email;
 	}
@@ -106,23 +76,13 @@ public class DeveloperAccount {
 	}
 
 
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-
-	public boolean isAccountActive() {
-		return accountActive;
-	}
-
-
-	public void setAccountActive(boolean accountActive) {
-		this.accountActive = accountActive;
 	}
 
 
@@ -150,16 +110,15 @@ public class DeveloperAccount {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DeveloperAccount other = (DeveloperAccount) obj;
+		Developer other = (Developer) obj;
 		return id == other.id;
 	}
 
 
 	@Override
 	public String toString() {
-		return "DeveloperAccount [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username="
-				+ username + ", password=" + password + ", email=" + email + ", phoneNumber=" + phoneNumber
-				+ ", accountActive=" + accountActive + ", imageUrl=" + imageUrl + "]";
+		return "DeveloperAccount [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber
+				+ ", imageUrl=" + imageUrl + "]";
 	}
 	
 	
