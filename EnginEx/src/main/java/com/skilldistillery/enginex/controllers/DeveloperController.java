@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -50,6 +51,12 @@ public class DeveloperController {
 			@PathVariable int dId, Principal principal) {
 		int userId = userRepo.findByUsername(principal.getName()).getId();
 		return devSvc.edit(edit, userId, dId);
+	}
+	
+	@DeleteMapping("developers/{dId}")
+	public boolean delete(HttpServletRequest req, HttpServletResponse res, 
+			@PathVariable int dId, Principal principal) {
+		return devSvc.delete(principal.getName(), dId);
 	}
 
 }
