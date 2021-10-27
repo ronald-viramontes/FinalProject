@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class DeveloperTest {
@@ -46,9 +47,20 @@ class DeveloperTest {
 	}
 
 	@Test
+	@DisplayName("test entity mappings for Developer")
 	void test() {
 		assertNotNull(devAcct);
 		assertEquals("Ron", devAcct.getFirstName());
 	}
+	
+	@Test
+	@DisplayName("test relationship mappings on Developer")
+	void test2() {
+		assertEquals("rodfed", devAcct.getUser().getUsername());
+		assertEquals("Java", devAcct.getSkills().get(0).getSkillTitle());
+		assertEquals("Full stack java developer", devAcct.getExperiences().get(0).getJobTitle());
+		assertEquals("Trade Skill", devAcct.getEducations().get(0).getEducationType());
+	}
 
+	
 }

@@ -1,5 +1,6 @@
 package com.skilldistillery.enginex.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Developer {
@@ -34,7 +37,19 @@ public class Developer {
 	
 	@Column(name="image_url")
 	private String imageUrl;
-
+	
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@OneToMany(mappedBy="developer")
+	private List<DeveloperSkill> skills;
+	
+	@OneToMany(mappedBy="developer")
+	private List<WorkExperience> experiences;
+	
+	@OneToMany(mappedBy="developer")
+	private List<DeveloperEducation> educations;
 
 	public int getId() {
 		return id;
@@ -93,6 +108,46 @@ public class Developer {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public List<DeveloperSkill> getSkills() {
+		return skills;
+	}
+
+
+	public void setSkills(List<DeveloperSkill> skills) {
+		this.skills = skills;
+	}
+
+
+	public List<WorkExperience> getExperiences() {
+		return experiences;
+	}
+
+
+	public void setExperiences(List<WorkExperience> experiences) {
+		this.experiences = experiences;
+	}
+
+
+	public List<DeveloperEducation> getEducations() {
+		return educations;
+	}
+
+
+	public void setEducations(List<DeveloperEducation> educations) {
+		this.educations = educations;
 	}
 
 
