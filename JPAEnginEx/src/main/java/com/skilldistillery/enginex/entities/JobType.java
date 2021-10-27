@@ -1,11 +1,13 @@
 package com.skilldistillery.enginex.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +21,9 @@ public class JobType {
 	private String name;
 	
 	private String description;
+	
+	@OneToMany(mappedBy="type")
+	private List<JobPost> jobPosts;
 	
 	//Methods
 
@@ -44,6 +49,14 @@ public class JobType {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<JobPost> getJobPosts() {
+		return jobPosts;
+	}
+
+	public void setJobPosts(List<JobPost> jobPosts) {
+		this.jobPosts = jobPosts;
 	}
 
 	public JobType() {

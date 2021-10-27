@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class JobStatusTest {
@@ -49,6 +50,13 @@ class JobStatusTest {
 	void test() {
 		assertNotNull(status);
 		assertEquals("Complete", status.getName());
+	}
+
+	@Test
+	@DisplayName("test relationship mappings on JobStatus")
+	void test2() {
+		assertNotNull(status);
+		assertEquals("Full stack application to manage orders restaurant orders for my small business", status.getJobPosts().get(0).getJobRequirements());
 	}
 
 }

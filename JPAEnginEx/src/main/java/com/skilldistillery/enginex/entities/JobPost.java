@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +40,18 @@ public class JobPost {
 	
 	@Column(name="date_closed")
 	private LocalDate dateClosed;
+	
+	@ManyToOne
+	@JoinColumn(name="job_type_id")
+	private JobType type;
+	
+	@ManyToOne
+	@JoinColumn(name="client_id")
+	private Client client;
+	
+	@ManyToOne
+	@JoinColumn(name="job_status_id")
+	private JobStatus status;
 	
 	//Methods
 
@@ -107,6 +121,30 @@ public class JobPost {
 
 	public void setDateClosed(LocalDate dateClosed) {
 		this.dateClosed = dateClosed;
+	}
+
+	public JobType getType() {
+		return type;
+	}
+
+	public void setType(JobType type) {
+		this.type = type;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public JobStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(JobStatus status) {
+		this.status = status;
 	}
 
 	@Override

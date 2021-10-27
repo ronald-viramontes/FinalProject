@@ -1,5 +1,6 @@
 package com.skilldistillery.enginex.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -43,6 +45,11 @@ public class Client {
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@OneToMany(mappedBy="client")
+	private List<JobPost> jobPosts;
+	
+	//Methods
 
 	public int getId() {
 		return id;
@@ -106,6 +113,14 @@ public class Client {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<JobPost> getJobPosts() {
+		return jobPosts;
+	}
+
+	public void setJobPosts(List<JobPost> jobPosts) {
+		this.jobPosts = jobPosts;
 	}
 
 	@Override

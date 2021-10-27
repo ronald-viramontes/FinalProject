@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class JobPostTest {
@@ -46,10 +47,20 @@ class JobPostTest {
 	}
 
 	@Test
+	@DisplayName("test entity mappings on JobPost")
 	void test() {
 		assertNotNull(post);
 		assertEquals("Full stack application to manage orders restaurant orders for my small business", post.getJobRequirements());
 		assertEquals(8, post.getStartDate().getDayOfMonth());
+	}
+	
+	@Test
+	@DisplayName("test relationship mappings on JobPost")
+	void test2() {
+		assertNotNull(post);
+		assertEquals("Full stack developer", post.getType().getName());
+		assertEquals("Don", post.getClient().getFirstName());
+		assertEquals("Complete", post.getStatus().getName());
 	}
 
 }

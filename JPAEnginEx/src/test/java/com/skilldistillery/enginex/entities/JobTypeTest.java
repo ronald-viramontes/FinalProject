@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class JobTypeTest {
@@ -49,6 +50,13 @@ class JobTypeTest {
 	void test() {
 		assertNotNull(type);
 		assertEquals("Full stack developer", type.getName());
+	}
+	
+	@Test
+	@DisplayName("test relationship mappings on JobType")
+	void test2() {
+		assertNotNull(type);
+		assertEquals("Full stack application to manage orders restaurant orders for my small business", type.getJobPosts().get(0).getJobRequirements());
 	}
 
 }
