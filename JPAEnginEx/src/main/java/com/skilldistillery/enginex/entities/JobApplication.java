@@ -45,6 +45,9 @@ public class JobApplication {
 	@OneToMany(mappedBy="application")
 	private List<JobApplicationComment> comments;
 	
+	@OneToMany(mappedBy="application")
+	private List<JobDetail> details;
+	
 	//Methods
 
 	public int getId() {
@@ -109,6 +112,14 @@ public class JobApplication {
 
 	public void setComments(List<JobApplicationComment> comments) {
 		this.comments = comments;
+	}
+
+	public List<JobDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<JobDetail> details) {
+		this.details = details;
 	}
 
 	public JobApplication() {

@@ -57,6 +57,7 @@ class JobApplicationTest {
 	void test2() {
 		assertNotNull(app);
 		assertEquals("Ron", app.getDeveloper().getFirstName());
+		assertEquals("Excellent work!", app.getDetails().get(0).getComment());
 	}
 
 }

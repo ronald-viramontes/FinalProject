@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,12 @@ public class JobDetail {
 	
 	@Column(name="job_rating_comment")
 	private String comment;
+	
+	@ManyToOne
+	@JoinColumn(name="job_application_id")
+	private JobApplication application;
+	
+	//Methods
 
 	public int getId() {
 		return id;
@@ -68,6 +76,14 @@ public class JobDetail {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public JobApplication getApplication() {
+		return application;
+	}
+
+	public void setApplication(JobApplication application) {
+		this.application = application;
 	}
 
 	public JobDetail() {
