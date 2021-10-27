@@ -68,8 +68,8 @@ DROP TABLE IF EXISTS `job_type` ;
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `job_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `job_type_name` VARCHAR(255) NOT NULL,
-  `job_type_description` TEXT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -224,17 +224,17 @@ CREATE TABLE IF NOT EXISTS `work_experience` (
   `company_name` TEXT NULL DEFAULT NULL,
   `start_date` DATE NULL,
   `end_date` DATE NULL,
-  `developer_account_id` INT NOT NULL,
+  `developer_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_work_experience_developer1`
-    FOREIGN KEY (`developer_account_id`)
+    FOREIGN KEY (`developer_id`)
     REFERENCES `developer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_work_experience_developer1_idx` ON `work_experience` (`developer_account_id` ASC);
+CREATE INDEX `fk_work_experience_developer1_idx` ON `work_experience` (`developer_id` ASC);
 
 SHOW WARNINGS;
 
@@ -248,17 +248,17 @@ CREATE TABLE IF NOT EXISTS `developer_skill` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `skill_title` VARCHAR(400) NULL DEFAULT NULL,
   `skill_level` VARCHAR(250) NULL DEFAULT NULL,
-  `developer_account_id` INT NOT NULL,
+  `developer_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_developer_skills_developer1`
-    FOREIGN KEY (`developer_account_id`)
+    FOREIGN KEY (`developer_id`)
     REFERENCES `developer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_developer_skills_developer1_idx` ON `developer_skill` (`developer_account_id` ASC);
+CREATE INDEX `fk_developer_skills_developer1_idx` ON `developer_skill` (`developer_id` ASC);
 
 SHOW WARNINGS;
 
@@ -398,7 +398,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_type` (`id`, `job_type_name`, `job_type_description`) VALUES (1, 'Full stack developer', 'Ability to create a full stack application with a Java backend and Angular frontend.');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (1, 'Full stack developer', 'Ability to create a full stack application with a Java backend and Angular frontend.');
 
 COMMIT;
 
@@ -458,9 +458,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_account_id`) VALUES (1, 'Full stack java developer', 'Amazon', '2021-01-01', NULL, 1);
-INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_account_id`) VALUES (2, 'Full stack java developer', 'Microsoft', '2020-05-16', NULL, 2);
-INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_account_id`) VALUES (3, 'Database Administrator', 'Oracle', '2019-01-15', NULL, 3);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_id`) VALUES (1, 'Full stack java developer', 'Amazon', '2021-01-01', NULL, 1);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_id`) VALUES (2, 'Full stack java developer', 'Microsoft', '2020-05-16', NULL, 2);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_id`) VALUES (3, 'Database Administrator', 'Oracle', '2019-01-15', NULL, 3);
 
 COMMIT;
 
@@ -470,9 +470,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_account_id`) VALUES (1, 'Java', 'Entry Level', 1);
-INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_account_id`) VALUES (2, 'Python', 'Mid Level', 2);
-INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_account_id`) VALUES (3, 'Database Administrator', 'Expert', 3);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_id`) VALUES (1, 'Java', 'Entry Level', 1);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_id`) VALUES (2, 'Python', 'Mid Level', 2);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_id`) VALUES (3, 'Database Administrator', 'Expert', 3);
 
 COMMIT;
 
