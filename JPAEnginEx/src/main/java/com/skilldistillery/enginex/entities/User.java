@@ -1,13 +1,12 @@
 package com.skilldistillery.enginex.entities;
 
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -28,11 +27,11 @@ public class User {
 	
 	private String role;
 
-	@OneToMany(mappedBy="user")
-	List<Developer> developers;
+	@OneToOne(mappedBy="user")
+	private Developer develper;
 	
-	@OneToMany(mappedBy="user")
-	List<Client> client;
+	@OneToOne(mappedBy="user")
+	private Client client;
 	
 	public int getId() {
 		return id;
@@ -76,25 +75,26 @@ public class User {
 		this.role = role;
 	}
 
-	public List<Developer> getDevelopers() {
-		return developers;
+	
+	public Developer getDevelper() {
+		return develper;
 	}
 
 
 
-	public void setDevelopers(List<Developer> developers) {
-		this.developers = developers;
+	public void setDevelper(Developer develper) {
+		this.develper = develper;
 	}
 
 
 
-	public List<Client> getClient() {
+	public Client getClient() {
 		return client;
 	}
 
 
 
-	public void setClient(List<Client> client) {
+	public void setClient(Client client) {
 		this.client = client;
 	}
 
@@ -120,7 +120,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + "]";
+				+ ", role=" + role + ", develper=" + develper + ", client=" + client + "]";
 	}
 	
 	
