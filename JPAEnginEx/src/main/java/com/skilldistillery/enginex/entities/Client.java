@@ -12,7 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Client {
@@ -48,7 +50,7 @@ public class Client {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="client")
 	private List<JobPost> jobPosts;
 	
