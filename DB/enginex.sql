@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `developer` (
   `image_url` TEXT NULL DEFAULT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_developer_account_user1`
+  CONSTRAINT `fk_developer_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `developer` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_developer_account_user1_idx` ON `developer` (`user_id` ASC);
+CREATE INDEX `fk_developer_user1_idx` ON `developer` (`user_id` ASC);
 
 SHOW WARNINGS;
 
@@ -105,12 +105,12 @@ CREATE TABLE IF NOT EXISTS `client` (
   `company_id` INT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_client_account_company1`
+  CONSTRAINT `fk_client_company1`
     FOREIGN KEY (`company_id`)
     REFERENCES `company` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_client_account_user1`
+  CONSTRAINT `fk_client_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
@@ -118,10 +118,10 @@ CREATE TABLE IF NOT EXISTS `client` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_client_account_company1_idx` ON `client` (`company_id` ASC);
+CREATE INDEX `fk_client_company1_idx` ON `client` (`company_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_client_account_user1_idx` ON `client` (`user_id` ASC);
+CREATE INDEX `fk_client_user1_idx` ON `client` (`user_id` ASC);
 
 SHOW WARNINGS;
 
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `job_post` (
   `date_posted` DATE NOT NULL,
   `date_closed` DATE NULL,
   `job_type_id` INT NOT NULL,
-  `client_account_id` INT NOT NULL,
+  `client_id` INT NOT NULL,
   `job_status_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_job_post_job_type1`
@@ -163,8 +163,8 @@ CREATE TABLE IF NOT EXISTS `job_post` (
     REFERENCES `job_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_job_post_client_account1`
-    FOREIGN KEY (`client_account_id`)
+  CONSTRAINT `fk_job_post_client1`
+    FOREIGN KEY (`client_id`)
     REFERENCES `client` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -179,7 +179,7 @@ SHOW WARNINGS;
 CREATE INDEX `fk_job_post_job_type1_idx` ON `job_post` (`job_type_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_job_post_client_account1_idx` ON `job_post` (`client_account_id` ASC);
+CREATE INDEX `fk_job_post_client1_idx` ON `job_post` (`client_id` ASC);
 
 SHOW WARNINGS;
 CREATE INDEX `fk_job_post_status1_idx` ON `job_post` (`job_status_id` ASC);
@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `developer_education` (
   `complete_date` DATE NOT NULL,
   `developer_account_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_developer_education_developer_account1`
+  CONSTRAINT `fk_developer_education_developer1`
     FOREIGN KEY (`developer_account_id`)
     REFERENCES `developer` (`id`)
     ON DELETE NO ACTION
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `developer_education` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_developer_education_developer_account1_idx` ON `developer_education` (`developer_account_id` ASC);
+CREATE INDEX `fk_developer_education_developer1_idx` ON `developer_education` (`developer_account_id` ASC);
 
 SHOW WARNINGS;
 
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `work_experience` (
   `end_date` DATE NULL,
   `developer_account_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_work_experience_developer_account1`
+  CONSTRAINT `fk_work_experience_developer1`
     FOREIGN KEY (`developer_account_id`)
     REFERENCES `developer` (`id`)
     ON DELETE NO ACTION
@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `work_experience` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_work_experience_developer_account1_idx` ON `work_experience` (`developer_account_id` ASC);
+CREATE INDEX `fk_work_experience_developer1_idx` ON `work_experience` (`developer_account_id` ASC);
 
 SHOW WARNINGS;
 
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `developer_skill` (
   `skill_level` VARCHAR(250) NULL DEFAULT NULL,
   `developer_account_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_developer_skills_developer_account1`
+  CONSTRAINT `fk_developer_skills_developer1`
     FOREIGN KEY (`developer_account_id`)
     REFERENCES `developer` (`id`)
     ON DELETE NO ACTION
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `developer_skill` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_developer_skills_developer_account1_idx` ON `developer_skill` (`developer_account_id` ASC);
+CREATE INDEX `fk_developer_skills_developer1_idx` ON `developer_skill` (`developer_account_id` ASC);
 
 SHOW WARNINGS;
 
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `job_application` (
   `application_status` VARCHAR(45) NULL DEFAULT NULL,
   `application_date` DATE NULL,
   `job_post_id` INT NOT NULL,
-  `developer_account_id` INT NOT NULL,
+  `developer_id` INT NOT NULL,
   `decision_date` DATE NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_job_application_status_job_post1`
@@ -282,8 +282,8 @@ CREATE TABLE IF NOT EXISTS `job_application` (
     REFERENCES `job_post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_job_application_developer_account1`
-    FOREIGN KEY (`developer_account_id`)
+  CONSTRAINT `fk_job_application_developer1`
+    FOREIGN KEY (`developer_id`)
     REFERENCES `developer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -293,7 +293,7 @@ SHOW WARNINGS;
 CREATE INDEX `fk_job_application_status_job_post1_idx` ON `job_application` (`job_post_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_job_application_developer_account1_idx` ON `job_application` (`developer_account_id` ASC);
+CREATE INDEX `fk_job_application_developer1_idx` ON `job_application` (`developer_id` ASC);
 
 SHOW WARNINGS;
 
@@ -373,7 +373,10 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'rodfed', '123', 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'rodfed', '123', 1, 'developer');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'garrett', '123', 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'jacob', '123', 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (4, 'donjohn', '123', 1, 'client');
 
 COMMIT;
 
@@ -384,6 +387,123 @@ COMMIT;
 START TRANSACTION;
 USE `enginexdb`;
 INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (1, 'Ron', 'Viramontes', 'example@email.com', '5551215555', 'https://i.natgeofe.com/k/093c14b4-978e-41f7-b1aa-3aff5d1c608a/gray-wolf-closeup_2x3.jpg', 1);
+INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (2, 'Garrett', 'Pipes', 'example@email.com', '5551116656', 'https://funkidsjokes.com/wp-content/uploads/2017/10/wizard-1454385_640.png', 2);
+INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (3, 'Jacob', 'Tweedy', 'example@email.com', '5556664888', 'https://zoo.sandiegozoo.org/sites/default/files/styles/hero_mobile_560x670/public/2019-01/hero-lion.jpg?itok=QOrb0EWP', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `job_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `job_type` (`id`, `job_type_name`, `job_type_description`) VALUES (1, 'Full stack developer', 'Ability to create a full stack application with a Java backend and Angular frontend.');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `company`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `company` (`id`, `company_name`) VALUES (1, 'Hollywood');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `client`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `company_id`, `user_id`) VALUES (1, 'Don', 'Johnson', '5055551212', 'djohnson@example.com', 'https://m.media-amazon.com/images/M/MV5BMTg4ODYwOTU0N15BMl5BanBnXkFtZTgwNjc5NDM2MTE@._V1_.jpg', 1, 4);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `job_status`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `job_status` (`id`, `name`) VALUES (1, 'Complete');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `job_post`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `client_id`, `job_status_id`) VALUES (1, 'Full stack application to manage orders restaurant orders for my small business', '2021-09-08', '2021-10-20', 1, 0, '2021-09-08', '2021-09-09', 1, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `developer_education`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `developer_account_id`) VALUES (1, 'Trade Skill', 'Skill Distillery', 'Certificate', '2021-11-08', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `work_experience`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_account_id`) VALUES (1, 'Full stack java developer', 'Amazon', '2021-01-01', NULL, 1);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_account_id`) VALUES (2, 'Full stack java developer', 'Microsoft', '2020-05-16', NULL, 2);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `developer_account_id`) VALUES (3, 'Database Administrator', 'Oracle', '2019-01-15', NULL, 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `developer_skill`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_account_id`) VALUES (1, 'Java', 'Entry Level', 1);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_account_id`) VALUES (2, 'Python', 'Mid Level', 2);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `developer_account_id`) VALUES (3, 'Database Administrator', 'Expert', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `job_application`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `developer_id`, `decision_date`) VALUES (1, 1, 'Approved', '2021-09-09', 1, 1, '2021-09-09');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `job_detail`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `job_detail` (`id`, `start_date`, `finish_date`, `job_rating`, `job_rating_comment`, `job_application_id`) VALUES (1, '2021-09-09', '2021-09-15', 5, 'Excellent work!', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `job_application_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `job_application_comment` (`id`, `comment`, `comment_date`, `job_application_id`, `in_reply_to_comment_id`) VALUES (1, 'Talented developer!', '2021-09-19', 1, NULL);
+INSERT INTO `job_application_comment` (`id`, `comment`, `comment_date`, `job_application_id`, `in_reply_to_comment_id`) VALUES (2, 'Thank you for your comment!', '2021-09-19', 1, 1);
 
 COMMIT;
 
