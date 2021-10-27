@@ -1,6 +1,10 @@
 package com.skilldistillery.enginex.repositories;
 
-public interface UserRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-//	User findByUsername(String username);
+import com.skilldistillery.enginex.entities.User;
+
+public interface UserRepository extends JpaRepository<User, Integer>{
+
+	User findByUsername(String username);
 }
