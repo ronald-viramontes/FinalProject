@@ -9,9 +9,9 @@
 
 		<!-- <class>com.skilldistillery.enginex.entities.User</class> -->
 		<class>com.skilldistillery.enginex.entities.Developer</class>
-		<class>com.skilldistillery.enginex.entities.WorkExperience</class>
 		<class>com.skilldistillery.enginex.entities.DeveloperSkill</class>
 		<class>com.skilldistillery.enginex.entities.DeveloperEducation</class>
+		<class>com.skilldistillery.enginex.entities.WorkExperience</class>
 
 
 		<properties>
