@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class DeveloperEducationTest {
@@ -49,6 +50,13 @@ class DeveloperEducationTest {
 	void test() {
 		assertNotNull(edu);
 		assertEquals("Trade Skill", edu.getEducationType());
+	}
+	
+	@Test
+	@DisplayName("test relationship mappings on education")
+	void test2() {
+		assertNotNull(edu);
+		assertEquals("Ron", edu.getDeveloper().getFirstName());
 	}
 
 }

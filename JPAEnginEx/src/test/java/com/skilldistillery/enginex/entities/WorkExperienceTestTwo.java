@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class WorkExperienceTestTwo {
@@ -48,6 +49,13 @@ class WorkExperienceTestTwo {
 	void test() {
 		assertNotNull(work);
 		assertEquals("Full stack java developer", work.getJobTitle());
+	}
+	
+	@Test
+	@DisplayName("test relationship mappings on Experience")
+	void test2() {
+		assertNotNull(work);
+		assertEquals("Ron", work.getDeveloper().getFirstName());
 	}
 
 }
