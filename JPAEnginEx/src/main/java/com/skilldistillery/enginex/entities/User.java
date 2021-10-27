@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 	
@@ -26,10 +28,12 @@ public class User {
 	private boolean enabled;
 	
 	private String role;
-
+	
+	@JsonIgnore
 	@OneToOne(mappedBy="user")
 	private Developer develper;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy="user")
 	private Client client;
 	
