@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Developer {
 
@@ -51,6 +53,7 @@ public class Developer {
 	@OneToMany(mappedBy="developer")
 	private List<DeveloperEducation> educations;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="developer")
 	private List<JobApplication> applications;
 

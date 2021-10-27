@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="job_application")
 public class JobApplication {
@@ -34,6 +36,7 @@ public class JobApplication {
 	@Column(name="decision_date")
 	private LocalDate decisionDate;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="job_post_id")
 	private JobPost jobPost;
