@@ -14,7 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="job_post")
@@ -49,7 +51,7 @@ public class JobPost {
 	@JoinColumn(name="job_type_id")
 	private JobType type;
 	
-
+	
 	@ManyToOne
 	@JoinColumn(name="client_id")
 	private Client client;
@@ -58,7 +60,7 @@ public class JobPost {
 	@JoinColumn(name="job_status_id")
 	private JobStatus status;
 	
-
+	
 	@OneToMany(mappedBy="jobPost")
 	private List<JobApplication> applications;
 	
