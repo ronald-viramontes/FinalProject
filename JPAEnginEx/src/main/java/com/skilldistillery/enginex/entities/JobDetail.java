@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="job_detail")
 public class JobDetail {
@@ -32,6 +34,7 @@ public class JobDetail {
 	@Column(name="job_rating_comment")
 	private String comment;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;

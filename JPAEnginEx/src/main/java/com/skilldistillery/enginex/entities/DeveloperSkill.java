@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="developer_skill")
 public class DeveloperSkill {
@@ -26,6 +28,7 @@ public class DeveloperSkill {
 	@Column(name="skill_level")
 	private String skillLevel;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="developer_id")
 	private Developer developer;

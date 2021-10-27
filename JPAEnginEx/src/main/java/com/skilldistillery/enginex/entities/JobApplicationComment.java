@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="job_application_comment")
 public class JobApplicationComment {
@@ -27,10 +29,12 @@ public class JobApplicationComment {
 	@Column(name="comment_date")
 	private LocalDate date;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="in_reply_to_comment_id")
 	private JobApplicationComment baseComment;

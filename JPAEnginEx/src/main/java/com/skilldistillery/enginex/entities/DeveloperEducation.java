@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="developer_education")
 public class DeveloperEducation {
@@ -32,6 +34,7 @@ public class DeveloperEducation {
 	@Column(name="complete_date")
 	private LocalDate completeDate;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="developer_account_id")
 	private Developer developer;

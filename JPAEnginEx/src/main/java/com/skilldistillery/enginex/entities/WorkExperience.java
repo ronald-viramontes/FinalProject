@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="work_experience")
 public class WorkExperience {
@@ -32,6 +34,7 @@ public class WorkExperience {
 	@Column(name="end_date")
 	private LocalDate endDate;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="developer_id")
 	private Developer developer;

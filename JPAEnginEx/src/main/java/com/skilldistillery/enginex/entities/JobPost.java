@@ -49,6 +49,7 @@ public class JobPost {
 	@JoinColumn(name="job_type_id")
 	private JobType type;
 	
+
 	@ManyToOne
 	@JoinColumn(name="client_id")
 	private Client client;
@@ -57,7 +58,7 @@ public class JobPost {
 	@JoinColumn(name="job_status_id")
 	private JobStatus status;
 	
-	@JsonIgnore
+
 	@OneToMany(mappedBy="jobPost")
 	private List<JobApplication> applications;
 	
