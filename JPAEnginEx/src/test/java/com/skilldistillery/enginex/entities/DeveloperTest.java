@@ -60,6 +60,7 @@ class DeveloperTest {
 		assertEquals("Java", devAcct.getSkills().get(0).getSkillTitle());
 		assertEquals("Full stack java developer", devAcct.getExperiences().get(0).getJobTitle());
 		assertEquals("Trade Skill", devAcct.getEducations().get(0).getEducationType());
+		assertEquals("Approved", devAcct.getApplications().get(0).getStatus());
 	}
 
 	

@@ -1,6 +1,7 @@
 package com.skilldistillery.enginex.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -52,6 +54,9 @@ public class JobPost {
 	@ManyToOne
 	@JoinColumn(name="job_status_id")
 	private JobStatus status;
+	
+	@OneToMany(mappedBy="jobPost")
+	private List<JobApplication> applications;
 	
 	//Methods
 
@@ -145,6 +150,14 @@ public class JobPost {
 
 	public void setStatus(JobStatus status) {
 		this.status = status;
+	}
+
+	public List<JobApplication> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<JobApplication> applications) {
+		this.applications = applications;
 	}
 
 	@Override

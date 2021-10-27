@@ -50,6 +50,9 @@ public class Developer {
 	
 	@OneToMany(mappedBy="developer")
 	private List<DeveloperEducation> educations;
+	
+	@OneToMany(mappedBy="developer")
+	private List<JobApplication> applications;
 
 	public int getId() {
 		return id;
@@ -148,6 +151,16 @@ public class Developer {
 
 	public void setEducations(List<DeveloperEducation> educations) {
 		this.educations = educations;
+	}
+
+
+	public List<JobApplication> getApplications() {
+		return applications;
+	}
+
+
+	public void setApplications(List<JobApplication> applications) {
+		this.applications = applications;
 	}
 
 

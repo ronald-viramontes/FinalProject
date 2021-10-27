@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,14 @@ public class JobApplication {
 	
 	@Column(name="decision_date")
 	private LocalDate decisionDate;
+	
+	@ManyToOne
+	@JoinColumn(name="job_post_id")
+	private JobPost jobPost;
+	
+	@ManyToOne
+	@JoinColumn(name="developer_id")
+	private Developer developer;
 	
 	//Methods
 
@@ -70,6 +80,22 @@ public class JobApplication {
 
 	public void setDecisionDate(LocalDate decisionDate) {
 		this.decisionDate = decisionDate;
+	}
+
+	public JobPost getJobPost() {
+		return jobPost;
+	}
+
+	public void setJobPost(JobPost jobPost) {
+		this.jobPost = jobPost;
+	}
+
+	public Developer getDeveloper() {
+		return developer;
+	}
+
+	public void setDeveloper(Developer developer) {
+		this.developer = developer;
 	}
 
 	public JobApplication() {

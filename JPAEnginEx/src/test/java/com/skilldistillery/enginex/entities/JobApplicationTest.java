@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class JobApplicationTest {
@@ -49,6 +50,13 @@ class JobApplicationTest {
 	void test() {
 		assertNotNull(app);
 		assertEquals(9, app.getDecisionDate().getDayOfMonth());
+	}
+
+	@Test
+	@DisplayName("test relationship mappings on JobApplication")
+	void test2() {
+		assertNotNull(app);
+		assertEquals("Ron", app.getDeveloper().getFirstName());
 	}
 
 }
