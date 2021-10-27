@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Client {
 
@@ -45,6 +47,7 @@ public class Client {
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
 	
 	@OneToMany(mappedBy="client")
 	private List<JobPost> jobPosts;

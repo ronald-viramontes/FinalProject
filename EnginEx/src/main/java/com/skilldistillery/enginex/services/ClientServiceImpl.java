@@ -19,11 +19,9 @@ public class ClientServiceImpl implements ClientService {
 	@Autowired
 	private UserRepository userRepo;
 	
-	
-
 
 	@Override
-	public Client updateClient(Client client, String username, int clientId) {
+	public Client update(Client client, String username, int clientId) {
 		User user = userRepo.findByUsername(username);
 		
 		if(client.getUser() == user) {
@@ -37,14 +35,13 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 
-
 	@Override
 	public List<Client> getAllClients() {
 		return clientRepo.findAll();
 	}
 
 	@Override
-	public Boolean deleteClient(String username, int clientId) {
+	public Boolean delete(String username, int clientId) {
 		User user = userRepo.findByUsername(username);
 		Client client = clientRepo.findById(clientId);
 		if(client.getUser() == user) {
@@ -58,20 +55,21 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 
-
 	@Override
-	public Client getClientById(String username, int clientId) {
+	public Client getClientById(int clientId) {
 		
-		User user = userRepo.findByUsername(username);
 		Client client = clientRepo.findById(clientId);
-		client.setUser(user);
-		return client;
+		if(!clientRepo.existsById(clientId)) {
+			return client = null;
+		} else {
+			return client;
+			
+		}
 	}
 
 
-
 	@Override
-	public Client createClient(Client client) {
+	public Client create(Client client) {
 				
 		return clientRepo.saveAndFlush(client);
 	}

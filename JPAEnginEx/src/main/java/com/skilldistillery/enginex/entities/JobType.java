@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="job_type")
 public class JobType {
@@ -22,6 +24,7 @@ public class JobType {
 	
 	private String description;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="type")
 	private List<JobPost> jobPosts;
 	

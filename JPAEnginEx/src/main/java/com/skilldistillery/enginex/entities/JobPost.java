@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="job_post")
 public class JobPost {
@@ -55,6 +57,7 @@ public class JobPost {
 	@JoinColumn(name="job_status_id")
 	private JobStatus status;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="jobPost")
 	private List<JobApplication> applications;
 	

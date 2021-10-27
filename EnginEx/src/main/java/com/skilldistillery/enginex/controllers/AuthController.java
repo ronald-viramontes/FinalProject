@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.enginex.entities.Developer;
+import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.services.AuthService;
 
 @RestController
@@ -22,7 +22,7 @@ public class AuthController {
 	private AuthService authSvc;
 	
 	@RequestMapping(path = "/register", method = RequestMethod.POST)
-	public Developer register(@RequestBody Developer user, HttpServletResponse res) {
+	public User register(@RequestBody User user, HttpServletResponse res) {
 
 	    if (user == null) {
 	        res.setStatus(400);
@@ -34,7 +34,7 @@ public class AuthController {
 	}
 
 	@RequestMapping(path = "/authenticate", method = RequestMethod.GET)
-	public Developer authenticate(Principal principal) {
+	public User authenticate(Principal principal) {
 //	    return principal;
 		return authSvc.getUser(principal.getName());
 	}

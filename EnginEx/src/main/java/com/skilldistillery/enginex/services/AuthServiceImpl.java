@@ -4,28 +4,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.enginex.entities.Developer;
-import com.skilldistillery.enginex.repositories.DeveloperRepository;
+import com.skilldistillery.enginex.entities.User;
+import com.skilldistillery.enginex.repositories.UserRepository;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
 	@Autowired
-	private DeveloperRepository devRepo;
+	private UserRepository userRepo;
 	
 	@Autowired
 	private PasswordEncoder encoder;
 	
 	@Override
-	public Developer register(Developer developer) {
-		// TODO Auto-generated method stub
-		return null;
+	public User register(User user) {
+		String encodedPW = encoder.encode(user.getPassword());
+		user.setPassword(encodedPW); // only persist encoded password
+
+		// set other fields to default values
+		//TODO:
+		user.setEnabled(true);
+		user.setRole("standard");
+
+		userRepo.saveAndFlush(user);
+		return user;
 	}
 
 	@Override
-	public Developer getUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUser(String username) {
+		
+		return userRepo.findByUsername(username);
 	}
+
 
 }
