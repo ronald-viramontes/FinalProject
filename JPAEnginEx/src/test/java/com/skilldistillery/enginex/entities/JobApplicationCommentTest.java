@@ -57,6 +57,8 @@ class JobApplicationCommentTest {
 	void test2() {
 		assertNotNull(appComment);
 		assertEquals("Approved", appComment.getApplication().getStatus());
+		assertEquals("Thank you for your comment!", appComment.getReplies().get(0).getComment());
+		
 	}
 
 }

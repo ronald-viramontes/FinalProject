@@ -1,6 +1,7 @@
 package com.skilldistillery.enginex.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +30,13 @@ public class JobApplicationComment {
 	@ManyToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;
+	
+	@ManyToOne
+	@JoinColumn(name="in_reply_to_comment_id")
+	private JobApplicationComment baseComment;
+	
+	@OneToMany(mappedBy="baseComment")
+	private List<JobApplicationComment> replies;
 	
 	//Methods
 
@@ -61,6 +70,22 @@ public class JobApplicationComment {
 
 	public void setApplication(JobApplication application) {
 		this.application = application;
+	}
+
+	public JobApplicationComment getBaseComment() {
+		return baseComment;
+	}
+
+	public void setBaseComment(JobApplicationComment baseComment) {
+		this.baseComment = baseComment;
+	}
+
+	public List<JobApplicationComment> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<JobApplicationComment> replies) {
+		this.replies = replies;
 	}
 
 	public JobApplicationComment() {
