@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,10 @@ public class WorkExperience {
 	
 	@Column(name="end_date")
 	private LocalDate endDate;
+	
+	@ManyToOne
+	@JoinColumn(name="developer_id")
+	private Developer developer;
 	
 	//Methods
 
@@ -70,6 +76,14 @@ public class WorkExperience {
 
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
+	}
+
+	public Developer getDeveloper() {
+		return developer;
+	}
+
+	public void setDeveloper(Developer developer) {
+		this.developer = developer;
 	}
 
 	public WorkExperience() {

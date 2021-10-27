@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +25,10 @@ public class DeveloperSkill {
 
 	@Column(name="skill_level")
 	private String skillLevel;
+	
+	@ManyToOne
+	@JoinColumn(name="developer_id")
+	private Developer developer;
 
 	public int getId() {
 		return id;
@@ -46,6 +52,14 @@ public class DeveloperSkill {
 
 	public void setSkillLevel(String skillLevel) {
 		this.skillLevel = skillLevel;
+	}
+
+	public Developer getDeveloper() {
+		return developer;
+	}
+
+	public void setDeveloper(Developer developer) {
+		this.developer = developer;
 	}
 
 	public DeveloperSkill() {

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,12 @@ public class DeveloperEducation {
 	
 	@Column(name="complete_date")
 	private LocalDate completeDate;
+	
+	@ManyToOne
+	@JoinColumn(name="developer_account_id")
+	private Developer developer;
+	
+	//Methods
 
 	public int getId() {
 		return id;
@@ -68,6 +76,14 @@ public class DeveloperEducation {
 
 	public void setCompleteDate(LocalDate completeDate) {
 		this.completeDate = completeDate;
+	}
+
+	public Developer getDeveloper() {
+		return developer;
+	}
+
+	public void setDeveloper(Developer developer) {
+		this.developer = developer;
 	}
 
 	public DeveloperEducation() {
