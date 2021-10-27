@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class JobApplicationCommentTest {
@@ -49,6 +50,13 @@ class JobApplicationCommentTest {
 	void test() {
 		assertNotNull(appComment);
 		assertEquals("Talented developer!", appComment.getComment());
+	}
+
+	@Test
+	@DisplayName("test relationship mappings on jobApplicationComment")
+	void test2() {
+		assertNotNull(appComment);
+		assertEquals("Approved", appComment.getApplication().getStatus());
 	}
 
 }
