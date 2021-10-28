@@ -9,6 +9,7 @@ import com.skilldistillery.enginex.entities.JobDetail;
 import com.skilldistillery.enginex.entities.JobPost;
 import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.repositories.JobDetailRepository;
+import com.skilldistillery.enginex.repositories.JobPostRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
 
 @Service
