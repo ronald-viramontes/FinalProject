@@ -6,5 +6,4 @@ import com.skilldistillery.enginex.entities.JobDetail;
 
 public interface JobDetailRepository extends JpaRepository<JobDetail, Integer> {
 
-	JobDetail findById(int id);
 }

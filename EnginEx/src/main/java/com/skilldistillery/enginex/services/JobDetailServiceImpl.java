@@ -22,8 +22,17 @@ public class JobDetailServiceImpl implements JobDetailService {
 	
 	@Override
 	public JobDetail getJobDetailById(int id) {
-
-		return jdRepo.findById(id);
+		
+		Optional <JobDetail> opt = jdRepo.findById(id);
+		
+		if(opt.isPresent()) {
+			return opt.get();
+				
+		} else {
+			return null;
+		}
+		
+		
 	}
 
 	@Override
@@ -39,8 +48,9 @@ public class JobDetailServiceImpl implements JobDetailService {
 			
 		if(ja.isPresent()) {
 			JobApplication jobApplication = ja.get();
+			jobDetail = jdRepo.saveAndFlush(jobDetail);
 			jobApplication.setDetail(jobDetail);
-			jobAppRepo.save(jobApplication);
+			jobAppRepo.saveAndFlush(jobApplication);
 			return jobDetail;
 			
 		} else {
@@ -51,14 +61,19 @@ public class JobDetailServiceImpl implements JobDetailService {
 	}
 
 	@Override
-	public JobDetail update(String username, JobDetail jobDetail, int jobAppId) {
+	public JobDetail update(String username, JobDetail jobDetail, int jobDetailId) {
 	
-		JobDetail jd = jdRepo.findById(jobDetail.getId());
-	
-		if(jd != null) {
+		Optional <JobDetail> opt = jdRepo.findById(jobDetailId);
+		if(opt.isPresent()) {
+			JobDetail dbJobDetail = opt.get();
 			
-			jobDetail = jdRepo.save(jobDetail);
-			return jobDetail;
+			dbJobDetail.setComment(jobDetail.getComment());
+			dbJobDetail.setFinishDate(jobDetail.getFinishDate());
+			dbJobDetail.setStartDate(jobDetail.getStartDate());
+			dbJobDetail.setRating(jobDetail.getRating());
+			
+			
+			return jdRepo.saveAndFlush(dbJobDetail);
 			
 		} else {
 			return null;
@@ -68,10 +83,19 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 	@Override
 	public boolean delete(String username, int id) {
-		JobDetail jd = jdRepo.findById(id);
-		if(jd != null) {
-			jdRepo.delete(jd);
+		
+		Optional <JobDetail> opt = jdRepo.findById(id);
+		
+		if(opt.isPresent()) {
+			JobDetail jobDetail = opt.get();
+			JobApplication jobApp = jobDetail.getApplication();
+			jobApp.setDetail(null);
+			jobAppRepo.save(jobApp);
+			
+			jdRepo.delete(jobDetail);
+			
 			return true;
+			
 		} else {
 			
 			return false;
