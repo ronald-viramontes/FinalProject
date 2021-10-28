@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Developer } from 'src/app/models/developer';
+import { DeveloperService } from 'src/app/services/developer.service';
 
 @Component({
   selector: 'app-developer',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeveloperComponent implements OnInit {
 
-  constructor() { }
+  developers: Developer[] = [];
+
+  constructor(private devSvc: DeveloperService) { }
 
   ngOnInit(): void {
+    this.loadDevelopers();
   }
 
+
+  loadDevelopers(): void {
+    this.devSvc.index().subscribe(
+      data => {
+        this.developers = data;
+      },
+      err => {
+        console.error('Error retrieving developers');
+        console.error(err);
+      }
+    )
+  }
 }

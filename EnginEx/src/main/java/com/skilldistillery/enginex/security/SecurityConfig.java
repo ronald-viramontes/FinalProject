@@ -34,11 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET, "/api/clients/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/developers/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.POST, "/api/jobs").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/jobstatus/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/jobdetails/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/skills/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/apps/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/users").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.GET, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.PUT, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.DELETE, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
 
         .antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.
         .anyRequest().permitAll()               // All other requests are allowed without authorization.
