@@ -27,7 +27,9 @@ public class AuthController {
 	    if (user == null) {
 	        res.setStatus(400);
 	    }
-
+	    if (user.getDeveloper() == null) {
+	    	
+	    }
 	    user = authSvc.register(user);
 
 	    return user;
