@@ -54,5 +54,17 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 
+	@Override
+	public boolean delete(int skillId, int userId) {
+		Optional<DeveloperSkill> opt = skillRepo.findById(skillId);
+		if(opt.isPresent() && opt.get().getDeveloper().getUser().getId() == userId) {
+			DeveloperSkill skill = opt.get();
+			skillRepo.delete(skill);
+			return true;
+		}
+		return false;
+	}
+
+
 
 }
