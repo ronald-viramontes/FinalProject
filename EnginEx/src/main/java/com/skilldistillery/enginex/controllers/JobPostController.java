@@ -8,7 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,16 +24,36 @@ import com.skilldistillery.enginex.services.JobPostService;
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost:4300" })
 public class JobPostController {
-	
+
 	@Autowired
 	private JobPostService jobPostServ;
-	
-	private String username = "jacob";
-	
+
+
 	@GetMapping(path = "jobs")
 	public List<JobPost> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		System.out.println("in controller");
 		return jobPostServ.index();
+	}
+
+	@GetMapping(path = "jobs/{id}")
+	public JobPost show(@PathVariable int id, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		return jobPostServ.show(id);
+	}
+
+	@PostMapping(path = "jobs")
+	public JobPost create(@RequestBody JobPost jobPost) {
+		return jobPostServ.create(jobPost);
+	}
+
+	@DeleteMapping(path = "jobs/{id}")
+	public void delete(@PathVariable int id, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+
+	}
+
+	@PutMapping(path = "jobs/{id}")
+	public JobPost update(@PathVariable int id, @RequestBody JobPost jobPost, HttpServletRequest req,
+			HttpServletResponse res, Principal principal) {
+		return null;
 	}
 
 }

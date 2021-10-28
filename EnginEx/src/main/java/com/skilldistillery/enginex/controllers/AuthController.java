@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,24 +19,21 @@ import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.services.AuthService;
 
 @RestController
-@CrossOrigin({"*", "http://localhost:4200"})
+@CrossOrigin({ "*", "http://localhost:4200" })
 public class AuthController {
 
 	@Autowired
 	private AuthService authSvc;
-	
-	@RequestMapping(path = "/register", method = RequestMethod.POST)
+
+	@PostMapping(path = "/register")
 	public User register(@RequestBody User user, HttpServletResponse res) {
 
-	    if (user == null) {
-	        res.setStatus(400);
-	    }
-	    if (user.getDeveloper() == null) {
-	    	
-	    }
-	    user = authSvc.register(user);
+		if (user == null) {
+			res.setStatus(400);
+		}
+		user = authSvc.register(user);
 
-	    return user;
+		return user;
 	}
 
 	@RequestMapping(path = "/authenticate", method = RequestMethod.GET)

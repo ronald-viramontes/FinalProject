@@ -6,7 +6,11 @@ import com.skilldistillery.enginex.entities.User;
 
 public interface UserService {
 //	User getUserByName(String username);
-	List<User> index();
-	User show(int id);
-	User create(User user);
+	public List<User> index();
+
+	public User show(int id);
+
+	public User update(int id, User user);
+
+	public void destroy(int id);
 }

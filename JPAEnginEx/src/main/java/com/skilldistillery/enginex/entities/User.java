@@ -30,12 +30,12 @@ public class User {
 
 	private String role;
 
-	@JsonBackReference(value="userToDeveloper")
-	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
+	@JsonBackReference(value = "userToDeveloper")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Developer developer;
 
-	@JsonBackReference(value="userToClient")
-	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
+	@JsonBackReference(value = "userToClient")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Client client;
 
 	public int getId() {

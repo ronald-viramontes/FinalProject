@@ -14,33 +14,46 @@ import com.skilldistillery.enginex.repositories.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Override
 	public List<User> index() {
 		return userRepo.findAll();
 	}
+
 	@Override
 	public User show(int id) {
 		Optional<User> receivedUser = userRepo.findById(id);
 		return receivedUser.get();
 	}
+
 //
 //	@Override
 //	public User getUserByName(String username) {
 //		return userRepo.findByUsername(username);
 //	}
+
 	@Override
-	public User create(User user) {
+	public void destroy(int id) {
+		Optional<User> u = userRepo.findById(id);
+		User delUser = u.get();
+		userRepo.delete(delUser);
+
+	}
+
+	@Override
+	public User update(int id, User user) {
 		// TODO Auto-generated method stub
-		User newUser = user;
-		Developer dev = new Developer();
-		newUser.setDeveloper(dev);
-		newUser.getDeveloper().setFirstName("jacob");
-		newUser.getDeveloper().setLastName("Tweedy");
-		newUser.getDeveloper().setEmail("jacob.tweedy@gmail.com");
-		newUser.getDeveloper().setUser(newUser);
-		newUser = userRepo.saveAndFlush(user);
-		return newUser;
+		Optional<User> u = userRepo.findById(id);
+		User existingUser = u.get();
+		if (existingUser != null) {
+			existingUser.setUsername(user.getUsername());
+			existingUser.setPassword(user.getPassword());
+			existingUser.setEnabled(user.isEnabled());
+			existingUser.setRole(user.getRole());
+			userRepo.saveAndFlush(existingUser);
+			return existingUser;
+		}
+		return null;
 	}
 
 }

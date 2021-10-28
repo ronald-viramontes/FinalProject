@@ -36,7 +36,7 @@ public class DeveloperEducation {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="developer_account_id")
+	@JoinColumn(name="developer_id")
 	private Developer developer;
 	
 	//Methods
