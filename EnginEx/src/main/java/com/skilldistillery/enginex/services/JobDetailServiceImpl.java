@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobDetail;
-import com.skilldistillery.enginex.entities.JobPost;
+import com.skilldistillery.enginex.repositories.JobApplicationRepo;
 import com.skilldistillery.enginex.repositories.JobDetailRepository;
-import com.skilldistillery.enginex.repositories.JobPostRepository;
-import com.skilldistillery.enginex.repositories.UserRepository;
 
 @Service
 public class JobDetailServiceImpl implements JobDetailService {
@@ -20,10 +18,7 @@ public class JobDetailServiceImpl implements JobDetailService {
 	private JobDetailRepository jdRepo;
 	
 	@Autowired
-	private UserRepository userRepo;
-	
-	@Autowired
-	private JobPostRepository jobPostRepo;
+	private JobApplicationRepo jobAppRepo;
 	
 	@Override
 	public JobDetail getJobDetailById(int id) {
@@ -39,22 +34,18 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 	@Override
 	public JobDetail create(String username, JobDetail jobDetail, int jobAppId) {
-//		User user = userRepo.findByUsername(username);
 						
-			//create jobApplication through the jobapp repo.
-//			Optional<JobApplication> ja = job
+		Optional<JobApplication> ja = jobAppRepo.findById(jobAppId);
 			
+		if(ja.isPresent()) {
+			JobApplication jobApplication = ja.get();
+			jobApplication.setDetail(jobDetail);
+			jobAppRepo.save(jobApplication);
+			return jobDetail;
 			
-			if(ja.isPresent()) {
-				JobApplication jobApplication = null;
-				jobApplication.setDetail(jobDetail);
-				
-				jaRepo.save(jobApplication);
-				return jobDetail;
-				
-			} else {
-				return null;
-			}
+		} else {
+			return null;
+		}
 
 		
 	}
@@ -66,7 +57,7 @@ public class JobDetailServiceImpl implements JobDetailService {
 	
 		if(jd != null) {
 			
-			jdRepo.save(jobDetail);
+			jobDetail = jdRepo.save(jobDetail);
 			return jobDetail;
 			
 		} else {
