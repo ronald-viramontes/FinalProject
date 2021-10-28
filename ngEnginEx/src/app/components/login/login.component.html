@@ -1,0 +1,7 @@
+<div id="loginUser" class="container-liquid">
+  <form name="loginForm">
+    <input type="text" name="username" [(ngModel)]="user.username" placeholder="Username">
+    <input type="password" name="password" [(ngModel)]="user.password" placeholder="Password">
+    <input type="button" value="Login" (click)="login(user)">
+  </form>
+</div>

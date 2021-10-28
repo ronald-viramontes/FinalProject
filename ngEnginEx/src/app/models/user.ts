@@ -6,7 +6,7 @@ export class User {
   enabled: boolean;
   role: string;
 
-  constructor(id: number, username: string, password: string, enabled: boolean, role: string){
+  constructor(id: number = 0, username: string ='', password: string='', enabled: boolean=true, role: string=''){
     this.id = id;
     this.username = username;
     this.password = password;
