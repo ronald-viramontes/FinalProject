@@ -2,14 +2,14 @@ package com.skilldistillery.enginex.services;
 
 import java.util.List;
 
-import com.skilldistillery.enginex.entities.DeveloperSkill;
+import com.skilldistillery.enginex.entities.JobApplication;
 
 public interface JobApplicationService {
 	
-//	List<DeveloperSkill> findAll();
-//	List<DeveloperSkill> findByDevId(int id);
-//	DeveloperSkill create(DeveloperSkill newSkill, String username);
-//	DeveloperSkill edit(DeveloperSkill skill, int userId, int skillId);
-//	boolean delete(int skillId, int userId);
-	
+	List<JobApplication> findAll();
+	List<JobApplication> findByDevId(int devId);
+	JobApplication create(JobApplication app, int userId, int postId);
+	boolean delete(int appId, int userId);
+//	JobApplication edit(JobApplication edit, int appId, int userId);
+
 }

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.skilldistillery.enginex.entities.DeveloperSkill;
 import com.skilldistillery.enginex.entities.JobApplication;
 
-public interface JobApplicationRepo extends JpaRepository<JobApplication, Integer> {
+public interface JobApplicationRepository extends JpaRepository<JobApplication, Integer> {
 
-//	List<DeveloperSkill> findByDeveloperId(int id);
+	List<JobApplication> findByDeveloperId(int id);
 	
 }
