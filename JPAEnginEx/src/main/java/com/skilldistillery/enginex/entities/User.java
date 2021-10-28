@@ -31,7 +31,7 @@ public class User {
 	
 	@JsonIgnore
 	@OneToOne(mappedBy="user")
-	private Developer develper;
+	private Developer developer;
 	
 	@JsonIgnore
 	@OneToOne(mappedBy="user")
@@ -80,14 +80,14 @@ public class User {
 	}
 
 	
-	public Developer getDevelper() {
-		return develper;
+	public Developer getDeveloper() {
+		return developer;
 	}
 
 
 
-	public void setDevelper(Developer develper) {
-		this.develper = develper;
+	public void setDeveloper(Developer develper) {
+		this.developer = develper;
 	}
 
 
@@ -124,7 +124,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + ", develper=" + develper + ", client=" + client + "]";
+				+ ", role=" + role + ", developer=" + developer + ", client=" + client + "]";
 	}
 	
 	

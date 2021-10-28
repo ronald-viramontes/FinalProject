@@ -55,7 +55,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 	public Developer edit(Developer edit, int userId, int devId) {
 		Optional<Developer> opt = devRepo.findById(devId);
 		Developer dev = null;
-		if(opt.get()!= null && opt.get().getUser().getId() == userId) {
+		if(opt.isPresent() && opt.get().getUser().getId() == userId) {
 			dev = opt.get();
 			dev.setEmail(edit.getEmail());
 			dev.setFirstName(edit.getFirstName());
