@@ -57,11 +57,11 @@ public class JobApplicationController {
 		return appSvc.delete(aId, userId);
 	}
 
-//	@PutMapping("apps/{aId}")
-//	public JobApplication edit(HttpServletRequest req, HttpServletResponse res,
-//			@PathVariable int aId, @RequestBody JobApplication edit, Principal principal) {
-//		int userId = userRepo.findByUsername(principal.getName()).getId();
-//		return null;
-//	}
+	@PutMapping("apps/{aId}")
+	public JobApplication edit(HttpServletRequest req, HttpServletResponse res,
+			@PathVariable int aId, @RequestBody JobApplication edit, Principal principal) {
+		int userId = userRepo.findByUsername(principal.getName()).getId();
+		return null;
+	}
 
 }

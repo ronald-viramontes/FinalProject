@@ -10,6 +10,6 @@ public interface JobApplicationService {
 	List<JobApplication> findByDevId(int devId);
 	JobApplication create(JobApplication app, int userId, int postId);
 	boolean delete(int appId, int userId);
-//	JobApplication edit(JobApplication edit, int appId, int userId);
+	JobApplication edit(JobApplication edit, int appId, int userId);
 
 }

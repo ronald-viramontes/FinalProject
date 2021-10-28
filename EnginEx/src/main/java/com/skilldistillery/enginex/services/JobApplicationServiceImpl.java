@@ -1,6 +1,7 @@
 package com.skilldistillery.enginex.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,11 +62,15 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	}
 
 
-//	@Override
-//	public JobApplication edit(JobApplication edit, int appId, int userId) {
-//		if(appRepo.findById(appId).isPresent()) {
-//			JobApplication app = appRepo.findById(appId).get();
-//		}
-//		return null;
-//	}
+	@Override
+	public JobApplication edit(JobApplication edit, int appId, int userId) {
+		Optional<JobApplication> opt = appRepo.findById(appId);
+		if(opt.isPresent() && opt.get().getJobPost().getClient().getUser().getId() == userId) {
+			JobApplication app = appRepo.findById(appId).get();
+			app.setApproved(edit.isApproved());
+			app.setStatus(edit.getStatus());
+			return appRepo.saveAndFlush(app);
+		}
+		return null;
+	}
 }
