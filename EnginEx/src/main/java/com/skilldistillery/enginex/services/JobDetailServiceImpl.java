@@ -38,19 +38,19 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 	@Override
 	public JobDetail create(String username, JobDetail jobDetail, int jobPostId) {
-		User user = userRepo.findByUsername(username);
-		
-		JobPost jobPost = jobPostRepo.findById(jobPostId);
-		
-		if(jobDetail.getApplication().getJobPost() == jobPost && user.getClient().getId() == jobPost.getClient().getId() ) {
-			
-			jdRepo.saveAndFlush(jobDetail);
-			return jobDetail;
-	
-		}	else {
-			return null;
-		}
-		
+//		User user = userRepo.findByUsername(username);
+
+//		JobPost jobPost = jobPostRepo.findById(jobPostId);
+//		
+//		if(user.getClient().getId() == jobPost.getClient().getId() ) {
+//			jobDetail.setApplication();
+//			jdRepo.saveAndFlush(jobDetail);
+//		return jobDetail;
+//	
+//	}	else {
+//		return null;
+//		}
+		return null; 
 		
 	}
 

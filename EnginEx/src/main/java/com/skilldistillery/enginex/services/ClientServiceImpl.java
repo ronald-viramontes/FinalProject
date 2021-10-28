@@ -69,9 +69,13 @@ public class ClientServiceImpl implements ClientService {
 
 
 	@Override
-	public Client create(Client client) {
-				
-		return clientRepo.saveAndFlush(client);
+	public Client create(Client client, int userId) {
+		User user = userRepo.getById(userId);
+		
+		client.setUser(user);
+		clientRepo.saveAndFlush(client);
+			
+		return client;
 	}
 
 }

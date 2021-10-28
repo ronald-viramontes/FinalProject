@@ -54,12 +54,14 @@ public class ClientController {
 		
 	}
 
-	@PostMapping("clients")
+	@PostMapping("clients/{userId}")
 	public Client createClient(@RequestBody Client client, 
 								HttpServletRequest req, 
-								HttpServletResponse res) {
+								HttpServletResponse res,
+								@PathVariable Integer userId
+								) {
 		
-		client = clientSvc.create(client);
+		client = clientSvc.create(client, userId);
 		if( client == null) {
 			res.setStatus(406);
 			return null;
