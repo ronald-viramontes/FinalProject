@@ -1,13 +1,13 @@
 package com.skilldistillery.enginex.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.enginex.entities.JobDetail;
 import com.skilldistillery.enginex.entities.JobPost;
-import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.repositories.JobDetailRepository;
 import com.skilldistillery.enginex.repositories.JobPostRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
@@ -40,29 +40,46 @@ public class JobDetailServiceImpl implements JobDetailService {
 	public JobDetail create(String username, JobDetail jobDetail, int jobPostId) {
 //		User user = userRepo.findByUsername(username);
 
-//		JobPost jobPost = jobPostRepo.findById(jobPostId);
-//		
-//		if(user.getClient().getId() == jobPost.getClient().getId() ) {
-//			jobDetail.setApplication();
-//			jdRepo.saveAndFlush(jobDetail);
-//		return jobDetail;
-//	
-//	}	else {
-//		return null;
-//		}
-		return null; 
+			Optional<JobPost> jp = jobPostRepo.findById(jobPostId);
+			if(jp.isPresent()) {
+				JobPost jobPost = jp.get();
+				jobDetail.getApplication().setJobPost(jobPost);
+				jdRepo.saveAndFlush(jobDetail);
+				return jobDetail;
+				
+			} else {
+				return null;
+			}
+
 		
 	}
 
 	@Override
-	public JobDetail update(String username, JobDetail jobDetail, int jobPostId) {
-
-		return null;
+	public JobDetail update(String username, JobDetail jobDetail, int jobDetailId) {
+	
+		JobDetail jd = jdRepo.findById(jobDetail.getId());
+	
+		if(jd != null) {
+			
+			jdRepo.save(jobDetail);
+			return jobDetail;
+			
+		} else {
+			return null;
+		}
+		
 	}
 
 	@Override
 	public boolean delete(String username, int id) {
-		return false;
+		JobDetail jd = jdRepo.findById(id);
+		if(jd != null) {
+			jdRepo.delete(jd);
+			return true;
+		} else {
+			
+			return false;
+		}
 	}
 
 }
