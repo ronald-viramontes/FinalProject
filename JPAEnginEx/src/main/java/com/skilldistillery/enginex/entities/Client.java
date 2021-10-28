@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Client {
@@ -45,6 +46,7 @@ public class Client {
 	@JoinColumn(name="company_id")
 	private Company company;
 	
+	@JsonManagedReference(value="userToClient")
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;

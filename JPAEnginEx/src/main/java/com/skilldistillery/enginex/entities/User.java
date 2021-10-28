@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class User {
@@ -30,11 +30,11 @@ public class User {
 
 	private String role;
 
-	@JsonIgnore
+	@JsonBackReference(value="userToDeveloper")
 	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
 	private Developer developer;
 
-	@JsonIgnore
+	@JsonBackReference(value="userToClient")
 	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
 	private Client client;
 
