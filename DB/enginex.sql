@@ -102,26 +102,26 @@ CREATE TABLE IF NOT EXISTS `client` (
   `phone_number` VARCHAR(10) NULL DEFAULT NULL,
   `email` VARCHAR(250) NOT NULL,
   `image_url` TEXT NULL,
-  `company_id` INT NULL,
   `user_id` INT NOT NULL,
+  `company_id` INT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_client_company1`
-    FOREIGN KEY (`company_id`)
-    REFERENCES `company` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_client_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_client_company1`
+    FOREIGN KEY (`company_id`)
+    REFERENCES `company` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_client_company1_idx` ON `client` (`company_id` ASC);
+CREATE INDEX `fk_client_user1_idx` ON `client` (`user_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_client_user1_idx` ON `client` (`user_id` ASC);
+CREATE INDEX `fk_client_company1_idx` ON `client` (`company_id` ASC);
 
 SHOW WARNINGS;
 
@@ -418,7 +418,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `company_id`, `user_id`) VALUES (1, 'Don', 'Johnson', '5055551212', 'djohnson@example.com', 'https://m.media-amazon.com/images/M/MV5BMTg4ODYwOTU0N15BMl5BanBnXkFtZTgwNjc5NDM2MTE@._V1_.jpg', 1, 1);
+INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `user_id`, `company_id`) VALUES (1, 'Don', 'Johnson', '5055551212', 'djohnson@example.com', 'https://m.media-amazon.com/images/M/MV5BMTg4ODYwOTU0N15BMl5BanBnXkFtZTgwNjc5NDM2MTE@._V1_.jpg', 4, 1);
 
 COMMIT;
 
