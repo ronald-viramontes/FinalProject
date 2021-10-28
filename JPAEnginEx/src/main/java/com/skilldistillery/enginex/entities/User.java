@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
-	
+
 	public User() {
 		super();
 	}
@@ -20,29 +20,27 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String username;
 
 	private String password;
-	
+
 	private boolean enabled;
-	
+
 	private String role;
-	
+
 	@JsonIgnore
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy = "user")
 	private Developer developer;
-	
+
 	@JsonIgnore
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy = "user")
 	private Client client;
-	
+
 	public int getId() {
 		return id;
 	}
 
-	
-	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -79,30 +77,21 @@ public class User {
 		this.role = role;
 	}
 
-	
-	public Developer getDeveloper() {
-		return developer;
-	}
-
-
-
-	public void setDeveloper(Developer develper) {
-		this.developer = develper;
-	}
-
-
-
 	public Client getClient() {
 		return client;
 	}
 
+	public Developer getDeveloper() {
+		return developer;
+	}
 
+	public void setDeveloper(Developer developer) {
+		this.developer = developer;
+	}
 
 	public void setClient(Client client) {
 		this.client = client;
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -126,9 +115,5 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", role=" + role + ", developer=" + developer + ", client=" + client + "]";
 	}
-	
-	
-	
-	
-	
+
 }
