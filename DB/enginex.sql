@@ -263,41 +263,6 @@ CREATE INDEX `fk_developer_skills_developer1_idx` ON `developer_skill` (`develop
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `job_application`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `job_application` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `job_application` (
-  `id` INT NOT NULL,
-  `application_approval` TINYINT NULL,
-  `application_status` VARCHAR(45) NULL DEFAULT NULL,
-  `application_date` DATE NULL,
-  `job_post_id` INT NOT NULL,
-  `developer_id` INT NOT NULL,
-  `decision_date` DATE NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_job_application_status_job_post1`
-    FOREIGN KEY (`job_post_id`)
-    REFERENCES `job_post` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_job_application_developer1`
-    FOREIGN KEY (`developer_id`)
-    REFERENCES `developer` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-CREATE INDEX `fk_job_application_status_job_post1_idx` ON `job_application` (`job_post_id` ASC);
-
-SHOW WARNINGS;
-CREATE INDEX `fk_job_application_developer1_idx` ON `job_application` (`developer_id` ASC);
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
 -- Table `job_detail`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `job_detail` ;
@@ -309,17 +274,52 @@ CREATE TABLE IF NOT EXISTS `job_detail` (
   `finish_date` DATE NULL,
   `job_rating` INT NULL,
   `job_rating_comment` TEXT NULL DEFAULT NULL,
-  `job_application_id` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `job_application`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `job_application` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `job_application` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `application_approval` TINYINT NULL,
+  `application_status` VARCHAR(45) NULL DEFAULT NULL,
+  `application_date` DATE NULL,
+  `job_post_id` INT NOT NULL,
+  `developer_id` INT NOT NULL,
+  `decision_date` DATE NULL,
+  `job_detail_id` INT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_job_detail_job_application1`
-    FOREIGN KEY (`job_application_id`)
-    REFERENCES `job_application` (`id`)
+  CONSTRAINT `fk_job_application_status_job_post1`
+    FOREIGN KEY (`job_post_id`)
+    REFERENCES `job_post` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_job_application_developer1`
+    FOREIGN KEY (`developer_id`)
+    REFERENCES `developer` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_job_application_job_detail1`
+    FOREIGN KEY (`job_detail_id`)
+    REFERENCES `job_detail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_job_detail_job_application1_idx` ON `job_detail` (`job_application_id` ASC);
+CREATE INDEX `fk_job_application_status_job_post1_idx` ON `job_application` (`job_post_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_job_application_developer1_idx` ON `job_application` (`developer_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_job_application_job_detail1_idx` ON `job_application` (`job_detail_id` ASC);
 
 SHOW WARNINGS;
 
@@ -478,21 +478,21 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `job_application`
+-- Data for table `job_detail`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `developer_id`, `decision_date`) VALUES (1, 1, 'Approved', '2021-09-09', 1, 1, '2021-09-09');
+INSERT INTO `job_detail` (`id`, `start_date`, `finish_date`, `job_rating`, `job_rating_comment`) VALUES (1, '2021-09-09', '2021-09-15', 5, 'Excellent work!');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `job_detail`
+-- Data for table `job_application`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_detail` (`id`, `start_date`, `finish_date`, `job_rating`, `job_rating_comment`, `job_application_id`) VALUES (1, '2021-09-09', '2021-09-15', 5, 'Excellent work!', 1);
+INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `developer_id`, `decision_date`, `job_detail_id`) VALUES (1, 1, 'Approved', '2021-09-09', 1, 1, '2021-09-09', NULL);
 
 COMMIT;
 

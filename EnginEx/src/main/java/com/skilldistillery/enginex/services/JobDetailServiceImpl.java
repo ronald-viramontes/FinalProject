@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobDetail;
 import com.skilldistillery.enginex.entities.JobPost;
 import com.skilldistillery.enginex.repositories.JobDetailRepository;
@@ -37,14 +38,18 @@ public class JobDetailServiceImpl implements JobDetailService {
 	}
 
 	@Override
-	public JobDetail create(String username, JobDetail jobDetail, int jobPostId) {
+	public JobDetail create(String username, JobDetail jobDetail, int jobAppId) {
 //		User user = userRepo.findByUsername(username);
-
-			Optional<JobPost> jp = jobPostRepo.findById(jobPostId);
-			if(jp.isPresent()) {
-				JobPost jobPost = jp.get();
-				jobDetail.getApplication().setJobPost(jobPost);
-				jdRepo.saveAndFlush(jobDetail);
+						
+			//create jobApplication through the jobapp repo.
+//			Optional<JobApplication> ja = job
+			
+			
+			if(ja.isPresent()) {
+				JobApplication jobApplication = null;
+				jobApplication.setDetail(jobDetail);
+				
+				jaRepo.save(jobApplication);
 				return jobDetail;
 				
 			} else {
@@ -55,7 +60,7 @@ public class JobDetailServiceImpl implements JobDetailService {
 	}
 
 	@Override
-	public JobDetail update(String username, JobDetail jobDetail, int jobDetailId) {
+	public JobDetail update(String username, JobDetail jobDetail, int jobAppId) {
 	
 		JobDetail jd = jdRepo.findById(jobDetail.getId());
 	

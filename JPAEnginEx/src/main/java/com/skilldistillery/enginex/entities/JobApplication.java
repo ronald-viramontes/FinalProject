@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,6 +21,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="job_application")
 public class JobApplication {
 	
+	public JobApplication() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -48,10 +53,18 @@ public class JobApplication {
 	@OneToMany(mappedBy="application")
 	private List<JobApplicationComment> comments;
 	
-	@OneToMany(mappedBy="application")
-	private List<JobDetail> details;
+	@OneToOne
+	@JoinColumn(name="job_detail_id")
+	private JobDetail detail;
 	
 	//Methods
+
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
 	public int getId() {
 		return id;
@@ -117,27 +130,12 @@ public class JobApplication {
 		this.comments = comments;
 	}
 
-	public List<JobDetail> getDetails() {
-		return details;
+	public JobDetail getDetail() {
+		return detail;
 	}
 
-	public void setDetails(List<JobDetail> details) {
-		this.details = details;
-	}
-
-	public JobApplication() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
-				+ ", decisionDate=" + decisionDate + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
+	public void setDetail(JobDetail detail) {
+		this.detail = detail;
 	}
 
 	@Override
@@ -150,6 +148,13 @@ public class JobApplication {
 			return false;
 		JobApplication other = (JobApplication) obj;
 		return id == other.id;
+	}
+
+	@Override
+	public String toString() {
+		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
+				+ ", decisionDate=" + decisionDate + ", jobPost=" + jobPost + ", developer=" + developer + ", comments="
+				+ comments + ", detail=" + detail + "]";
 	}
 	
 	
