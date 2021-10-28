@@ -18,7 +18,7 @@ export class Client {
     email: string = '',
     phoneNumber: string,
     imageUrl: string = '',
-    user: User
+    user: User = new User()
   ) {
     this.id = id;
     this.firstName = firstName;
