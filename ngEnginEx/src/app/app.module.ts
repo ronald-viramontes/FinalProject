@@ -16,7 +16,13 @@ import { JobDetailComponent } from './components/job-detail/job-detail.component
 import { JobApplicationComponent } from './components/job-application/job-application.component';
 import { JobApplicationCommentComponent } from './components/job-application-comment/job-application-comment.component';
 import { UserComponent } from './components/user/user.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { ClientService } from './services/client.service';
+import { DeveloperService } from './services/developer.service';
+import { JobApplicationService } from './services/job-application.service';
+import { JobPostService } from './services/job-post.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,13 +38,21 @@ import { UserComponent } from './components/user/user.component';
     JobDetailComponent,
     JobApplicationComponent,
     JobApplicationCommentComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+    FormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    ClientService,
+    DeveloperService,
+    JobApplicationService,
+    JobPostService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
