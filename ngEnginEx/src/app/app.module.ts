@@ -24,6 +24,7 @@ import { DeveloperService } from './services/developer.service';
 import { JobApplicationService } from './services/job-application.service';
 import { JobPostService } from './services/job-post.service';
 import { AuthService } from './services/auth.service';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { AuthService } from './services/auth.service';
     JobApplicationComponent,
     JobApplicationCommentComponent,
     UserComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

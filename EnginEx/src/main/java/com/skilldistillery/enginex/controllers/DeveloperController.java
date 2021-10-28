@@ -52,11 +52,11 @@ public class DeveloperController {
 		int userId = userRepo.findByUsername(principal.getName()).getId();
 		return devSvc.edit(edit, userId, dId);
 	}
-	
+
 	@DeleteMapping("developers/{dId}")
-	public boolean delete(HttpServletRequest req, HttpServletResponse res, 
+	public void delete(HttpServletRequest req, HttpServletResponse res, 
 			@PathVariable int dId, Principal principal) {
-		return devSvc.delete(principal.getName(), dId);
-	}
+		devSvc.delete(principal.getName(), dId);
+		}
 
 }

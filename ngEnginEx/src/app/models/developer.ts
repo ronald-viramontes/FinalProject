@@ -1,3 +1,4 @@
+import { JobApplication } from "./job-application";
 import { User } from "./user";
 
 export class Developer {
@@ -10,7 +11,7 @@ export class Developer {
   imageUrl: string;
   user: User;
 
-  constructor(id: number, firstName: string, lastName: string, email: string, phoneNumber: string, imageUrl: string, user: User){
+  constructor(id: number =0, firstName: string ='', lastName: string ='', email: string ='', phoneNumber: string ='', imageUrl: string ='', user: User = new User()){
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -18,5 +19,6 @@ export class Developer {
     this.phoneNumber = phoneNumber;
     this.imageUrl = imageUrl;
     this.user = user;
+
   }
 }
