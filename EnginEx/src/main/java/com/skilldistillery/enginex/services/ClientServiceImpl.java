@@ -1,6 +1,7 @@
 package com.skilldistillery.enginex.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,12 +71,20 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public Client create(Client client, int userId) {
-		User user = userRepo.getById(userId);
+		User user = null;
+		Optional <User> u = userRepo.findById(userId);
+			if (u.isPresent()) {
+				user = u.get();
+				client.setUser(user);
+				return clientRepo.saveAndFlush(client);
+				
+			} else {
+				return null;
+			}
 		
-		client.setUser(user);
-		clientRepo.saveAndFlush(client);
+		
+		
 			
-		return client;
 	}
 
 }
