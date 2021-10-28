@@ -2,13 +2,14 @@ package com.skilldistillery.enginex.entities;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class User {
@@ -29,12 +30,12 @@ public class User {
 
 	private String role;
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "user")
+	@JsonBackReference(value="userToDeveloper")
+	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
 	private Developer developer;
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "user")
+	@JsonBackReference(value="userToClient")
+	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL)
 	private Client client;
 
 	public int getId() {

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Developer {
@@ -41,6 +42,7 @@ public class Developer {
 	@Column(name="image_url")
 	private String imageUrl;
 	
+	@JsonManagedReference(value="userToDeveloper")
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
