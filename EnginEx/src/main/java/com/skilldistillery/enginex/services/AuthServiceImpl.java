@@ -22,16 +22,17 @@ public class AuthServiceImpl implements AuthService {
 	public User register(User user) {
 		String encodedPW = encoder.encode(user.getPassword());
 		user.setPassword(encodedPW); // only persist encoded password
+		System.out.println(user);
 
 		// set other fields to default values
 		//TODO:
-		Developer dev = new Developer();
+		//Developer dev = new Developer();
 		user.setEnabled(true);
 		user.setRole("standard");
-		user.setDeveloper(dev);
-		user.getDeveloper().setFirstName("jacob");
-		user.getDeveloper().setLastName("Tweedy");
-		user.getDeveloper().setEmail("jacob.tweedy@gmail.com");
+		//user.setDeveloper(dev);
+		//user.getDeveloper().setFirstName("jacob");
+		//user.getDeveloper().setLastName("Tweedy");
+		//user.getDeveloper().setEmail("jacob.tweedy@gmail.com");
 		user.getDeveloper().setUser(user);
 		Client cl = new Client();
 		user.setClient(cl);
