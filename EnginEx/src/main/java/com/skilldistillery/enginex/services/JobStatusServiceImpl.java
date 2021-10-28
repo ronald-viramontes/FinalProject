@@ -1,12 +1,15 @@
 package com.skilldistillery.enginex.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.enginex.entities.JobPost;
 import com.skilldistillery.enginex.entities.JobStatus;
 import com.skilldistillery.enginex.entities.User;
+import com.skilldistillery.enginex.repositories.JobPostRepository;
 import com.skilldistillery.enginex.repositories.JobStatusRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
 
@@ -15,6 +18,9 @@ public class JobStatusServiceImpl implements JobStatusService{
 	
 	@Autowired
 	private JobStatusRepository jobStatusRepo;
+	
+	@Autowired
+	private JobPostRepository jobPostRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -28,34 +34,76 @@ public class JobStatusServiceImpl implements JobStatusService{
 	@Override
 	public JobStatus getById(int id) {
 		
-		return jobStatusRepo.findById(id);
+		Optional<JobStatus> opt = jobStatusRepo.findById(id);
+		if(opt.isPresent()) {
+			
+			return opt.get();
+		} else {
+			return null;
+		
+		}
 	}
 
 	@Override
 	public JobStatus create(JobStatus jobStatus, String username, int jobPostId) {
 		User user = userRepo.findByUsername(username);
 		
-		jobStatusRepo.saveAndFlush(jobStatus);
-		
-		return jobStatus;
-	}
-
-	@Override
-	public JobStatus update(JobStatus jobStatus, String username) {
-		jobStatusRepo.save(jobStatus);
-		return jobStatus;
-	}
-
-	@Override
-	public boolean destroy(String username, int jobStatusId) {
-		User user = userRepo.findByUsername(username);
-		JobStatus jobStatus = jobStatusRepo.findById(jobStatusId);
-		if (jobStatus == null) {
-			return false;
+		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
+		if(optJobPost.isPresent()) {
+			JobPost jobPost = optJobPost.get();
+			jobStatus = jobStatusRepo.saveAndFlush(jobStatus);
+			jobPost.setStatus(jobStatus);
+			
+			jobPostRepo.saveAndFlush(jobPost);
+			return jobStatus;
+			
 		} else {
-			jobStatusRepo.delete(jobStatus);
-			return true;
+			return null;
 		}
+		
+	}
+
+	@Override
+	public JobStatus update(JobStatus jobStatus, String username, int jobStatusId) {
+		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
+		
+		if(opt.isPresent()) {
+			JobStatus dbJobStatus = opt.get();
+			dbJobStatus.setName(jobStatus.getName());
+			return jobStatusRepo.saveAndFlush(dbJobStatus);
+			
+		} else {
+			return null;
+		
+		}
+	}
+
+	@Override
+	public boolean destroy(String username, int jobStatusId, int jobPostId) {
+		User user = userRepo.findByUsername(username);
+		
+		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
+		
+		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
+		if(optJobPost.isPresent()) {
+			
+			JobPost jobPost = optJobPost.get();
+			jobPost.setStatus(null);
+			jobPostRepo.save(jobPost);
+			
+			if(opt.isPresent()) {
+				JobStatus jobStatus = opt.get();
+				jobStatusRepo.delete(jobStatus);
+				return true;
+			} else {
+				return false;
+			
+			}
+	
+		} else {
+			return false;
+		}
+		
 		
 	}
 

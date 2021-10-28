@@ -132,7 +132,7 @@ DROP TABLE IF EXISTS `job_status` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `job_status` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `job_post` (
   `date_closed` DATE NULL,
   `job_type_id` INT NOT NULL,
   `client_id` INT NOT NULL,
-  `job_status_id` INT NOT NULL,
+  `job_status_id` INT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_job_post_job_type1`
     FOREIGN KEY (`job_type_id`)
