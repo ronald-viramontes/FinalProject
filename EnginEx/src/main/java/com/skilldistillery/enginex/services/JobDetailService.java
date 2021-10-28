@@ -9,7 +9,7 @@ public interface JobDetailService {
 	JobDetail getJobDetailById(int id);
 	List<JobDetail> getAllDetails();
 	JobDetail create(String username, JobDetail jobDetail, int jobAppId);
-	JobDetail update(String username, JobDetail jobDetail, int jobAppId);
+	JobDetail update(String username, JobDetail jobDetail, int jobDetailId);
 	boolean delete(String username, int id);
 
 }
