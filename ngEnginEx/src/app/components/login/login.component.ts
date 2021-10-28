@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
     console.log(user);
     this.authService.login(user.username, user.password).subscribe(
       data => {
-        this.router.navigateByUrl('/todo');
       },
       err => {
         console.error('LoginComponent.login(): error logging in');
