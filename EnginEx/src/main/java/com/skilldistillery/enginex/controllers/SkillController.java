@@ -36,7 +36,7 @@ public class SkillController {
 		return skillSvc.findAll();
 	}
 	
-	@GetMapping("skills/{dId}")
+	@GetMapping("skills/developers/{dId}")
 	public List<DeveloperSkill> skillsByDevId(@PathVariable int dId){
 		return skillSvc.findByDevId(dId);
 	}
