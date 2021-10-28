@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobDetail;
-import com.skilldistillery.enginex.repositories.JobApplicationRepo;
+import com.skilldistillery.enginex.repositories.JobApplicationRepository;
 import com.skilldistillery.enginex.repositories.JobDetailRepository;
 
 @Service
@@ -18,7 +18,7 @@ public class JobDetailServiceImpl implements JobDetailService {
 	private JobDetailRepository jdRepo;
 	
 	@Autowired
-	private JobApplicationRepo jobAppRepo;
+	private JobApplicationRepository jobAppRepo;
 	
 	@Override
 	public JobDetail getJobDetailById(int id) {
