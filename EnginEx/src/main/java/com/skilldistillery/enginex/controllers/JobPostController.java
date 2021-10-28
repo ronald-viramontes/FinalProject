@@ -47,13 +47,14 @@ public class JobPostController {
 
 	@DeleteMapping(path = "jobs/{id}")
 	public void delete(@PathVariable int id, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-
+		jobPostServ.destroy(id);
 	}
 
 	@PutMapping(path = "jobs/{id}")
 	public JobPost update(@PathVariable int id, @RequestBody JobPost jobPost, HttpServletRequest req,
 			HttpServletResponse res, Principal principal) {
-		return null;
+		jobPost = jobPostServ.update(id, jobPost);
+		return jobPost;
 	}
 
 }
