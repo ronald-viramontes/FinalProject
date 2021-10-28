@@ -132,7 +132,7 @@ DROP TABLE IF EXISTS `job_status` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `job_status` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `job_post` (
   `date_closed` DATE NULL,
   `job_type_id` INT NOT NULL,
   `client_id` INT NOT NULL,
-  `job_status_id` INT NOT NULL,
+  `job_status_id` INT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_job_post_job_type1`
     FOREIGN KEY (`job_type_id`)
@@ -198,17 +198,17 @@ CREATE TABLE IF NOT EXISTS `developer_education` (
   `institution_name` TEXT NOT NULL,
   `degree_certificate_name` TEXT NOT NULL,
   `complete_date` DATE NOT NULL,
-  `developer_account_id` INT NOT NULL,
+  `developer_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_developer_education_developer1`
-    FOREIGN KEY (`developer_account_id`)
+    FOREIGN KEY (`developer_id`)
     REFERENCES `developer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_developer_education_developer1_idx` ON `developer_education` (`developer_account_id` ASC);
+CREATE INDEX `fk_developer_education_developer1_idx` ON `developer_education` (`developer_id` ASC);
 
 SHOW WARNINGS;
 
@@ -448,7 +448,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `developer_account_id`) VALUES (1, 'Trade Skill', 'Skill Distillery', 'Certificate', '2021-11-08', 1);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `developer_id`) VALUES (1, 'Trade Skill', 'Skill Distillery', 'Certificate', '2021-11-08', 1);
 
 COMMIT;
 
