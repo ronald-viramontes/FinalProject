@@ -23,6 +23,7 @@ import { ClientService } from './services/client.service';
 import { DeveloperService } from './services/developer.service';
 import { JobApplicationService } from './services/job-application.service';
 import { JobPostService } from './services/job-post.service';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { JobPostService } from './services/job-post.service';
     DeveloperService,
     JobApplicationService,
     JobPostService,
+    AuthService,
   ],
   bootstrap: [AppComponent],
 })
