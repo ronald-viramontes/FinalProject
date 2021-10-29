@@ -1,145 +1,169 @@
-<div *ngIf="editSkill">
-  <form>
-    <input
-      type="text"
-      name="skillTitle"
-      placeholder="Skill Title"
-      [(ngModel)]="editSkill.skillTitle"
-    />
-    <br />
-    <br />
-    <input
-      type="text"
-      name="skillLevel"
-      placeholder="Skill Level"
-      [(ngModel)]="editSkill.skillLevel"
-    />
+<div>
+  <hr />
+  <div name="newSkillDiv" class="form-group" style="text-align: center">
+    <form name="addSkillForm">
+      <input
+        type="text"
+        name="skillTitle"
+        placeholder="Skill Title"
+        [(ngModel)]="newSkill.skillTitle"
+      />
+      <br />
+      <br />
+      <input
+        type="text"
+        name="skillLevel"
+        placeholder="Skill Level"
+        [(ngModel)]="newSkill.skillLevel"
+      />
 
-    <br />
-    <br />
-    <button class="btn btn-danger" (click)="deleteSkill(editSkill.id)">
-      Delete Skill
-    </button>
-    <br />
-    <br />
-    <button class="btn btn-warning" (click)="displayTable()">Cancel</button>
-    <br />
-    <br />
-    <button class="btn btn-dark outline-black" (click)="updateSkill(editSkill)">
-      Save
-    </button>
-  </form>
-</div>
-//Add new skill form
-<div name="newSkillDiv" class="form-group" style="text-align: center">
-  <form name="addSkillForm">
-    <input
-      type="text"
-      name="skillTitle"
-      placeholder="Skill Title"
-      [(ngModel)]="newSkill.skillTitle"
-    />
-    <br />
-    <br />
-    <input
-      type="text"
-      name="skillLevel"
-      placeholder="Skill Level"
-      [(ngModel)]="newSkill.skillLevel"
-    />
+      <br />
+      <br />
+      <button class="btn btn-dark" (click)="addSkill(newSkill)">
+        Add New Skill
+      </button>
+      <br />
+      <br />
+      <button class="btn btn-warning" (click)="displayTable()">Cancel</button>
+      <br />
+      <br />
+    </form>
+  </div>
+  <hr />
 
+  <br />
+  <div *ngIf="editSkill" style="text-align: center">
+    <form>
+      <input
+        type="text"
+        name="skillTitle"
+        placeholder="Skill Title"
+        [(ngModel)]="editSkill.skillTitle"
+      />
+      <br />
+      <br />
+      <input
+        type="text"
+        name="skillLevel"
+        placeholder="Skill Level"
+        [(ngModel)]="editSkill.skillLevel"
+      />
+
+      <br />
+      <br />
+      <button class="btn btn-danger" (click)="deleteSkill(editSkill.id)">
+        Delete Skill
+      </button>
+      <br />
+      <br />
+      <button class="btn btn-warning" (click)="displayTable()">Cancel</button>
+      <br />
+      <br />
+      <button
+        class="btn btn-secondary outline-black"
+        (click)="updateSkill(editSkill)"
+      >
+        Save
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="!editSkill">
+    <h2 style="text-align: center">Skills Repository</h2>
     <br />
-    <br />
-    <button class="btn btn-dark" (click)="addSkill(newSkill)">
-      Add New Skill
-    </button>
-    <br />
-    <br />
-    <button class="btn btn-warning" (click)="displayTable()">Cancel</button>
-    <br />
-    <br />
-  </form>
-</div>
-//Table to edit the values in skills
-<div *ngIf="!editSkill">
-  <table
-    style="
-      width: 75%;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-    "
-    class="table table-striped table-hover"
-  >
-    <thead class="table-dark">
-      <tr>
-        <th>Skill ID</th>
-        <th>Skill Title</th>
-        <th>Skill Level</th>
-        <th>First Name</th>
+    <table
+      style="
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      "
+      class="table table-striped table-hover"
+    >
+      <thead class="table-dark">
+        <tr>
+          <th>Skill ID</th>
+          <th>Skill Title</th>
+          <th>Skill Level</th>
+          <th>Add Skill</th>
+          <!-- <th>First Name</th>
         <th>Last Name</th>
-        <th>Image</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let skill of skills">
-      <tr (click)="displaySkill(skill)">
-        <td>{{ skill.id }}</td>
-        <td>{{ skill.skillTitle }}</td>
-        <td>{{ skill.skillLevel }}</td>
-        <td>{{ skill.developer.firstName }}</td>
+        <th>Image</th> -->
+        </tr>
+      </thead>
+      <tbody *ngFor="let skill of skills">
+        <tr (click)="displaySkill(skill)">
+          <td>{{ skill.id }}</td>
+          <td>{{ skill.skillTitle }}</td>
+          <td>{{ skill.skillLevel }}</td>
+          <td>
+            <button
+              class="badge btn-success"
+              (click)="addTableSkill(tableSkill)"
+            >
+              +
+            </button>
+          </td>
+          <!-- <td>{{ skill.developer.firstName }}</td>
         <td>{{ skill.developer.lastName }}</td>
         <td>
           <img
             style="height: 200px; width: 150px"
             src="{{ skill.developer.imageUrl }}"
           />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-//Specific Developer Table
+        </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr />
+  <div name="devSkillsTable">
+    <div class="form-group" style="text-align: center">
+      <form class="form">
+        <input type="number" name="id" [(ngModel)]="id" />
+        <button class="btn-dark" (click)="showDevSkills(id)">Dev ID</button>
+      </form>
+    </div>
+    <br />
+    <h2 style="text-align: center">Developer Skills Table By ID:</h2>
+    <br />
+    <table
+      *ngIf="devSkills.length > 0"
+      style="
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      "
+      class="table table-striped table-hover"
+    >
+      <thead class="table-dark">
+        <tr>
+          <th>Skill ID</th>
+          <th>Skill Title</th>
+          <th>Skill Level</th>
 
-<div class="form-group" style="text-align: center">
-  <form class="form">
-    <input type="number" name="id" value="id" />
-    <button class="btn-dark" (click)="showDevSkills(id)">Dev ID</button>
-  </form>
-</div>
-<div name="devSkillsTable">
-  <table
-    style="
-      width: 75%;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-    "
-    class="table table-striped table-hover"
-  >
-    <thead class="table-dark">
-      <tr>
-        <th>Skill ID</th>
-        <th>Skill Title</th>
-        <th>Skill Level</th>
-        <th>First Name</th>
+          <!-- <th>First Name</th>
         <th>Last Name</th>
-        <th>Image</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let devSkill of devSkills">
-      <tr (click)="displaySkill(skill)">
-        <td>{{ devSkill.id }}</td>
-        <td>{{ devSkill.skillTitle }}</td>
-        <td>{{ devSkill.skillLevel }}</td>
-        <td>{{ devSkill.developer.firstName }}</td>
+        <th>Image</th> -->
+        </tr>
+      </thead>
+      <tbody *ngFor="let devSkill of devSkills">
+        <tr (click)="displaySkill(skill)">
+          <td>{{ devSkill.id }}</td>
+          <td>{{ devSkill.skillTitle }}</td>
+          <td>{{ devSkill.skillLevel }}</td>
+
+          <!-- <td>{{ devSkill.developer.firstName }}</td>
         <td>{{ devSkill.developer.lastName }}</td>
         <td>
           <img
             style="height: 200px; width: 150px"
             src="{{ devSkill.developer.imageUrl }}"
           />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

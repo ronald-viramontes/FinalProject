@@ -16,11 +16,12 @@ export class SkillComponent implements OnInit {
   skills: Skill[] = [];
   skill: Skill = new Skill();
   newSkill: Skill = new Skill();
+  tableSkill: Skill = new Skill();
+
   editSkill: Skill | null = null;
   selected: Skill | null = null;
   devSkills: Skill[] = [];
-  developer: Developer = new Developer();
-
+  developer: Developer | null = null;
   id: number = 0;
   constructor(
     private skillService: SkillService,
@@ -77,10 +78,11 @@ export class SkillComponent implements OnInit {
   }
 
   showDevSkills(id: number) {
+    this.id = id;
     this.skillService.devSkillIndex(id).subscribe(
       (data) => {
         this.devSkills = data;
-        this.reloadSkills();
+        console.log('devSkills: ' + this.devSkills);
       },
       (fail) => {
         console.error(
@@ -118,6 +120,20 @@ export class SkillComponent implements OnInit {
 
   displaySkill(skill: Skill) {
     this.editSkill = skill;
+    this.tableSkill.skillTitle = this.editSkill.skillTitle;
+    this.tableSkill.skillLevel = this.editSkill.skillLevel;
+  }
+
+  addTableSkill(tableSkill: Skill) {
+    return this.skillService.create(this.tableSkill).subscribe(
+      (created) => {
+        console.log('Skill created');
+        console.log(created);
+      },
+      (fail) => {
+        console.error('Something went wrong during skill creation', fail);
+      }
+    );
   }
 
   displayTable() {

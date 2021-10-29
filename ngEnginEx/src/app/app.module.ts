@@ -28,6 +28,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
+import { SkillService } from './services/skill.service';
 
 @NgModule({
   declarations: [
@@ -44,11 +45,12 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     JobDetailComponent,
     JobApplicationComponent,
     JobApplicationCommentComponent,
+    SkillComponent,
     UserComponent,
     LoginComponent,
     RegistrationComponent,
     NavigationComponent,
-    UserHomeComponent
+    UserHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     ClientService,
     DeveloperService,
     JobApplicationService,
+    SkillService,
     JobPostService,
     AuthService,
   ],
