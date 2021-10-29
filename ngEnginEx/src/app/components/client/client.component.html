@@ -9,12 +9,19 @@
         placeholder="Username"
       />
       <input
+        style="margin-left: 10px"
         type="password"
         name="password"
         [(ngModel)]="user.password"
         placeholder="Password"
       />
-      <input type="button" value="Login" (click)="register(user)" />
+      <button
+        style="margin-left: 10px"
+        class="btn-dark"
+        (click)="register(user)"
+      >
+        Register
+      </button>
     </form>
   </div>
 </div>
@@ -189,9 +196,9 @@
         <br />
         <button
           class="btn btn-dark outline-black"
-          (click)="updateClient(editClient.id, editClient)"
+          (click)="updateClient(editClient)"
         >
-          Update Client
+          Save
         </button>
       </form>
       <br />
@@ -221,14 +228,19 @@
       </tr>
     </thead>
     <tbody *ngFor="let client of clients">
-      <td (click)="displayClient(client)">{{ client.id }}</td>
-      <td>{{ client.firstName }}</td>
-      <td>{{ client.lastName }}</td>
-      <td>{{ client.email }}</td>
-      <td>{{ client.phoneNumber }}</td>
-      <td>
-        <img style="height: 200px; width: 150px" src="{{ client.imageUrl }}" />
-      </td>
+      <tr (click)="displayClient(client)">
+        <td>{{ client.id }}</td>
+        <td>{{ client.firstName }}</td>
+        <td>{{ client.lastName }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.phoneNumber }}</td>
+        <td>
+          <img
+            style="height: 200px; width: 150px"
+            src="{{ client.imageUrl }}"
+          />
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

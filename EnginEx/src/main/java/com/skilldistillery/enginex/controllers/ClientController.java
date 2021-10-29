@@ -57,8 +57,8 @@ public class ClientController {
 								HttpServletResponse res,
 								Principal principal
 								) {
+		client = clientSvc.create(principal.getName(), client);
 		
-		client = clientSvc.create(client, principal.getName());
 		if( client == null) {
 			res.setStatus(406);
 			return null;
@@ -69,18 +69,22 @@ public class ClientController {
 	
 	}
 	
-	@PutMapping("users/{userId}/clients/{clientId}")
-	public Client updateClient(@PathVariable Integer userId, 
-								@PathVariable Integer clientId,
+	@PutMapping("clients/{clientId}")
+	public Client updateClient(@PathVariable Integer clientId,
 								@RequestBody Client client, 
 								HttpServletRequest req, 
 								HttpServletResponse res,
 								Principal principal) {
 			
-		client = clientSvc.update(client, clientId, userId);
+		client = clientSvc.update(principal.getName(), client, clientId);
+		if (client == null) {
+			res.setStatus(400);
+			return null;
+		} else {
+			res.setStatus(200);
+			return client;
+		}
 		
-		
-		return client;
 	}
 	
 	@DeleteMapping("clients/{clientId}")
@@ -88,11 +92,11 @@ public class ClientController {
 								HttpServletRequest req, 
 								HttpServletResponse res,
 								Principal principal) {
-			if(clientSvc.delete(principal.getName(), clientId)) {
-				res.setStatus(200);
-			} else {
-				res.setStatus(400);
-			}
+		if(clientSvc.delete(principal.getName(), clientId)) {
+			res.setStatus(200);
+		} else {
+			res.setStatus(400);
+		}
 		
 	}
 

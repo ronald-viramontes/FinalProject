@@ -35,14 +35,10 @@ export class ClientService {
       );
   }
 
-  update(userId: number, clientId: number, client: Client) {
+  update(clientId: number, client: Client) {
     const httpOptions = {};
     return this.http
-      .put<Client>(
-        `${this.baseUrl}api/users/${userId}/clients/${clientId} `,
-        client,
-        this.getHttpOptions()
-      )
+      .put<Client>(`${this.url}/${clientId}`, client, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);

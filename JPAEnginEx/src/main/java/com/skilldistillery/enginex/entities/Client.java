@@ -46,6 +46,7 @@ public class Client {
 	@JoinColumn(name="company_id")
 	private Company company;
 	
+
 	@JsonManagedReference(value="userToClient")
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")

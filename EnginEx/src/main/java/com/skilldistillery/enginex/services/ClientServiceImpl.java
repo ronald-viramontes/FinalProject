@@ -21,21 +21,24 @@ public class ClientServiceImpl implements ClientService {
 	private UserRepository userRepo;
 
 	@Override
-	public Client update(Client client, int clientId, int userId) {
+	public Client update(String username, Client client, int clientId) {
+		User user = userRepo.findByUsername(username);
 		
-			Optional<Client> opt = clientRepo.findById(clientId);
-			Client dbClient = null;
-			if(opt.isPresent() && opt.get().getUser().getId() == userId) {
-				dbClient = opt.get();
-				dbClient.setFirstName(client.getFirstName());
-				dbClient.setLastName(client.getLastName());
-				dbClient.setEmail(client.getEmail());
-				dbClient.setPhoneNumber(client.getPhoneNumber());
-				dbClient.setImageUrl(client.getImageUrl());
-				return clientRepo.saveAndFlush(dbClient);
+		Optional<Client> opt = clientRepo.findById(clientId);
+		
+		if(opt.isPresent() && opt.get().getUser().getId() == user.getId()) {
+			Client dbClient = opt.get();
+			dbClient.setFirstName(client.getFirstName());
+			dbClient.setLastName(client.getLastName());
+			dbClient.setEmail(client.getEmail());
+			dbClient.setPhoneNumber(client.getPhoneNumber());
+			dbClient.setImageUrl(client.getImageUrl());
+			return clientRepo.saveAndFlush(dbClient);
+			
+			} else {
 				
+				return null;
 			}
-				return dbClient;
 	}
 
 	@Override
@@ -46,10 +49,13 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public Boolean delete(String username, int clientId) {
 		User user = userRepo.findByUsername(username);
+		
 		Optional<Client> opt = clientRepo.findById(clientId);
-		if(opt.isPresent() && opt.get().getUser() == user) {
-			
-			clientRepo.delete(opt.get());
+		if(opt.isPresent() && opt.get().getUser().getId() == user.getId()) {
+			Client client = opt.get();
+			user.setClient(null);
+			clientRepo.delete(client);
+			userRepo.saveAndFlush(user);
 			return true;
 		}
 			return false;
@@ -68,7 +74,7 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public Client create(Client client, String username) {
+	public Client create(String username, Client client) {
 		User user = userRepo.findByUsername(username);
 				
 		client.setUser(user);

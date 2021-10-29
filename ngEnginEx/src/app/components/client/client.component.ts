@@ -48,6 +48,7 @@ export class ClientComponent implements OnInit {
       (created) => {
         console.log('Client created');
         console.log(created);
+        this.ngOnInit();
         this.reloadClients;
         this.newClient = new Client();
       },
@@ -55,21 +56,19 @@ export class ClientComponent implements OnInit {
         console.error('Something went wrong during client creation', fail);
       }
     );
-    this.reloadClients();
   }
 
-  updateClient(clientId: number, client: Client) {
-    this.clientService.update(client.user.id, client.id, client).subscribe(
+  updateClient(client: Client) {
+    this.clientService.update(client.id, client).subscribe(
       (updated) => {
-        this.reloadClients();
-        this.editClient = null;
         this.client = updated;
+        this.editClient = null;
+        this.displayTable();
       },
       (fail) => {
         console.error('Something went wrong with updating client', fail);
       }
     );
-    this.reloadClients();
   }
 
   reloadClients(): void {
@@ -87,14 +86,14 @@ export class ClientComponent implements OnInit {
   deleteClient(clientId: number) {
     this.clientService.destroy(clientId).subscribe(
       (success) => {
-        console.log('Successfully removed client', success);
         this.editClient = null;
+        this.reloadClients();
+        console.log('Successfully removed client', success);
       },
       (fail) => {
         console.error('Failed to remove user', fail);
       }
     );
-    this.reloadClients();
   }
 
   displayClient(client: Client) {
@@ -115,6 +114,8 @@ export class ClientComponent implements OnInit {
     this.auth.register(user).subscribe(
       (data) => {
         console.log(data);
+        this.user = new User();
+        this.reloadClients();
       },
       (err) => {
         console.error('LoginComponent.login(): error registering');
