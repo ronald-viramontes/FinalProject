@@ -16,9 +16,9 @@ export class JobPost {
   client: Client;
   jobStatus: JobStatus;
 
-  constructor(  id: number, jobRequirements: string, startDate: string, completionDate: string,
-    developersNeeded: number, jobActive: boolean, datePosted: string, dateClosed: string,
-    jobType: JobType, client: Client, jobStatus: JobStatus) {
+  constructor(id: number = 0, jobRequirements: string = '', startDate: string = '', completionDate: string = '',
+    developersNeeded: number = 0, jobActive: boolean = true, datePosted: string = '', dateClosed: string = '',
+    jobType: JobType = new JobType(), client: Client = new Client(), jobStatus: JobStatus = new JobStatus()) {
       this.id = id;
       this.jobRequirements = jobRequirements;
       this.startDate = startDate;
