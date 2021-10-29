@@ -1,8 +1,9 @@
 <div id="registerUser" class="container-liquid">
   <form name="registrationForm">
     <input type="text" name="username" [(ngModel)]="newUser.username" placeholder="Username" />
-    <br>
-    <br>
+    <p *ngIf="duplicateUsername">Username already in use!</p>
+    <br *ngIf="!duplicateUsername">
+    <br *ngIf="!duplicateUsername">
     <input type="password" name="password" [(ngModel)]="newUser.password"  placeholder="Password" />
     <br>
     <br>

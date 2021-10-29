@@ -11,6 +11,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
   newUser: User = new User();
+  duplicateUsername: boolean = false;
 
   ngOnInit(): void {
   }
@@ -31,6 +32,7 @@ export class RegistrationComponent implements OnInit {
       err => {
         console.error('RegisterComponent.register(): error registering.');
         console.error(err);
+        this.duplicateUsername = true;
       }
     );
   }

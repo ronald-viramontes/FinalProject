@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
 	public User register(User user) {
 		User test = userRepo.findByUsername(user.getUsername());
 		System.out.println("----------------------------------------------------------------------------"+test);
-		if (test.getUsername().equals(user.getUsername())) {
+		if (test != null && test.getUsername().equals(user.getUsername())) {
 			return null;
 		} else {
 			String encodedPW = encoder.encode(user.getPassword());
