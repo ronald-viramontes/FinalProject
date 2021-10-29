@@ -62,4 +62,9 @@ public class EducationServiceImpl implements EducationService {
 		}
 	}
 
+	@Override
+	public List<DeveloperEducation> index() {
+		return edRepo.findAll();
+	}
+
 }

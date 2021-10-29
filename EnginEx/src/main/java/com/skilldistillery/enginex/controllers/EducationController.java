@@ -28,6 +28,11 @@ public class EducationController {
 	@Autowired
 	EducationService edSvc;
 	
+	@GetMapping("educations")
+	public List<DeveloperEducation> index(HttpServletRequest req, HttpServletResponse res, Principal principal){
+		return edSvc.index();
+	}
+	
 	@GetMapping("educations/{dId}")
 	public List<DeveloperEducation> getByDevId(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int dId){
 		return edSvc.findByDevId(dId, principal.getName());
