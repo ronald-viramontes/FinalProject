@@ -10,7 +10,7 @@ import { ClientService } from 'src/app/services/client.service';
   styleUrls: ['./client.component.css'],
 })
 export class ClientComponent implements OnInit {
-  client: Client | null = null;
+  client: Client = new Client();
   user: User = new User();
   newClient: Client = new Client();
   selected: Client | null = null;
@@ -40,8 +40,8 @@ export class ClientComponent implements OnInit {
     }
   }
 
-  addClient(newClient: Client) {
-    this.clientService.create(newClient).subscribe((created) => {
+  addClient(newClient: Client, userId: number) {
+    this.clientService.create(newClient, userId).subscribe((created) => {
       console.log('Client created');
       console.log(created);
       this.reloadClients;
@@ -69,8 +69,8 @@ export class ClientComponent implements OnInit {
     );
   }
 
-  deleteClient(userId: number, clientId: number) {
-    this.clientService.destroy(userId, clientId).subscribe(
+  deleteClient(clientId: number) {
+    this.clientService.destroy(clientId).subscribe(
       (success) => {
         console.log('Successfully removed client', success);
       },

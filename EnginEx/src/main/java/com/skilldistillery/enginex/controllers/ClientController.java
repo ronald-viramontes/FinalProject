@@ -80,20 +80,22 @@ public class ClientController {
 								HttpServletResponse res,
 								Principal principal) {
 			
-		client = clientSvc.update(client, principal.getName(), clientId);
+		client = clientSvc.update(client, clientId, userId);
 		
 		
 		return client;
 	}
 	
-	@DeleteMapping("users/{userId}/clients/{clientId}")
-	public void deleteClient(@PathVariable Integer userId, 
-								@PathVariable Integer clientId,
+	@DeleteMapping("clients/{clientId}")
+	public void deleteClient(@PathVariable Integer clientId,
 								HttpServletRequest req, 
 								HttpServletResponse res,
 								Principal principal) {
-				
-			clientSvc.delete(principal.getName(), clientId);		
+			if(clientSvc.delete(principal.getName(), clientId)) {
+				res.setStatus(200);
+			} else {
+				res.setStatus(400);
+			}
 		
 	}
 

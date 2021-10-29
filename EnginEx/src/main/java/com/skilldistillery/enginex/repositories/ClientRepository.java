@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.skilldistillery.enginex.entities.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Integer> {
-	Client findById(int id);
+//	Client findById(int id);
 
 }

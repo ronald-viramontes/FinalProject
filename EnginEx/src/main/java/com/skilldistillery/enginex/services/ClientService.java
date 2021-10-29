@@ -10,7 +10,7 @@ public interface ClientService {
 
 	Client create(Client client, int userId);
 
-	Client update(Client client, String username, int clientId);
+	Client update(Client client, int clientId, int userId);
 
 	Boolean delete(String username, int clientId);
 

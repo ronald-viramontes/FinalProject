@@ -45,6 +45,14 @@
           </h2>
           <form>
             <input
+              type="number"
+              name="userId"
+              placeholder="User ID"
+              [(ngModel)]="user.id"
+            />
+            <br />
+            <br />
+            <input
               type="text"
               name="firstName"
               placeholder="First Name"
@@ -86,7 +94,7 @@
             <br />
             <button
               class="btn btn-dark outline-black"
-              (click)="addClient(newClient)"
+              (click)="addClient(newClient, user.id)"
             >
               Add Client
             </button>
@@ -99,6 +107,87 @@
   </div>
   <hr />
 
+  <div
+    style="
+      margin: auto;
+      text-align: center;
+      color: black;
+      border-style: solid;
+      border-radius: 15px;
+      width: 98%;
+      height: 85%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+
+      background-color: rgb(88, 150, 145);
+    "
+  >
+    <div style="text-align: center" class="container-liquid">
+      <h2 style="color: black; text-shadow: 2px 2px 4px rgb(5, 5, 5)">
+        Edit Client Profile
+      </h2>
+      <form>
+        <input
+          type="number"
+          name="userId"
+          placeholder="User ID"
+          [(ngModel)]="user.id"
+        />
+        <br />
+        <br />
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          [(ngModel)]="client.firstName"
+        />
+        <br />
+        <br />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          [(ngModel)]="client.lastName"
+        />
+        <br />
+        <br />
+        <input
+          type="text"
+          name="email"
+          placeholder="Email"
+          [(ngModel)]="client.email"
+        />
+        <br />
+        <br />
+        <input
+          type="text"
+          name="phoneNumber"
+          placeholder="Phone Number"
+          [(ngModel)]="client.phoneNumber"
+        />
+        <br />
+        <br />
+        <input
+          type="text"
+          name="imageUrl"
+          placeholder="Image URL"
+          [(ngModel)]="client.imageUrl"
+        />
+        <br />
+        <br />
+        <button
+          class="btn btn-dark outline-black"
+          (click)="updateClient(client.id, user.id, client)"
+        >
+          Add Client
+        </button>
+      </form>
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <hr />
   <table
     style="
       width: 75%;
@@ -125,7 +214,7 @@
       <td>{{ client.email }}</td>
       <td>{{ client.phoneNumber }}</td>
       <td>
-        <img style="height: 200px; width: auto" src="{{ client.imageUrl }}" />
+        <img style="height: 200px; width: 150" src="{{ client.imageUrl }}" />
       </td>
     </tbody>
   </table>
