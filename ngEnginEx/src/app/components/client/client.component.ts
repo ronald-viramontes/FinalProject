@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from 'src/app/models/client';
+import { User } from 'src/app/models/user';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class ClientComponent implements OnInit {
   client: Client | null = null;
-  newClient: Client | null = null;
+  user: User = new User();
+  newClient: Client = new Client();
   selected: Client | null = null;
   editSelected: Client | null = null;
   clients: Client[] = [];
@@ -43,7 +45,7 @@ export class ClientComponent implements OnInit {
       console.log('Client created');
       console.log(created);
       this.reloadClients;
-      this.newClient = null;
+      this.newClient = new Client();
     });
   }
 
@@ -65,5 +67,17 @@ export class ClientComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+
+  deleteClient(userId: number, clientId: number) {
+    this.clientService.destroy(userId, clientId).subscribe(
+      (success) => {
+        console.log('Successfully removed client', success);
+      },
+      (fail) => {
+        console.error('Failed to remove user', fail);
+      }
+    );
+    this.reloadClients();
   }
 }

@@ -16,7 +16,7 @@ export class Client {
     firstName: string = '',
     lastName: string = '',
     email: string = '',
-    phoneNumber: string,
+    phoneNumber: string = '',
     imageUrl: string = '',
     user: User = new User()
   ) {
