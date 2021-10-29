@@ -8,7 +8,7 @@ public interface ClientService {
 
 	Client getClientById(int clientId);
 
-	Client create(Client client, int userId);
+	Client create(Client client, String username);
 
 	Client update(Client client, int clientId, int userId);
 

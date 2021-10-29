@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.enginex.entities.Client;
-import com.skilldistillery.enginex.entities.Developer;
 import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.repositories.ClientRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
@@ -49,6 +48,7 @@ public class ClientServiceImpl implements ClientService {
 		User user = userRepo.findByUsername(username);
 		Optional<Client> opt = clientRepo.findById(clientId);
 		if(opt.isPresent() && opt.get().getUser() == user) {
+			
 			clientRepo.delete(opt.get());
 			return true;
 		}
@@ -68,17 +68,13 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public Client create(Client client, int userId) {
-		User user = null;
-		Optional<User> u = userRepo.findById(userId);
-		if (u.isPresent()) {
-			user = u.get();
-			client.setUser(user);
-			return clientRepo.saveAndFlush(client);
-
-		} else {
-			return null;
-		}
+	public Client create(Client client, String username) {
+		User user = userRepo.findByUsername(username);
+				
+		client.setUser(user);
+			
+		return clientRepo.saveAndFlush(client);
+		
 
 	}
 

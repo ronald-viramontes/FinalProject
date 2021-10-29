@@ -1,3 +1,23 @@
+<div style="text-align: center">
+  <h2>Register</h2>
+  <div id="registerUser" class="container-liquid">
+    <form name="registrationForm">
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="user.username"
+        placeholder="Username"
+      />
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="user.password"
+        placeholder="Password"
+      />
+      <input type="button" value="Login" (click)="register(user)" />
+    </form>
+  </div>
+</div>
 <div style="background-color: rgb(88, 150, 145)">
   <h1
     style="
@@ -45,14 +65,6 @@
           </h2>
           <form>
             <input
-              type="number"
-              name="userId"
-              placeholder="User ID"
-              [(ngModel)]="user.id"
-            />
-            <br />
-            <br />
-            <input
               type="text"
               name="firstName"
               placeholder="First Name"
@@ -94,7 +106,7 @@
             <br />
             <button
               class="btn btn-dark outline-black"
-              (click)="addClient(newClient, user.id)"
+              (click)="addClient(newClient)"
             >
               Add Client
             </button>
@@ -122,24 +134,16 @@
       background-color: rgb(88, 150, 145);
     "
   >
-    <div style="text-align: center" class="container-liquid">
+    <div *ngIf="editClient" style="text-align: center" class="container-liquid">
       <h2 style="color: black; text-shadow: 2px 2px 4px rgb(5, 5, 5)">
         Edit Client Profile
       </h2>
       <form>
         <input
-          type="number"
-          name="userId"
-          placeholder="User ID"
-          [(ngModel)]="user.id"
-        />
-        <br />
-        <br />
-        <input
           type="text"
           name="firstName"
           placeholder="First Name"
-          [(ngModel)]="client.firstName"
+          [(ngModel)]="editClient.firstName"
         />
         <br />
         <br />
@@ -147,7 +151,7 @@
           type="text"
           name="lastName"
           placeholder="Last Name"
-          [(ngModel)]="client.lastName"
+          [(ngModel)]="editClient.lastName"
         />
         <br />
         <br />
@@ -155,7 +159,7 @@
           type="text"
           name="email"
           placeholder="Email"
-          [(ngModel)]="client.email"
+          [(ngModel)]="editClient.email"
         />
         <br />
         <br />
@@ -163,7 +167,7 @@
           type="text"
           name="phoneNumber"
           placeholder="Phone Number"
-          [(ngModel)]="client.phoneNumber"
+          [(ngModel)]="editClient.phoneNumber"
         />
         <br />
         <br />
@@ -171,23 +175,32 @@
           type="text"
           name="imageUrl"
           placeholder="Image URL"
-          [(ngModel)]="client.imageUrl"
+          [(ngModel)]="editClient.imageUrl"
         />
+        <br />
+        <br />
+        <button class="btn btn-danger" (click)="deleteClient(editClient.id)">
+          Delete Client
+        </button>
+        <br />
+        <br />
+        <button class="btn btn-warning" (click)="displayTable()">Cancel</button>
         <br />
         <br />
         <button
           class="btn btn-dark outline-black"
-          (click)="updateClient(client.id, user.id, client)"
+          (click)="updateClient(editClient.id, editClient)"
         >
-          Add Client
+          Update Client
         </button>
       </form>
       <br />
       <br />
     </div>
   </div>
-
-  <hr />
+</div>
+<hr />
+<div *ngIf="!editClient">
   <table
     style="
       width: 75%;
@@ -208,13 +221,13 @@
       </tr>
     </thead>
     <tbody *ngFor="let client of clients">
-      <td>{{ client.id }}</td>
+      <td (click)="displayClient(client)">{{ client.id }}</td>
       <td>{{ client.firstName }}</td>
       <td>{{ client.lastName }}</td>
       <td>{{ client.email }}</td>
       <td>{{ client.phoneNumber }}</td>
       <td>
-        <img style="height: 200px; width: 150" src="{{ client.imageUrl }}" />
+        <img style="height: 200px; width: 150px" src="{{ client.imageUrl }}" />
       </td>
     </tbody>
   </table>

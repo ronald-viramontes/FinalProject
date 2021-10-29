@@ -28,10 +28,7 @@ public class ClientController {
 	@Autowired
 	private ClientService clientSvc;
 	
-	@GetMapping("users/clients/ping")
-	public String ping() {
-		return "pong";
-	}
+
 	
 	@GetMapping("clients")
 	public List<Client> getClients(HttpServletRequest req, HttpServletResponse res){
@@ -54,14 +51,14 @@ public class ClientController {
 		
 	}
 
-	@PostMapping("clients/{userId}")
+	@PostMapping("clients")
 	public Client createClient(@RequestBody Client client, 
 								HttpServletRequest req, 
 								HttpServletResponse res,
-								@PathVariable Integer userId
+								Principal principal
 								) {
 		
-		client = clientSvc.create(client, userId);
+		client = clientSvc.create(client, principal.getName());
 		if( client == null) {
 			res.setStatus(406);
 			return null;

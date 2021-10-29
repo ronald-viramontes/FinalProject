@@ -23,10 +23,10 @@ export class ClientService {
     );
   }
 
-  create(newClient: Client, userId: number) {
+  create(newClient: Client) {
     console.log(newClient);
     return this.http
-      .post<Client>(`${this.url}/${userId}`, newClient, this.getHttpOptions())
+      .post<Client>(`${this.url}`, newClient, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -39,7 +39,7 @@ export class ClientService {
     const httpOptions = {};
     return this.http
       .put<Client>(
-        `${this.baseUrl}${userId}/clients/${clientId} `,
+        `${this.baseUrl}api/users/${userId}/clients/${clientId} `,
         client,
         this.getHttpOptions()
       )
@@ -54,7 +54,7 @@ export class ClientService {
   destroy(clientId: number) {
     const httpOptions = {};
     return this.http
-      .delete<Client>(`${this.baseUrl}/${clientId} `, this.getHttpOptions())
+      .delete<Client>(`${this.url}/${clientId}`, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
