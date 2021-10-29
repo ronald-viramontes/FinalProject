@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
 	public void destroy(int id) {
 		Optional<User> u = userRepo.findById(id);
 		User delUser = u.get();
-		userRepo.delete(delUser);
+//		userRepo.delete(delUser);
+		delUser.setEnabled(false);
 
 	}
 
