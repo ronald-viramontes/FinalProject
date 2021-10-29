@@ -26,33 +26,32 @@ public class UserServiceImpl implements UserService {
 		return receivedUser.get();
 	}
 
-//
-//	@Override
-//	public User getUserByName(String username) {
-//		return userRepo.findByUsername(username);
-//	}
-
 	@Override
-	public void destroy(int id) {
+	public void destroy(String username, int id) {
 		Optional<User> u = userRepo.findById(id);
 		User delUser = u.get();
 //		userRepo.delete(delUser);
 		delUser.setEnabled(false);
+		if (delUser.getUsername().equals(username)) {
+			userRepo.delete(delUser);
+		}
 
 	}
 
 	@Override
-	public User update(int id, User user) {
-		// TODO Auto-generated method stub
+	public User update(String username, int id, User user) {
 		Optional<User> u = userRepo.findById(id);
 		User existingUser = u.get();
-		if (existingUser != null) {
-			existingUser.setUsername(user.getUsername());
-			existingUser.setPassword(user.getPassword());
-			existingUser.setEnabled(user.isEnabled());
-			existingUser.setRole(user.getRole());
-			userRepo.saveAndFlush(existingUser);
-			return existingUser;
+		User subUser = userRepo.findByUsername(username);
+		if (subUser.getUsername().equals(existingUser.getUsername())) {
+			if (existingUser != null) {
+				existingUser.setUsername(user.getUsername());
+				existingUser.setPassword(user.getPassword());
+				existingUser.setEnabled(user.isEnabled());
+				existingUser.setRole(user.getRole());
+				userRepo.saveAndFlush(existingUser);
+				return existingUser;
+			}
 		}
 		return null;
 	}
