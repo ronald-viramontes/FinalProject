@@ -34,4 +34,11 @@ export class JobPostComponent implements OnInit {
       }
     );
   }
+  displayJob(job: JobPost) {
+    this.selected = job;
+    console.log(this.selected);
+  }
+  returnToList() {
+    this.selected = null;
+  }
 }

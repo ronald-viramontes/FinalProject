@@ -1,12 +1,13 @@
-<div>
-  <table class = table table-stripped table-hover>
+<div *ngIf="!selected">
+  <table class=table table-stripped table-hover>
     <thead>
       <tr>
         <th>Job Requirements</th>
         <th>Job Start Date</th>
         <th>Job Completion Date</th>
         <th>Job Posted Date</th>
-        <th>Client First Name</th>
+        <!-- <th>Job Status</th> -->
+        <th>View Details</th>
       </tr>
     </thead>
     <tbody>
@@ -15,19 +16,18 @@
         <td>{{job.startDate}}</td>
         <td>{{job.completionDate}}</td>
         <td>{{job.datePosted}}</td>
-        <td>{{job.client.firstName}}</td>
+        <!-- <td>{{job.jobStatus.name}}</td> -->
+        <td><button (click)="displayJob(job)" class="btn btn-primary">View Job</button></td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<button></button>
-<div>
+<div *ngIf="!selected">
   <form>
     <label>Job Requirements:</label>
     <input class="form-control form-control-lg" placeholder="Job Requirements" type="text" name="huntName"
       [(ngModel)]="newJob.jobRequirements">
-    <label>:</label>
+    <label>Start Date:</label>
     <input class="form-control form-control-lg" placeholder="Start Date" type="text" name="huntSize"
       [(ngModel)]="newJob.startDate">
     <label>Notes:</label>
@@ -38,4 +38,20 @@
       [(ngModel)]="newJob.datePosted">
     <!-- <button (click)="createHunt(newJob)" class="btn btn-primary">Create Hunt</button> -->
   </form>
+</div>
+<div *ngIf="selected">
+  <ul>
+    <li>Job ID: {{selected.id}}</li>
+    <li>Start Date: {{selected.startDate}}</li>
+    <li>Completion Date: {{selected.completionDate}}</li>
+    <li>Date Posted: {{selected.datePosted}}</li>
+    <li>Client:</li>
+    <ul>
+      <li> {{selected.client.firstName}}</li>
+      <li> {{selected.client.lastName}}</li>
+      <li> {{selected.client.email}}</li>
+      <li> {{selected.client.phoneNumber}}</li>
+    </ul>
+  </ul>
+  <button (click)="returnToList()" class="btn btn-primary">Back</button>
 </div>
