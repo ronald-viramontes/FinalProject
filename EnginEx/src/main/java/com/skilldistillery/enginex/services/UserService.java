@@ -10,7 +10,7 @@ public interface UserService {
 
 	public User show(int id);
 
-	public User update(int id, User user);
+	public User update(String username, int id, User user);
 
-	public void destroy(int id);
+	public void destroy(String username, int id);
 }
