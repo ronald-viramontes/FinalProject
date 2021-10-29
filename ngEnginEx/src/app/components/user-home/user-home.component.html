@@ -1,0 +1,7 @@
+<div>
+  <h1>Welcome {{developerLoggedIn.firstName}}</h1>
+</div>
+<app-skill *ngIf="loggedIn()"></app-skill>
+<app-experience *ngIf="loggedIn()"></app-experience>
+<app-education *ngIf="loggedIn()"></app-education>
+<app-job-post></app-job-post>

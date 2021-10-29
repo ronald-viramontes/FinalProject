@@ -57,4 +57,9 @@ public class UserController {
 		user = userServ.update(principal.getName(), id, user);
 		return user;
 	}
+	
+	@GetMapping("users/username")
+	public User showUsername(HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		return userServ.showUsername(principal.getName());
+	}
 }

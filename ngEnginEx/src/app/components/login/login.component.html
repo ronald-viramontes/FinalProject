@@ -1,7 +1,11 @@
 <div id="loginUser" class="container-liquid">
-  <form name="loginForm">
+  <form name="loginForm" *ngIf="!isRegistering">
     <input type="text" name="username" [(ngModel)]="user.username" placeholder="Username">
-    <input type="password" name="password" [(ngModel)]="user.password" placeholder="Password">
-    <input type="button" value="Login" (click)="login(user)">
+    <input type="password" name="password" [(ngModel)]="user.password" placeholder="Password"><br>
+    <input type="button" value="Login" (click)="login(user)"> or
+    <input type="button" value="Register" (click)="isRegistering = true;">
   </form>
+  <app-registration *ngIf="isRegistering"></app-registration>
+  <p *ngIf="isRegistering" style="margin-left: 10px">or</p>
+  <input style="margin-left: 10px" class="btn-dark" type="button" value="Login" (click)="isRegistering = false;" *ngIf="isRegistering">
 </div>

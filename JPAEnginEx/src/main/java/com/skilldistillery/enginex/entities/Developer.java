@@ -47,6 +47,7 @@ public class Developer {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@JsonManagedReference(value="devToSkill")
 	@OneToMany(mappedBy="developer")
 	private List<DeveloperSkill> skills;
 	

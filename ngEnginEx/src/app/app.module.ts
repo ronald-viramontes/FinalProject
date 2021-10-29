@@ -26,6 +26,9 @@ import { JobPostService } from './services/job-post.service';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { UserHomeComponent } from './components/user-home/user-home.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,8 @@ import { RegistrationComponent } from './components/registration/registration.co
     UserComponent,
     LoginComponent,
     RegistrationComponent,
+    NavigationComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,
