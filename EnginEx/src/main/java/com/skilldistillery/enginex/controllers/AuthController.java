@@ -33,6 +33,10 @@ public class AuthController {
 			res.setStatus(400);
 		}
 		user = authSvc.register(user);
+		if(user == null) {
+			res.setStatus(500);
+			return user;
+		}
 
 		return user;
 	}
