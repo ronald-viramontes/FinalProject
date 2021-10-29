@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   user: User = new User();
+  isRegistering: boolean = false;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     console.log(user);
     this.authService.login(user.username, user.password).subscribe(
       data => {
+        this.router.navigateByUrl('/home')
       },
       err => {
         console.error('LoginComponent.login(): error logging in');

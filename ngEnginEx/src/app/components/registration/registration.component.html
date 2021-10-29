@@ -19,10 +19,8 @@
     <input type="text" name="phoneNumber" placeholder="Phone Number" [(ngModel)]="newUser.developer.phoneNumber" (ngModelChange)="update()"/>
     <br />
     <br />
-    <input type="text" name="imageUrl" placeholder="Image URL" [(ngModel)]="newUser.developer.imageUrl" (ngModelChange)="update()"/>
-    <button style="margin-left: 10px" class="btn-dark" (click)="register()">
-      Register
-    </button>
+    <input type="text" name="imageUrl" placeholder="Image URL" [(ngModel)]="newUser.developer.imageUrl" (ngModelChange)="update()"/> <br>
+    <button style="margin-left: 10px" class="btn-dark" value="Register" (click)="register()">Register</button>
   </form>
 </div>
 
