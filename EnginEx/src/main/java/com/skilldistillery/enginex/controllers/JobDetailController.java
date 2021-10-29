@@ -35,7 +35,8 @@ public class JobDetailController {
 	}
 	
 	@GetMapping("jobdetails/{jobDetailId}")
-	public JobDetail getJobDetailById(@PathVariable Integer jobDetailId, HttpServletResponse res) {
+	public JobDetail getJobDetailById(@PathVariable Integer jobDetailId, 
+												HttpServletResponse res) {
 			
 		JobDetail jobDetail = jobDetailSvc.getJobDetailById(jobDetailId);
 		if(jobDetail == null) {
@@ -52,8 +53,8 @@ public class JobDetailController {
 	@PostMapping("jobdetails/{jobAppId}")
 	public JobDetail createJobDetail(@PathVariable Integer jobAppId,
 									@RequestBody JobDetail jobDetail,
-									HttpServletResponse res, Principal principal)
-									 {
+									HttpServletResponse res, 
+									Principal principal) {
 		
 		jobDetail = jobDetailSvc.create(principal.getName(), jobDetail, jobAppId);
 		
@@ -69,13 +70,14 @@ public class JobDetailController {
 	
 	@PutMapping("jobdetails/{jobDetailId}")
 	public JobDetail updateJobDetail(@PathVariable Integer jobDetailId,
-									@RequestBody JobDetail jobDetail,
-									HttpServletResponse res, Principal principal) {
+									 @RequestBody JobDetail jobDetail,
+									 HttpServletResponse res, 
+									 Principal principal) {
 
-		System.out.println("controller: pre " + jobDetail);
+		
 		
 		jobDetail = jobDetailSvc.update(principal.getName(), jobDetail, jobDetailId);
-		System.out.println("controller: post " + jobDetail);
+		
 		
 		if(jobDetail == null) {
 			res.setStatus(400);
@@ -89,7 +91,8 @@ public class JobDetailController {
 	
 	@DeleteMapping("jobdetails/{jobDetailId}")
 	public void deleteJobDetail(@PathVariable Integer jobDetailId,
-						HttpServletResponse res, Principal principal) {
+											HttpServletResponse res, 
+											Principal principal) {
 		
 		if(jobDetailSvc.delete(principal.getName(), jobDetailId)) {
 			res.setStatus(200);

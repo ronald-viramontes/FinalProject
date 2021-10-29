@@ -67,14 +67,15 @@ public class JobStatusController {
 		
 	}
 	
-	@PutMapping("jobstatus/{jobStatusId}")
+	@PutMapping("jobposts/{jobPostId}/jobstatus/{jobStatusId}")
 	public JobStatus updateJobStatus(@PathVariable Integer jobStatusId,
+											@PathVariable Integer jobPostId,
 											@RequestBody JobStatus jobStatus,
 											HttpServletRequest req, 
 											HttpServletResponse res,
 											Principal principal) {
 		
-		jobStatus = jobStatusSvc.update(jobStatus, principal.getName(), jobStatusId);
+		jobStatus = jobStatusSvc.update(jobStatus, principal.getName(), jobStatusId, jobPostId);
 		
 		if(jobStatus == null) {
 			res.setStatus(400);
