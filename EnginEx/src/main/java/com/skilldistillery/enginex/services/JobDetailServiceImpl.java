@@ -18,26 +18,25 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 	@Autowired
 	private JobDetailRepository jobDetailRepo;
-	
+
 	@Autowired
 	private JobApplicationRepository jobAppRepo;
-	
+
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Override
 	public JobDetail getJobDetailById(int id) {
-		
-		Optional <JobDetail> opt = jobDetailRepo.findById(id);
-		
-		if(opt.isPresent()) {
+
+		Optional<JobDetail> opt = jobDetailRepo.findById(id);
+
+		if (opt.isPresent()) {
 			return opt.get();
-				
+
 		} else {
 			return null;
 		}
-		
-		
+
 	}
 
 	@Override
@@ -49,68 +48,72 @@ public class JobDetailServiceImpl implements JobDetailService {
 	@Override
 	public JobDetail create(String username, JobDetail jobDetail, int jobAppId) {
 		User user = userRepo.findByUsername(username);
-						
+
 		Optional<JobApplication> ja = jobAppRepo.findById(jobAppId);
-			
-		if(ja.isPresent() && ja.get().getJobPost().getClient().getId() == user.getId()) {
+
+		if (ja.isPresent() && ja.get().getJobPost().getClient().getId() == user.getClient().getId()) {
 			JobApplication jobApplication = ja.get();
 			jobDetail = jobDetailRepo.saveAndFlush(jobDetail);
 			jobApplication.setDetail(jobDetail);
 			jobAppRepo.saveAndFlush(jobApplication);
 			return jobDetail;
-			
+
 		} else {
 			return null;
 		}
 
-		
 	}
 
 	@Override
 	public JobDetail update(String username, JobDetail jobDetail, int jobDetailId) {
 		User user = userRepo.findByUsername(username);
-		
-		Optional <JobDetail> opt = jobDetailRepo.findById(jobDetailId);
-		if(opt.isPresent() && opt.get().getApplication().getJobPost().getClient()
-														.getId() == user.getId()) {
+
+		Optional<JobDetail> opt = jobDetailRepo.findById(jobDetailId);
+		if (opt.isPresent() && opt.get().getApplication().getJobPost().getClient().getId() == user.getClient().getId()) {
 			JobDetail dbJobDetail = opt.get();
-			
+
 			dbJobDetail.setComment(jobDetail.getComment());
 			dbJobDetail.setFinishDate(jobDetail.getFinishDate());
 			dbJobDetail.setStartDate(jobDetail.getStartDate());
 			dbJobDetail.setRating(jobDetail.getRating());
-			
-			
+
 			return jobDetailRepo.saveAndFlush(dbJobDetail);
-			
+
 		} else {
-			
+
 			return null;
 		}
-		
+
 	}
 
 	@Override
 	public boolean delete(String username, int id) {
 		User user = userRepo.findByUsername(username);
-		
-		Optional <JobDetail> opt = jobDetailRepo.findById(id);
-		
-		if(opt.isPresent() && opt.get().getApplication().getJobPost().getClient()
-														.getId() == user.getId()) {
+
+		Optional<JobDetail> opt = jobDetailRepo.findById(id);
+
+		if (opt.isPresent() && user.getClient().getId() == opt.get().getApplication().getJobPost().getClient().getId()) {
+
 			JobDetail jobDetail = opt.get();
-			JobApplication jobApp = jobDetail.getApplication();
-			jobApp.setDetail(null);
-			jobAppRepo.save(jobApp);
 			
-			jobDetailRepo.delete(jobDetail);
+				Optional<JobApplication> optJobApp = jobAppRepo.findById(jobDetail.getApplication().getId());
+				
+				JobApplication jobApp = optJobApp.get();
+				
+				jobApp.setDetail(null);
+				
+				jobAppRepo.saveAndFlush(jobApp);
+				
+				jobDetailRepo.delete(jobDetail);
+
 			
 			return true;
-			
+		
 		} else {
-			
-			return false;
-		}
-	}
 
+			return false;
+
+		}
+
+	}
 }
