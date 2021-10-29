@@ -1,1 +1,41 @@
-<p>job-post works!</p>
+<div>
+  <table class = table table-stripped table-hover>
+    <thead>
+      <tr>
+        <th>Job Requirements</th>
+        <th>Job Start Date</th>
+        <th>Job Completion Date</th>
+        <th>Job Posted Date</th>
+        <th>Client First Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let job of jobPosts'>
+        <td>{{job.jobRequirements}}</td>
+        <td>{{job.startDate}}</td>
+        <td>{{job.completionDate}}</td>
+        <td>{{job.datePosted}}</td>
+        <td>{{job.client.firstName}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button></button>
+<div>
+  <form>
+    <label>Job Requirements:</label>
+    <input class="form-control form-control-lg" placeholder="Job Requirements" type="text" name="huntName"
+      [(ngModel)]="newJob.jobRequirements">
+    <label>:</label>
+    <input class="form-control form-control-lg" placeholder="Start Date" type="text" name="huntSize"
+      [(ngModel)]="newJob.startDate">
+    <label>Notes:</label>
+    <input class="form-control form-control-lg" placeholder="Completion Date" type="text" name="huntNotes"
+      [(ngModel)]="newJob.completionDate">
+    <label>URL:</label>
+    <input class="form-control form-control-lg" placeholder="Date Posted" type="text" name="huntURL"
+      [(ngModel)]="newJob.datePosted">
+    <!-- <button (click)="createHunt(newJob)" class="btn btn-primary">Create Hunt</button> -->
+  </form>
+</div>
