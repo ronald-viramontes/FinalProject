@@ -42,23 +42,21 @@ export class DeveloperComponent implements OnInit {
       err => {
         console.error(err);
         console.error('Error retrieving developer');
-
-
       }
     )
   }
 
-  deleteDev(devId: number){
-    this.devSvc.delete(devId).subscribe(
-      data => {
-        console.log(data);
+  // deleteDev(devId: number){
+  //   this.devSvc.delete(devId).subscribe(
+  //     data => {
+  //       console.log(data);
 
-      },
-      err => {
-        console.error(err);
-        console.error('Error deleting developer');
+  //     },
+  //     err => {
+  //       console.error(err);
+  //       console.error('Error deleting developer');
 
-      }
-    )
-  }
+  //     }
+  //   )
+  // }
 }

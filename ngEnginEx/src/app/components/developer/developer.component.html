@@ -1,5 +1,6 @@
 <h1>Working</h1>
 <ul>
-  <li *ngFor="let dev of developers">{{dev.firstName}}</li>
+  <li *ngFor="let dev of developers" (click)="selected=dev">{{dev.firstName}}</li>
 </ul>
 
+<!-- <h1 *ngIf="selected">{{selected.user.id}}</h1> -->

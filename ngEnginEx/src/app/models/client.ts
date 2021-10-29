@@ -9,7 +9,7 @@ export class Client {
   email: string;
   phoneNumber: string;
   imageUrl: string;
-  user: User;
+  // user: User;
 
   constructor(
     id: number = 0,
@@ -18,7 +18,7 @@ export class Client {
     email: string = '',
     phoneNumber: string = '',
     imageUrl: string = '',
-    user: User = new User()
+    // user: User = new User()
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -26,6 +26,6 @@ export class Client {
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.imageUrl = imageUrl;
-    this.user = user;
+    // this.user = user;
   }
 }

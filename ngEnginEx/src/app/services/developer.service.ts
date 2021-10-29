@@ -44,14 +44,14 @@ export class DeveloperService {
     );
   }
 
-  delete(devId: number){
-    return this.http.delete(this.baseUrl+'/'+devId, this.getHttpOptions()).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('DeveloperService.delete(): error deleting developer');
-      })
-    );
-  }
+  // delete(devId: number){
+  //   return this.http.delete(this.baseUrl+'/'+devId, this.getHttpOptions()).pipe(
+  //     catchError((err: any) => {
+  //       console.log(err);
+  //       return throwError('DeveloperService.delete(): error deleting developer');
+  //     })
+  //   );
+  // }
 
 }
 
