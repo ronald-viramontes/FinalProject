@@ -48,14 +48,15 @@ public class JobStatusServiceImpl implements JobStatusService{
 	public JobStatus create(JobStatus jobStatus, String username, int jobPostId) {
 		User user = userRepo.findByUsername(username);
 		
-		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
-		if(optJobPost.isPresent()) {
-			JobPost jobPost = optJobPost.get();
+		Optional<JobPost> opt = jobPostRepo.findById(jobPostId);
+		if(opt.isPresent() && opt.get().getClient().getId() == user.getId()) {
+			JobPost jobPost = opt.get();
 			jobStatus = jobStatusRepo.saveAndFlush(jobStatus);
 			jobPost.setStatus(jobStatus);
 			
-			jobPostRepo.saveAndFlush(jobPost);
-			return jobStatus;
+			 jobPostRepo.saveAndFlush(jobPost);
+			
+			 return jobStatus;
 			
 		} else {
 			return null;
@@ -64,18 +65,22 @@ public class JobStatusServiceImpl implements JobStatusService{
 	}
 
 	@Override
-	public JobStatus update(JobStatus jobStatus, String username, int jobStatusId) {
+	public JobStatus update(JobStatus jobStatus, String username, int jobStatusId, int jobPostId) {
+		User user = userRepo.findByUsername(username);
+		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
 		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
-		
-		if(opt.isPresent()) {
+		if (optJobPost.isPresent()) {
+			JobPost jobPost = optJobPost.get();
+			if(opt.isPresent() && opt.get().getId() == jobPost.getStatus().getId()) {
 			JobStatus dbJobStatus = opt.get();
 			dbJobStatus.setName(jobStatus.getName());
-			return jobStatusRepo.saveAndFlush(dbJobStatus);
-			
-		} else {
-			return null;
+			jobStatusRepo.saveAndFlush(dbJobStatus);
 		
+			return dbJobStatus;
 		}
+			
+		} 
+		return null;
 	}
 
 	@Override
@@ -85,7 +90,7 @@ public class JobStatusServiceImpl implements JobStatusService{
 		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
 		
 		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
-		if(optJobPost.isPresent()) {
+		if(optJobPost.isPresent() && optJobPost.get().getClient().getId() == user.getId()) {
 			
 			JobPost jobPost = optJobPost.get();
 			jobPost.setStatus(null);
@@ -95,20 +100,12 @@ public class JobStatusServiceImpl implements JobStatusService{
 				JobStatus jobStatus = opt.get();
 				jobStatusRepo.delete(jobStatus);
 				return true;
-			} else {
-				return false;
-			
-			}
+			} 
 	
-		} else {
-			return false;
-		}
+		} return false;
 		
 		
 	}
 
-	
-
-	
 
 }

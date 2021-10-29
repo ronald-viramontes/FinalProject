@@ -8,22 +8,27 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobDetail;
+import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.repositories.JobApplicationRepository;
 import com.skilldistillery.enginex.repositories.JobDetailRepository;
+import com.skilldistillery.enginex.repositories.UserRepository;
 
 @Service
 public class JobDetailServiceImpl implements JobDetailService {
 
 	@Autowired
-	private JobDetailRepository jdRepo;
+	private JobDetailRepository jobDetailRepo;
 	
 	@Autowired
 	private JobApplicationRepository jobAppRepo;
 	
+	@Autowired
+	private UserRepository userRepo;
+	
 	@Override
 	public JobDetail getJobDetailById(int id) {
 		
-		Optional <JobDetail> opt = jdRepo.findById(id);
+		Optional <JobDetail> opt = jobDetailRepo.findById(id);
 		
 		if(opt.isPresent()) {
 			return opt.get();
@@ -38,17 +43,18 @@ public class JobDetailServiceImpl implements JobDetailService {
 	@Override
 	public List<JobDetail> getAllDetails() {
 
-		return jdRepo.findAll();
+		return jobDetailRepo.findAll();
 	}
 
 	@Override
 	public JobDetail create(String username, JobDetail jobDetail, int jobAppId) {
+		User user = userRepo.findByUsername(username);
 						
 		Optional<JobApplication> ja = jobAppRepo.findById(jobAppId);
 			
-		if(ja.isPresent()) {
+		if(ja.isPresent() && ja.get().getJobPost().getClient().getId() == user.getId()) {
 			JobApplication jobApplication = ja.get();
-			jobDetail = jdRepo.saveAndFlush(jobDetail);
+			jobDetail = jobDetailRepo.saveAndFlush(jobDetail);
 			jobApplication.setDetail(jobDetail);
 			jobAppRepo.saveAndFlush(jobApplication);
 			return jobDetail;
@@ -62,9 +68,11 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 	@Override
 	public JobDetail update(String username, JobDetail jobDetail, int jobDetailId) {
-	
-		Optional <JobDetail> opt = jdRepo.findById(jobDetailId);
-		if(opt.isPresent()) {
+		User user = userRepo.findByUsername(username);
+		
+		Optional <JobDetail> opt = jobDetailRepo.findById(jobDetailId);
+		if(opt.isPresent() && opt.get().getApplication().getJobPost().getClient()
+														.getId() == user.getId()) {
 			JobDetail dbJobDetail = opt.get();
 			
 			dbJobDetail.setComment(jobDetail.getComment());
@@ -73,9 +81,10 @@ public class JobDetailServiceImpl implements JobDetailService {
 			dbJobDetail.setRating(jobDetail.getRating());
 			
 			
-			return jdRepo.saveAndFlush(dbJobDetail);
+			return jobDetailRepo.saveAndFlush(dbJobDetail);
 			
 		} else {
+			
 			return null;
 		}
 		
@@ -83,16 +92,18 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 	@Override
 	public boolean delete(String username, int id) {
+		User user = userRepo.findByUsername(username);
 		
-		Optional <JobDetail> opt = jdRepo.findById(id);
+		Optional <JobDetail> opt = jobDetailRepo.findById(id);
 		
-		if(opt.isPresent()) {
+		if(opt.isPresent() && opt.get().getApplication().getJobPost().getClient()
+														.getId() == user.getId()) {
 			JobDetail jobDetail = opt.get();
 			JobApplication jobApp = jobDetail.getApplication();
 			jobApp.setDetail(null);
 			jobAppRepo.save(jobApp);
 			
-			jdRepo.delete(jobDetail);
+			jobDetailRepo.delete(jobDetail);
 			
 			return true;
 			
