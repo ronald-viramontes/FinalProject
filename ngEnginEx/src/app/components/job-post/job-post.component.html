@@ -82,18 +82,33 @@
           </ng-template>
         </ngb-panel>
       </ngb-accordion>
-        <ngb-accordion>
-          <ngb-panel title="Client Info">
-            <ng-template ngbPanelContent>
-              <ul>
-                <li> {{selected.client.firstName}}</li>
-                <li> {{selected.client.lastName}}</li>
-                <li> {{selected.client.email}}</li>
-                <li> {{selected.client.phoneNumber}}</li>
-              </ul>
-            </ng-template>
-          </ngb-panel>
-        </ngb-accordion>
+      <ngb-accordion>
+        <ngb-panel title="Client Info">
+          <ng-template ngbPanelContent>
+            <ul>
+              <li>First Name: {{selected.client.firstName}}</li>
+              <li>Last Name: {{selected.client.lastName}}</li>
+              <li>Email: {{selected.client.email}}</li>
+              <li>Phone Number: {{selected.client.phoneNumber}}</li>
+            </ul>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+      <ngb-accordion>
+        <ngb-panel title="Applications">
+          <ng-template ngbPanelContent>
+            <ul *ngFor='let app of apps'>
+              <li>ID: {{app.id}}</li>
+              <li>First Name: {{app.developer.firstName}}</li>
+              <li>Last Name: {{app.developer.lastName}}</li>
+              <li>Application Status: {{app.status}}</li>
+              <li>Application Date {{app.date}}</li>
+              <li>Application Approved {{app.approved}}</li>
+              <li>Application Decision Date {{app.decisionDate}}</li>
+            </ul>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
       <button (click)="returnToList()" class="btn btn-primary">Back</button>
     </div>
   </div>
