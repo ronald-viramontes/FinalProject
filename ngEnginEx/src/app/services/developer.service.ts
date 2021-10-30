@@ -6,22 +6,20 @@ import { Developer } from '../models/developer';
 import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeveloperService {
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
+  private baseUrl = 'http://localhost:8091/api/developers';
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
-
-  private baseUrl = 'http://localhost:8091/api/developers'
-
-  getHttpOptions(){
+  getHttpOptions() {
     let credentials = this.authService.getCredentials();
     let options = {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Authorization': `Basic ${credentials}`
-      }
+        Authorization: `Basic ${credentials}`,
+      },
     };
     return options;
   }
@@ -30,20 +28,34 @@ export class DeveloperService {
     return this.http.get<Developer[]>(this.baseUrl).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('DeveloperService.index(): error retrieving developers');
+        return throwError(
+          'DeveloperService.index(): error retrieving developers'
+        );
       })
     );
   }
 
-  show(devId: number): Observable<Developer>{
-    return this.http.get<Developer>(this.baseUrl+'/'+devId).pipe(
-      catchError((err:any) => {
+  show(devId: number): Observable<Developer> {
+    return this.http.get<Developer>(this.baseUrl + '/' + devId).pipe(
+      catchError((err: any) => {
         console.log(err);
-        return throwError('DeveloperService.show(): error retrieving developer')
+        return throwError(
+          'DeveloperService.show(): error retrieving developer'
+        );
       })
     );
   }
-
+  update(devId: number, dev: Developer) {
+    const httpOptions = {};
+    return this.http
+      .put<Developer>(`${this.baseUrl}/${devId}`, dev, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Something went wrong with update of dev');
+        })
+      );
+  }
   // delete(devId: number){
   //   return this.http.delete(this.baseUrl+'/'+devId, this.getHttpOptions()).pipe(
   //     catchError((err: any) => {
@@ -52,6 +64,4 @@ export class DeveloperService {
   //     })
   //   );
   // }
-
 }
-

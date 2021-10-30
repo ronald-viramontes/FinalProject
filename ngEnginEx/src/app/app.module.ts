@@ -30,29 +30,31 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { SkillService } from './services/skill.service';
 import { DisplayComponent } from './components/display/display.component';
+import { ExperienceService } from './services/experience.service';
+import { EducationService } from './services/education.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DeveloperComponent,
-    SkillComponent,
-    ExperienceComponent,
-    EducationComponent,
     ClientComponent,
     CompanyComponent,
-    PostComponent,
-    JobPostComponent,
-    JobStatusComponent,
-    JobDetailComponent,
+    DeveloperComponent,
+    DisplayComponent,
+    EducationComponent,
+    ExperienceComponent,
     JobApplicationComponent,
     JobApplicationCommentComponent,
+    JobDetailComponent,
+    JobPostComponent,
+    JobStatusComponent,
+    LoginComponent,
+    NavigationComponent,
+    PostComponent,
+    RegistrationComponent,
     SkillComponent,
     UserComponent,
-    LoginComponent,
-    RegistrationComponent,
-    NavigationComponent,
     UserHomeComponent,
-    DisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -62,12 +64,15 @@ import { DisplayComponent } from './components/display/display.component';
     FormsModule,
   ],
   providers: [
+    AuthService,
     ClientService,
     DeveloperService,
+    EducationService,
+    ExperienceService,
     JobApplicationService,
-    SkillService,
     JobPostService,
-    AuthService,
+    SkillService,
+    UserService,
   ],
   bootstrap: [AppComponent],
 })
