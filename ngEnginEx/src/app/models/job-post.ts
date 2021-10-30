@@ -1,4 +1,5 @@
 import { Client } from "./client";
+import { JobApplication } from "./job-application";
 import { JobStatus } from "./job-status";
 import { JobType } from "./job-type";
 
@@ -12,13 +13,14 @@ export class JobPost {
   jobActive: boolean;
   datePosted: string;
   dateClosed: string;
-  jobType: JobType;
+  type: JobType;
   client: Client;
-  jobStatus: JobStatus;
+  status: JobStatus;
+  applications: JobApplication[];
 
   constructor(id: number = 0, jobRequirements: string = '', startDate: string = '', completionDate: string = '',
     developersNeeded: number = 0, jobActive: boolean = true, datePosted: string = '', dateClosed: string = '',
-    jobType: JobType = new JobType(), client: Client = new Client(), jobStatus: JobStatus = new JobStatus()) {
+    type: JobType = new JobType(), client: Client = new Client(), status: JobStatus = new JobStatus(), applications: JobApplication[] = []) {
       this.id = id;
       this.jobRequirements = jobRequirements;
       this.startDate = startDate;
@@ -27,8 +29,9 @@ export class JobPost {
       this.jobActive = jobActive;
       this.datePosted = datePosted;
       this.dateClosed = dateClosed;
-      this.jobType = jobType;
+      this.type = type;
       this.client = client;
-      this.jobStatus = jobStatus;
+      this.status = status;
+      this.applications = applications;
     }
 }

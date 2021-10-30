@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JobApplication } from 'src/app/models/job-application';
 import { JobPost } from 'src/app/models/job-post';
 import { JobPostService } from 'src/app/services/job-post.service';
 
@@ -14,6 +15,9 @@ export class JobPostComponent implements OnInit {
   //showList = true;
   newJob: JobPost = new JobPost();
   selected: JobPost | null = null;
+  editJob: JobPost | null = null;
+  apps: JobApplication[] | null = null;
+
 
   constructor(
     private jobService: JobPostService,
@@ -36,6 +40,7 @@ export class JobPostComponent implements OnInit {
   }
   displayJob(job: JobPost) {
     this.selected = job;
+    this.apps = this.selected.applications;
     console.log(this.selected);
   }
   returnToList() {

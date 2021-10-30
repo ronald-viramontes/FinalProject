@@ -4,19 +4,19 @@ import { JobPost } from "./job-post";
 export class JobApplication {
 
   id: number;
-  applicationApproval: boolean;
-  applicationStatus: string;
-  applicationDate: string;
+  approved: boolean;
+  status: string;
+  date: string;
   jobPost: JobPost;
   developer: Developer;
   decisionDate: string;
 
-  constructor(  id: number, applicationApproval: boolean, applicationStatus: string,
-    applicationDate: string, jobPost: JobPost, developer: Developer, decisionDate: string){
+  constructor(  id: number = 0, approved: boolean = false, status: string = '',
+    date: string = '', jobPost: JobPost = new JobPost(), developer: Developer = new Developer(), decisionDate: string = ''){
       this.id = id;
-      this.applicationApproval = applicationApproval;
-      this.applicationStatus = applicationStatus;
-      this.applicationDate = applicationDate;
+      this.approved = approved;
+      this.status = status;
+      this.date = date;
       this.jobPost = jobPost;
       this.developer = developer;
       this.decisionDate = decisionDate;
