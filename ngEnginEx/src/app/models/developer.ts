@@ -1,4 +1,7 @@
+import { Education } from "./education";
+import { Experience } from "./experience";
 import { JobApplication } from "./job-application";
+import { Skill } from "./skill";
 import { User } from "./user";
 
 export class Developer {
@@ -10,8 +13,12 @@ export class Developer {
   phoneNumber: string;
   imageUrl: string;
   // user: User;
+  educations: Education[];
+  skills: Skill[];
+  experiences: Experience[];
 
-  constructor(id: number =0, firstName: string ='', lastName: string ='', email: string ='', phoneNumber: string ='', imageUrl: string ='',
+  constructor(id: number =0, firstName: string ='', lastName: string ='', email: string ='',
+  phoneNumber: string ='', imageUrl: string ='', educations: Education[] = [], skills: Skill[] = [], experiences: Experience[] =[]
   // user: User = new User()
   ){
     this.id = id;
@@ -21,6 +28,8 @@ export class Developer {
     this.phoneNumber = phoneNumber;
     this.imageUrl = imageUrl;
     // this.user = user;
-
+    this.educations = educations;
+    this.skills = skills;
+    this.experiences = experiences;
   }
 }

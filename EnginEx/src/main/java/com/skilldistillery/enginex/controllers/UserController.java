@@ -43,6 +43,17 @@ public class UserController {
 			return user;
 		}
 	}
+	
+	@GetMapping("user/{username}")
+	public User showUsername(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable String username) {
+		if(username.equals(principal.getName())) {
+			return userServ.showUsername(username);
+		}
+		else {
+			res.setStatus(401);
+			return null;
+		}
+	}
 
 	@DeleteMapping(path = "/users/{id}")
 	public void delete(@PathVariable int id, HttpServletRequest req, HttpServletResponse res,
@@ -58,8 +69,4 @@ public class UserController {
 		return user;
 	}
 	
-	@GetMapping("users/username")
-	public User showUsername(HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		return userServ.showUsername(principal.getName());
-	}
 }

@@ -1,1 +1,22 @@
-<p>experience works!</p>
+<h2>Experience Component</h2>
+<div>
+  <table *ngIf="experiences.length > 0">
+    <thead>
+      <tr>
+        <th>Job Title</th>
+        <th>Company</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exp of experiences">
+        <td>{{exp.jobTitle}}</td>
+        <td>{{exp.companyName}}</td>
+        <td>{{exp.startDate}}</td>
+        <td>{{exp.endDate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<hr>
