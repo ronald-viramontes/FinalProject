@@ -1,8 +1,22 @@
-<p>experience works!</p>
-
-<div *ngIf="activeUser">
-  <h1>username: {{activeUser.username}}</h1>
-  <h2>firstname: {{activeUser.developer.firstName}}</h2>
-  <h3>userID: {{activeUser.id}}</h3>
-  <h4>{{activeUser.client.lastName}}</h4>
+<h2>Experience Component</h2>
+<div>
+  <table *ngIf="experiences.length > 0">
+    <thead>
+      <tr>
+        <th>Job Title</th>
+        <th>Company</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exp of experiences">
+        <td>{{exp.jobTitle}}</td>
+        <td>{{exp.companyName}}</td>
+        <td>{{exp.startDate}}</td>
+        <td>{{exp.endDate}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+<hr>

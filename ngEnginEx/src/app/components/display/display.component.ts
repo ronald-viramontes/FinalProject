@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Developer } from 'src/app/models/developer';
 import { Education } from 'src/app/models/education';
 import { Experience } from 'src/app/models/experience';
 import { Skill } from 'src/app/models/skill';
@@ -18,16 +19,17 @@ export class DisplayComponent implements OnInit {
   constructor(private developerService: DeveloperService, private clientService: ClientService, private userService: UserService, private authService: AuthService) { }
 
   experiences: Experience[] = [];
-  skills: Skill[] =[];
+  skills: Skill[] = [];
   educations: Education[] = [];
   selected: number | null = null;
-  // unArr: string[] = [];
-  // creds: string | null = null;
-  // username: string | null = null;
   activeUser: User | null = null;
+  activeDev: Developer | null = null;
+  loaded: boolean = false;
 
   ngOnInit(): void {
-    this.getActiveUser();
+    if(this.loggedIn()){
+      this.getActiveUser();
+    }
   }
 
   loadProfileInfo(selected: number){
@@ -36,6 +38,7 @@ export class DisplayComponent implements OnInit {
         this.skills = data.skills;
         this.educations = data.educations;
         this.experiences = data.experiences;
+        this.loaded = true;
       },
       err => {
         console.error(err);
@@ -53,12 +56,18 @@ export class DisplayComponent implements OnInit {
       this.userService.show(username).subscribe(
         data => {
           this.activeUser = data;
+          this.activeDev = data.developer;
+          this.loadProfileInfo(this.activeUser.developer.id);
         },
         err => {
           console.error(err);
         }
       );
     }
+  }
+
+  loggedIn(){
+    return this.authService.checkLogin();
   }
 
 }

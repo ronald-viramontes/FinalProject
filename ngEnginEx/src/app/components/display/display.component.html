@@ -1,4 +1,7 @@
-<p>display works!</p>
-<app-education [educations]="educations" ></app-education>
-<!-- <app-skill></app-skill> -->
-<app-experience [experiences]="experiences" [activeUser]="activeUser"></app-experience>
+<h1>display component</h1>
+<h3 *ngIf="activeDev">{{activeDev.firstName}}'s Profile</h3>
+<hr>
+<!-- <app-skill *ngIf="loggedIn()"></app-skill> -->
+<app-experience *ngIf="loaded" [experiences]="experiences"></app-experience>
+<app-education *ngIf="loaded" [educations]="educations"></app-education>
+<!-- <p *ngIf="activeUser">{{activeUser.developer.experiences[0].jobTitle}}</p> -->

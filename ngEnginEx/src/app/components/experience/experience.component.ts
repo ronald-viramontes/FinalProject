@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Developer } from 'src/app/models/developer';
 import { Experience } from 'src/app/models/experience';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,9 +16,8 @@ export class ExperienceComponent implements OnInit {
 
   @Input() experiences: Experience[] = [];
   @Input() activeUser: User | null = null;
+  developer: Developer | null = null;
 
   ngOnInit(): void {
   }
-
-
 }

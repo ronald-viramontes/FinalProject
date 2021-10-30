@@ -18,6 +18,7 @@ export class SkillComponent implements OnInit {
   newSkill: Skill = new Skill();
   tableSkill: Skill = new Skill();
 
+
   editSkill: Skill | null = null;
   selected: Skill | null = null;
   devSkills: Skill[] = [];
