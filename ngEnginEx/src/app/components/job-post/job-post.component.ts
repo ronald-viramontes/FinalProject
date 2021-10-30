@@ -14,6 +14,8 @@ export class JobPostComponent implements OnInit {
   //showList = true;
   newJob: JobPost = new JobPost();
   selected: JobPost | null = null;
+  editJob: JobPost | null = null;
+
 
   constructor(
     private jobService: JobPostService,

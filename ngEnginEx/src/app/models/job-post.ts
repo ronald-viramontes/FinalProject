@@ -12,13 +12,13 @@ export class JobPost {
   jobActive: boolean;
   datePosted: string;
   dateClosed: string;
-  jobType: JobType;
+  type: JobType;
   client: Client;
-  jobStatus: JobStatus;
+  status: JobStatus;
 
   constructor(id: number = 0, jobRequirements: string = '', startDate: string = '', completionDate: string = '',
     developersNeeded: number = 0, jobActive: boolean = true, datePosted: string = '', dateClosed: string = '',
-    jobType: JobType = new JobType(), client: Client = new Client(), jobStatus: JobStatus = new JobStatus()) {
+    type: JobType = new JobType(), client: Client = new Client(), status: JobStatus = new JobStatus()) {
       this.id = id;
       this.jobRequirements = jobRequirements;
       this.startDate = startDate;
@@ -27,8 +27,8 @@ export class JobPost {
       this.jobActive = jobActive;
       this.datePosted = datePosted;
       this.dateClosed = dateClosed;
-      this.jobType = jobType;
+      this.type = type;
       this.client = client;
-      this.jobStatus = jobStatus;
+      this.status = status;
     }
 }
