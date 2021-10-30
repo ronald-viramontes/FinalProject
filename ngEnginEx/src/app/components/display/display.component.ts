@@ -21,15 +21,17 @@ export class DisplayComponent implements OnInit {
   experiences: Experience[] = [];
   skills: Skill[] = [];
   educations: Education[] = [];
-  selected: number | null = null;
+  developers: Developer[] = [];
+  selected: Developer | null = null;
   activeUser: User | null = null;
   activeDev: Developer | null = null;
   loaded: boolean = false;
 
   ngOnInit(): void {
-    if(this.loggedIn()){
-      this.getActiveUser();
-    }
+    // if(this.loggedIn()){
+    //   this.getActiveUser();
+    // }
+    this.loadDevelopers();
   }
 
   loadProfileInfo(selected: number){
@@ -70,4 +72,19 @@ export class DisplayComponent implements OnInit {
     return this.authService.checkLogin();
   }
 
+  loadDevelopers(){
+    this.developerService.index().subscribe(
+      data => {
+        this.developers = data;
+      },
+      err => {
+        console.error(err);
+
+      }
+    )
+  }
+
+  selectDev(dev: Developer){
+    this.loadProfileInfo(dev.id);
+  }
 }
