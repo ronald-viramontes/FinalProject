@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  private baseUrl = 'http://localhost:8091/api/developers'
+  private baseUrl = 'http://localhost:8091/api/users'
 
   getHttpOptions(){
     let credentials = this.authService.getCredentials();
@@ -35,11 +35,11 @@ export class UserService {
   //   );
   // }
 
-  show(): Observable<User>{
-    return this.http.get<User>(this.baseUrl+'/username').pipe(
+  show(username: string): Observable<User>{
+    return this.http.get<User>('http://localhost:8091/api/user/'+username, this.getHttpOptions()).pipe(
       catchError((err:any) => {
         console.log(err);
-        return throwError('DeveloperService.show(): error retrieving developer')
+        return throwError('DeveloperService.show(): error retrieving user')
       })
     );
   }

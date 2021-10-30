@@ -10,8 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class User {
 
 	public User() {
@@ -30,11 +35,11 @@ public class User {
 
 	private String role;
 
-	@JsonBackReference(value = "userToDeveloper")
+//	@JsonBackReference(value = "userToDeveloper")
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Developer developer;
 
-	@JsonBackReference(value = "userToClient")
+//	@JsonBackReference(value = "userToClient")
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Client client;
 

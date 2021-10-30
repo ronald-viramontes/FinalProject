@@ -29,6 +29,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { SkillService } from './services/skill.service';
+import { DisplayComponent } from './components/display/display.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SkillService } from './services/skill.service';
     RegistrationComponent,
     NavigationComponent,
     UserHomeComponent,
+    DisplayComponent
   ],
   imports: [
     BrowserModule,

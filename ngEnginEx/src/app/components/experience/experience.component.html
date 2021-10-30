@@ -1,1 +1,8 @@
 <p>experience works!</p>
+
+<div *ngIf="activeUser">
+  <h1>username: {{activeUser.username}}</h1>
+  <h2>firstname: {{activeUser.developer.firstName}}</h2>
+  <h3>userID: {{activeUser.id}}</h3>
+  <h4>{{activeUser.client.lastName}}</h4>
+</div>
