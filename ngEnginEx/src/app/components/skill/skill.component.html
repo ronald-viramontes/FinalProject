@@ -92,15 +92,12 @@
         </tr>
       </thead>
       <tbody *ngFor="let skill of skills">
-        <tr (click)="displaySkill(skill)">
+        <tr>
           <td>{{ skill.id }}</td>
           <td>{{ skill.skillTitle }}</td>
           <td>{{ skill.skillLevel }}</td>
           <td>
-            <button
-              class="badge btn-success"
-              (click)="addTableSkill(tableSkill)"
-            >
+            <button class="badge btn-success" (click)="addTableSkill(skill)">
               +
             </button>
           </td>

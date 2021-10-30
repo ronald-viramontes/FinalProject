@@ -122,11 +122,14 @@ export class SkillComponent implements OnInit {
     this.editSkill = skill;
     this.tableSkill.skillTitle = this.editSkill.skillTitle;
     this.tableSkill.skillLevel = this.editSkill.skillLevel;
+    return this.tableSkill;
   }
 
   addTableSkill(tableSkill: Skill) {
-    return this.skillService.create(this.tableSkill).subscribe(
+    this.displaySkill(tableSkill);
+    this.skillService.create(this.tableSkill).subscribe(
       (created) => {
+        this.tableSkill = created;
         console.log('Skill created');
         console.log(created);
       },
