@@ -15,16 +15,4 @@ export class EducationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // loadEducations(devId: number){
-  //   this.developerService.show(devId).subscribe(
-  //     data => {
-  //       this.educations = data.educations;
-  //     },
-  //     err => {
-  //       console.error(err);
-
-  //     }
-  //   );
-
-  // }
 }
