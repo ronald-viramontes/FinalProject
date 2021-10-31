@@ -35,13 +35,13 @@ public class ExperienceController {
 		return expSvc.index();
 	}
 	
-	@GetMapping("experiences/{dId}")
+	@GetMapping("experiences/{devId}")
 	public List<WorkExperience> getByDevId(HttpServletRequest req, 
 											HttpServletResponse res, 
 											Principal principal, 
-											@PathVariable int dId){
+											@PathVariable int devId){
 		
-		List<WorkExperience> exps = expSvc.findByDevId(dId, principal.getName());
+		List<WorkExperience> exps = expSvc.findByDevId(devId, principal.getName());
 		if(exps.size() < 0 ) {
 			res.setStatus(400);
 			return null;
@@ -51,14 +51,14 @@ public class ExperienceController {
 		}
 	}
 	
-	@PostMapping("experiences/{dId}")
+	@PostMapping("experiences")
 	public WorkExperience create(HttpServletRequest req, 
 								 HttpServletResponse res, 
 								 Principal principal, 
-								 @RequestBody WorkExperience exp, 
-								 @PathVariable int dId) {
+								 @RequestBody WorkExperience exp
+								 ) {
 		
-		exp = expSvc.create(dId, exp, principal.getName());
+		exp = expSvc.create(exp, principal.getName());
 		
 		if(exp == null) {
 			res.setStatus(400);
@@ -70,15 +70,15 @@ public class ExperienceController {
 		
 	}
 	
-	@PutMapping("experiences/{dId}/{eId}")
+	@PutMapping("experiences/{devId}/{expId}")
 	public WorkExperience edit(HttpServletRequest req, 
 							   HttpServletResponse res, 
 							   Principal principal, 
 							   @RequestBody WorkExperience exp, 
-							   @PathVariable int dId, 
-							   @PathVariable int expId) {
+							   @PathVariable Integer devId, 
+							   @PathVariable Integer expId) {
 		
-		exp = expSvc.edit(dId, exp, principal.getName(), expId);
+		exp = expSvc.edit(devId, exp, principal.getName(), expId);
 		if(exp == null) {
 			res.setStatus(400);
 			return null;
@@ -89,14 +89,14 @@ public class ExperienceController {
 	}
 	
 	
-	@DeleteMapping("experiences/{dId}/{eId}")
+	@DeleteMapping("experiences/{devId}/{expId}")
 	public void delete(HttpServletRequest req, 
 					   HttpServletResponse res, 
 					   Principal principal, 
-					   @PathVariable int dId, 
+					   @PathVariable int devId, 
 					   @PathVariable int expId) {
 		
-		expSvc.delete(dId, principal.getName(), expId);
+		expSvc.delete(devId, principal.getName(), expId);
         
 	}
 }

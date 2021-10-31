@@ -9,6 +9,7 @@ import { DeveloperService } from 'src/app/services/developer.service';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/user.service';
 import { DeveloperComponent } from '../developer/developer.component';
+import { DisplayComponent } from '../display/display.component';
 
 @Component({
   selector: 'app-experience',
@@ -21,15 +22,19 @@ export class ExperienceComponent implements OnInit {
     private devSvc: DeveloperService,
     private currentRoute: ActivatedRoute,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private dispComp: DisplayComponent,
+
+    private userService: UserService
   ) {}
 
   @Input() experiences: Experience[] = [];
-  @Input() activeUser: User | null = null;
+  // @Input() activeUser: User | null = null;
+  @Input() activeDev: User | null = null;
   @Input() experience: Experience | null = null;
   @Output() editDev: Developer | null = null;
   devs: Developer[] = [];
-
+  @Input() activeUser: User | null = null;
   dev: Developer | null = null;
   devExperiences: Experience[] = [];
   exps: Experience[] = [];
@@ -41,8 +46,10 @@ export class ExperienceComponent implements OnInit {
   newExperience: Experience = new Experience();
   tableExperience: Experience = new Experience();
   id: number = 0;
+  jobTypeTab: number = 1;
 
   ngOnInit(): void {
+    console.log(this.activeUser);
     let id = this.currentRoute.snapshot.params['id'];
     if (this.currentRoute.snapshot.paramMap.get('id')) {
       this.expService.show(id).subscribe(
@@ -62,12 +69,11 @@ export class ExperienceComponent implements OnInit {
   }
 
   addExperience(newExperience: Experience) {
-    this.expService.create(newExperience, newExperience.developer.id).subscribe(
+    this.expService.create(newExperience).subscribe(
       (created) => {
         console.log('Experience created');
         console.log(created);
-        this.ngOnInit();
-        this.reloadExperiences;
+        this.loadDevelopers();
         this.newExperience = new Experience();
       },
       (fail) => {
@@ -76,30 +82,48 @@ export class ExperienceComponent implements OnInit {
     );
   }
 
+  // getActiveUserAndDev() {
+  //   let creds = this.auth.getCredentials();
+  //   if (creds != null) {
+  //     creds = atob(creds);
+  //     let unArr = creds.split(':');
+  //     let username = unArr[0];
+  //     this.userService.show(username).subscribe(
+  //       (data) => {
+  //         this.activeUser = data;
+  //         this.activeDev = data.developer;
+  //       },
+  //       (err) => {
+  //         console.error(err);
+  //       }
+  //     );
+  //   }
+  // }
+
   updateExperience(exp: Experience, editDev: Developer) {
     this.expService.update(exp.id, editDev.id, exp).subscribe(
       (updated) => {
         this.exp = updated;
-        this.editExperience = null;
+        this.displayTable();
       },
       (fail) => {
         console.error('Something went wrong with updating exp', fail);
       }
     );
   }
-  updateDeveloper(editDev: Developer, exp: Experience) {
-    this.updateExperience(exp, editDev);
-    this.devSvc.update(editDev.id, editDev).subscribe(
-      (updated) => {
-        this.editDev = updated;
-        this.editDev = null;
-        this.displayTable();
-      },
-      (fail) => {
-        console.error('Something went wrong with updating client', fail);
-      }
-    );
-  }
+  // updateDeveloper(editDev: Developer, exp: Experience) {
+  //   this.updateExperience(exp, editDev);
+  //   this.devSvc.update(editDev.id, editDev).subscribe(
+  //     (updated) => {
+  //       this.editDev = updated;
+  //       this.editDev = null;
+  //       this.displayTable();
+  //     },
+  //     (fail) => {
+  //       console.error('Something went wrong with updating client', fail);
+  //     }
+  //   );
+  // }
 
   showDevExperiences(id: number) {
     this.id = id;
@@ -165,5 +189,9 @@ export class ExperienceComponent implements OnInit {
 
   setEditExperience() {
     this.editExperience = Object.assign({}, this.selected);
+  }
+
+  displayJobPostTiles() {
+    this.jobTypeTab++;
   }
 }

@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.enginex.entities.Developer;
+import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.entities.WorkExperience;
 import com.skilldistillery.enginex.repositories.DeveloperRepository;
 import com.skilldistillery.enginex.repositories.ExperienceRepository;
+import com.skilldistillery.enginex.repositories.UserRepository;
 
 @Service
 public class ExperienceServiceImpl implements ExperienceService {
@@ -18,6 +21,9 @@ public class ExperienceServiceImpl implements ExperienceService {
 
 	@Autowired
 	DeveloperRepository devRepo;
+	
+	@Autowired
+	UserRepository userRepo;
 
 	@Override
 	public List<WorkExperience> findByDevId(int devId, String username) {
@@ -29,19 +35,20 @@ public class ExperienceServiceImpl implements ExperienceService {
 	}
 
 	@Override
-	public WorkExperience create(int devId, WorkExperience edu, String username) {
-		if (username.equals(devRepo.findById(devId).get().getUser().getUsername())) {
-			edu.setDeveloper(devRepo.findById(devId).get());
-			return expRepo.saveAndFlush(edu);
-		}
-		return null;
+	public WorkExperience create(WorkExperience exp, String username) {
+		Developer dev = userRepo.findByUsername(username).getDeveloper();
+		exp.setDeveloper(dev);
+		
+			return expRepo.saveAndFlush(exp);
 	}
 
 	@Override
 	public WorkExperience edit(int devId, WorkExperience exp, String username, int expId) {
+		Optional<WorkExperience> opt = expRepo.findById(expId);
+		User user = userRepo.findByUsername(username);
 		WorkExperience expDb = null;
-		if (username.equals(devRepo.findById(devId).get().getUser().getUsername())) {
-			Optional<WorkExperience> opt = expRepo.findById(expId);
+		if(user.getDeveloper().getId() == devId) {
+		
 			if (opt.isPresent()) {
 				expDb = opt.get();
 				expDb.setJobTitle(exp.getJobTitle());
@@ -50,11 +57,11 @@ public class ExperienceServiceImpl implements ExperienceService {
 				expDb.setEndDate(exp.getEndDate());
 
 				expDb = expRepo.saveAndFlush(expDb);
-				return expDb;
+				
 			}
-			return expDb;
-		}
-		return expDb;
+				return expDb;
+		
+		} return null;
 	}
 
 	@Override

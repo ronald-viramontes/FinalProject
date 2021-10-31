@@ -23,14 +23,10 @@ export class ExperienceService {
     );
   }
 
-  create(newExperience: Experience, devId: number) {
+  create(newExperience: Experience) {
     console.log(newExperience);
     return this.http
-      .post<Experience>(
-        `${this.url}/${devId}`,
-        newExperience,
-        this.getHttpOptions()
-      )
+      .post<Experience>(`${this.url}`, newExperience, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
