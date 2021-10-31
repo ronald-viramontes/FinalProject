@@ -19,12 +19,8 @@ public class EducationServiceImpl implements EducationService {
 	DeveloperRepository devRepo;
 	
 	@Override
-	public List<DeveloperEducation> findByDevId(int devId, String username) {
-		if(username.equals(devRepo.findById(devId).get().getUser().getUsername())) {
-			return edRepo.findByDeveloperId(devId);
-		} else {
-			return null;
-		}
+	public List<DeveloperEducation> findByDevId(int devId) {
+		return edRepo.findByDeveloperId(devId);
 	}
 
 	@Override

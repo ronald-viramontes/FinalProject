@@ -34,8 +34,8 @@ public class EducationController {
 	}
 	
 	@GetMapping("educations/{dId}")
-	public List<DeveloperEducation> getByDevId(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int dId){
-		return edSvc.findByDevId(dId, principal.getName());
+	public List<DeveloperEducation> getByDevId(HttpServletRequest req, HttpServletResponse res, @PathVariable int dId){
+		return edSvc.findByDevId(dId);
 	}
 	
 	@PostMapping("educations/{dId}")
