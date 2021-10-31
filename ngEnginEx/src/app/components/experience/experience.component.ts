@@ -9,7 +9,6 @@ import { DeveloperService } from 'src/app/services/developer.service';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/user.service';
 import { DeveloperComponent } from '../developer/developer.component';
-import { DisplayComponent } from '../display/display.component';
 
 @Component({
   selector: 'app-experience',
@@ -23,7 +22,6 @@ export class ExperienceComponent implements OnInit {
     private currentRoute: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private dispComp: DisplayComponent,
 
     private userService: UserService
   ) {}
@@ -49,7 +47,6 @@ export class ExperienceComponent implements OnInit {
   jobTypeTab: number = 1;
 
   ngOnInit(): void {
-    console.log(this.activeUser);
     let id = this.currentRoute.snapshot.params['id'];
     if (this.currentRoute.snapshot.paramMap.get('id')) {
       this.expService.show(id).subscribe(
