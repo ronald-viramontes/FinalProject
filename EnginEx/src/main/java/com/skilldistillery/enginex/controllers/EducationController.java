@@ -40,6 +40,7 @@ public class EducationController {
 	
 	@PostMapping("educations/{dId}")
 	public DeveloperEducation create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody DeveloperEducation edu, @PathVariable int dId) {
+		System.out.println("---------------------------------------------------------------------------- -----------------------------------------------------------------");
 		return edSvc.create(dId, edu, principal.getName());
 	}
 	
