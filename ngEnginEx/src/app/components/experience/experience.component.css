@@ -52,12 +52,13 @@ body {
   border-radius: 0;
   background-color: white;
 } */
-.form-control {
+.form-control,
+.form-inline {
   margin: auto;
   text-align: center;
   color: white;
   text-shadow: 1px 1px 4px black;
   border: 1px solid black;
-  width: 30%;
+  width: 50%;
   background-color: rgb(24, 28, 30);
 }

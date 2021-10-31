@@ -1,4 +1,17 @@
-<div style="text-align: center">
+<h1>Dev Experience</h1>
+
+<div id="devExp">
+  <ul *ngFor="let exp of experiences ">
+
+    <li>{{ exp.jobTitle }}</li>
+    <li>{{ exp.companyName }}</li>
+    <li>{{ exp.startDate }}</li>
+    <li>{{ exp.endDate }}</li>
+    <button class="btn btn-primary btn-sm" (click)="setEditExperience()">Edit</button>
+  </ul>
+</div>
+
+<!-- <div style="text-align: center">
   <br />
   <h1 style="text-shadow: 2px 2px 4px black">Developer Experience Component</h1>
   <br />
@@ -37,64 +50,71 @@
         </ng-container>
       </tbody>
     </table>
-  </div>
-  <hr />
-  <div *ngIf="editDev && editExperience" style="text-align: center" class="form-control">
-    <form>
-      <input type="text" name="editExperience.jobTitle" [(ngModel)]="editExperience.jobTitle" />
-      <br />
-      <br />
-      <input type="text" name="editExperience.companyName" [(ngModel)]="editExperience.companyName" />
-      <br />
-      <br />
-      <input type="date" name="editExperience.startDate" [(ngModel)]="editExperience.startDate" />
-      <br />
-      <br />
-      <input type="date" name="editExperience.endDate" [(ngModel)]="editExperience.endDate" />
-      <br />
-      <br />
-      <button class="btn btn-success btn-outline-light" (click)="updateExperience(editExperience, editDev)">
-        Save
-      </button>
-      <button style="margin-left: 10px" class="btn btn-warning btn-outline-light" (click)="displayTable()">
-        Cancel
-      </button>
-    </form>
-  </div>
+  </div> -->
 
-  <div>
+<div *ngIf="selectedDev && selected" style="text-align: center" class="form-control">
+  <form>
+    <input type="text" name="selected.jobTitle" [(ngModel)]="selected.jobTitle" />
+    <br />
+    <br />
+    <input type="text" name="selected.companyName" [(ngModel)]="selected.companyName" />
+    <br />
+    <br />
+    <input type="date" name="selected.startDate" [(ngModel)]="selected.startDate" />
+    <br />
+    <br />
+    <input type="date" name="selected.endDate" [(ngModel)]="selected.endDate" />
+    <br />
+    <br />
+    <button class="btn btn-success btn-outline-light" (click)="updateExperience(selected, selectedDev.id)">
+      Save
+    </button>
+    <button style="margin-left: 10px" class="btn btn-warning btn-outline-light" (click)="displayTable()">
+      Cancel
+    </button>
+  </form>
+</div>
+<div>
 
-    <form class="form-control">
-      <h2 style="text-shadow: 2px 2px 4px black">Add New Experience</h2>
-      <input type="text" name="newExperience.jobTitle" placeholder="Job Title" [(ngModel)]="newExperience.jobTitle" />
-      <br />
-      <br />
-      <input type="text" name="newExperience.companyName" placeholder="Company Name"
+  <form class="form-control" class="form-inline">
+    <h2 style="text-shadow: 2px 2px 4px black">Add New Experience</h2>
+    <div class="form-group">
+      <label for="jobtitle" class="col-sm-2 col-form-label">Job Title</label>
+      <input id="jobtitle" type="text" name="newExperience.jobTitle" placeholder="Job Title"
+        [(ngModel)]="newExperience.jobTitle" />
+
+    </div>
+
+    <div class="form-group">
+      <label for="company" class="col-sm-2 col-form-label">Company</label>
+      <input id="company" type="text" name="newExperience.companyName" placeholder="Company Name"
         [(ngModel)]="newExperience.companyName" />
-      <br />
-      <br />
-      <input type="date" name="newExperience.startDate" placeholder="Start Date"
+    </div>
+    <div class="form-group">
+      <label for="start" class="col-sm-2 col-form-label">Start Date</label>
+      <input id="start" type="date" name="newExperience.startDate" placeholder="Start Date"
         [(ngModel)]="newExperience.startDate" />
-      <br />
-      <br />
-      <input type="date" name="newExperience.endDate" placeholder="End Date" [(ngModel)]="newExperience.endDate" />
-      <br />
-      <br />
-      <button class="btn btn-success btn-outline-light" (click)="addExperience(newExperience)">
-        Save
-      </button>
-      <button style="margin-left: 10px" class="btn btn-warning btn-outline-light" (click)="displayTable()">
-        Cancel
-      </button>
-      <br>
-      <br>
-    </form>
-  </div>
+
+    </div>
+    <div class="form-group">
+      <label for="end" class="col-sm-2 col-form-label">End Date</label>
+      <input id="end" type="date" name="newExperience.endDate" placeholder="End Date"
+        [(ngModel)]="newExperience.endDate" />
+
+    </div>
+
+    <button class="btn btn-success btn-outline-light" (click)="addExperience(newExperience)">
+      Save
+    </button>
+    <button style="margin-left: 10px" class="btn btn-warning btn-outline-light" (click)="displayTable()">
+      Cancel
+    </button>
+
+  </form>
 </div>
 
-<hr>
-<br>
-<br>
+
+
 
 <!-- <div class="mat-grid-container">
   <mat-grid-list cols="6" rowHeight="100px">

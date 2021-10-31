@@ -9,6 +9,7 @@ import { DeveloperService } from 'src/app/services/developer.service';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/user.service';
 import { DeveloperComponent } from '../developer/developer.component';
+import { DisplayComponent } from '../display/display.component';
 
 @Component({
   selector: 'app-experience',
@@ -22,22 +23,23 @@ export class ExperienceComponent implements OnInit {
     private currentRoute: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-
+    private display: DisplayComponent,
     private userService: UserService
   ) {}
 
   @Input() experiences: Experience[] = [];
-  // @Input() activeUser: User | null = null;
-  @Input() activeDev: User | null = null;
+  @Input() selected: Experience | null = null;
+  @Input() activeDev: Developer | null = null;
+  @Input() selectedDev: Developer | null = null;
+
   @Input() experience: Experience | null = null;
   @Output() editDev: Developer | null = null;
   devs: Developer[] = [];
-  @Input() activeUser: User | null = null;
-  dev: Developer | null = null;
-  devExperiences: Experience[] = [];
+
+  devExps: Experience[] = [];
+
   exps: Experience[] = [];
   developer: Developer | null = null;
-  selected: Experience | null = null;
   exp: Experience | null = null;
   expnce: Experience | null = null;
   editExperience: Experience | null = null;
@@ -47,22 +49,22 @@ export class ExperienceComponent implements OnInit {
   jobTypeTab: number = 1;
 
   ngOnInit(): void {
-    let id = this.currentRoute.snapshot.params['id'];
-    if (this.currentRoute.snapshot.paramMap.get('id')) {
-      this.expService.show(id).subscribe(
-        (found) => {
-          this.selected = found;
-        },
-        (notFound) => {
-          console.error('Experience not found');
-          console.error(notFound);
-          this.router.navigateByUrl('**');
-        }
-      );
-    } else {
-      this.loadDevelopers();
-      // this.reloadExperiences();
-    }
+    // let id = this.currentRoute.snapshot.params['id'];
+    // if (this.currentRoute.snapshot.paramMap.get('id')) {
+    //   this.expService.show(id).subscribe(
+    //     (found) => {
+    //       this.selected = found;
+    //     },
+    //     (notFound) => {
+    //       console.error('Experience not found');
+    //       console.error(notFound);
+    //       this.router.navigateByUrl('**');
+    //     }
+    //   );
+    // } else {
+    //   // this.loadDevelopers();
+    //   // this.reloadExperiences();
+    // }
   }
 
   addExperience(newExperience: Experience) {
@@ -97,8 +99,8 @@ export class ExperienceComponent implements OnInit {
   //   }
   // }
 
-  updateExperience(exp: Experience, editDev: Developer) {
-    this.expService.update(exp.id, editDev.id, exp).subscribe(
+  updateExperience(exp: Experience, devId: number) {
+    this.expService.update(exp.id, devId, exp).subscribe(
       (updated) => {
         this.exp = updated;
         this.displayTable();
@@ -122,12 +124,11 @@ export class ExperienceComponent implements OnInit {
   //   );
   // }
 
-  showDevExperiences(id: number) {
-    this.id = id;
-    this.expService.devExperienceIndex(id).subscribe(
+  showDevExperiences(devId: number) {
+    this.expService.devExperienceIndex(devId).subscribe(
       (data) => {
-        this.devExperiences = data;
-        console.log('devExperiences: ' + this.devExperiences);
+        this.devExps = data;
+        console.log('devExperiences: ' + this.devExps);
       },
       (fail) => {
         console.error(
