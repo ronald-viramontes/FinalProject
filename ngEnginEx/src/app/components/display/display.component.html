@@ -12,6 +12,6 @@
 <h3 *ngIf="selected">{{selected.firstName}}'s Profile</h3>
 <hr>
 <!-- <app-skill *ngIf="loggedIn()"></app-skill> -->
-<app-experience *ngIf="loaded" [experiences]="experiences"></app-experience>
-<app-education *ngIf="loaded" [educations]="educations"></app-education>
+<!-- <app-experience *ngIf="loaded" [experiences]="experiences"></app-experience> -->
+<app-education *ngIf="loaded" [educations]="educations" [selectedDev]="selected"></app-education>
 <!-- <p *ngIf="activeUser">{{activeUser.developer.experiences[0].jobTitle}}</p> -->

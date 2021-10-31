@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Developer } from 'src/app/models/developer';
 import { Education } from 'src/app/models/education';
 import { DeveloperService } from 'src/app/services/developer.service';
 import { EducationService } from 'src/app/services/education.service';
@@ -13,8 +14,9 @@ export class EducationComponent implements OnInit {
   constructor(private developerService: DeveloperService, private educationService: EducationService) { }
 
   @Input() educations: Education[] = [];
+  @Input() selectedDev: Developer | null = null;
+  selected: Education | null = null;
   ngOnInit(): void {
-    this.loadEducationsByDevId(2);
     // this.loadEducations();
   }
 
@@ -63,4 +65,5 @@ export class EducationComponent implements OnInit {
       }
     )
   }
+
 }

@@ -45,9 +45,15 @@ public class EducationController {
 	
 	@PutMapping("educations/{dId}/{eId}")
 	public DeveloperEducation edit(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody DeveloperEducation edu, @PathVariable int dId, @PathVariable int eId) {
-		return edSvc.edit(dId, edu, principal.getName(), eId);
+		edu = edSvc.edit(dId, edu, principal.getName(), eId);
+		if(edu != null) {
+			return edu;
+		}
+		else {
+			res.setStatus(403);
+			return null;
+		}
 	}
-	
 	
 	@DeleteMapping("educations/{dId}/{eId}")
 	public void delete(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int dId, @PathVariable int eId) {

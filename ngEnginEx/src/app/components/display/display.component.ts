@@ -85,6 +85,7 @@ export class DisplayComponent implements OnInit {
   }
 
   selectDev(dev: Developer){
+    this.selected = dev;
     this.loadProfileInfo(dev.id);
   }
 }
