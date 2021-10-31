@@ -44,7 +44,7 @@ export class EducationService {
   }
 
   edit(education: Education, edId: number, devId: number) {
-    return this.http.put<Education>(this.baseUrl + '/' + devId + '/' + edId, this.getHttpOptions()).pipe(
+    return this.http.put<Education>(`${this.baseUrl}/${devId}/${edId}`, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService,edit(): error editing education')
