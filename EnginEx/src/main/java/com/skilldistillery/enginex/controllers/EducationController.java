@@ -34,8 +34,8 @@ public class EducationController {
 	}
 	
 	@GetMapping("educations/{dId}")
-	public List<DeveloperEducation> getByDevId(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int dId){
-		return edSvc.findByDevId(dId, principal.getName());
+	public List<DeveloperEducation> getByDevId(HttpServletRequest req, HttpServletResponse res, @PathVariable int dId){
+		return edSvc.findByDevId(dId);
 	}
 	
 	@PostMapping("educations/{dId}")
@@ -45,9 +45,15 @@ public class EducationController {
 	
 	@PutMapping("educations/{dId}/{eId}")
 	public DeveloperEducation edit(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody DeveloperEducation edu, @PathVariable int dId, @PathVariable int eId) {
-		return edSvc.edit(dId, edu, principal.getName(), eId);
+		edu = edSvc.edit(dId, edu, principal.getName(), eId);
+		if(edu != null) {
+			return edu;
+		}
+		else {
+			res.setStatus(403);
+			return null;
+		}
 	}
-	
 	
 	@DeleteMapping("educations/{dId}/{eId}")
 	public void delete(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int dId, @PathVariable int eId) {

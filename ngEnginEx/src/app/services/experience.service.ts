@@ -12,7 +12,7 @@ export class ExperienceService {
   private baseUrl = 'http://localhost:8091/';
 
   private url = this.baseUrl + 'api/experiences';
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   index(): Observable<Experience[]> {
     return this.http.get<Experience[]>(this.url, this.getHttpOptions()).pipe(
