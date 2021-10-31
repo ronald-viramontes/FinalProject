@@ -16,9 +16,11 @@ export class Developer {
   educations: Education[];
   skills: Skill[];
   experiences: Experience[];
+  applications: JobApplication[];
 
   constructor(id: number =0, firstName: string ='', lastName: string ='', email: string ='',
-  phoneNumber: string ='', imageUrl: string ='', educations: Education[] = [], skills: Skill[] = [], experiences: Experience[] =[]
+  phoneNumber: string ='', imageUrl: string ='', educations: Education[] = [], skills: Skill[] = [],
+  experiences: Experience[] =[], applications: JobApplication[] =[]
   // user: User = new User()
   ){
     this.id = id;
@@ -31,5 +33,6 @@ export class Developer {
     this.educations = educations;
     this.skills = skills;
     this.experiences = experiences;
+    this.applications = applications;
   }
 }

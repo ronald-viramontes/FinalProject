@@ -16,6 +16,7 @@ export class EducationComponent implements OnInit {
   @Input() educations: Education[] = [];
   @Input() selectedDev: Developer | null = null;
   selected: Education | null = null;
+  newEducation: Education = new Education();
   ngOnInit(): void {
     // this.loadEducations();
   }
@@ -43,11 +44,7 @@ export class EducationComponent implements OnInit {
   }
 
   edit(education: Education, edId: number, devId: number) {
-    console.log(edId, devId);
-    console.log(education);
-
-
-    this.educationService.edit(education, edId, devId).subscribe(
+     this.educationService.edit(education, edId, devId).subscribe(
       data => {
         console.log('Update Successful');
 
@@ -56,7 +53,7 @@ export class EducationComponent implements OnInit {
         console.error(err);
         console.error('Error updating education');
       }
-    )
+    );
   }
 
   delete(edId: number) {
@@ -67,7 +64,7 @@ export class EducationComponent implements OnInit {
       err => {
         console.error(err);
       }
-    )
+    );
   }
 
   selectEducation(edu: Education) {
@@ -78,5 +75,16 @@ export class EducationComponent implements OnInit {
     this.selected.developer = edu.developer;
     this.selected.educationType = edu.educationType;
     this.selected.institutionName = edu.institutionName;
+  }
+
+  create(newEd: Education, devId: number){
+    this.educationService.create(newEd, devId).subscribe(
+      data => {
+        return data;
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
 }

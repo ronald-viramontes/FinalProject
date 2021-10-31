@@ -44,10 +44,10 @@ export class EducationService {
   }
 
   edit(education: Education, edId: number, devId: number) {
-    return this.http.put<Education>(`${this.baseUrl}/${devId}/${edId}`, this.getHttpOptions()).pipe(
+    return this.http.put<Education>(`${this.baseUrl}/${devId}/${edId}`, education, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('EducationService,edit(): error editing education')
+        return throwError('EducationService.edit(): error editing education')
       })
     );
   }
@@ -57,6 +57,15 @@ export class EducationService {
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService,delete(): error deleting education')
+      })
+    );
+  }
+
+  create(education: Education, devId: number){
+    return this.http.post(`${this.baseUrl}/${devId}`, education, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('EducationService.create(): error creating education');
       })
     );
   }

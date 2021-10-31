@@ -1,5 +1,6 @@
 import { CompileNgModuleMetadata } from '@angular/compiler';
 import { Company } from './company';
+import { JobPost } from './job-post';
 import { User } from './user';
 
 export class Client {
@@ -9,6 +10,7 @@ export class Client {
   email: string;
   phoneNumber: string;
   imageUrl: string;
+  jobPosts: JobPost[];
   // user: User;
 
   constructor(
@@ -18,6 +20,7 @@ export class Client {
     email: string = '',
     phoneNumber: string = '',
     imageUrl: string = '',
+    jobPosts: JobPost[] = []
     // user: User = new User()
   ) {
     this.id = id;
@@ -26,6 +29,7 @@ export class Client {
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.imageUrl = imageUrl;
+    this.jobPosts = jobPosts;
     // this.user = user;
   }
 }
