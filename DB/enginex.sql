@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS `developer` (
   `first_name` VARCHAR(250) NOT NULL,
   `last_name` VARCHAR(250) NOT NULL,
   `email` VARCHAR(250) NOT NULL,
-  `phone_number` VARCHAR(10) NULL DEFAULT NULL,
-  `image_url` TEXT NULL DEFAULT NULL,
+  `phone_number` VARCHAR(12) NULL,
+  `image_url` TEXT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_developer_user1`
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(250) NOT NULL,
   `last_name` VARCHAR(250) NOT NULL,
-  `phone_number` VARCHAR(10) NULL DEFAULT NULL,
+  `phone_number` VARCHAR(12) NULL,
   `email` VARCHAR(250) NOT NULL,
   `image_url` TEXT NULL,
   `user_id` INT NOT NULL,
@@ -386,9 +386,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (1, 'Ron', 'Viramontes', 'example@email.com', '5551215555', 'https://i.natgeofe.com/k/093c14b4-978e-41f7-b1aa-3aff5d1c608a/gray-wolf-closeup_2x3.jpg', 1);
-INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (2, 'Garrett', 'Pipes', 'example@email.com', '5551116656', 'https://funkidsjokes.com/wp-content/uploads/2017/10/wizard-1454385_640.png', 2);
-INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (3, 'Jacob', 'Tweedy', 'example@email.com', '5556664888', 'https://zoo.sandiegozoo.org/sites/default/files/styles/hero_mobile_560x670/public/2019-01/hero-lion.jpg?itok=QOrb0EWP', 3);
+INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (1, 'Ron', 'Viramontes', 'example@email.com', '555-121-5555', 'https://i.natgeofe.com/k/093c14b4-978e-41f7-b1aa-3aff5d1c608a/gray-wolf-closeup_2x3.jpg', 1);
+INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (2, 'Garrett', 'Pipes', 'example@email.com', '555-111-6656', 'https://funkidsjokes.com/wp-content/uploads/2017/10/wizard-1454385_640.png', 2);
+INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (3, 'Jacob', 'Tweedy', 'example@email.com', '555-666-4888', 'https://zoo.sandiegozoo.org/sites/default/files/styles/hero_mobile_560x670/public/2019-01/hero-lion.jpg?itok=QOrb0EWP', 3);
+INSERT INTO `developer` (`id`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `user_id`) VALUES (4, 'Don', 'Johnson', 'djohnson@example.com', '505-555-1212', 'https://m.media-amazon.com/images/M/MV5BMTg4ODYwOTU0N15BMl5BanBnXkFtZTgwNjc5NDM2MTE@._V1_.jpg', 4);
 
 COMMIT;
 
@@ -418,7 +419,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `user_id`, `company_id`) VALUES (1, 'Don', 'Johnson', '5055551212', 'djohnson@example.com', 'https://m.media-amazon.com/images/M/MV5BMTg4ODYwOTU0N15BMl5BanBnXkFtZTgwNjc5NDM2MTE@._V1_.jpg', 4, 1);
+INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `user_id`, `company_id`) VALUES (1, 'Don', 'Johnson', '505-555-1212', 'djohnson@example.com', 'https://m.media-amazon.com/images/M/MV5BMTg4ODYwOTU0N15BMl5BanBnXkFtZTgwNjc5NDM2MTE@._V1_.jpg', 4, 1);
+INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `user_id`, `company_id`) VALUES (2, 'Ron', 'Viramontes', '555-121-5555', 'example@email.com', 'https://i.natgeofe.com/k/093c14b4-978e-41f7-b1aa-3aff5d1c608a/gray-wolf-closeup_2x3.jpg', 1, NULL);
+INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `user_id`, `company_id`) VALUES (3, 'Garrett', 'Pipes', '555-111-6656', 'example@email.com', 'https://funkidsjokes.com/wp-content/uploads/2017/10/wizard-1454385_640.png', 2, NULL);
+INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone_number`, `email`, `image_url`, `user_id`, `company_id`) VALUES (4, 'Jacob', 'Tweedy', '555-666-4888', 'example@email.com', 'https://zoo.sandiegozoo.org/sites/default/files/styles/hero_mobile_560x670/public/2019-01/hero-lion.jpg?itok=QOrb0EWP', 3, NULL);
 
 COMMIT;
 
