@@ -1,6 +1,9 @@
-<h2>Education Component</h2>
-<div>
-  <table *ngIf="educations.length > 0 && !selected">
+<div *ngIf="educations.length > 0">
+  <h2>My Education</h2>
+  <ul>
+    <li *ngFor="let edu of educations">{{edu.institutionName}}: {{edu.degreeCertificateName}}</li>
+  </ul>
+  <!-- <table>
     <thead>
       <tr>
         <th>Institution Name</th>
@@ -10,20 +13,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let edu of educations" (click)="selectEducation(edu)">
+      <tr *ngFor="let edu of educations">
         <td>{{edu.institutionName}}</td>
         <td>{{edu.educationType}}</td>
         <td>{{edu.degreeCertificateName}}</td>
         <td>{{edu.completeDate}}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 </div>
-<form name="editEducation" *ngIf="selected && selectedDev">
-  <input type="text" name="institutionName" [(ngModel)]="selected.institutionName"><br>
-  <input type="text" name="eductionaType" [(ngModel)]="selected.educationType"><br>
-  <input type="text" name="degreeCertificateName" [(ngModel)]="selected.degreeCertificateName"><br>
-  <input type="date" name="completeDate" [(ngModel)]="selected.completeDate"><br>
-  <button class="btn" (click)="edit(selected, selected.id, selectedDev.id)">Edit</button>
-  <button class="btn" (click)="selected = null">Cancel</button>
-</form>
+

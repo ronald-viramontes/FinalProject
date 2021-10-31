@@ -1,17 +1,19 @@
-<h1>display component</h1>
-<table>
-  <thead>
-    <tr>Name</tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let dev of developers" (click)="selectDev(dev)">
-      <td>{{dev.firstName}} {{dev.lastName}}</td>
-    </tr>
-  </tbody>
-</table>
-<h3 *ngIf="selected">{{selected.firstName}}'s Profile</h3>
-<hr>
-<!-- <app-skill *ngIf="loggedIn()"></app-skill> -->
-<!-- <app-experience *ngIf="loaded" [experiences]="experiences"></app-experience> -->
-<app-education *ngIf="loaded" [educations]="educations" [selectedDev]="selected"></app-education>
-<!-- <p *ngIf="activeUser">{{activeUser.developer.experiences[0].jobTitle}}</p> -->
+<div *ngIf="loggedIn()">
+
+  <h1>profile view</h1>
+  <h2 *ngIf="activeDev" style="text-align: center">Welcome {{activeDev.firstName}}</h2><hr>
+  <div class="container-liquid">
+    <div class="row">
+      <div class="col-sm">
+        <div name="developerDetails">
+          <app-skill [skills]="skills"></app-skill>
+          <app-education [educations]="educations"></app-education>
+          <app-experience [devExperiences]="experiences"></app-experience>
+          <app-job-application [applications]="applications"></app-job-application>
+          <!-- <app-job-post [jobPosts]="jobPosts"></app-job-post> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

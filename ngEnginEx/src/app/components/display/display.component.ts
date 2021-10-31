@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Client } from 'src/app/models/client';
 import { Developer } from 'src/app/models/developer';
 import { Education } from 'src/app/models/education';
 import { Experience } from 'src/app/models/experience';
+import { JobApplication } from 'src/app/models/job-application';
+import { JobPost } from 'src/app/models/job-post';
 import { Skill } from 'src/app/models/skill';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -22,25 +25,36 @@ export class DisplayComponent implements OnInit {
   skills: Skill[] = [];
   educations: Education[] = [];
   developers: Developer[] = [];
-  selected: Developer | null = null;
+  applications: JobApplication[] =[];
+  jobPosts: JobPost[] = [];
+  selected: User | null = null;
   activeUser: User | null = null;
   activeDev: Developer | null = null;
+  activeClient: Client | null = null;
   loaded: boolean = false;
 
   ngOnInit(): void {
-    // if(this.loggedIn()){
-    //   this.getActiveUser();
-    // }
-    this.loadDevelopers();
+    if(this.loggedIn()){
+      this.getActiveUser();
+    }
   }
 
-  loadProfileInfo(selected: number){
-    this.developerService.show(selected).subscribe(
+  loadProfileInfo(devId: number, clientId: number){
+    this.developerService.show(devId).subscribe(
       data => {
         this.skills = data.skills;
         this.educations = data.educations;
         this.experiences = data.experiences;
+        this.applications = data.applications;
         this.loaded = true;
+      },
+      err => {
+        console.error(err);
+      }
+    );
+    this.clientService.show(clientId).subscribe(
+      data => {
+        this.jobPosts = data.jobPosts;
       },
       err => {
         console.error(err);
@@ -59,7 +73,8 @@ export class DisplayComponent implements OnInit {
         data => {
           this.activeUser = data;
           this.activeDev = data.developer;
-          this.loadProfileInfo(this.activeUser.developer.id);
+          this.activeClient = data.client;
+          this.loadProfileInfo(this.activeUser.developer.id, this.activeUser.client.id);
         },
         err => {
           console.error(err);
@@ -84,8 +99,8 @@ export class DisplayComponent implements OnInit {
     )
   }
 
-  selectDev(dev: Developer){
-    this.selected = dev;
-    this.loadProfileInfo(dev.id);
-  }
+  // selectDev(dev: Developer){
+  //   this.selected = dev;
+  //   this.loadProfileInfo(dev.id);
+  // }
 }

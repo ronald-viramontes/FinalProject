@@ -62,7 +62,7 @@ public class Developer {
 	@OneToMany(mappedBy="developer")
 	private List<DeveloperEducation> educations;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy="developer")
 	private List<JobApplication> applications;
 
