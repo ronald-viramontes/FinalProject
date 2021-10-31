@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let edu of educations" (click)="selected = edu">
+      <tr *ngFor="let edu of educations" (click)="selectEducation(edu)">
         <td>{{edu.institutionName}}</td>
         <td>{{edu.educationType}}</td>
         <td>{{edu.degreeCertificateName}}</td>

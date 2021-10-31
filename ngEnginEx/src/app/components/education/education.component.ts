@@ -43,6 +43,10 @@ export class EducationComponent implements OnInit {
   }
 
   edit(education: Education, edId: number, devId: number) {
+    console.log(edId, devId);
+    console.log(education);
+
+
     this.educationService.edit(education, edId, devId).subscribe(
       data => {
         console.log('Update Successful');
@@ -66,4 +70,13 @@ export class EducationComponent implements OnInit {
     )
   }
 
+  selectEducation(edu: Education) {
+    this.selected = new Education();
+    this.selected.id = edu.id;
+    this.selected.completeDate = edu.completeDate;
+    this.selected.degreeCertificateName = edu.degreeCertificateName;
+    this.selected.developer = edu.developer;
+    this.selected.educationType = edu.educationType;
+    this.selected.institutionName = edu.institutionName;
+  }
 }

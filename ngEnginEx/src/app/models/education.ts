@@ -9,7 +9,7 @@ export class Education {
   completeDate: string;
   developer: Developer;
 
-  constructor(id: number, educationType: string, institutionName: string, degreeCertificateName: string, completeDate: string, developer: Developer){
+  constructor(id: number = 0, educationType: string ='', institutionName: string = '', degreeCertificateName: string = '', completeDate: string = '', developer: Developer = new Developer()){
     this.id = id;
     this.educationType = educationType;
     this.institutionName = institutionName;
