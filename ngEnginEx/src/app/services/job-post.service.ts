@@ -34,6 +34,15 @@ export class JobPostService {
       })
     );
   }
+
+  update(jobPost: JobPost) {
+    return this.http.put<JobPost>(`${this.jobsUrl}/${jobPost.id}`, jobPost).pipe(
+      catchError((err: any)=> {
+        console.log(err);
+        return throwError('Job Post update unsuccessful')
+      })
+    )
+  }
   indexStatus(): Observable<JobStatus[]> {
     console.log('in call to type DB');
     return this.http.get<JobStatus[]>(this.statusUrl).pipe(

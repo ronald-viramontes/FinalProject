@@ -14,62 +14,58 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="job_post")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id")
+@Table(name = "job_post")
+//@JsonIdentityInfo(
+//		scope=JobPost.class,
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "id")
 public class JobPost {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="job_requirements")
+
+	@Column(name = "job_requirements")
 	private String jobRequirements;
-	
-	@Column(name="start_date")
+
+	@Column(name = "start_date")
 	private LocalDate startDate;
-	
-	@Column(name="completion_date")
+
+	@Column(name = "completion_date")
 	private LocalDate completionDate;
-	
-	@Column(name="developers_needed")
+
+	@Column(name = "developers_needed")
 	private int developersNeeded;
-	
-	@Column(name="job_active")
+
+	@Column(name = "job_active")
 	private boolean jobActive;
 
-	@Column(name="date_posted")
+	@Column(name = "date_posted")
 	private LocalDate datePosted;
-	
-	@Column(name="date_closed")
+
+	@Column(name = "date_closed")
 	private LocalDate dateClosed;
-	
+
 	@ManyToOne
-	@JoinColumn(name="job_type_id")
+	@JoinColumn(name = "job_type_id")
 	private JobType type;
-	
-	
+
+	@JsonIgnoreProperties({"posts"})
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@ManyToOne
-	@JoinColumn(name="job_status_id")
+	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
-	
-	
-	@OneToMany(mappedBy="jobPost")
+
+	@OneToMany(mappedBy = "jobPost")
 	private List<JobApplication> applications;
-	
-	//Methods
+
+	// Methods
 
 	public JobPost() {
 		super();
@@ -146,7 +142,6 @@ public class JobPost {
 	public void setType(JobType type) {
 		this.type = type;
 	}
-
 
 	public JobStatus getStatus() {
 		return status;

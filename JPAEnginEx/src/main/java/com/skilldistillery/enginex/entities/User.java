@@ -13,14 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(
-		  scope = User.class,
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id")
+//@JsonIdentityInfo(
+//		  scope = User.class,
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "id")
 public class User {
 
 	public User() {
@@ -70,6 +71,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<JobApplication> applications;
 	
+	@JsonIgnoreProperties({"user"})
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
  	
