@@ -66,4 +66,9 @@ public class JobPostServiceImpl implements JobPostService {
 		return jobPostRepo.findByUserId(userId);
 	}
 
+	@Override
+	public List<JobPost> findByStatus(String status) {
+		return jobPostRepo.findByStatusNameLike(status);
+	}
+
 }

@@ -73,4 +73,13 @@ export class JobPostService {
       })
     );
   }
+
+  indexByStatus(status: string){
+    return this.http.get<JobPost[]>(`${this.jobsUrl}/status/${status}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('jobPostService.indexByStatus(): error retrieving job posts');
+      })
+    );
+  }
 }
