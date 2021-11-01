@@ -52,8 +52,8 @@ export class EducationService {
     );
   }
 
-  delete(edId: number) {
-    return this.http.delete(this.baseUrl + '/' + edId, this.getHttpOptions()).pipe(
+  delete(edId: number, userId: number) {
+    return this.http.delete(`${this.baseUrl}/${userId}/${edId}`, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService,delete(): error deleting education')

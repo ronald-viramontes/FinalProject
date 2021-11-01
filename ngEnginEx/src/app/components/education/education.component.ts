@@ -58,8 +58,11 @@ export class EducationComponent implements OnInit {
   }
 
   delete(edId: number) {
-    this.educationService.delete(edId).subscribe(
+    if(this.activeUser)
+    this.educationService.delete(edId, this.activeUser.id).subscribe(
       data => {
+        if(this.activeUser)
+          this.loadEducationsByDevId(this.activeUser.id);
         console.log('education deleted successfully');
       },
       err => {
