@@ -106,22 +106,14 @@
       <label>Developers Needed:</label>
       <input class="form-control form-control-lg" placeholder="# of Developers Needed" type="number"
         name="jobDevelopersNeeded" [(ngModel)]="newJob.developersNeeded">
-      <label for="types">Choose a Job Status:</label>
-      <ngb-accordion>
-        <ngb-panel title="Job Status">
-          <ng-template ngbPanelContent>
-            <button (click)="setStatus(stat)" *ngFor='let stat of jobStatuses'>{{stat.name}}</button><br>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
-      <label for="types">Choose a Job Type:</label>
-      <ngb-accordion>
-        <ngb-panel title="Job Types">
-          <ng-template ngbPanelContent>
-            <button (click)="setType(type)" *ngFor='let type of jobTypes'>{{type.name}}</button><br>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+      <label for="status">Choose a Job Status:</label>
+      <select name="status" [(ngModel)]="newJob.status">
+        <option *ngFor="let stat of jobStatuses" [ngValue]="stat">{{stat.name}}</option>
+      </select>
+      <label for="jobType">Choose a Job Type:</label>
+      <select name="jobType" [(ngModel)]="newJob.type">
+        <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
+      </select>
       <br>
       <br>
       <button (click)="createPost(newJob)" class="btn btn-primary">Create Job Post</button>
