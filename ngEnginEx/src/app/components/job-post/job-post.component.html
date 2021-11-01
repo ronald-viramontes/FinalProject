@@ -53,7 +53,7 @@
       </tbody>
     </table>
   </div>
-  <div *ngIf="selected && editJob">
+  <!-- <div *ngIf="selected && editJob">
     <form>
       <label>Job Requirements:</label>
       <input class="form-control form-control-lg" placeholder="Job Requirements" type="text" name="jobRequirements"
@@ -74,7 +74,6 @@
         <option value="fiat">Fiat</option>
         <option value="audi">Audi</option>
       </select><br><br>
-      <!-- <button (click)="createHunt(newJob)" class="btn btn-primary">Create Hunt</button> -->
     </form>
   </div>
   <div>
@@ -102,7 +101,7 @@
       <ngb-accordion>
         <ngb-panel title="Job Types">
           <ng-template ngbPanelContent>
-              <button (click)="setType(type)"*ngFor='let type of jobTypes'>{{type.name}}</button><br>
+              <button (click)="setStatus(type)"*ngFor='let type of jobTypes'>{{type.name}}</button><br>
           </ng-template>
         </ngb-panel>
       </ngb-accordion>
@@ -157,4 +156,4 @@
         <button (click)="returnToList()" class="btn btn-primary">Back</button>
       </div>
     </div>
-  </div>
+  </div> -->
