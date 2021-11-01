@@ -9,7 +9,6 @@ import { ExperienceComponent } from './components/experience/experience.componen
 import { EducationComponent } from './components/education/education.component';
 import { ClientComponent } from './components/client/client.component';
 import { CompanyComponent } from './components/company/company.component';
-import { PostComponent } from './components/post/post.component';
 import { JobPostComponent } from './components/job-post/job-post.component';
 import { JobStatusComponent } from './components/job-status/job-status.component';
 import { JobDetailComponent } from './components/job-detail/job-detail.component';
@@ -53,7 +52,6 @@ import { DateSortPipe } from './pipes/date-sort.pipe';
     JobStatusComponent,
     LoginComponent,
     NavigationComponent,
-    PostComponent,
     RegistrationComponent,
     SkillComponent,
     UserComponent,

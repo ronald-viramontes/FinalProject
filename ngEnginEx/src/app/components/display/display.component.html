@@ -1,11 +1,11 @@
-<div *ngIf="loggedIn()">
+<div>
 
   <h2 *ngIf="activeDev" style="text-align: center">Welcome {{activeDev.firstName}}</h2>
   <hr>
   <div class="container-liquid">
     <div class="row">
       <div class="col-sm-4">
-        <div name="developerDetails">
+        <div name="developerDetails" *ngIf="loggedIn()">
           <h1>profile stuff</h1>
           <app-skill [skills]="skills"></app-skill>
           <app-education [educations]="educations"></app-education>

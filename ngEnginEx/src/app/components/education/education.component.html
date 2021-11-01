@@ -23,7 +23,7 @@
   }
 </style>
 <h3>Education</h3>
-<ngb-accordion>
+<ngb-accordion [closeOthers]="true">
   <ngb-panel title={{edu.institutionName}} *ngFor="let edu of educations">
     <ng-template ngbPanelContent>
       <strong>{{edu.institutionName}}</strong><br>
