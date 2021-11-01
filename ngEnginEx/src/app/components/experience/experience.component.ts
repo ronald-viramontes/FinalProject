@@ -175,12 +175,12 @@ export class ExperienceComponent implements OnInit {
   }
 
   selectExp(exp: Experience) {
-    this.selected = new Experience();
-    this.selected.id = exp.id;
-    this.selected.jobTitle = exp.jobTitle;
-    this.selected.companyName = exp.companyName;
-    this.selected.startDate = exp.startDate;
-    this.selected.endDate = exp.endDate;
+    this.selected = exp;
+    // this.selected.id = exp.id;
+    // this.selected.jobTitle = exp.jobTitle;
+    // this.selected.companyName = exp.companyName;
+    // this.selected.startDate = exp.startDate;
+    // this.selected.endDate = exp.endDate;
   }
 
   displayExperience(expnce: Experience, dev: Developer) {

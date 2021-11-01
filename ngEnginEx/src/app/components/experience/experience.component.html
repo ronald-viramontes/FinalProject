@@ -8,7 +8,7 @@
       <p class="card-text">
       <div class="row" *ngFor="let exp of experiences">
         <div class="col">
-          <button (click)="selectExp(exp)"><i class="bi bi-pen"></i> </button>
+          <button class="bi bi-pen" (click)="selectExp(exp)"> </button>
           {{ exp.jobTitle }}
         </div>
 
@@ -82,7 +82,7 @@
     </table>
   </div> -->
 
-<div *ngIf="selectedDev && selected" style="text-align: center" class="form-control">
+<div *ngIf="selected && selectedDev" style="text-align: center" class="form-control">
   <form>
     <input type="text" name="selected.jobTitle" [(ngModel)]="selected.jobTitle" />
     <br />
@@ -104,32 +104,30 @@
     </button>
   </form>
 </div>
-<div>
+
+
+<div *ngIf="selected">
 
   <form class="form-control" class="form-inline">
     <h2 style="text-shadow: 2px 2px 4px black">Add New Experience</h2>
     <div class="form-group">
       <label for="jobtitle" class="col-sm-2 col-form-label">Job Title</label>
-      <input id="jobtitle" type="text" name="newExperience.jobTitle" placeholder="Job Title"
-        [(ngModel)]="newExperience.jobTitle" />
+      <input id="jobtitle" type="text" name="selected.jobTitle" [(ngModel)]="selected.jobTitle" />
 
     </div>
 
     <div class="form-group">
       <label for="company" class="col-sm-2 col-form-label">Company</label>
-      <input id="company" type="text" name="newExperience.companyName" placeholder="Company Name"
-        [(ngModel)]="newExperience.companyName" />
+      <input id="company" type="text" name="selected.companyName" [(ngModel)]="selected.companyName" />
     </div>
     <div class="form-group">
       <label for="start" class="col-sm-2 col-form-label">Start Date</label>
-      <input id="start" type="date" name="newExperience.startDate" placeholder="Start Date"
-        [(ngModel)]="newExperience.startDate" />
+      <input id="start" type="date" name="selected.startDate" [(ngModel)]="selected.startDate" />
 
     </div>
     <div class="form-group">
       <label for="end" class="col-sm-2 col-form-label">End Date</label>
-      <input id="end" type="date" name="newExperience.endDate" placeholder="End Date"
-        [(ngModel)]="newExperience.endDate" />
+      <input id="end" type="date" name="selected.endDate" [(ngModel)]="selected.endDate" />
 
     </div>
 
