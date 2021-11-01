@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JobPost } from 'src/app/models/job-post';
+import { DateSortPipe } from 'src/app/pipes/date-sort.pipe';
 import { JobPostService } from 'src/app/services/job-post.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { JobPostService } from 'src/app/services/job-post.service';
 })
 export class JobSearchComponent implements OnInit {
 
-  constructor(private postService: JobPostService) { }
+  constructor(private postService: JobPostService, private datePipe: DateSortPipe) { }
 
   jobPosts: JobPost[] = [];
 

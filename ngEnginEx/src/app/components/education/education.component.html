@@ -1,9 +1,46 @@
-<div *ngIf="educations.length > 0">
+<style>
+  .accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+
+  .active,
+  .accordion:hover {
+    background-color: #ccc;
+  }
+
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+  }
+</style>
+<h3>Education</h3>
+<ngb-accordion>
+  <ngb-panel title={{edu.institutionName}} *ngFor="let edu of educations">
+    <ng-template ngbPanelContent>
+      <strong>{{edu.institutionName}}</strong><br>
+      Institution Type:     {{edu.educationType}} <br>
+      Certificate Received: {{edu.degreeCertificateName}} <br>
+      Graduated:            {{edu.completeDate}}
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+<hr>
+<!-- <div *ngIf="educations.length > 0">
   <h2>My Education</h2>
   <ul>
     <li *ngFor="let edu of educations">{{edu.institutionName}}: {{edu.degreeCertificateName}}</li>
   </ul>
-  <!-- <table>
+
+  <table>
     <thead>
       <tr>
         <th>Institution Name</th>
@@ -20,6 +57,6 @@
         <td>{{edu.completeDate}}</td>
       </tr>
     </tbody>
-  </table> -->
-</div>
+  </table>
+</div> -->
 

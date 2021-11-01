@@ -34,6 +34,8 @@ import { ExperienceService } from './services/experience.service';
 import { EducationService } from './services/education.service';
 import { UserService } from './services/user.service';
 import { JobSearchComponent } from './components/job-search/job-search.component';
+import { DateSortPipe } from './pipes/date-sort.pipe';
+
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { JobSearchComponent } from './components/job-search/job-search.component
     UserComponent,
     UserHomeComponent,
     JobSearchComponent,
+    DateSortPipe
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import { JobSearchComponent } from './components/job-search/job-search.component
     JobPostService,
     SkillService,
     UserService,
+    DateSortPipe
   ],
   bootstrap: [AppComponent],
 })
