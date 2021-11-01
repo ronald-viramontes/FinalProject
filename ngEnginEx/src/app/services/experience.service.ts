@@ -12,7 +12,7 @@ export class ExperienceService {
   private baseUrl = 'http://localhost:8091/';
 
   private url = this.baseUrl + 'api/experiences';
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   index(): Observable<Experience[]> {
     return this.http.get<Experience[]>(this.url, this.getHttpOptions()).pipe(
@@ -35,11 +35,11 @@ export class ExperienceService {
       );
   }
 
-  update(expId: number, devId: number, exp: Experience) {
+  update(expId: number, userId: number, exp: Experience) {
     const httpOptions = {};
     return this.http
       .put<Experience>(
-        `${this.url}/${devId}/${expId}`,
+        `${this.url}/${userId}/${expId}`,
         exp,
         this.getHttpOptions()
       )
@@ -51,11 +51,11 @@ export class ExperienceService {
       );
   }
 
-  destroy(expId: number, devId: number) {
+  destroy(expId: number, userId: number) {
     const httpOptions = {};
     return this.http
       .delete<Experience>(
-        `${this.url}/${devId}/${expId}`,
+        `${this.url}/${userId}/${expId}`,
         this.getHttpOptions()
       )
       .pipe(
@@ -78,9 +78,9 @@ export class ExperienceService {
       );
   }
 
-  devExperienceIndex(dId: number): Observable<Experience[]> {
+  userExperiences(userId: number): Observable<Experience[]> {
     return this.http
-      .get<Experience[]>(`${this.url}/${dId}`, this.getHttpOptions())
+      .get<Experience[]>(`${this.url}/${userId}`, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);

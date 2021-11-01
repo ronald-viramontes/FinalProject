@@ -22,48 +22,24 @@ export class ExperienceComponent implements OnInit {
   ) {}
 
   @Input() experiences: Experience[] = [];
-  @Input() selected: Experience | null = null;
-  @Input() selectedUser: User | null = null;
+  @Input() activeUser: User | null = null;
   @Input() experience: Experience | null = null;
 
-  devExps: Experience[] = [];
-  editUser: User | null = null;
-
-  exps: Experience[] = [];
+  newExp: Experience = new Experience();
+  editExp: Experience | null = null;
+  expDetail: Experience | null = null;
   exp: Experience | null = null;
-  expnce: Experience | null = null;
-  editExperience: Experience | null = null;
-  newExperience: Experience = new Experience();
-  tableExperience: Experience = new Experience();
-  id: number = 0;
-  jobTypeTab: number = 1;
+  addButton: boolean = false;
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    // let id = this.currentRoute.snapshot.params['id'];
-    // if (this.currentRoute.snapshot.paramMap.get('id')) {
-    //   this.expService.show(id).subscribe(
-    //     (found) => {
-    //       this.selected = found;
-    //     },
-    //     (notFound) => {
-    //       console.error('Experience not found');
-    //       console.error(notFound);
-    //       this.router.navigateByUrl('**');
-    //     }
-    //   );
-    // } else {
-    //   // this.loadDevelopers();
-    //   // this.reloadExperiences();
-    // }
-  }
-
-  addExperience(newExperience: Experience) {
-    this.expService.create(newExperience).subscribe(
+  create(newExp: Experience) {
+    this.expService.create(newExp).subscribe(
       (created) => {
         console.log('Experience created');
         console.log(created);
-        // this.loadDevelopers();
-        this.newExperience = new Experience();
+        this.newExp = new Experience();
+        this.addButton = false;
+        if (this.activeUser != null) this.loadExps(this.activeUser.id);
       },
       (fail) => {
         console.error('Something went wrong during exp creation', fail);
@@ -71,68 +47,25 @@ export class ExperienceComponent implements OnInit {
     );
   }
 
-  // getActiveUserAndDev() {
-  //   let creds = this.auth.getCredentials();
-  //   if (creds != null) {
-  //     creds = atob(creds);
-  //     let unArr = creds.split(':');
-  //     let username = unArr[0];
-  //     this.userService.show(username).subscribe(
-  //       (data) => {
-  //         this.activeUser = data;
-  //         this.activeDev = data.developer;
-  //       },
-  //       (err) => {
-  //         console.error(err);
-  //       }
-  //     );
-  //   }
-  // }
-
-  updateExperience(exp: Experience, devId: number) {
-    this.expService.update(exp.id, devId, exp).subscribe(
+  updateExp(editExp: Experience, userId: number) {
+    this.expService.update(editExp.id, userId, editExp).subscribe(
       (updated) => {
         this.exp = updated;
-        // this.displayTable();
+        this.editExp = null;
+        this.loadExps(userId);
       },
       (fail) => {
         console.error('Something went wrong with updating exp', fail);
       }
     );
   }
-  // updateDeveloper(editDev: Developer, exp: Experience) {
-  //   this.updateExperience(exp, editDev);
-  //   this.devSvc.update(editDev.id, editDev).subscribe(
-  //     (updated) => {
-  //       this.editDev = updated;
-  //       this.editDev = null;
-  //       this.displayTable();
-  //     },
-  //     (fail) => {
-  //       console.error('Something went wrong with updating client', fail);
-  //     }
-  //   );
-  // }
 
-  showDevExperiences(devId: number) {
-    this.expService.devExperienceIndex(devId).subscribe(
+  loadExps(userId: number) {
+    this.expService.userExperiences(userId).subscribe(
       (data) => {
-        this.devExps = data;
-        console.log('devExperiences: ' + this.devExps);
-      },
-      (fail) => {
-        console.error(
-          'Something went wrong with the developer exps list',
-          fail
-        );
-      }
-    );
-  }
-
-  reloadExperiences(): void {
-    this.expService.index().subscribe(
-      (data) => {
-        this.exps = data;
+        this.experiences = data;
+        this.editExp = null;
+        this.expDetail = null;
       },
       (err) => {
         console.error('Error retrieving skill list', err);
@@ -140,23 +73,12 @@ export class ExperienceComponent implements OnInit {
       }
     );
   }
-  // loadDevelopers(): void {
-  //   this.devSvc.index().subscribe(
-  //     (data) => {
-  //       this.devs = data;
-  //     },
-  //     (err) => {
-  //       console.error('Error retrieving developers');
-  //       console.error(err);
-  //     }
-  //   );
-  // }
 
-  deleteExperience(expId: number, devId: number) {
-    this.expService.destroy(expId, devId).subscribe(
+  deleteExp(expId: number, userId: number) {
+    this.expService.destroy(expId, userId).subscribe(
       (success) => {
-        this.editExperience = null;
-        this.reloadExperiences();
+        this.expDetail = null;
+        if (this.activeUser) this.loadExps(this.activeUser.id);
         console.log('Successfully removed exp', success);
       },
       (fail) => {
@@ -166,28 +88,14 @@ export class ExperienceComponent implements OnInit {
   }
 
   selectExp(exp: Experience) {
-    this.selected = exp;
-    // this.selected.id = exp.id;
-    // this.selected.jobTitle = exp.jobTitle;
-    // this.selected.companyName = exp.companyName;
-    // this.selected.startDate = exp.startDate;
-    // this.selected.endDate = exp.endDate;
+    this.expDetail = exp;
+    this.editExp = null;
   }
 
-  // displayExperience(expnce: Experience, dev: Developer) {
-  //   this.editDev = dev;
-  //   this.editExperience = expnce;
-  // }
-
-  displayTable() {
-    return (this.editExperience = null), (this.editUser = null);
+  setEditExp(expDetail: Experience) {
+    this.editExp = expDetail;
   }
-
-  setEditExperience() {
-    this.editExperience = Object.assign({}, this.selected);
-  }
-
-  displayJobPostTiles() {
-    this.jobTypeTab++;
+  setAddButton() {
+    this.addButton = true;
   }
 }
