@@ -1,79 +1,45 @@
-<h1>Dev Experience</h1>
+<h1 style="text-align:center">Experience</h1>
 
-<!-- <div id="devExp" *ngIf="experiences.length > 0">
 
-  <div class="card w-75">
-    <div class="card-body">
-      <h5 class="card-title">Experiences</h5>
-      <p class="card-text">
-      <div class="row" *ngFor="let exp of experiences">
-        <div class="col">
-          <button type="button" class="bi bi-pen" (click)="selectExp(exp)">
+<ngb-accordion [closeOthers]="true">
+  <ngb-panel title={{exp.companyName}} *ngFor="let exp of experiences">
+    <ng-template ngbPanelContent>
+      <strong>{{exp.companyName}}</strong><br>
+      Job Title: {{exp.jobTitle}} <br>
+      Company Name: {{exp.companyName}} <br>
+      Started: {{exp.startDate}}
+      Ended: {{exp.endDate}}
+      <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="setEditExp(exp)">✏</button>
+      <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="deleteExp(exp.id)">❌</button>
+      <div *ngIf="editExp" style="text-align: center" class="form-control">
+        <form>
+          <br>
+          <input type="text" name="selected.jobTitle" [(ngModel)]="editExp.jobTitle" />
+          <br />
+          <br />
+          <input type="text" name="selected.companyName" [(ngModel)]="editExp.companyName" />
+          <br />
+          <br />
+          <input type="date" name="selected.startDate" [(ngModel)]="editExp.startDate" />
+          <br />
+          <br />
+          <input type="date" name="selected.endDate" [(ngModel)]="editExp.endDate" />
+          <br />
+          <br />
+          <button class="btn btn-success btn-lg" (click)="updateExp(editExp)">
+            ✔
           </button>
-          {{ exp.jobTitle }}
-        </div>
-
-        <div class="col">
-          {{ exp.companyName }}
-        </div>
-        <div class="col">
-          {{ exp.startDate }}
-        </div>
-        <div class="col">
-          {{ exp.endDate }}
-        </div>
-
-
+          <button style="margin-left: 10px" class="btn btn-secondary btn-lg">⟲</button>
+        </form>
       </div>
-    </div>
-  </div>
-
-
-</div> -->
-
-<button class="badge btn-success" (click)="addButton = true">Add Exp</button>
-
-<div id="expList">
-  <div *ngIf="experiences.length > 0 && activeUser">
-    <ol *ngFor="let exp of experiences ">
-      <li>{{ exp.id }}</li>
-      <li>{{ exp.jobTitle }}</li>
-      <li>{{ exp.companyName }}</li>
-      <li>{{ exp.startDate }}</li>
-      <li>{{ exp.endDate }}</li>
-      <button class="btn btn-primary btn-sm" (click)="setEditExp(exp)">Edit</button>
-      <button class="badge-danger" (click)="deleteExp(exp.id, activeUser.id)">X</button>
-    </ol>
-  </div>
-</div>
 
 
 
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
 
-<div id="editExpForm">
-
-  <div *ngIf="editExp && activeUser" style="text-align: center" class="form-control">
-    <form>
-      <input type="text" name="selected.jobTitle" [(ngModel)]="editExp.jobTitle" />
-      <br />
-      <br />
-      <input type="text" name="selected.companyName" [(ngModel)]="editExp.companyName" />
-      <br />
-      <br />
-      <input type="date" name="selected.startDate" [(ngModel)]="editExp.startDate" />
-      <br />
-      <br />
-      <input type="date" name="selected.endDate" [(ngModel)]="editExp.endDate" />
-      <br />
-      <br />
-      <button class="btn btn-success btn-outline-light" (click)="updateExp(editExp, activeUser.id)">
-        Save
-      </button>
-      <button class="btn btn-light">Close</button>
-    </form>
-  </div>
-
-</div>
+<button class="badge btn-success" (click)="addButton = true">➕ Experience</button>
 
 <div id="newExp" *ngIf="addButton">
 
