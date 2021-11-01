@@ -36,10 +36,10 @@ public class JobApplicationController {
 		return appSvc.findAll();
 	}
 
-	@GetMapping("apps/{dId}")
-	public List<JobApplication> getByDevId(HttpServletRequest req, HttpServletResponse res, @PathVariable int dId,
+	@GetMapping("apps/{userId}")
+	public List<JobApplication> getByDevId(HttpServletRequest req, HttpServletResponse res, @PathVariable int userId,
 			Principal principal) {
-		return appSvc.findByDevId(dId);
+		return appSvc.findByDevId(userId);
 	}
 
 	@PostMapping("apps/{pId}")

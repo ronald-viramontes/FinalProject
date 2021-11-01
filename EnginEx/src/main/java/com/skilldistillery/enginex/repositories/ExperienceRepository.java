@@ -8,6 +8,6 @@ import com.skilldistillery.enginex.entities.WorkExperience;
 
 public interface ExperienceRepository extends JpaRepository<WorkExperience, Integer>{
 	
-	List<WorkExperience> findByDeveloperId(int id);
+	List<WorkExperience> findByUserId(int id);
 
 }

@@ -51,10 +51,10 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 		Optional<JobApplication> ja = jobAppRepo.findById(jobAppId);
 
-		if (ja.isPresent() && ja.get().getJobPost().getClient().getId() == user.getClient().getId()) {
+		if (ja.isPresent() && ja.get().getJobPost().getUser().getId() == user.getId()) {
 			JobApplication jobApplication = ja.get();
 			jobDetail = jobDetailRepo.saveAndFlush(jobDetail);
-			jobApplication.setDetail(jobDetail);
+			jobApplication.getDetails().add(jobDetail);
 			jobAppRepo.saveAndFlush(jobApplication);
 			return jobDetail;
 
@@ -69,7 +69,7 @@ public class JobDetailServiceImpl implements JobDetailService {
 		User user = userRepo.findByUsername(username);
 
 		Optional<JobDetail> opt = jobDetailRepo.findById(jobDetailId);
-		if (opt.isPresent() && opt.get().getApplication().getJobPost().getClient().getId() == user.getClient().getId()) {
+		if (opt.isPresent() && opt.get().getApplication().getJobPost().getUser().getId() == user.getId()) {
 			JobDetail dbJobDetail = opt.get();
 
 			dbJobDetail.setComment(jobDetail.getComment());
@@ -92,7 +92,7 @@ public class JobDetailServiceImpl implements JobDetailService {
 
 		Optional<JobDetail> opt = jobDetailRepo.findById(id);
 
-		if (opt.isPresent() && user.getClient().getId() == opt.get().getApplication().getJobPost().getClient().getId()) {
+		if (opt.isPresent() && user.getId() == opt.get().getApplication().getJobPost().getUser().getId()) {
 
 			JobDetail jobDetail = opt.get();
 			
@@ -100,7 +100,11 @@ public class JobDetailServiceImpl implements JobDetailService {
 				
 				JobApplication jobApp = optJobApp.get();
 				
-				jobApp.setDetail(null);
+				if(jobApp.getDetails().size() > 0) {
+					for (JobDetail detail : jobApp.getDetails()) {
+						detail = null;
+					}
+				}
 				
 				jobAppRepo.saveAndFlush(jobApp);
 				

@@ -28,8 +28,8 @@ public class AuthServiceImpl implements AuthService {
 			System.out.println(user);
 			user.setEnabled(true);
 			user.setRole("standard");
-			user.getDeveloper().setUser(user);
-			user.getClient().setUser(user);
+//			user.getDeveloper().setUser(user);
+//			user.getClient().setUser(user);
 			user = userRepo.saveAndFlush(user);
 			return user;
 

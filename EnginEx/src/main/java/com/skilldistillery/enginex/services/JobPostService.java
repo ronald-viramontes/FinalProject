@@ -7,7 +7,7 @@ import com.skilldistillery.enginex.entities.JobPost;
 public interface JobPostService {
 	public List<JobPost> index();
 	
-	public List<JobPost> findByClientId(int clientId);
+	public List<JobPost> findByClientId(int userId);
 
 	public JobPost show(int id);
 	
