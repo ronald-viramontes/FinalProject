@@ -335,6 +335,10 @@ COMMIT;
 START TRANSACTION;
 USE `enginexdb`;
 INSERT INTO `job_status` (`id`, `name`) VALUES (1, 'Complete');
+INSERT INTO `job_status` (`id`, `name`) VALUES (2, 'Open');
+INSERT INTO `job_status` (`id`, `name`) VALUES (3, 'Closed');
+INSERT INTO `job_status` (`id`, `name`) VALUES (4, 'in Progress');
+INSERT INTO `job_status` (`id`, `name`) VALUES (5, 'Only God Knows');
 
 COMMIT;
 
