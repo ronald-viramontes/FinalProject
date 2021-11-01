@@ -19,7 +19,7 @@ export class User {
   email: string;
   phoneNumber: string;
   imageUrl: string;
-  company: Company;
+  company: Company | null;
   educations: Education[];
   experiences: Experience[];
   applications: JobApplication[];
