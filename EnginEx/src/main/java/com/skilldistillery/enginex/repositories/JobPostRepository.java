@@ -9,4 +9,5 @@ import com.skilldistillery.enginex.entities.JobPost;
 public interface JobPostRepository extends JpaRepository<JobPost, Integer> {
 	
 	List<JobPost> findByUserId(int userId);
+	List<JobPost> findByStatusNameLike(String status);
 }

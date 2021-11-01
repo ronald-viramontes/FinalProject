@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobApplication } from 'src/app/models/job-application';
 import { JobPost } from 'src/app/models/job-post';
@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./job-post.component.css'],
 })
 export class JobPostComponent implements OnInit {
-  jobPosts: JobPost[] = [];
+  @Input() jobPosts: JobPost[] = [];
   jobStatuses: JobStatus[] = [];
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
@@ -141,11 +141,9 @@ export class JobPostComponent implements OnInit {
   update(jobPost: JobPost) {
     console.log(jobPost);
 
-    return this.jobService.update(jobPost).subscribe(
-      (updated)=>{
-        this.reloadJobs();
-        this.editJob = null
-      }
-    )
+    return this.jobService.update(jobPost).subscribe((updated) => {
+      this.reloadJobs();
+      this.editJob = null;
+    });
   }
 }

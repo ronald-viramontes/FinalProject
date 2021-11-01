@@ -61,5 +61,10 @@ public class JobPostController {
 	public List<JobPost> jobsByClientId (HttpServletResponse res, HttpServletRequest req, @PathVariable int userId){
 		return jobPostServ.findByClientId(userId);
 	}
+	
+	@GetMapping("jobs/status/{status}")
+	public List<JobPost> jobsByStatus(HttpServletRequest req, HttpServletResponse res, @PathVariable String status){
+		return jobPostServ.findByStatus(status);
+	}
 
 }
