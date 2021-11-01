@@ -3,13 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Developer } from 'src/app/models/developer';
 import { Experience } from 'src/app/models/experience';
 
-import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { DeveloperService } from 'src/app/services/developer.service';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/user.service';
-import { DeveloperComponent } from '../developer/developer.component';
-import { DisplayComponent } from '../display/display.component';
 
 @Component({
   selector: 'app-experience',
