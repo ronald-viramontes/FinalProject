@@ -58,8 +58,8 @@ public class JobPost {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="client_id")
-	private Client client;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="job_status_id")
@@ -147,13 +147,6 @@ public class JobPost {
 		this.type = type;
 	}
 
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
 
 	public JobStatus getStatus() {
 		return status;
@@ -169,6 +162,14 @@ public class JobPost {
 
 	public void setApplications(List<JobApplication> applications) {
 		this.applications = applications;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

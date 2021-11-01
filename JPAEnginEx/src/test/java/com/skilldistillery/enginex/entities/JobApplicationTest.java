@@ -56,8 +56,8 @@ class JobApplicationTest {
 	@DisplayName("test relationship mappings on JobApplication")
 	void test2() {
 		assertNotNull(app);
-		assertEquals("Ron", app.getDeveloper().getFirstName());
-		assertEquals("Excellent work!", app.getDetail().getComment());
+		assertEquals("Ron", app.getUser().getFirstName());
+		assertEquals("Excellent work!", app.getDetails().get(0).getComment());
 	}
 
 }

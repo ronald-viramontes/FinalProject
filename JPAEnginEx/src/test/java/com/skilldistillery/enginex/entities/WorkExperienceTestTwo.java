@@ -55,7 +55,7 @@ class WorkExperienceTestTwo {
 	@DisplayName("test relationship mappings on Experience")
 	void test2() {
 		assertNotNull(work);
-		assertEquals("Ron", work.getDeveloper().getFirstName());
+		assertEquals("Ron", work.getUser().getFirstName());
 	}
 
 }
