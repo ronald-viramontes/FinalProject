@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name="job_post")
 @JsonIdentityInfo(
+		scope=JobPost.class,
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id")
 public class JobPost {
