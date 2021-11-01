@@ -33,6 +33,7 @@ import { DisplayComponent } from './components/display/display.component';
 import { ExperienceService } from './services/experience.service';
 import { EducationService } from './services/education.service';
 import { UserService } from './services/user.service';
+import { JobSearchComponent } from './components/job-search/job-search.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { UserService } from './services/user.service';
     SkillComponent,
     UserComponent,
     UserHomeComponent,
+    JobSearchComponent,
   ],
   imports: [
     BrowserModule,

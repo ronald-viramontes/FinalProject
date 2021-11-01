@@ -2,28 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobApplication } from 'src/app/models/job-application';
 import { JobPost } from 'src/app/models/job-post';
+import { JobStatus } from 'src/app/models/job-status';
 import { JobPostService } from 'src/app/services/job-post.service';
 
 @Component({
   selector: 'app-job-post',
   templateUrl: './job-post.component.html',
-  styleUrls: ['./job-post.component.css']
+  styleUrls: ['./job-post.component.css'],
 })
 export class JobPostComponent implements OnInit {
-
   jobPosts: JobPost[] = [];
-  //showList = true;
+  jobStatuses: JobStatus[] = [];
+  showNewJob: boolean = false;
   newJob: JobPost = new JobPost();
   selected: JobPost | null = null;
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
 
-
   constructor(
     private jobService: JobPostService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.reloadJobs();
@@ -38,6 +38,10 @@ export class JobPostComponent implements OnInit {
       }
     );
   }
+
+  setEditJob(job: JobPost) {
+    this.editJob = job;
+  }
   displayJob(job: JobPost) {
     this.selected = job;
     this.apps = this.selected.applications;
@@ -45,5 +49,36 @@ export class JobPostComponent implements OnInit {
   }
   returnToList() {
     this.selected = null;
+  }
+  createNewPost() {
+    this.showNewJob = true;
+    console.log(this.showNewJob);
+    this.jobService.indexStatus().subscribe(
+      (statusList) => {
+        this.jobStatuses = statusList;
+      },
+      (fail) => {
+        console.error('Job Type load failed');
+      }
+    );
+    console.log(this.jobStatuses);
+  }
+  createPost(jobPost: JobPost) {
+    jobPost.status;
+    console.log(jobPost);
+
+    this.jobService.create(jobPost).subscribe(
+      (created) => {
+        console.log('Job Post Created');
+      },
+      (failed) => {
+        console.error('Error creating Job Post');
+      }
+    );
+  }
+  setStatus(jobStatus: JobStatus) {
+    this.newJob.status = jobStatus;
+    console.log(this.newJob);
+
   }
 }

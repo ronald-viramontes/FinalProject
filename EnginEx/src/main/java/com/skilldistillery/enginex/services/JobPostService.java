@@ -7,6 +7,8 @@ import com.skilldistillery.enginex.entities.JobPost;
 public interface JobPostService {
 	public List<JobPost> index();
 	
+	public List<JobPost> findByClientId(int clientId);
+
 	public JobPost show(int id);
 	
 	public JobPost create(JobPost jobPost);
@@ -14,4 +16,6 @@ public interface JobPostService {
 	public JobPost update(int id, JobPost jobPost);
 	
 	public void destroy(int id);
+	
+	
 }
