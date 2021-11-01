@@ -8,7 +8,8 @@
       <p class="card-text">
       <div class="row" *ngFor="let exp of experiences">
         <div class="col">
-          <button class="bi bi-pen" (click)="selectExp(exp)"> </button>
+          <button type="button" class="bi bi-pen" (click)="selectExp(exp)">
+          </button>
           {{ exp.jobTitle }}
         </div>
 
@@ -81,6 +82,47 @@
       </tbody>
     </table>
   </div> -->
+
+<ng-template id="editExp" let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Experience</h4>
+    <button class="close" aria-label="Close" (click="modal.dismiss('Cross click" )>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div *ngIf="selected && selectedDev" style="text-align: center" class="form-control">
+      <form>
+        <input type="text" name="selected.jobTitle" [(ngModel)]="selected.jobTitle" />
+        <br />
+        <br />
+        <input type="text" name="selected.companyName" [(ngModel)]="selected.companyName" />
+        <br />
+        <br />
+        <input type="date" name="selected.startDate" [(ngModel)]="selected.startDate" />
+        <br />
+        <br />
+        <input type="date" name="selected.endDate" [(ngModel)]="selected.endDate" />
+        <br />
+        <br />
+        <div class="modal-footer">
+          <button class="btn btn-success btn-outline-light" (click)="updateExperience(selected, selectedDev.id)">
+            Save
+          </button>
+          <button class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</ng-template>
+
+
+
+
+
 
 <div *ngIf="selected && selectedDev" style="text-align: center" class="form-control">
   <form>
