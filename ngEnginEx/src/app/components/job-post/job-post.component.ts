@@ -24,6 +24,7 @@ export class JobPostComponent implements OnInit {
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
   activeUser: User | null = null;
+  currentDate: Date = new Date();
 
   constructor(
     private jobService: JobPostService,
@@ -86,7 +87,11 @@ export class JobPostComponent implements OnInit {
   }
   createNewPost() {
     this.showNewJob = true;
+    if (this.activeUser) {
+      this.newJob.user = this.activeUser;
+    }
     console.log(this.newJob);
+    console.log(this.activeUser);
 
     this.jobService.indexStatus().subscribe(
       (statusList) => {
@@ -108,6 +113,10 @@ export class JobPostComponent implements OnInit {
   }
   createPost(jobPost: JobPost) {
     console.log(jobPost);
+    jobPost.user = new User();
+    if (this.activeUser) {
+      jobPost.user.id = this.activeUser.id;
+    }
     this.jobService.create(jobPost).subscribe(
       (created) => {
         console.log('Job Post Created');
@@ -116,6 +125,9 @@ export class JobPostComponent implements OnInit {
         console.error('Error creating Job Post');
       }
     );
+    this.newJob = new JobPost();
+    this.showNewJob = false;
+    this.reloadJobs();
   }
   setStatus(jobStatus: JobStatus) {
     this.newJob.status = jobStatus;

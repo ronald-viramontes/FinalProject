@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -70,6 +71,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<JobApplication> applications;
 	
+	@JsonIgnoreProperties({"user"})
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
  	

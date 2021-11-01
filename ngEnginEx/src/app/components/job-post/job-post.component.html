@@ -75,20 +75,24 @@
         <option value="audi">Audi</option>
       </select><br><br>
     </form>
-  </div>
+  </div> -->
   <div>
     <div *ngIf="showNewJob">
+      <label>Job Requirements:</label>
       <input class="form-control form-control-lg" placeholder="Job Requirements" type="text" name="jobRequirements"
         [(ngModel)]="newJob.jobRequirements">
-      <label>Start Date:</label>
-      <input class="form-control form-control-lg" placeholder="Start Date" type="text" name="jobStartDate"
-        [(ngModel)]="newJob.startDate">
-      <label>Notes:</label>
-      <input class="form-control form-control-lg" placeholder="Completion Date" type="text" name="huntNotes"
-        [(ngModel)]="newJob.completionDate">
-      <label>URL:</label>
-      <input class="form-control form-control-lg" placeholder="Date Posted" type="text" name="huntURL"
+      <label>Date Posted:</label>
+      <input class="form-control form-control-lg" placeholder="Date Posted" type="date" min="2018-07-22" name="jobStartDate"
         [(ngModel)]="newJob.datePosted">
+      <label>Start Date:</label>
+      <input class="form-control form-control-lg" placeholder="Start Date" type="date" min="2018-07-22" name="jobStartDate"
+        [(ngModel)]="newJob.startDate">
+      <label>Completion Date:</label>
+      <input class="form-control form-control-lg" placeholder="Completion Date" type="date" min="2018-07-22" name="jobCompletionDate"
+        [(ngModel)]="newJob.completionDate">
+      <label>Developers Needed:</label>
+      <input class="form-control form-control-lg" placeholder="# of Developers Needed" type="number" name="jobDevelopersNeeded"
+        [(ngModel)]="newJob.developersNeeded">
       <label for="types">Choose a Job Status:</label>
       <ngb-accordion>
         <ngb-panel title="Job Status">
@@ -101,13 +105,13 @@
       <ngb-accordion>
         <ngb-panel title="Job Types">
           <ng-template ngbPanelContent>
-              <button (click)="setStatus(type)"*ngFor='let type of jobTypes'>{{type.name}}</button><br>
+              <button (click)="setType(type)"*ngFor='let type of jobTypes'>{{type.name}}</button><br>
           </ng-template>
         </ngb-panel>
       </ngb-accordion>
       <br>
       <br>
-      <button (click)="createPost(newJob)" class="btn btn-primary">Create Hunt</button>
+      <button (click)="createPost(newJob)" class="btn btn-primary">Create Job Post</button>
     </div>
     <div *ngIf="selected">
       <div>
@@ -130,10 +134,10 @@
           <ngb-panel title="Client Info">
             <ng-template ngbPanelContent>
               <ul>
-                <li>First Name: {{selected.client.firstName}}</li>
-                <li>Last Name: {{selected.client.lastName}}</li>
-                <li>Email: {{selected.client.email}}</li>
-                <li>Phone Number: {{selected.client.phoneNumber}}</li>
+                <li>First Name: {{selected.user.firstName}}</li>
+                <li>Last Name: {{selected.user.lastName}}</li>
+                <li>Email: {{selected.user.email}}</li>
+                <li>Phone Number: {{selected.user.phoneNumber}}</li>
               </ul>
             </ng-template>
           </ngb-panel>
@@ -143,8 +147,8 @@
             <ng-template ngbPanelContent>
               <ul *ngFor='let app of apps'>
                 <li>ID: {{app.id}}</li>
-                <li>First Name: {{app.developer.firstName}}</li>
-                <li>Last Name: {{app.developer.lastName}}</li>
+                <li>First Name: {{app.user.firstName}}</li>
+                <li>Last Name: {{app.user.lastName}}</li>
                 <li>Application Status: {{app.status}}</li>
                 <li>Application Date {{app.date}}</li>
                 <li>Application Approved {{app.approved}}</li>
@@ -156,4 +160,4 @@
         <button (click)="returnToList()" class="btn btn-primary">Back</button>
       </div>
     </div>
-  </div> -->
+  </div>
