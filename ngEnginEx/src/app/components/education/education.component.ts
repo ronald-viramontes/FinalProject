@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Developer } from 'src/app/models/developer';
 import { Education } from 'src/app/models/education';
-import { DeveloperService } from 'src/app/services/developer.service';
 import { EducationService } from 'src/app/services/education.service';
 
 @Component({
@@ -11,10 +9,9 @@ import { EducationService } from 'src/app/services/education.service';
 })
 export class EducationComponent implements OnInit {
 
-  constructor(private developerService: DeveloperService, private educationService: EducationService) { }
+  constructor(private educationService: EducationService) { }
 
   @Input() educations: Education[] = [];
-  @Input() selectedDev: Developer | null = null;
   selected: Education | null = null;
   newEducation: Education = new Education();
   ngOnInit(): void {
@@ -72,7 +69,6 @@ export class EducationComponent implements OnInit {
     this.selected.id = edu.id;
     this.selected.completeDate = edu.completeDate;
     this.selected.degreeCertificateName = edu.degreeCertificateName;
-    this.selected.developer = edu.developer;
     this.selected.educationType = edu.educationType;
     this.selected.institutionName = edu.institutionName;
   }
