@@ -23,8 +23,8 @@ export class ExperienceComponent implements OnInit {
 
   @Input() experiences: Experience[] = [];
   @Input() activeUser: User | null = null;
-  @Input() experience: Experience | null = null;
 
+  selected: Experience | null = null;
   newExp: Experience = new Experience();
   editExp: Experience | null = null;
   expDetail: Experience | null = null;
@@ -47,25 +47,26 @@ export class ExperienceComponent implements OnInit {
     );
   }
 
-  updateExp(editExp: Experience, userId: number) {
-    this.expService.update(editExp.id, userId, editExp).subscribe(
-      (updated) => {
-        this.exp = updated;
-        this.editExp = null;
-        this.loadExps(userId);
-      },
-      (fail) => {
-        console.error('Something went wrong with updating exp', fail);
-      }
-    );
+  updateExp(editExp: Experience) {
+    if (this.activeUser)
+      this.expService.update(editExp.id, this.activeUser.id, editExp).subscribe(
+        (updated) => {
+          console.log('User Experience has updated successfully');
+          this.editExp = null;
+          if (this.activeUser) this.loadExps(this.activeUser.id);
+        },
+        (fail) => {
+          console.error('Something went wrong with updating exp', fail);
+        }
+      );
   }
 
   loadExps(userId: number) {
     this.expService.userExperiences(userId).subscribe(
       (data) => {
         this.experiences = data;
-        this.editExp = null;
-        this.expDetail = null;
+        // this.editExp = null;
+        // this.expDetail = null;
       },
       (err) => {
         console.error('Error retrieving skill list', err);
@@ -74,26 +75,27 @@ export class ExperienceComponent implements OnInit {
     );
   }
 
-  deleteExp(expId: number, userId: number) {
-    this.expService.destroy(expId, userId).subscribe(
-      (success) => {
-        this.expDetail = null;
-        if (this.activeUser) this.loadExps(this.activeUser.id);
-        console.log('Successfully removed exp', success);
-      },
-      (fail) => {
-        console.error('Failed to remove user', fail);
-      }
-    );
+  deleteExp(expId: number) {
+    if (this.activeUser)
+      this.expService.destroy(expId, this.activeUser.id).subscribe(
+        (success) => {
+          this.expDetail = null;
+          if (this.activeUser) this.loadExps(this.activeUser.id);
+          console.log('Successfully removed exp', success);
+        },
+        (fail) => {
+          console.error('Failed to remove user', fail);
+        }
+      );
   }
 
   selectExp(exp: Experience) {
-    this.expDetail = exp;
+    this.selected = exp;
     this.editExp = null;
   }
 
-  setEditExp(expDetail: Experience) {
-    this.editExp = expDetail;
+  setEditExp(edu: Experience) {
+    this.editExp = edu;
   }
   setAddButton() {
     this.addButton = true;
