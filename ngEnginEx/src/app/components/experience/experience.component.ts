@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Developer } from 'src/app/models/developer';
 import { Experience } from 'src/app/models/experience';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { DeveloperService } from 'src/app/services/developer.service';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,7 +14,6 @@ import { UserService } from 'src/app/services/user.service';
 export class ExperienceComponent implements OnInit {
   constructor(
     private expService: ExperienceService,
-    private devSvc: DeveloperService,
     private currentRoute: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
@@ -25,17 +22,12 @@ export class ExperienceComponent implements OnInit {
 
   @Input() experiences: Experience[] = [];
   @Input() selected: Experience | null = null;
-  @Input() activeDev: Developer | null = null;
-  @Input() selectedDev: Developer | null = null;
 
   @Input() experience: Experience | null = null;
-  @Output() editDev: Developer | null = null;
-  devs: Developer[] = [];
 
   devExps: Experience[] = [];
 
   exps: Experience[] = [];
-  developer: Developer | null = null;
   exp: Experience | null = null;
   expnce: Experience | null = null;
   editExperience: Experience | null = null;
@@ -68,7 +60,7 @@ export class ExperienceComponent implements OnInit {
       (created) => {
         console.log('Experience created');
         console.log(created);
-        this.loadDevelopers();
+        // this.loadDevelopers();
         this.newExperience = new Experience();
       },
       (fail) => {
@@ -99,7 +91,7 @@ export class ExperienceComponent implements OnInit {
     this.expService.update(exp.id, devId, exp).subscribe(
       (updated) => {
         this.exp = updated;
-        this.displayTable();
+        // this.displayTable();
       },
       (fail) => {
         console.error('Something went wrong with updating exp', fail);
@@ -146,17 +138,17 @@ export class ExperienceComponent implements OnInit {
       }
     );
   }
-  loadDevelopers(): void {
-    this.devSvc.index().subscribe(
-      (data) => {
-        this.devs = data;
-      },
-      (err) => {
-        console.error('Error retrieving developers');
-        console.error(err);
-      }
-    );
-  }
+  // loadDevelopers(): void {
+  //   this.devSvc.index().subscribe(
+  //     (data) => {
+  //       this.devs = data;
+  //     },
+  //     (err) => {
+  //       console.error('Error retrieving developers');
+  //       console.error(err);
+  //     }
+  //   );
+  // }
 
   deleteExperience(expId: number, devId: number) {
     this.expService.destroy(expId, devId).subscribe(
@@ -180,15 +172,15 @@ export class ExperienceComponent implements OnInit {
     // this.selected.endDate = exp.endDate;
   }
 
-  displayExperience(expnce: Experience, dev: Developer) {
-    this.editDev = dev;
-    this.editExperience = expnce;
-  }
+  // displayExperience(expnce: Experience, dev: Developer) {
+  //   this.editDev = dev;
+  //   this.editExperience = expnce;
+  // }
 
-  displayTable() {
-    this.loadDevelopers();
-    return (this.editExperience = null), (this.editDev = null);
-  }
+  // displayTable() {
+  //   this.loadDevelopers();
+  //   return (this.editExperience = null), (this.editDev = null);
+  // }
 
   setEditExperience() {
     this.editExperience = Object.assign({}, this.selected);

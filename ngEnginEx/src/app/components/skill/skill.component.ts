@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Developer } from 'src/app/models/developer';
 import { Skill } from 'src/app/models/skill';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { DeveloperService } from 'src/app/services/developer.service';
 import { SkillService } from 'src/app/services/skill.service';
 
 @Component({
@@ -18,15 +16,12 @@ export class SkillComponent implements OnInit {
   newSkill: Skill = new Skill();
   tableSkill: Skill = new Skill();
 
-
   editSkill: Skill | null = null;
   selected: Skill | null = null;
   devSkills: Skill[] = [];
-  developer: Developer | null = null;
   id: number = 0;
   constructor(
     private skillService: SkillService,
-    private devService: DeveloperService,
     private currentRoute: ActivatedRoute,
     private router: Router,
     private auth: AuthService

@@ -1,3 +1,13 @@
+import { Company } from './company';
+import { Education } from './education';
+import { Experience } from './experience';
+import { JobApplication } from './job-application';
+import { JobApplicationComment } from './job-application-comment';
+import { JobDetail } from './job-detail';
+import { JobPost } from './job-post';
+import { JobStatus } from './job-status';
+import { Skill } from './skill';
+
 export class User {
   id: number;
   username: string;
@@ -10,6 +20,16 @@ export class User {
   phoneNumber: string;
   imageUrl: string;
 
+  company: Company;
+  educations: Education[];
+  experiences: Experience[];
+  applications: JobApplication[];
+  applicationComments: JobApplicationComment[];
+  jobDetails: JobDetail[];
+  jobPosts: JobPost[];
+  jobStatuses: JobStatus[];
+  skills: Skill[];
+
   constructor(
     id: number = 0,
     username: string = '',
@@ -20,7 +40,16 @@ export class User {
     lastName: string = '',
     email: string = '',
     phoneNumber: string = '',
-    imageUrl: string = ''
+    imageUrl: string = '',
+    company = new Company(),
+    educations = [],
+    experiences = [],
+    applications = [],
+    applicationComments = [],
+    jobDetails = [],
+    jobPosts = [],
+    jobStatuses = [],
+    skills = []
   ) {
     this.id = id;
     this.username = username;
@@ -32,5 +61,14 @@ export class User {
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.imageUrl = imageUrl;
+    this.company = company;
+    this.educations = educations;
+    this.experiences = experiences;
+    this.applications = applications;
+    this.applicationComments = applicationComments;
+    this.jobDetails = jobDetails;
+    this.jobPosts = jobPosts;
+    this.jobStatuses = jobStatuses;
+    this.skills = skills;
   }
 }
