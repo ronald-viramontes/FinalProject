@@ -19,7 +19,6 @@ export class User {
   email: string;
   phoneNumber: string;
   imageUrl: string;
-
   company: Company;
   educations: Education[];
   experiences: Experience[];
@@ -41,7 +40,7 @@ export class User {
     email: string = '',
     phoneNumber: string = '',
     imageUrl: string = '',
-    company = new Company(),
+    company: Company = new Company(),
     educations: Education[] = [],
     experiences: Experience[] = [],
     applications: JobApplication[] = [],
@@ -50,6 +49,8 @@ export class User {
     posts: JobPost[] = [],
     jobStatuses: JobStatus[] = [],
     skills: Skill[] = []
+
+
   ) {
     this.id = id;
     this.username = username;
