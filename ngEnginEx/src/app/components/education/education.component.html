@@ -30,8 +30,8 @@
       Institution Type:     {{edu.educationType}} <br>
       Certificate Received: {{edu.degreeCertificateName}} <br>
       Graduated:            {{edu.completeDate}}
-      <button *ngIf="!editEducation" (click)="setEdit(edu)">Edit</button>
-      <button *ngIf="!editEducation" (click)="delete(edu.id)">Delete</button>
+      <button *ngIf="!editEducation" (click)="setEdit(edu)">✏</button>
+      <button *ngIf="!editEducation" (click)="delete(edu.id)">❌</button>
       <form *ngIf="editEducation" name="editEducation">
         Institution Name <br>
         <input type="text" name="institutionName" [(ngModel)]="editEducation.institutionName"><br>
@@ -40,19 +40,20 @@
         Degree Certificate <br>
         <input type="text" name="degreeCertificateName" [(ngModel)]="editEducation.degreeCertificateName"> <br>
         Complete Date <br>
-        <input type="text" name="completeDate" [(ngModel)]="editEducation.completeDate"><br>
-        <button (click)="edit(editEducation, edu.id); editEducation = null">Edit</button><button (click)="editEducation = null">Cancel</button>
+        <input type="date" name="completeDate" [(ngModel)]="editEducation.completeDate"><br>
+        <button (click)="edit(editEducation, edu.id); editEducation = null">✏</button><button (click)="delete(edu.id); editEducation = null;">❌</button>
+        <button (click)="editEducation = null">Cancel</button>
       </form>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
-<button *ngIf="!createForm" (click)="createForm=true">Add Education</button>
+<button class="badge btn-success" *ngIf="!createForm" (click)="createForm=true">➕ Education</button>
 <form name="createEducation" *ngIf="createForm">
   <input type="text" name="institutionName" [(ngModel)]="newEducation.institutionName" placeholder="Institution Name"><br>
   <input type="text" name="educationType" [(ngModel)]="newEducation.educationType" placeholder="Education Type"><br>
   <input type="text" name="degreeCertificateName" [(ngModel)]="newEducation.degreeCertificateName" placeholder="Degree or Certificate Name"><br>
-  <input type="text" name="completeDate" [(ngModel)]="newEducation.completeDate" placeholder="Completion Date"><br>
-  <button class="btn" (click)="create(newEducation); createForm = false">Create New Education</button>
+  <input type="date" name="completeDate" [(ngModel)]="newEducation.completeDate" placeholder="Completion Date"><br>
+  <button (click)="create(newEducation); createForm = false">Save Education</button>
   <button (click)="createForm = false">Cancel</button>
 </form>
 <hr>

@@ -86,7 +86,7 @@ export class EducationComponent implements OnInit {
   create(newEd: Education) {
     if (this.activeUser) {
       newEd.user = null;
-      this.educationService.create(newEd, this.activeUser?.id).subscribe(
+      this.educationService.create(newEd, this.activeUser.id).subscribe(
         data => {
           if(this.activeUser)
           this.loadEducationsByDevId(this.activeUser.id);
