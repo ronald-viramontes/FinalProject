@@ -25,7 +25,7 @@
     background-color: white;
   }
 </style>
-<div style="margin-right: 10%; margin-left: 5%">
+<div style="margin-right: 10%; margin-left: 5%" *ngIf="!showNewJob">
   <td><button (click)="createNewPost()" class="btn btn-primary">Create New Job</button></td>
 </div>
 <div style="margin-right: 10%; margin-left: 5%">
@@ -66,9 +66,6 @@
       <label>Completion Date:</label>
       <input class="form-control form-control-lg" placeholder="Completion Date" ype="date" min="2018-07-22"
         name="jobCompletionDate" [(ngModel)]="editJob.completionDate">
-      <label>Date Posted:</label>
-      <input class="form-control form-control-lg" placeholder="Date Posted" ype="date" min="2018-07-22"
-        name="jobDatePosted" [(ngModel)]="editJob.datePosted">
       <ngb-accordion>
         <ngb-panel title="Job Status">
           <ng-template ngbPanelContent>
@@ -94,9 +91,6 @@
       <label>Job Requirements:</label>
       <input class="form-control form-control-lg" placeholder="Job Requirements" type="text" name="jobRequirements"
         [(ngModel)]="newJob.jobRequirements">
-      <label>Date Posted:</label>
-      <input class="form-control form-control-lg" placeholder="Date Posted" type="date" min="2018-07-22"
-        name="jobStartDate" [(ngModel)]="newJob.datePosted">
       <label>Start Date:</label>
       <input class="form-control form-control-lg" placeholder="Start Date" type="date" min="2018-07-22"
         name="jobStartDate" [(ngModel)]="newJob.startDate">

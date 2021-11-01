@@ -1,6 +1,7 @@
 package com.skilldistillery.enginex.controllers;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class JobPostController {
 
 	@PostMapping(path = "jobs")
 	public JobPost create(@RequestBody JobPost jobPost) {
+		jobPost.setDatePosted(LocalDate.now());
 		return jobPostServ.create(jobPost);
 	}
 
