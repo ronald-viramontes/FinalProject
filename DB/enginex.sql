@@ -510,4 +510,3 @@ INSERT INTO `job_application_comment` (`id`, `comment`, `comment_date`, `job_app
 INSERT INTO `job_application_comment` (`id`, `comment`, `comment_date`, `job_application_id`, `in_reply_to_comment_id`) VALUES (2, 'Thank you for your comment!', '2021-09-19', 1, 1);
 
 COMMIT;
-
