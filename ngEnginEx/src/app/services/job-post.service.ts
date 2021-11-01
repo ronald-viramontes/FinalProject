@@ -14,7 +14,7 @@ export class JobPostService {
   private jobsUrl = this.baseUrl + 'api/jobs';
   private typeUrl = this.baseUrl + 'api/jobstatus';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   index(): Observable<JobPost[]> {
     console.log('In call to DB.');
@@ -39,6 +39,15 @@ export class JobPostService {
       catchError((err: any) => {
         console.log(err);
         return throwError('Bad Type Request');
+      })
+    );
+  }
+
+  showByClient(clientId: number) {
+    return this.http.get<JobPost[]>(`${this.jobsUrl}/client/${clientId}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError("jobPostService.showByClient(): error retrieving job Posts");
       })
     );
   }

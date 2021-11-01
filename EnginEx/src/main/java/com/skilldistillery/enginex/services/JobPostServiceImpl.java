@@ -61,4 +61,9 @@ public class JobPostServiceImpl implements JobPostService {
 		return jobPost;
 	}
 
+	@Override
+	public List<JobPost> findByClientId(int clientId) {
+		return jobPostRepo.findByClientId(clientId);
+	}
+
 }

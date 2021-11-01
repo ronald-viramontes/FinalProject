@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
+import { JobApplication } from 'src/app/models/job-application';
 
 @Component({
   selector: 'app-job-application',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class JobApplicationComponent implements OnInit {
 
   constructor() { }
+
+  @Input() applications: JobApplication[] =[];
 
   ngOnInit(): void {
   }

@@ -56,5 +56,10 @@ public class JobPostController {
 		jobPost = jobPostServ.update(id, jobPost);
 		return jobPost;
 	}
+	
+	@GetMapping("jobs/client/{clientId}")
+	public List<JobPost> jobsByClientId (HttpServletResponse res, HttpServletRequest req, @PathVariable int clientId){
+		return jobPostServ.findByClientId(clientId);
+	}
 
 }

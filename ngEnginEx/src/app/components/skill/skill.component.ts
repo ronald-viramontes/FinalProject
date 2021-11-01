@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Developer } from 'src/app/models/developer';
 import { Skill } from 'src/app/models/skill';
@@ -13,7 +13,7 @@ import { SkillService } from 'src/app/services/skill.service';
   styleUrls: ['./skill.component.css'],
 })
 export class SkillComponent implements OnInit {
-  skills: Skill[] = [];
+  @Input() skills: Skill[] = [];
   skill: Skill = new Skill();
   newSkill: Skill = new Skill();
   tableSkill: Skill = new Skill();
