@@ -6,8 +6,6 @@ import { JobPost } from 'src/app/models/job-post';
 import { Skill } from 'src/app/models/skill';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { ClientService } from 'src/app/services/client.service';
-import { DeveloperService } from 'src/app/services/developer.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,18 +15,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class DisplayComponent implements OnInit {
 
-  constructor(private developerService: DeveloperService, private clientService: ClientService, private userService: UserService, private authService: AuthService) { }
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   experiences: Experience[] = [];
   skills: Skill[] = [];
   educations: Education[] = [];
-  developers: Developer[] = [];
   applications: JobApplication[] =[];
   jobPosts: JobPost[] = [];
   selected: User | null = null;
   activeUser: User | null = null;
-  activeDev: Developer | null = null;
-  activeClient: Client | null = null;
   loaded: boolean = false;
 
   ngOnInit(): void {
