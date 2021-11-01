@@ -4,23 +4,26 @@
     <p *ngIf="duplicateUsername">Username already in use!</p>
     <br *ngIf="!duplicateUsername">
     <br *ngIf="!duplicateUsername">
-    <input type="password" name="password" [(ngModel)]="newUser.password"  placeholder="Password" />
+    <input type="password" name="password" [(ngModel)]="newUser.password" placeholder="Password" />
     <br>
     <br>
-    <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="newUser.developer.firstName" (ngModelChange)="update()"/>
+    <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="newUser.firstName"
+      (ngModelChange)="update()" />
     <br />
     <br />
-    <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="newUser.developer.lastName" (ngModelChange)="update()"/>
+    <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="newUser.lastName"
+      (ngModelChange)="update()" />
     <br />
     <br />
-    <input type="text" name="email" placeholder="Email" [(ngModel)]="newUser.developer.email" (ngModelChange)="update()"/>
+    <input type="text" name="email" placeholder="Email" [(ngModel)]="newUser.email" (ngModelChange)="update()" />
     <br />
     <br />
-    <input type="text" name="phoneNumber" placeholder="Phone Number" [(ngModel)]="newUser.developer.phoneNumber" (ngModelChange)="update()"/>
+    <input type="text" name="phoneNumber" placeholder="Phone Number" [(ngModel)]="newUser.phoneNumber"
+      (ngModelChange)="update()" />
     <br />
     <br />
-    <input type="text" name="imageUrl" placeholder="Image URL" [(ngModel)]="newUser.developer.imageUrl" (ngModelChange)="update()"/> <br>
+    <input type="text" name="imageUrl" placeholder="Image URL" [(ngModel)]="newUser.imageUrl"
+      (ngModelChange)="update()" /> <br>
     <button style="margin-left: 10px" class="btn-dark" value="Register" (click)="register()">Register</button>
   </form>
 </div>
-

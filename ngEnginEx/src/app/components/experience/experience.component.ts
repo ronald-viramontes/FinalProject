@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Experience } from 'src/app/models/experience';
+import { User } from 'src/app/models/user';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { ExperienceService } from 'src/app/services/experience.service';
@@ -22,10 +23,11 @@ export class ExperienceComponent implements OnInit {
 
   @Input() experiences: Experience[] = [];
   @Input() selected: Experience | null = null;
-
+  @Input() selectedUser: User | null = null;
   @Input() experience: Experience | null = null;
 
   devExps: Experience[] = [];
+  editUser: User | null = null;
 
   exps: Experience[] = [];
   exp: Experience | null = null;
@@ -177,10 +179,9 @@ export class ExperienceComponent implements OnInit {
   //   this.editExperience = expnce;
   // }
 
-  // displayTable() {
-  //   this.loadDevelopers();
-  //   return (this.editExperience = null), (this.editDev = null);
-  // }
+  displayTable() {
+    return (this.editExperience = null), (this.editUser = null);
+  }
 
   setEditExperience() {
     this.editExperience = Object.assign({}, this.selected);

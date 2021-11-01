@@ -93,7 +93,7 @@
   </div>
   <div class="modal-body">
 
-    <div *ngIf="selected && selectedDev" style="text-align: center" class="form-control">
+    <div *ngIf="selected && selectedUser" style="text-align: center" class="form-control">
       <form>
         <input type="text" name="selected.jobTitle" [(ngModel)]="selected.jobTitle" />
         <br />
@@ -108,7 +108,7 @@
         <br />
         <br />
         <div class="modal-footer">
-          <button class="btn btn-success btn-outline-light" (click)="updateExperience(selected, selectedDev.id)">
+          <button class="btn btn-success btn-outline-light" (click)="updateExperience(selected, selectedUser.id)">
             Save
           </button>
           <button class="btn btn-light" (click)="modal.close('Close click')">Close</button>
@@ -124,7 +124,7 @@
 
 
 
-<div *ngIf="selected && selectedDev" style="text-align: center" class="form-control">
+<div *ngIf="selected && selectedUser" style="text-align: center" class="form-control">
   <form>
     <input type="text" name="selected.jobTitle" [(ngModel)]="selected.jobTitle" />
     <br />
@@ -138,7 +138,7 @@
     <input type="date" name="selected.endDate" [(ngModel)]="selected.endDate" />
     <br />
     <br />
-    <button class="btn btn-success btn-outline-light" (click)="updateExperience(selected, selectedDev.id)">
+    <button class="btn btn-success btn-outline-light" (click)="updateExperience(selected, selectedUser.id)">
       Save
     </button>
     <button style="margin-left: 10px" class="btn btn-warning btn-outline-light" (click)="displayTable()">
