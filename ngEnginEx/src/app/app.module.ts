@@ -35,6 +35,8 @@ import { DateSortPipe } from './pipes/date-sort.pipe';
   declarations: [
     AppComponent,
     CompanyComponent,
+    DisplayComponent,
+    EducationComponent,
     ExperienceComponent,
     JobApplicationComponent,
     JobApplicationCommentComponent,

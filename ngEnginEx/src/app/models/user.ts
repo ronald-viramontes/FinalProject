@@ -24,9 +24,9 @@ export class User {
   educations: Education[];
   experiences: Experience[];
   applications: JobApplication[];
-  applicationComments: JobApplicationComment[];
-  jobDetails: JobDetail[];
-  jobPosts: JobPost[];
+  // applicationComments: JobApplicationComment[];
+  // jobDetails: JobDetail[];
+  posts: JobPost[];
   jobStatuses: JobStatus[];
   skills: Skill[];
 
@@ -42,14 +42,14 @@ export class User {
     phoneNumber: string = '',
     imageUrl: string = '',
     company = new Company(),
-    educations = [],
-    experiences = [],
-    applications = [],
-    applicationComments = [],
-    jobDetails = [],
-    jobPosts = [],
-    jobStatuses = [],
-    skills = []
+    educations: Education[] = [],
+    experiences: Experience[] = [],
+    applications: JobApplication[] = [],
+    // applicationComments = [],
+    // jobDetails = [],
+    posts: JobPost[] = [],
+    jobStatuses: JobStatus[] = [],
+    skills: Skill[] = []
   ) {
     this.id = id;
     this.username = username;
@@ -65,9 +65,9 @@ export class User {
     this.educations = educations;
     this.experiences = experiences;
     this.applications = applications;
-    this.applicationComments = applicationComments;
-    this.jobDetails = jobDetails;
-    this.jobPosts = jobPosts;
+    // this.applicationComments = applicationComments;
+    // this.jobDetails = jobDetails;
+    this.posts = posts;
     this.jobStatuses = jobStatuses;
     this.skills = skills;
   }

@@ -32,8 +32,8 @@ export class DisplayComponent implements OnInit {
     }
   }
 
-  loadProfileInfo(devId: number, clientId: number){
-    this.developerService.show(devId).subscribe(
+  loadProfileInfo(username: string){
+    this.userService.show(username).subscribe(
       data => {
         this.skills = data.skills;
         this.educations = data.educations;
@@ -45,14 +45,6 @@ export class DisplayComponent implements OnInit {
         console.error(err);
       }
     );
-    this.clientService.show(clientId).subscribe(
-      data => {
-        this.jobPosts = data.jobPosts;
-      },
-      err => {
-        console.error(err);
-      }
-    )
   }
 
 
@@ -65,9 +57,7 @@ export class DisplayComponent implements OnInit {
       this.userService.show(username).subscribe(
         data => {
           this.activeUser = data;
-          this.activeDev = data.developer;
-          this.activeClient = data.client;
-          this.loadProfileInfo(this.activeUser.developer.id, this.activeUser.client.id);
+          this.loadProfileInfo(this.activeUser.username);
         },
         err => {
           console.error(err);
@@ -80,17 +70,6 @@ export class DisplayComponent implements OnInit {
     return this.authService.checkLogin();
   }
 
-  loadDevelopers(){
-    this.developerService.index().subscribe(
-      data => {
-        this.developers = data;
-      },
-      err => {
-        console.error(err);
-
-      }
-    )
-  }
 
   // selectDev(dev: Developer){
   //   this.selected = dev;
