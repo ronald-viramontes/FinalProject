@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Education } from 'src/app/models/education';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { EducationService } from 'src/app/services/education.service';
 
 @Component({
@@ -9,11 +11,13 @@ import { EducationService } from 'src/app/services/education.service';
 })
 export class EducationComponent implements OnInit {
 
-  constructor(private educationService: EducationService) { }
+  constructor(private educationService: EducationService, private authService: AuthService) { }
 
   @Input() educations: Education[] = [];
+  @Input() activeUser: User | null = null;
   selected: Education | null = null;
   newEducation: Education = new Education();
+  createForm: boolean = false;
   ngOnInit(): void {
     // this.loadEducations();
   }
@@ -29,8 +33,8 @@ export class EducationComponent implements OnInit {
     );
   }
 
-  loadEducationsByDevId(devId: number) {
-    this.educationService.show(devId).subscribe(
+  loadEducationsByDevId(userId: number) {
+    this.educationService.show(userId).subscribe(
       data => {
         this.educations = data;
       },
@@ -41,7 +45,7 @@ export class EducationComponent implements OnInit {
   }
 
   edit(education: Education, edId: number, devId: number) {
-     this.educationService.edit(education, edId, devId).subscribe(
+    this.educationService.edit(education, edId, devId).subscribe(
       data => {
         console.log('Update Successful');
 
@@ -73,14 +77,19 @@ export class EducationComponent implements OnInit {
     this.selected.institutionName = edu.institutionName;
   }
 
-  create(newEd: Education, devId: number){
-    this.educationService.create(newEd, devId).subscribe(
-      data => {
-        return data;
-      },
-      err => {
-        console.error(err);
-      }
-    );
+  create(newEd: Education) {
+    if (this.activeUser) {
+      newEd.user = null;
+      this.educationService.create(newEd, this.activeUser?.id).subscribe(
+        data => {
+          if(this.activeUser)
+          this.loadEducationsByDevId(this.activeUser.id);
+          return data;
+        },
+        err => {
+          console.error(err);
+        }
+      );
+    }
   }
 }

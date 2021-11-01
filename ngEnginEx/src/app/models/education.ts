@@ -7,7 +7,7 @@ export class Education {
   institutionName: string;
   degreeCertificateName: string;
   completeDate: string;
-  user: User;
+  user: User | null;
 
   constructor(id: number = 0, educationType: string ='', institutionName: string = '', degreeCertificateName: string = '', completeDate: string = '', user: User = new User()){
     this.id = id;

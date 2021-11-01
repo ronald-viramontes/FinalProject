@@ -33,6 +33,15 @@
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
+<button *ngIf="!createForm" (click)="createForm=true">Add Education</button>
+<form name="createEducation" *ngIf="createForm">
+  <input type="text" name="institutionName" [(ngModel)]="newEducation.institutionName"><br>
+  <input type="text" name="educationType" [(ngModel)]="newEducation.educationType"><br>
+  <input type="text" name="degreeCertificateName" [(ngModel)]="newEducation.degreeCertificateName"><br>
+  <input type="text" name="completeDate" [(ngModel)]="newEducation.completeDate"><br>
+  <button class="btn" (click)="create(newEducation); createForm = false">Create New Education</button>
+  <button (click)="createForm = false">Cancel</button>
+</form>
 <hr>
 <!-- <div *ngIf="educations.length > 0">
   <h2>My Education</h2>

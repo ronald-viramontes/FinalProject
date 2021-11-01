@@ -34,8 +34,8 @@ export class EducationService {
     );
   }
 
-  show(devId: number) {
-    return this.http.get<Education[]>(this.baseUrl + '/' + devId).pipe(
+  show(userId: number) {
+    return this.http.get<Education[]>(`${this.baseUrl}/${userId}`).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService.show: error retrieving educations');
@@ -61,8 +61,8 @@ export class EducationService {
     );
   }
 
-  create(education: Education, devId: number){
-    return this.http.post(`${this.baseUrl}/${devId}`, education, this.getHttpOptions()).pipe(
+  create(education: Education, userId: number){
+    return this.http.post(`${this.baseUrl}/${userId}`, education, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService.create(): error creating education');
