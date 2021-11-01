@@ -324,7 +324,12 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (1, 'Full stack developer', 'Ability to create a full stack application with a Java backend and Angular frontend.');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (1, 'Full Stack Developer', 'Ability to create a full stack application with a Java backend and Angular frontend.');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (2, 'Backend Developer', 'Server-side application development with programming languages including Java, C, C++, Ruby, and Python');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (3, 'Front-end Developer', 'Client-side developer using user interface or or user experience, css, JavaScript, and HTML');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (4, 'Database Administrator', 'Develop, maintain, and update SQL or similar style databases');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (5, 'Mobile Application Development', 'Develop applications for android and iOS devices.');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (6, 'Game Developer', 'Develop applications for gaming purposes.');
 
 COMMIT;
 
