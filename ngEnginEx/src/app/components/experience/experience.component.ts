@@ -23,7 +23,6 @@ export class ExperienceComponent implements OnInit {
     private currentRoute: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private display: DisplayComponent,
     private userService: UserService
   ) {}
 
@@ -173,6 +172,15 @@ export class ExperienceComponent implements OnInit {
         console.error('Failed to remove user', fail);
       }
     );
+  }
+
+  selectExp(exp: Experience) {
+    this.selected = new Experience();
+    this.selected.id = exp.id;
+    this.selected.jobTitle = exp.jobTitle;
+    this.selected.companyName = exp.companyName;
+    this.selected.startDate = exp.startDate;
+    this.selected.endDate = exp.endDate;
   }
 
   displayExperience(expnce: Experience, dev: Developer) {

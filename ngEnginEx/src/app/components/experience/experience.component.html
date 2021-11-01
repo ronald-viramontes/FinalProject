@@ -1,15 +1,45 @@
 <h1>Dev Experience</h1>
 
-<div id="devExp">
-  <ul *ngFor="let exp of experiences ">
+<div id="devExp" *ngIf="experiences.length > 0">
 
+  <div class="card w-75">
+    <div class="card-body">
+      <h5 class="card-title">Experiences</h5>
+      <p class="card-text">
+      <div class="row" *ngFor="let exp of experiences">
+        <div class="col">
+          <button (click)="selectExp(exp)"><i class="bi bi-pen"></i> </button>
+          {{ exp.jobTitle }}
+        </div>
+
+        <div class="col">
+          {{ exp.companyName }}
+        </div>
+        <div class="col">
+          {{ exp.startDate }}
+        </div>
+        <div class="col">
+          {{ exp.endDate }}
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!-- <ol *ngFor="let exp of experiences ">
+    <li>{{ exp.id }}</li>
     <li>{{ exp.jobTitle }}</li>
     <li>{{ exp.companyName }}</li>
     <li>{{ exp.startDate }}</li>
     <li>{{ exp.endDate }}</li>
-    <button class="btn btn-primary btn-sm" (click)="setEditExperience()">Edit</button>
-  </ul>
-</div>
+    <button class="btn btn-primary btn-sm" (click)="selectExp(exp)">Edit</button>
+  </ol>
+</div> -->
 
 <!-- <div style="text-align: center">
   <br />

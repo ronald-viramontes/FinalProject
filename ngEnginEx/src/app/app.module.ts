@@ -17,7 +17,7 @@ import { JobApplicationComponent } from './components/job-application/job-applic
 import { JobApplicationCommentComponent } from './components/job-application-comment/job-application-comment.component';
 import { UserComponent } from './components/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ClientService } from './services/client.service';
 import { DeveloperService } from './services/developer.service';
@@ -62,6 +62,7 @@ import { UserService } from './services/user.service';
     HttpClientModule,
     NgbModule,
     FormsModule,
+    NgbAccordionModule,
   ],
   providers: [
     AuthService,
