@@ -18,6 +18,7 @@ export class EducationComponent implements OnInit {
   selected: Education | null = null;
   newEducation: Education = new Education();
   createForm: boolean = false;
+  editEducation: Education | null = null;
   ngOnInit(): void {
     // this.loadEducations();
   }
@@ -44,11 +45,13 @@ export class EducationComponent implements OnInit {
     );
   }
 
-  edit(education: Education, edId: number, devId: number) {
-    this.educationService.edit(education, edId, devId).subscribe(
+  edit(education: Education, edId: number) {
+    if(this.activeUser)
+    this.educationService.edit(education, edId, this.activeUser.id).subscribe(
       data => {
         console.log('Update Successful');
-
+        if(this.activeUser)
+        this.loadEducationsByDevId(this.activeUser.id);
       },
       err => {
         console.error(err);
@@ -94,5 +97,13 @@ export class EducationComponent implements OnInit {
         }
       );
     }
+  }
+
+  setEdit(edu: Education){
+    this.editEducation = new Education();
+    this.editEducation.institutionName =  edu.institutionName;
+    this.editEducation.educationType = edu.educationType;
+    this.editEducation.degreeCertificateName = edu.degreeCertificateName;
+    this.editEducation.completeDate = edu.completeDate;
   }
 }
