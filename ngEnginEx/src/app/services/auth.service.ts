@@ -40,6 +40,8 @@ export class AuthService {
 
   register(user: User) {
     // create request to register a new account
+    console.log(user);
+
     return this.http.post(this.baseUrl + 'register', user).pipe(
       catchError((err: any) => {
         console.error(err);

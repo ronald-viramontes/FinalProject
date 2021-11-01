@@ -1,5 +1,5 @@
-<p>job-search works!</p>
+<p>Jobs are sorted by newest first</p>
 
 <ul>
-  <li *ngFor="let post of jobPosts">{{post.jobRequirements}}: {{post.dateClosed}}</li>
+  <li *ngFor="let post of jobPosts | dateSort"> {{post.jobRequirements}}: {{post.datePosted}}</li>
 </ul>
