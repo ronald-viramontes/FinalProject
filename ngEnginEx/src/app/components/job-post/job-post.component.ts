@@ -137,4 +137,15 @@ export class JobPostComponent implements OnInit {
     this.newJob.type = jobType;
     console.log(this.newJob);
   }
+
+  update(jobPost: JobPost) {
+    console.log(jobPost);
+
+    return this.jobService.update(jobPost).subscribe(
+      (updated)=>{
+        this.reloadJobs();
+        this.editJob = null
+      }
+    )
+  }
 }

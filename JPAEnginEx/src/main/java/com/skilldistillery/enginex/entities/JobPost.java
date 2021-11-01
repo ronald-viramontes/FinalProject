@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "job_post")
 //@JsonIdentityInfo(
@@ -51,6 +53,7 @@ public class JobPost {
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
 
+	@JsonIgnoreProperties({"posts"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
