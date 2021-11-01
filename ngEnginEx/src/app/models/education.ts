@@ -1,4 +1,4 @@
-import { Developer } from "./developer";
+import { User } from "./user";
 
 export class Education {
 
@@ -7,14 +7,14 @@ export class Education {
   institutionName: string;
   degreeCertificateName: string;
   completeDate: string;
-  developer: Developer;
+  user: User;
 
-  constructor(id: number = 0, educationType: string ='', institutionName: string = '', degreeCertificateName: string = '', completeDate: string = '', developer: Developer = new Developer()){
+  constructor(id: number = 0, educationType: string ='', institutionName: string = '', degreeCertificateName: string = '', completeDate: string = '', user: User = new User()){
     this.id = id;
     this.educationType = educationType;
     this.institutionName = institutionName;
     this.degreeCertificateName = degreeCertificateName;
     this.completeDate = completeDate;
-    this.developer = developer;
+    this.user = user;
   }
 }

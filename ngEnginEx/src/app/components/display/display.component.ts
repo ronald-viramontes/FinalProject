@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Client } from 'src/app/models/client';
-import { Developer } from 'src/app/models/developer';
 import { Education } from 'src/app/models/education';
 import { Experience } from 'src/app/models/experience';
 import { JobApplication } from 'src/app/models/job-application';
