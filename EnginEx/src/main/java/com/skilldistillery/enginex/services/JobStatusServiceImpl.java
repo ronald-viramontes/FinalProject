@@ -49,7 +49,7 @@ public class JobStatusServiceImpl implements JobStatusService{
 		User user = userRepo.findByUsername(username);
 		
 		Optional<JobPost> opt = jobPostRepo.findById(jobPostId);
-		if(opt.isPresent() && opt.get().getClient().getId() == user.getId()) {
+		if(opt.isPresent() && opt.get().getId() == user.getId()) {
 			JobPost jobPost = opt.get();
 			jobStatus = jobStatusRepo.saveAndFlush(jobStatus);
 			jobPost.setStatus(jobStatus);
@@ -90,7 +90,7 @@ public class JobStatusServiceImpl implements JobStatusService{
 		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
 		
 		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
-		if(optJobPost.isPresent() && optJobPost.get().getClient().getId() == user.getId()) {
+		if(optJobPost.isPresent() && optJobPost.get().getId() == user.getId()) {
 			
 			JobPost jobPost = optJobPost.get();
 			jobPost.setStatus(null);

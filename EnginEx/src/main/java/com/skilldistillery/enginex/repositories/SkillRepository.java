@@ -8,6 +8,6 @@ import com.skilldistillery.enginex.entities.DeveloperSkill;
 
 public interface SkillRepository extends JpaRepository<DeveloperSkill, Integer> {
 
-	List<DeveloperSkill> findByDeveloperId(int id);
+	List<DeveloperSkill> findByUserId(int id);
 	
 }

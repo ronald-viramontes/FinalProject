@@ -25,18 +25,10 @@ public class Company {
 	
 	@Column(name="company_name")
 	private String companyName;
-	
-	public List<Client> getClients() {
-		return clients;
-	}
-
-	public void setClients(List<Client> clients) {
-		this.clients = clients;
-	}
-	
+		
 	@JsonIgnore
 	@OneToMany(mappedBy="company")
-	List<Client> clients;
+	List<User> users;
 	
 	public int getId() {
 		return id;
@@ -52,6 +44,14 @@ public class Company {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	@Override

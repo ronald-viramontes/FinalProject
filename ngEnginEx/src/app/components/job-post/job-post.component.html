@@ -90,11 +90,19 @@
       <label>URL:</label>
       <input class="form-control form-control-lg" placeholder="Date Posted" type="text" name="huntURL"
         [(ngModel)]="newJob.datePosted">
-      <label for="types">Choose a car:</label>
+      <label for="types">Choose a Job Status:</label>
       <ngb-accordion>
-        <ngb-panel title="Applications">
+        <ngb-panel title="Job Status">
           <ng-template ngbPanelContent>
-              <button (click)="setStatus(stat)"*ngFor='let stat of jobStatuses'>{{stat.name}}</button><br>
+            <button (click)="setStatus(stat)"*ngFor='let stat of jobStatuses'>{{stat.name}}</button><br>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+      <label for="types">Choose a Job Type:</label>
+      <ngb-accordion>
+        <ngb-panel title="Job Types">
+          <ng-template ngbPanelContent>
+              <button (click)="setType(type)"*ngFor='let type of jobTypes'>{{type.name}}</button><br>
           </ng-template>
         </ngb-panel>
       </ngb-accordion>

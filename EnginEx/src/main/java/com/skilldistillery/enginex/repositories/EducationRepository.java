@@ -8,6 +8,6 @@ import com.skilldistillery.enginex.entities.DeveloperEducation;
 
 public interface EducationRepository extends JpaRepository<DeveloperEducation, Integer>{
 	
-	List<DeveloperEducation> findByDeveloperId(int id);
+	List<DeveloperEducation> findByUserId(int id);
 
 }

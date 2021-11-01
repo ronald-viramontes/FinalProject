@@ -1,20 +1,20 @@
-import { Developer } from './developer';
+import { User } from './user';
 
 export class Skill {
   id: number;
   skillTitle: string;
   skillLevel: string;
-  developer: Developer;
+  user: User;
 
   constructor(
     id: number = 0,
     skillTitle: string = '',
     skillLevel: string = '',
-    developer: Developer = new Developer()
+    user: User = new User()
   ) {
     this.id = id;
     this.skillTitle = skillTitle;
     this.skillLevel = skillLevel;
-    this.developer = developer;
+    this.user = user;
   }
 }

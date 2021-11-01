@@ -56,7 +56,7 @@ class DeveloperSkillTest {
 	@DisplayName("test relationship mappings on DevSkill")
 	void test2() {
 		assertNotNull(skill);
-		assertEquals("Ron", skill.getDeveloper().getFirstName());
+		assertEquals("Ron", skill.getUser().getFirstName());
 	}
 	
 	

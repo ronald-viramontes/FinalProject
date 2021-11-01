@@ -35,13 +35,13 @@ public class ExperienceController {
 		return expSvc.index();
 	}
 	
-	@GetMapping("experiences/{devId}")
+	@GetMapping("experiences/{userId}")
 	public List<WorkExperience> getByDevId(HttpServletRequest req, 
 											HttpServletResponse res, 
 											Principal principal, 
-											@PathVariable int devId){
+											@PathVariable int userId){
 		
-		List<WorkExperience> exps = expSvc.findByDevId(devId, principal.getName());
+		List<WorkExperience> exps = expSvc.findByDevId(userId, principal.getName());
 		if(exps.size() < 0 ) {
 			res.setStatus(400);
 			return null;
@@ -70,15 +70,15 @@ public class ExperienceController {
 		
 	}
 	
-	@PutMapping("experiences/{devId}/{expId}")
+	@PutMapping("experiences/{userId}/{expId}")
 	public WorkExperience edit(HttpServletRequest req, 
 							   HttpServletResponse res, 
 							   Principal principal, 
 							   @RequestBody WorkExperience exp, 
-							   @PathVariable Integer devId, 
+							   @PathVariable Integer userId, 
 							   @PathVariable Integer expId) {
 		
-		exp = expSvc.edit(devId, exp, principal.getName(), expId);
+		exp = expSvc.edit(userId, exp, principal.getName(), expId);
 		if(exp == null) {
 			res.setStatus(400);
 			return null;
@@ -89,14 +89,14 @@ public class ExperienceController {
 	}
 	
 	
-	@DeleteMapping("experiences/{devId}/{expId}")
+	@DeleteMapping("experiences/{userId}/{expId}")
 	public void delete(HttpServletRequest req, 
 					   HttpServletResponse res, 
 					   Principal principal, 
-					   @PathVariable int devId, 
+					   @PathVariable int userId, 
 					   @PathVariable int expId) {
 		
-		expSvc.delete(devId, principal.getName(), expId);
+		expSvc.delete(userId, principal.getName(), expId);
         
 	}
 }

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Developer } from '../models/developer';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
 

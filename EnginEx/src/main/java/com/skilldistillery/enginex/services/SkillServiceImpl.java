@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.enginex.entities.Developer;
 import com.skilldistillery.enginex.entities.DeveloperSkill;
+import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.repositories.SkillRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
 
@@ -27,15 +27,15 @@ public class SkillServiceImpl implements SkillService {
 
 
 	@Override
-	public List<DeveloperSkill> findByDevId(int id) {
-		return skillRepo.findByDeveloperId(id);
+	public List<DeveloperSkill> findByDevId(int userId) {
+		return skillRepo.findByUserId(userId);
 	}
 
 
 	@Override
 	public DeveloperSkill create(DeveloperSkill newSkill, String username) {
-		Developer dev = userRepo.findByUsername(username).getDeveloper();
-		newSkill.setDeveloper(dev);
+		User user = userRepo.findByUsername(username);
+		newSkill.setUser(user);
 		return skillRepo.saveAndFlush(newSkill);
 	}
 
@@ -44,7 +44,7 @@ public class SkillServiceImpl implements SkillService {
 	public DeveloperSkill edit(DeveloperSkill edit, int userId, int skillId) {
 		Optional<DeveloperSkill> opt = skillRepo.findById(skillId);
 		DeveloperSkill skill = null;
-		if(opt.isPresent() && opt.get().getDeveloper().getUser().getId() == userId) {
+		if(opt.isPresent() && opt.get().getUser().getId() == userId) {
 			skill = opt.get();
 			skill.setSkillLevel(edit.getSkillLevel());
 			skill.setSkillTitle(edit.getSkillTitle());
@@ -57,7 +57,7 @@ public class SkillServiceImpl implements SkillService {
 	@Override
 	public boolean delete(int skillId, int userId) {
 		Optional<DeveloperSkill> opt = skillRepo.findById(skillId);
-		if(opt.isPresent() && opt.get().getDeveloper().getUser().getId() == userId) {
+		if(opt.isPresent() && opt.get().getUser().getId() == userId) {
 			DeveloperSkill skill = opt.get();
 			skillRepo.delete(skill);
 			return true;

@@ -52,15 +52,14 @@ public class JobApplication {
 	private JobPost jobPost;
 	
 	@ManyToOne
-	@JoinColumn(name="developer_id")
-	private Developer developer;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@OneToMany(mappedBy="application")
 	private List<JobApplicationComment> comments;
 	
-	@OneToOne
-	@JoinColumn(name="job_detail_id")
-	private JobDetail detail;
+	@OneToMany(mappedBy="application")
+	private List<JobDetail> details;
 	
 	//Methods
 
@@ -119,13 +118,6 @@ public class JobApplication {
 		this.jobPost = jobPost;
 	}
 
-	public Developer getDeveloper() {
-		return developer;
-	}
-
-	public void setDeveloper(Developer developer) {
-		this.developer = developer;
-	}
 
 	public List<JobApplicationComment> getComments() {
 		return comments;
@@ -135,12 +127,21 @@ public class JobApplication {
 		this.comments = comments;
 	}
 
-	public JobDetail getDetail() {
-		return detail;
+
+	public List<JobDetail> getDetails() {
+		return details;
 	}
 
-	public void setDetail(JobDetail detail) {
-		this.detail = detail;
+	public void setDetails(List<JobDetail> details) {
+		this.details = details;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
@@ -158,8 +159,8 @@ public class JobApplication {
 	@Override
 	public String toString() {
 		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
-				+ ", decisionDate=" + decisionDate + ", jobPost=" + jobPost + ", developer=" + developer + ", comments="
-				+ comments + ", detail=" + detail + "]";
+				+ ", decisionDate=" + decisionDate + ", jobPost=" + jobPost + ", comments="
+				+ comments + ", details=" + details + "]";
 	}
 	
 	

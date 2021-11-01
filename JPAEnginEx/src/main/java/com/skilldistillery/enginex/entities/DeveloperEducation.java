@@ -36,8 +36,8 @@ public class DeveloperEducation {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="developer_id")
-	private Developer developer;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	//Methods
 
@@ -81,12 +81,13 @@ public class DeveloperEducation {
 		this.completeDate = completeDate;
 	}
 
-	public Developer getDeveloper() {
-		return developer;
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setDeveloper(Developer developer) {
-		this.developer = developer;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public DeveloperEducation() {

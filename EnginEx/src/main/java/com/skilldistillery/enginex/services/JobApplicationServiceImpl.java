@@ -6,10 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.enginex.entities.Developer;
 import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobPost;
-import com.skilldistillery.enginex.repositories.DeveloperRepository;
+import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.repositories.JobApplicationRepository;
 import com.skilldistillery.enginex.repositories.JobPostRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
@@ -21,8 +20,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	private JobApplicationRepository appRepo;
 	@Autowired
 	private UserRepository userRepo;
-	@Autowired
-	private DeveloperRepository devRepo;
+
 	@Autowired
 	private JobPostRepository postRepo;
 	
@@ -34,16 +32,16 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 
 	@Override
-	public List<JobApplication> findByDevId(int devId) {
-		return appRepo.findByDeveloperId(devId);
+	public List<JobApplication> findByDevId(int userId) {
+		return appRepo.findByUserId(userId);
 	}
 
 
 	@Override
 	public JobApplication create(JobApplication app, int userId, int postId) {
-		Developer dev = userRepo.findById(userId).get().getDeveloper();
+		User user = userRepo.findById(userId).get();
 		JobPost post = postRepo.findById(postId).get();
-		app.setDeveloper(dev);
+		app.setUser(user);
 		app.setJobPost(post);
 		return appRepo.saveAndFlush(app);
 	}
@@ -53,7 +51,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	public boolean delete(int appId, int userId) {
 		if(appRepo.findById(appId).isPresent()) {
 			JobApplication app = appRepo.findById(appId).get();
-			if(app.getDeveloper().getUser().getId() == userId) {
+			if(app.getUser().getId() == userId) {
 				appRepo.delete(app);
 				return true;
 			}
@@ -65,7 +63,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	@Override
 	public JobApplication edit(JobApplication edit, int appId, int userId) {
 		Optional<JobApplication> opt = appRepo.findById(appId);
-		if(opt.isPresent() && opt.get().getJobPost().getClient().getUser().getId() == userId) {
+		if(opt.isPresent() && opt.get().getJobPost().getUser().getId() == userId) {
 			JobApplication app = appRepo.findById(appId).get();
 			app.setApproved(edit.isApproved());
 			app.setStatus(edit.getStatus());

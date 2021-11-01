@@ -33,20 +33,20 @@ public class EducationController {
 		return edSvc.index();
 	}
 	
-	@GetMapping("educations/{dId}")
-	public List<DeveloperEducation> getByDevId(HttpServletRequest req, HttpServletResponse res, @PathVariable int dId){
-		return edSvc.findByDevId(dId);
+	@GetMapping("educations/{uId}")
+	public List<DeveloperEducation> getByDevId(HttpServletRequest req, HttpServletResponse res, @PathVariable int uId){
+		return edSvc.findByDevId(uId);
 	}
 	
-	@PostMapping("educations/{dId}")
-	public DeveloperEducation create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody DeveloperEducation edu, @PathVariable int dId) {
+	@PostMapping("educations/{uId}")
+	public DeveloperEducation create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody DeveloperEducation edu, @PathVariable int uId) {
 		System.out.println("---------------------------------------------------------------------------- -----------------------------------------------------------------");
-		return edSvc.create(dId, edu, principal.getName());
+		return edSvc.create(uId, edu, principal.getName());
 	}
 	
-	@PutMapping("educations/{dId}/{eId}")
-	public DeveloperEducation edit(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody DeveloperEducation edu, @PathVariable int dId, @PathVariable int eId) {
-		edu = edSvc.edit(dId, edu, principal.getName(), eId);
+	@PutMapping("educations/{uId}/{eId}")
+	public DeveloperEducation edit(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody DeveloperEducation edu, @PathVariable int uId, @PathVariable int eId) {
+		edu = edSvc.edit(uId, edu, principal.getName(), eId);
 		if(edu != null) {
 			return edu;
 		}
@@ -56,9 +56,9 @@ public class EducationController {
 		}
 	}
 	
-	@DeleteMapping("educations/{dId}/{eId}")
-	public void delete(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int dId, @PathVariable int eId) {
-		edSvc.delete(dId, principal.getName(), eId);
+	@DeleteMapping("educations/{uId}/{eId}")
+	public void delete(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int uId, @PathVariable int eId) {
+		edSvc.delete(uId, principal.getName(), eId);
 	}
 }
  

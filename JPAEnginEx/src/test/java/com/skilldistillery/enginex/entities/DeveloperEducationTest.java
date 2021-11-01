@@ -56,7 +56,7 @@ class DeveloperEducationTest {
 	@DisplayName("test relationship mappings on education")
 	void test2() {
 		assertNotNull(edu);
-		assertEquals("Ron", edu.getDeveloper().getFirstName());
+		assertEquals("Ron", edu.getUser().getFirstName());
 	}
 
 }

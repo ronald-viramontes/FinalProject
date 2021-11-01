@@ -12,9 +12,10 @@ import { JobType } from '../models/job-type';
 export class JobPostService {
   private baseUrl = 'http://localhost:8091/';
   private jobsUrl = this.baseUrl + 'api/jobs';
-  private typeUrl = this.baseUrl + 'api/jobstatus';
+  private statusUrl = this.baseUrl + 'api/jobstatus';
+  private typeUrl = this.baseUrl + 'api/jobtypes';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   index(): Observable<JobPost[]> {
     console.log('In call to DB.');
@@ -35,7 +36,17 @@ export class JobPostService {
   }
   indexStatus(): Observable<JobStatus[]> {
     console.log('in call to type DB');
-    return this.http.get<JobStatus[]>(this.typeUrl).pipe(
+    return this.http.get<JobStatus[]>(this.statusUrl).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Bad Type Request');
+      })
+    );
+  }
+
+  indexType(): Observable<JobType[]> {
+    console.log('in call to type DB');
+    return this.http.get<JobType[]>(this.typeUrl).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('Bad Type Request');
@@ -47,7 +58,9 @@ export class JobPostService {
     return this.http.get<JobPost[]>(`${this.jobsUrl}/client/${clientId}`).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError("jobPostService.showByClient(): error retrieving job Posts");
+        return throwError(
+          'jobPostService.showByClient(): error retrieving job Posts'
+        );
       })
     );
   }

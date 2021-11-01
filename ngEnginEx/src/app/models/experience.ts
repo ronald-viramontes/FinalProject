@@ -1,4 +1,4 @@
-import { Developer } from './developer';
+import { User } from './user';
 
 export class Experience {
   id: number;
@@ -6,7 +6,7 @@ export class Experience {
   companyName: string;
   startDate: string;
   endDate: string;
-  developer: Developer;
+  user: User;
 
   constructor(
     id: number = 0,
@@ -14,13 +14,13 @@ export class Experience {
     companyName: string = '',
     startDate: string = '',
     endDate: string = '',
-    developer: Developer = new Developer()
+    user: User = new User()
   ) {
     this.id = id;
     this.jobTitle = jobTitle;
     this.companyName = companyName;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.developer = developer;
+    this.user = user;
   }
 }

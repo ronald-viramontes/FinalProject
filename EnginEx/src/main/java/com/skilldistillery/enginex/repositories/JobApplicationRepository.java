@@ -9,6 +9,6 @@ import com.skilldistillery.enginex.entities.JobApplication;
 
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Integer> {
 
-	List<JobApplication> findByDeveloperId(int id);
+	List<JobApplication> findByUserId(int id);
 	
 }

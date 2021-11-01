@@ -31,8 +31,8 @@ public class DeveloperSkill {
 //	@JsonIgnore
 	@JsonBackReference(value="devToSkill")
 	@ManyToOne
-	@JoinColumn(name="developer_id")
-	private Developer developer;
+	@JoinColumn(name="user_id")
+	private User user;
 
 	public int getId() {
 		return id;
@@ -58,12 +58,13 @@ public class DeveloperSkill {
 		this.skillLevel = skillLevel;
 	}
 
-	public Developer getDeveloper() {
-		return developer;
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setDeveloper(Developer developer) {
-		this.developer = developer;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public DeveloperSkill() {
