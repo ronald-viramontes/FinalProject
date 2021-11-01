@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Client } from 'src/app/models/client';
-import { Developer } from 'src/app/models/developer';
 import { JobApplication } from 'src/app/models/job-application';
 import { JobPost } from 'src/app/models/job-post';
 import { JobStatus } from 'src/app/models/job-status';
@@ -26,8 +24,6 @@ export class JobPostComponent implements OnInit {
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
   activeUser: User | null = null;
-  activeDev: Developer | null = null;
-  activeClient: Client = new Client();
 
   constructor(
     private jobService: JobPostService,
@@ -39,7 +35,6 @@ export class JobPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.reloadJobs();
-    console.log(this.activeClient);
 
     if (this.loggedIn()) {
       this.getActiveUser();
@@ -71,10 +66,6 @@ export class JobPostComponent implements OnInit {
         (data) => {
           console.log(data);
           this.activeUser = data;
-          this.activeDev = data.developer;
-          this.activeClient = data.client;
-          console.log(data.client);
-
         },
         (err) => {
           console.error(err);
@@ -95,7 +86,6 @@ export class JobPostComponent implements OnInit {
   }
   createNewPost() {
     this.showNewJob = true;
-    this.newJob.client = this.activeClient;
     console.log(this.newJob);
 
     this.jobService.indexStatus().subscribe(
@@ -107,14 +97,13 @@ export class JobPostComponent implements OnInit {
       }
     );
     this.jobService.indexType().subscribe(
-      (typeList)=> {
+      (typeList) => {
         this.jobTypes = typeList;
       },
-      (fail)=>{
+      (fail) => {
         console.error('Job Type load failed');
       }
-    )
-    console.log(this.activeClient);
+    );
     console.log(this.activeUser);
   }
   createPost(jobPost: JobPost) {
