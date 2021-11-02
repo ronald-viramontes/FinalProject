@@ -177,6 +177,8 @@ export class JobPostComponent implements OnInit {
     this.jobService.createApplication(this.newJobApp).subscribe(
       (created) => {
         console.log('Job App created successfully');
+        this.selected = null;
+        this.reloadJobs();
       },
       (failed) => {
         console.error('Error creation Job App');
