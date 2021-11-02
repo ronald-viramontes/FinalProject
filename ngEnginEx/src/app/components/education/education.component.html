@@ -22,7 +22,7 @@
     background-color: white;
   }
 </style>
-<h3>Education</h3>
+<!-- <h3>Education</h3> -->
 <ngb-accordion [closeOthers]="true">
   <ngb-panel title={{edu.institutionName}} *ngFor="let edu of educations">
     <ng-template ngbPanelContent>
@@ -48,7 +48,11 @@
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
-<button class="badge btn-success" *ngIf="!createForm" (click)="createForm=true">➕ Education</button>
+<div id="addButton">
+  <button class="badge btn-success" *ngIf="!createForm" (click)="createForm=true">➕Education</button>
+
+</div>
+
 <form name="createEducation" *ngIf="createForm">
   <input type="text" name="institutionName" [(ngModel)]="newEducation.institutionName"
     placeholder="Institution Name"><br>
@@ -59,4 +63,3 @@
   <button (click)="create(newEducation); createForm = false">Save Education</button>
   <button (click)="createForm = false">Cancel</button>
 </form>
-<hr>

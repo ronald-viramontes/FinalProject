@@ -1,4 +1,4 @@
-<h1 style="text-align:center">Skill</h1>
+<!-- <h1 style="text-align:center">Skill</h1> -->
 
 
 <ngb-accordion [closeOthers]="true">
@@ -31,14 +31,19 @@
   </ngb-panel>
 </ngb-accordion>
 
-<button class="badge btn-success" (click)="addButton = true">➕ Skill</button>
+<div id="addButton">
+  <button class="badge btn-success" (click)="addButton = true">➕ Skill</button>
+
+</div>
+
 
 <div id="newSkill" *ngIf="addButton">
-
+  <br>
   <form class="form-control">
+
     <h5 style="text-shadow: 2px 2px 4px black">New Skill</h5>
     <label for="jobTitle">Job Title</label>
-
+    <br>
     <input id="skillTitle" type="text" name="skillTitle" [(ngModel)]="newSkill.skillTitle" />
     <br />
     <label for="skillLevel">Skill Level</label>
@@ -55,5 +60,3 @@
 
   </form>
 </div>
-
-<hr>

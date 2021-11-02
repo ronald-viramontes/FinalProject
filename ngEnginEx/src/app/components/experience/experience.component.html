@@ -1,4 +1,4 @@
-<h1 style="text-align:center">Experience</h1>
+<!-- <h1 style="text-align:center">Experience</h1> -->
 
 
 <ngb-accordion [closeOthers]="true">
@@ -39,19 +39,21 @@
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
+<div id="addButton">
 
-<button class="badge btn-success" (click)="addButton = true">➕ Experience</button>
+  <button id="addButton" class="badge btn-success" (click)="addButton = true">➕ Experience</button>
+</div>
 
 <div id="newExp" *ngIf="addButton">
-
+  <br>
   <form class="form-control">
     <h5 style="text-shadow: 2px 2px 4px black">New Experience</h5>
     <label for="jobtitle">Job Title</label>
-
+    <br>
     <input id="jobtitle" type="text" name="jobTitle" [(ngModel)]="newExp.jobTitle" />
     <br />
     <label for="start">Company</label>
-
+    <br>
     <input id="company" type="text" name="companyName" [(ngModel)]="newExp.companyName" />
     <br />
     <label for="start">Start Date</label>
@@ -73,7 +75,6 @@
   </form>
 </div>
 
-<hr>
 
 
 <!-- <div class="mat-grid-container">

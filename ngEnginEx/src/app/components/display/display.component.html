@@ -5,11 +5,39 @@
     <div class="col-sm-4" *ngIf="loggedIn()">
       <div name="developerDetails">
         <h2>Your Profile</h2>
-        <app-skill [skills]="skills" [activeUser]="activeUser"></app-skill>
-        <app-education [educations]="educations" [activeUser]="activeUser"></app-education>
-        <app-experience [experiences]="experiences" [activeUser]="activeUser"></app-experience>
-        <app-job-application [applications]="applications"></app-job-application>
-        <app-job-detail [applications]="applications" [activeUser]="activeUser"></app-job-detail>
+
+        <mat-card>
+          <mat-card-title>Skills</mat-card-title>
+          <mat-card-actions>
+            <app-skill [skills]="skills" [activeUser]="activeUser"></app-skill>
+          </mat-card-actions>
+        </mat-card>
+        <br>
+        <mat-card>
+          <mat-card-title>Education</mat-card-title>
+          <mat-card-actions align="start">
+            <app-education [educations]="educations" [activeUser]="activeUser"></app-education>
+
+          </mat-card-actions>
+        </mat-card>
+        <br>
+        <mat-card>
+          <mat-card-title>Experience</mat-card-title>
+          <mat-card-actions>
+            <app-experience [experiences]="experiences" [activeUser]="activeUser"></app-experience>
+
+          </mat-card-actions>
+        </mat-card>
+        <br>
+        <mat-card>
+          <mat-card-title>Applications</mat-card-title>
+          <mat-card-actions align="start">
+            <app-job-application [applications]="applications"></app-job-application>
+
+          </mat-card-actions>
+        </mat-card>
+
+        <!-- <app-job-detail [applications]="applications" [activeUser]="activeUser"></app-job-detail> -->
       </div>
     </div>
     <div class="col-sm">
