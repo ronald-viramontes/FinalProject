@@ -32,6 +32,16 @@ export class JobPostComponent implements OnInit {
   newJobApp: JobApplication = new JobApplication();
   appDetail: boolean = false;
   statusId: number = 2;
+  appStyle(jobPost: JobPost):string{
+    if(jobPost.applications.length > 0){
+      for(let app of jobPost.applications){
+        if(app.status === 'Open'){
+          return 'appWaiting'
+        }
+      }
+    } return '';
+  };
+
   constructor(
     private jobService: JobPostService,
     private route: ActivatedRoute,
