@@ -50,8 +50,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   edit(editUser: User){
-    console.log(editUser);
-
+    editUser.applications = [];
+    editUser.posts = [];
+    // console.log(editUser);
     this.userService.edit(editUser.id, editUser).subscribe(
       data => {
         alert('Profile Updated');
@@ -67,6 +68,8 @@ export class EditProfileComponent implements OnInit {
 disableProfile(){
   if(confirm("Are you sure you want to deactivate your account?")){
     this.activeUser.enabled = false;
+    this.activeUser.applications = [];
+    this.activeUser.posts = [];
     this.userService.edit(this.activeUser.id, this.activeUser).subscribe(
       data => {
         this.authService.logout();
