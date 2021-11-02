@@ -187,40 +187,52 @@
                 <li>Application Status: {{app.status}}</li>
                 <li>Application Date: {{app.date}}</li>
                 <li>Application Approved: {{app.approved}}</li>
-                  <ngb-accordion>
-                    <ngb-panel title="Applicant Experiences">
-                      <ng-template ngbPanelContent>
-                        <ul *ngFor='let exp of app.user.experiences'>
-                          <li>Company Name: {{exp.companyName}}</li>
-                          <li>Job Title: {{exp.jobTitle}}</li>
-                          <li>Start Date: {{exp.startDate}}</li>
-                          <li>End Date: {{exp.endDate}}</li>
-                        </ul>
-                      </ng-template>
-                    </ngb-panel>
-                  </ngb-accordion>
-                  <ngb-accordion>
-                    <ngb-panel title="Applicant Education">
-                      <ng-template ngbPanelContent>
-                        <ul *ngFor='let ed of app.user.educations'>
-                          <li>Institution Name: {{ed.institutionName}}</li>
-                          <li>Education Type: {{ed.educationType}}</li>
-                          <li>Degree Type: {{ed.degreeCertificateName}}</li>
-                          <li>Completed: {{ed.completeDate}}</li>
-                        </ul>
-                      </ng-template>
-                    </ngb-panel>
-                  </ngb-accordion>
-                  <ngb-accordion>
-                    <ngb-panel title="Applicant Skill">
-                      <ng-template ngbPanelContent>
-                        <ul *ngFor='let sk of app.user.skills'>
-                          <li>Skill Description: {{sk.skillTitle}}</li>
-                          <li>Skill Level: {{sk.skillLevel}}</li>
-                        </ul>
-                      </ng-template>
-                    </ngb-panel>
-                  </ngb-accordion>
+
+                <button *ngIf="!appDetail" class="btn btn-dark" (click)="appDetail = true">≣</button>
+
+                <button *ngIf="appDetail" style="margin-left: 10px;" class="badge btn-secondary"
+                  (click)="appDetail = false">⮐</button>
+                <div *ngIf="appDetail">
+                  Started: {{app.detail.startDate}} <br>
+                  Finished: {{app.detail.finishDate}}<br>
+                  Comment: {{app.detail.comment}}<br>
+                  Rating: {{app.detail.rating}}<br>
+
+                </div>
+                <ngb-accordion>
+                  <ngb-panel title="Applicant Experiences">
+                    <ng-template ngbPanelContent>
+                      <ul *ngFor='let exp of app.user.experiences'>
+                        <li>Company Name: {{exp.companyName}}</li>
+                        <li>Job Title: {{exp.jobTitle}}</li>
+                        <li>Start Date: {{exp.startDate}}</li>
+                        <li>End Date: {{exp.endDate}}</li>
+                      </ul>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
+                <ngb-accordion>
+                  <ngb-panel title="Applicant Education">
+                    <ng-template ngbPanelContent>
+                      <ul *ngFor='let ed of app.user.educations'>
+                        <li>Institution Name: {{ed.institutionName}}</li>
+                        <li>Education Type: {{ed.educationType}}</li>
+                        <li>Degree Type: {{ed.degreeCertificateName}}</li>
+                        <li>Completed: {{ed.completeDate}}</li>
+                      </ul>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
+                <ngb-accordion>
+                  <ngb-panel title="Applicant Skill">
+                    <ng-template ngbPanelContent>
+                      <ul *ngFor='let sk of app.user.skills'>
+                        <li>Skill Description: {{sk.skillTitle}}</li>
+                        <li>Skill Level: {{sk.skillLevel}}</li>
+                      </ul>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
                 <div *ngIf="app.status == 'Open'">
                   <ngb-accordion>
                     <ngb-panel title="Application Actions">

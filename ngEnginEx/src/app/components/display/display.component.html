@@ -1,28 +1,26 @@
-
-  <h2 *ngIf="activeUser && loggedIn()" style="text-align: center">Welcome {{activeUser.firstName}}</h2>
-  <hr>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-4"  *ngIf="loggedIn()">
-        <div name="developerDetails">
-          <h1>profile stuff</h1>
-          <app-skill [skills]="skills" [activeUser]="activeUser"></app-skill>
-          <app-education [educations]="educations" [activeUser]="activeUser"></app-education>
-          <app-experience [experiences]="experiences" [activeUser]="activeUser"></app-experience>
-          <!-- <app-job-application [applications]="applications"></app-job-application> -->
-        </div>
-      </div>
-      <div class="col-sm">
-        <h1>ALL THE OTHER BITS AND BOBS</h1>
-        NEWEST JOBS etc
-        <app-job-search></app-job-search>
-        <div *ngIf="loggedIn()">
-          <h4>My Job Posts</h4>
-          <app-job-post [jobPosts]="jobPosts"></app-job-post>
-        </div>
-        <!-- <app-finished-jobs></app-finished-jobs> -->
+<h2 *ngIf="activeUser && loggedIn()" style="text-align: center">Welcome {{activeUser.firstName}}</h2>
+<hr>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4" *ngIf="loggedIn()">
+      <div name="developerDetails">
+        <h1>profile stuff</h1>
+        <app-skill [skills]="skills" [activeUser]="activeUser"></app-skill>
+        <app-education [educations]="educations" [activeUser]="activeUser"></app-education>
+        <app-experience [experiences]="experiences" [activeUser]="activeUser"></app-experience>
+        <app-job-application [applications]="applications"></app-job-application>
+        <app-job-detail [applications]="applications" [activeUser]="activeUser"></app-job-detail>
       </div>
     </div>
+    <div class="col-sm">
+      <h1>ALL THE OTHER BITS AND BOBS</h1>
+      NEWEST JOBS etc
+      <app-job-search></app-job-search>
+      <div *ngIf="loggedIn()">
+        <h4>My Job Posts</h4>
+        <app-job-post [jobPosts]="jobPosts"></app-job-post>
+      </div>
+      <!-- <app-finished-jobs></app-finished-jobs> -->
+    </div>
   </div>
-
-
+</div>

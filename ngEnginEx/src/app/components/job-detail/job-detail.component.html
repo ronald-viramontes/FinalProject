@@ -1,1 +1,12 @@
-<p>job-detail works!</p>
+<h1>Job Detail</h1>
+
+<div *ngIf="activeUser">
+  <ul *ngFor="let app of activeUser.applications">
+    <li>{{app.jobPost.jobRequirements}}</li>
+    <li>{{app.detail.startDate}}</li>
+    <li>{{app.detail.finishDate}}</li>
+    <li>{{app.detail.comment}}</li>
+    <li>{{app.detail.rating}}</li>
+  </ul>
+
+</div>

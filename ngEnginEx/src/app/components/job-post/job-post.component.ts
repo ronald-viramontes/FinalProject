@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { JobPostService } from 'src/app/services/job-post.service';
 import { UserService } from 'src/app/services/user.service';
 
-
 @Component({
   selector: 'app-job-post',
   templateUrl: './job-post.component.html',
@@ -31,7 +30,7 @@ export class JobPostComponent implements OnInit {
   activeUser: User = new User();
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
-
+  appDetail: boolean = false;
   constructor(
     private jobService: JobPostService,
     private route: ActivatedRoute,
@@ -40,10 +39,9 @@ export class JobPostComponent implements OnInit {
     private userService: UserService,
     private jobPipe: UserJobPipe,
     private openJob: OpenJobPipe
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     if (this.loggedIn()) {
       this.getActiveUser();
     }
@@ -247,6 +245,5 @@ export class JobPostComponent implements OnInit {
 
   getRoute() {
     return this.router.url === '/home';
-
   }
 }

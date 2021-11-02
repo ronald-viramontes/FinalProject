@@ -20,10 +20,10 @@ export class JobDetailComponent implements OnInit {
   ) {}
 
   @Input() activeUser: User | null = null;
-  @Input() jobApplication: JobApplication | null = null;
-  jobDetails: JobDetail[] = [];
+  @Input() applications: JobApplication[] = [];
+
   selected: JobDetail | null = null;
-  jobDetail: JobDetail | null = null;
+  detail: JobDetail | null = null;
   newJobDetail: JobDetail = new JobDetail();
   editJobDetail: JobDetail | null = null;
   addButton: boolean = false;
@@ -65,7 +65,7 @@ export class JobDetailComponent implements OnInit {
     this.addButton = false;
     this.jobDetailService.userAppJobDetail(appId).subscribe(
       (data) => {
-        this.jobDetail = data;
+        this.detail = data;
         console.log('JobDetails have been loaded');
       },
       (fail) => {
@@ -78,7 +78,7 @@ export class JobDetailComponent implements OnInit {
     if (this.activeUser)
       this.jobDetailService.destroy(jobDetailId, this.activeUser.id).subscribe(
         (success) => {
-          this.jobDetail = null;
+          this.detail = null;
           if (this.activeUser) this.loadJobDetail(this.activeUser.id);
           console.log('Successfully removed jobDetail', success);
         },
@@ -88,13 +88,13 @@ export class JobDetailComponent implements OnInit {
       );
   }
 
-  selectJobDetail(jobDetail: JobDetail) {
-    this.selected = jobDetail;
+  selectJobDetail(detail: JobDetail) {
+    this.selected = detail;
     this.editJobDetail = null;
   }
 
-  setEditJobDetail(sk: JobDetail) {
-    this.editJobDetail = sk;
+  setEditJobDetail(jd: JobDetail) {
+    this.editJobDetail = jd;
   }
 
   setAddButton() {

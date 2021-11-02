@@ -10,7 +10,7 @@ export class JobApplication {
   jobPost: JobPost;
   user: User;
   decisionDate: string;
-  jobDetails: JobDetail[];
+  detail: JobDetail;
   constructor(
     id: number = 0,
     approved: boolean = false,
@@ -19,7 +19,7 @@ export class JobApplication {
     jobPost: JobPost = new JobPost(),
     user: User = new User(),
     decisionDate: string = '',
-    jobDetails: JobDetail[] = []
+    detail: JobDetail = new JobDetail()
   ) {
     this.id = id;
     this.approved = approved;
@@ -28,6 +28,6 @@ export class JobApplication {
     this.jobPost = jobPost;
     this.user = user;
     this.decisionDate = decisionDate;
-    this.jobDetails = jobDetails;
+    this.detail = detail;
   }
 }
