@@ -174,7 +174,7 @@ export class JobPostComponent implements OnInit {
     if (jobPost) {
       this.newJobApp.jobPost = jobPost;
     }
-    this.newJobApp.user.posts = [];
+    if (this.newJobApp.user) this.newJobApp.user.posts = [];
     this.newJobApp.detail = null;
     console.log(this.newJobApp);
 
@@ -194,7 +194,8 @@ export class JobPostComponent implements OnInit {
 
   approveApplication(app: JobApplication) {
     console.log('in approve');
-
+    console.log(app);
+    app.user = new User();
     if (app) {
       app.status = 'Approved';
       this.jobService.approveApplication(app).subscribe(

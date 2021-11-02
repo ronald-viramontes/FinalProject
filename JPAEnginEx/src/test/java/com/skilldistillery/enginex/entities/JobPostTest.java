@@ -58,7 +58,7 @@ class JobPostTest {
 	@DisplayName("test relationship mappings on JobPost")
 	void test2() {
 		assertNotNull(post);
-		assertEquals("Full stack developer", post.getType().getName());
+		assertEquals("Full Stack Developer", post.getType().getName());
 		assertEquals("Ron", post.getUser().getFirstName());
 		assertEquals("Complete", post.getStatus().getName());
 		assertEquals("Approved", post.getApplications().get(0).getStatus());

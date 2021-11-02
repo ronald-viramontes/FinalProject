@@ -35,6 +35,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { JobApplicationCommentService } from './services/job-application-comment.service';
 import { JobDetailService } from './services/job-detail.service';
 import { OpenJobPipe } from './pipes/open-job.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { OpenJobPipe } from './pipes/open-job.pipe';
     NgbModule,
     FormsModule,
     NgbAccordionModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthService,

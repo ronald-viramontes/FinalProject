@@ -49,7 +49,7 @@ class JobTypeTest {
 	@Test
 	void test() {
 		assertNotNull(type);
-		assertEquals("Full stack developer", type.getName());
+		assertEquals("Full Stack Developer", type.getName());
 	}
 	
 	@Test
