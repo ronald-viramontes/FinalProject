@@ -138,8 +138,7 @@
           <ngb-panel title="Job Info">
             <ng-template ngbPanelContent>
               <ul>
-                <li>ID: {{selected.id}}</li>
-                <li>Requirements: {{selected.jobRequirements}}</li>
+                <li>Job Description: {{selected.jobRequirements}}</li>
                 <li>Approved Applicants Required: {{selected.developersNeeded}}</li>
                 <li>Is Active: {{selected.jobActive}}</li>
                 <li>Start Date: {{selected.startDate}}</li>
@@ -183,25 +182,59 @@
           <ngb-panel title="Applications">
             <ng-template ngbPanelContent>
               <ul *ngFor='let app of apps'>
-                <li>ID: {{app.id}}</li>
                 <li>First Name: {{app.user.firstName}}</li>
                 <li>Last Name: {{app.user.lastName}}</li>
                 <li>Application Status: {{app.status}}</li>
                 <li>Application Date: {{app.date}}</li>
                 <li>Application Approved: {{app.approved}}</li>
-                <!-- <button (click)="setEditApp(app)" class="btn btn-primary">Respond To App.</button> -->
-                <li *ngIf="app.status == 'Open'">
-                <ngb-accordion>
-                  <ngb-panel title="Application Actions">
-                    <ng-template ngbPanelContent>
-                      <ul>
-                        <button (click)="approveApplication(app)" class="btn btn-primary">Approve Application</button>
-                        <button (click)="declineApplication(app)" class="btn btn-primary">Decline Application</button>
-                      </ul>
-                    </ng-template>
-                  </ngb-panel>
-                </ngb-accordion>
-                </li>
+                  <ngb-accordion>
+                    <ngb-panel title="Applicant Experiences">
+                      <ng-template ngbPanelContent>
+                        <ul *ngFor='let exp of app.user.experiences'>
+                          <li>Company Name: {{exp.companyName}}</li>
+                          <li>Job Title: {{exp.jobTitle}}</li>
+                          <li>Start Date: {{exp.startDate}}</li>
+                          <li>End Date: {{exp.endDate}}</li>
+                        </ul>
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+                  <ngb-accordion>
+                    <ngb-panel title="Applicant Education">
+                      <ng-template ngbPanelContent>
+                        <ul *ngFor='let ed of app.user.educations'>
+                          <li>Institution Name: {{ed.institutionName}}</li>
+                          <li>Education Type: {{ed.educationType}}</li>
+                          <li>Degree Type: {{ed.degreeCertificateName}}</li>
+                          <li>Completed: {{ed.completeDate}}</li>
+                        </ul>
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+                  <ngb-accordion>
+                    <ngb-panel title="Applicant Skill">
+                      <ng-template ngbPanelContent>
+                        <ul *ngFor='let sk of app.user.skills'>
+                          <li>Skill Description: {{sk.skillTitle}}</li>
+                          <li>Skill Level: {{sk.skillLevel}}</li>
+                        </ul>
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+                <div *ngIf="app.status == 'Open'">
+                  <ngb-accordion>
+                    <ngb-panel title="Application Actions">
+                      <ng-template ngbPanelContent>
+                        <ul>
+                          <button (click)="approveApplication(app)" class="btn sm btn-primary">Approve
+                            Application</button>
+                          <button (click)="declineApplication(app)" class="btn sm btn-primary">Decline
+                            Application</button>
+                        </ul>
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+                </div>
               </ul>
             </ng-template>
           </ngb-panel>
