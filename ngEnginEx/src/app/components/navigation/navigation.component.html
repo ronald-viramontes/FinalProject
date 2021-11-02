@@ -35,6 +35,9 @@
             <a class="nav-link" href="#/login">Login or Register</a>
           </li> -->
           <li class="nav-item" *ngIf="loggedIn()">
+            <a class="nav-link" href="#/editprofile">Edit Profile</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn()">
             <a class="nav-link" href="#/home" (click)="logOut()">Logout</a>
           </li>
         </ul>
