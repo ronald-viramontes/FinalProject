@@ -61,7 +61,7 @@ public class JobApplicationController {
 	public JobApplication edit(HttpServletRequest req, HttpServletResponse res,
 			@PathVariable int aId, @RequestBody JobApplication edit, Principal principal) {
 		int userId = userRepo.findByUsername(principal.getName()).getId();
-		return null;
+		return appSvc.edit(edit, aId, userId);
 	}
 
 }

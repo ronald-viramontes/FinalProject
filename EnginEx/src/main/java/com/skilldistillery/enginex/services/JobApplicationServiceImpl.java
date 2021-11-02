@@ -1,5 +1,6 @@
 package com.skilldistillery.enginex.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		JobPost post = postRepo.findById(postId).get();
 		app.setUser(user);
 		app.setJobPost(post);
+		app.setDate(LocalDate.now());
 		return appRepo.saveAndFlush(app);
 	}
 

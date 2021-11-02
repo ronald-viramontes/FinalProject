@@ -83,7 +83,7 @@
       </ngb-accordion>
       <br>
       <br>
-      <button (click)="update(editJob)" class="btn btn-primary">Create Job Post</button>
+      <button (click)="update(editJob)" class="btn btn-primary">Update Job Post</button>
     </form>
   </div>
   <div>
@@ -110,7 +110,7 @@
       </select>
       <br>
       <br>
-      <button (click)="createPost(newJob)" class="btn btn-primary">Create Job Post</button>
+      <button (click)="createPreCall(newJob)" class="btn btn-primary">Create Job Post</button>
     </div>
     <div *ngIf="selected">
       <div>
@@ -129,6 +129,8 @@
             </ng-template>
           </ngb-panel>
         </ngb-accordion>
+      </div>
+      <div>
         <ngb-accordion>
           <ngb-panel title="Client Info">
             <ng-template ngbPanelContent>
@@ -141,6 +143,21 @@
             </ng-template>
           </ngb-panel>
         </ngb-accordion>
+      </div>
+      <div *ngIf="isOwner">
+        <ngb-accordion>
+          <ngb-panel title="Applications">
+            <ng-template ngbPanelContent>
+              <ul *ngFor='let app of apps'>
+                <li>ID: {{app.id}}</li>
+                <li>First Name: {{app.user.firstName}}</li>
+                <li>Last Name: {{app.user.lastName}}</li>
+              </ul>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div>
+      <div *ngIf="!isOwner">
         <ngb-accordion>
           <ngb-panel title="Applications">
             <ng-template ngbPanelContent>
@@ -156,7 +173,11 @@
             </ng-template>
           </ngb-panel>
         </ngb-accordion>
-        <button (click)="returnToList()" class="btn btn-primary">Back</button>
       </div>
+      <div *ngIf="isOwner">
+        <button (click)="createApplication(selected)" class="btn btn-primary">Apply For Job!</button>
+      </div>
+      <button (click)="returnToList()" class="btn btn-primary">Back</button>
     </div>
   </div>
+</div>
