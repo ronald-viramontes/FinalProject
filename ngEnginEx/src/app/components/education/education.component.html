@@ -29,7 +29,7 @@
       <strong>{{edu.institutionName}}</strong><br>
       Institution Type: {{edu.educationType}} <br>
       Certificate Received: {{edu.degreeCertificateName}} <br>
-      Graduated: {{edu.completeDate}}
+      Graduated: {{edu.completeDate}} <br>
       <button class="badge btn-light btn-sm" *ngIf="!editEducation" (click)="setEdit(edu)">✏️</button>
       <button class="badge btn-light btn-sm" *ngIf="!editEducation" (click)="delete(edu.id)">❌</button>
       <form *ngIf="editEducation" name="editEducation">

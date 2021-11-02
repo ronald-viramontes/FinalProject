@@ -1,4 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { JobApplication } from 'src/app/models/job-application';
 
 @Component({
@@ -8,11 +9,14 @@ import { JobApplication } from 'src/app/models/job-application';
 })
 export class JobApplicationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   @Input() applications: JobApplication[] =[];
 
   ngOnInit(): void {
   }
 
+  goToJobs(){
+    this.router.navigateByUrl('jobs');
+  }
 }

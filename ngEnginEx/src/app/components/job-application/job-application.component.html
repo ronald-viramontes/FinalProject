@@ -1,6 +1,56 @@
 <!-- <h2>My applications</h2> -->
+<style>
+  .accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+
+  .active,
+  .accordion:hover {
+    background-color: #ccc;
+  }
+
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+  }
+</style>
 <div *ngIf="applications.length > 0">
-  <ul>
-    <li *ngFor="let app of applications">{{app.decisionDate}}: {{app.status}}</li>
+  <ngb-accordion [closeOthers]="true">
+    <ngb-panel *ngFor="let app of applications">
+      <ng-template ngbPanelTitle>
+        <span
+          style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20ch;">{{app.jobPost.jobRequirements}}</span>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        Job Requirements: {{app.jobPost.jobRequirements}}<br>
+        App Date: {{app.date}} <br>
+        Status: {{app.status}}
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+  <div id="addButton">
+    <button class="badge btn-success" (click)="goToJobs()">Find a Job</button>
+
+  </div>
+
+
+  <!-- <ul>
+    <li *ngFor="let app of applications"><span style="
+      display:inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20ch;">
+        {{app.jobPost.jobRequirements}}
+      </span><br>{{app.date}}<br>{{app.status}}</li>
   </ul>
-</div>
+</div> -->
