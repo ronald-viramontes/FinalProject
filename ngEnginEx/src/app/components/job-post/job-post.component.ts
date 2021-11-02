@@ -5,9 +5,12 @@ import { JobPost } from 'src/app/models/job-post';
 import { JobStatus } from 'src/app/models/job-status';
 import { JobType } from 'src/app/models/job-type';
 import { User } from 'src/app/models/user';
+import { OpenJobPipe } from 'src/app/pipes/open-job.pipe';
+import { UserJobPipe } from 'src/app/pipes/user-job.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { JobPostService } from 'src/app/services/job-post.service';
 import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-job-post',
@@ -25,7 +28,7 @@ export class JobPostComponent implements OnInit {
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
   editApp: JobApplication | null = null;
-  activeUser: User | null = null;
+  activeUser: User = new User();
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
 
@@ -34,15 +37,18 @@ export class JobPostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private jobPipe: UserJobPipe,
+    private openJob: OpenJobPipe
+  ) { }
 
   ngOnInit(): void {
-    this.reloadJobs();
 
     if (this.loggedIn()) {
       this.getActiveUser();
     }
+    this.reloadJobs();
+    this.getRoute();
   }
   loggedIn() {
     return this.authService.checkLogin();
@@ -62,8 +68,6 @@ export class JobPostComponent implements OnInit {
     let creds = this.authService.getCredentials();
     if (creds != null) {
       creds = atob(creds);
-      console.log(creds);
-
       let unArr = creds.split(':');
       let username = unArr[0];
       this.userService.show(username).subscribe(
@@ -237,5 +241,10 @@ export class JobPostComponent implements OnInit {
       this.reloadJobs();
       this.editJob = null;
     });
+  }
+
+  getRoute() {
+    return this.router.url === '/home';
+
   }
 }

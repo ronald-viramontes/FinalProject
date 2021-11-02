@@ -1,17 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { of } from 'rxjs';
 import { JobPost } from '../models/job-post';
-import { User } from '../models/user';
 
 @Pipe({
-  name: 'userJob'
+  name: 'openJob'
 })
-export class UserJobPipe implements PipeTransform {
+export class OpenJobPipe implements PipeTransform {
 
-  transform(value: JobPost[], user:User): JobPost[] {
+  transform(value: JobPost[]): JobPost[] {
     let results: JobPost[] = [];
     value.forEach((value) => {
-      if(value.user.id == user.id){
+      if(value.status.id === 2){
         results.push(value);
       }
     });
