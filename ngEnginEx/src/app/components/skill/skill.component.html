@@ -7,7 +7,7 @@
       <strong>{{skill.skillTitle}}</strong><br>
       Skill Level: {{skill.skillLevel}} <br>
       <br>
-      <button *ngIf="!editSkill" class="badge btn-light btn-sm" (click)="setEditSkill(skill)">✏</button>
+      <button *ngIf="!editSkill" class="badge btn-light btn-sm" (click)="setEditSkill(skill)">✏️</button>
       <button *ngIf="!editSkill" class="badge btn-light btn-sm" (click)="delete(skill.id)">❌</button>
       <div *ngIf="editSkill" style="text-align: center" class="form-control">
         <form>
