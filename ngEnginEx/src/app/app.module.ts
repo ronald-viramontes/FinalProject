@@ -30,10 +30,10 @@ import { EducationService } from './services/education.service';
 import { UserService } from './services/user.service';
 import { JobSearchComponent } from './components/job-search/job-search.component';
 import { DateSortPipe } from './pipes/date-sort.pipe';
-import { UserJobPipe } from './pipes/user-job.pipe';
+// import { UserJobPipe } from './pipes/user-job.pipe';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-
-
+import { JobApplicationCommentService } from './services/job-application-comment.service';
+import { JobDetailService } from './services/job-detail.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     UserHomeComponent,
     JobSearchComponent,
     DateSortPipe,
-    UserJobPipe,
+    // UserJobPipe,
     EditProfileComponent,
   ],
   imports: [
@@ -71,6 +71,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     EducationService,
     ExperienceService,
     JobApplicationService,
+    JobApplicationCommentService,
+    JobDetailService,
     JobPostService,
     SkillService,
     UserService,
