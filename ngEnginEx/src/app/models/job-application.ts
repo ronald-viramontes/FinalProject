@@ -10,7 +10,7 @@ export class JobApplication {
   jobPost: JobPost;
   user: User;
   decisionDate: string;
-  detail: JobDetail;
+  detail: JobDetail | null = null;
   constructor(
     id: number = 0,
     approved: boolean = false,

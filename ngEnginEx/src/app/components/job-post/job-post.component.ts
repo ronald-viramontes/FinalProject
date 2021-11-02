@@ -175,6 +175,7 @@ export class JobPostComponent implements OnInit {
       this.newJobApp.jobPost = jobPost;
     }
     this.newJobApp.user.posts = [];
+    this.newJobApp.detail = null;
     console.log(this.newJobApp);
 
     this.jobService.createApplication(this.newJobApp).subscribe(

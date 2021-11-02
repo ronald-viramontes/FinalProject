@@ -188,17 +188,6 @@
                 <li>Application Date: {{app.date}}</li>
                 <li>Application Approved: {{app.approved}}</li>
 
-                <button *ngIf="!appDetail" class="btn btn-dark" (click)="appDetail = true">≣</button>
-
-                <button *ngIf="appDetail" style="margin-left: 10px;" class="badge btn-secondary"
-                  (click)="appDetail = false">⮐</button>
-                <div *ngIf="appDetail">
-                  Started: {{app.detail.startDate}} <br>
-                  Finished: {{app.detail.finishDate}}<br>
-                  Comment: {{app.detail.comment}}<br>
-                  Rating: {{app.detail.rating}}<br>
-
-                </div>
                 <ngb-accordion>
                   <ngb-panel title="Applicant Experiences">
                     <ng-template ngbPanelContent>

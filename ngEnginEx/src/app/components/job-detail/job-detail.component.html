@@ -2,11 +2,13 @@
 
 <div *ngIf="activeUser">
   <ul *ngFor="let app of activeUser.applications">
-    <li>{{app.jobPost.jobRequirements}}</li>
-    <li>{{app.detail.startDate}}</li>
-    <li>{{app.detail.finishDate}}</li>
-    <li>{{app.detail.comment}}</li>
-    <li>{{app.detail.rating}}</li>
+    <div *ngIf="app.detail">
+      <li>{{app.jobPost.jobRequirements}}</li>
+      <li>{{app.detail.startDate}}</li>
+      <li>{{app.detail.finishDate}}</li>
+      <li>{{app.detail.comment}}</li>
+      <li>{{app.detail.rating}}</li>
+    </div>
   </ul>
 
 </div>
