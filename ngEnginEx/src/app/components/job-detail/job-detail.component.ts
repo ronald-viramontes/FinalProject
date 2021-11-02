@@ -28,17 +28,16 @@ export class JobDetailComponent implements OnInit {
   editJobDetail: JobDetail | null = null;
   addButton: boolean = false;
 
-
   ngOnInit(): void {}
 
-  create(newJobDetail: JobDetail) {
-    this.jobDetailService.create(newJobDetail).subscribe(
+  create(newJobDetail: JobDetail, appId: number) {
+    this.jobDetailService.create(newJobDetail, appId).subscribe(
       (created) => {
         console.log('JobDetail created');
         console.log(created);
         this.newJobDetail = new JobDetail();
         this.addButton = false;
-        if (this.activeUser != null) this.loadJobDetails(this.activeUser.id);
+        if (this.activeUser != null) this.loadJobDetail(this.activeUser.id);
       },
       (fail) => {
         console.error('Something went wrong during jobDetail creation', fail);
@@ -54,7 +53,7 @@ export class JobDetailComponent implements OnInit {
           (updated) => {
             console.log('User JobDetail has been updated successfully');
             this.editJobDetail = null;
-            if (this.activeUser) this.loadJobDetails(this.activeUser.id);
+            if (this.activeUser) this.loadJobDetail(this.activeUser.id);
           },
           (fail) => {
             console.error('Something went wrong with updating jobDetail', fail);
@@ -62,11 +61,11 @@ export class JobDetailComponent implements OnInit {
         );
   }
 
-  loadJobDetails(userId: number) {
+  loadJobDetail(appId: number) {
     this.addButton = false;
-    this.jobDetailService.userJobDetails(userId).subscribe(
+    this.jobDetailService.userAppJobDetail(appId).subscribe(
       (data) => {
-        this.jobDetails = data;
+        this.jobDetail = data;
         console.log('JobDetails have been loaded');
       },
       (fail) => {
@@ -75,12 +74,12 @@ export class JobDetailComponent implements OnInit {
     );
   }
 
-  delete(jobDetailId: number) {
+  delete(jobDetailId: number, appId: number) {
     if (this.activeUser)
       this.jobDetailService.destroy(jobDetailId, this.activeUser.id).subscribe(
         (success) => {
           this.jobDetail = null;
-          if (this.activeUser) this.loadJobDetails(this.activeUser.id);
+          if (this.activeUser) this.loadJobDetail(this.activeUser.id);
           console.log('Successfully removed jobDetail', success);
         },
         (fail) => {
@@ -101,9 +100,4 @@ export class JobDetailComponent implements OnInit {
   setAddButton() {
     this.addButton = true;
   }
-}
-
-
-
-
 }
