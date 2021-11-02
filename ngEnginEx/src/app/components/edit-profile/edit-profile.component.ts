@@ -62,4 +62,21 @@ export class EditProfileComponent implements OnInit {
       }
     );
   }
+
+
+disableProfile(){
+  if(confirm("Are you sure you want to deactivate your account?")){
+    this.activeUser.enabled = false;
+    this.userService.edit(this.activeUser.id, this.activeUser).subscribe(
+      data => {
+        this.authService.logout();
+        this.router.navigateByUrl('/home');
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+}
+
 }
