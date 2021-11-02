@@ -5,7 +5,7 @@
   color: white;
   text-shadow: 1px 1px 4px black;
   border: 1px solid black;
-  width: 50%;
+  width: 85%;
   background-color: rgb(24, 28, 30);
 }
 .accordion {
@@ -29,4 +29,10 @@
   padding: 0 18px;
   display: none;
   background-color: white;
+}
+
+#addButton {
+  text-align: center;
+  margin: auto;
+  margin-top: 10px;
 }

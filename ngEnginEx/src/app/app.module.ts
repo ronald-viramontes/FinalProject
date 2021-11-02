@@ -37,6 +37,8 @@ import { JobDetailService } from './services/job-detail.service';
 import { OpenJobPipe } from './pipes/open-job.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +72,7 @@ import { MatSliderModule } from '@angular/material/slider';
     NgbAccordionModule,
     BrowserAnimationsModule,
     MatSliderModule,
+    MatCardModule,
   ],
   providers: [
     AuthService,
