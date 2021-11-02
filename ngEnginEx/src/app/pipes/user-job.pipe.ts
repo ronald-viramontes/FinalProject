@@ -11,7 +11,7 @@ export class UserJobPipe implements PipeTransform {
   transform(value: JobPost[], user:User): JobPost[] {
     let results: JobPost[] = [];
     value.forEach((value) => {
-      if(value.user.id == user.id){
+      if(value.user.id === user.id){
         results.push(value);
       }
     });
