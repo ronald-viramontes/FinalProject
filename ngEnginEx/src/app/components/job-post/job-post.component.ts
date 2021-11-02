@@ -31,6 +31,7 @@ export class JobPostComponent implements OnInit {
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
   appDetail: boolean = false;
+  statusId: number = 2;
   constructor(
     private jobService: JobPostService,
     private route: ActivatedRoute,

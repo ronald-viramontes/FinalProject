@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let job of jobPosts | openJob'>
+        <tr *ngFor='let job of jobPosts | openJob : statusId'>
           <td>{{job.jobRequirements}}</td>
           <td>{{job.startDate}}</td>
           <td>{{job.completionDate}}</td>

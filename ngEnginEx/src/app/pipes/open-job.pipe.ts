@@ -6,10 +6,10 @@ import { JobPost } from '../models/job-post';
 })
 export class OpenJobPipe implements PipeTransform {
 
-  transform(value: JobPost[]): JobPost[] {
+  transform(value: JobPost[], statusId: number): JobPost[] {
     let results: JobPost[] = [];
     value.forEach((value) => {
-      if(value.status.id === 2){
+      if(value.status.id === statusId){
         results.push(value);
       }
     });
