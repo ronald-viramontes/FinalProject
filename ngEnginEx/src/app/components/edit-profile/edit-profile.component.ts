@@ -50,8 +50,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   edit(editUser: User){
+    editUser.applications = [];
+    editUser.posts = [];
     console.log(editUser);
-
     this.userService.edit(editUser.id, editUser).subscribe(
       data => {
         alert('Profile Updated');
