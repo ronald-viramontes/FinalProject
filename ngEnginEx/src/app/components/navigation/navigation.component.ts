@@ -26,7 +26,9 @@ export class NavigationComponent implements OnInit {
   login(user: User){
     this.authService.login(user.username, user.password).subscribe(
       data => {
+        location.reload();
         this.router.navigateByUrl('/home')
+        this.user = new User();
       },
       err => {
         console.error('LoginComponent.login(): error logging in');
