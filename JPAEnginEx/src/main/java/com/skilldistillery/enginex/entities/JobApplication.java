@@ -12,20 +12,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="job_application")
+@Table(name = "job_application")
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id")
 public class JobApplication {
-	
+
 	public JobApplication() {
 		super();
 	}
@@ -33,38 +32,37 @@ public class JobApplication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="application_approval")
-	private boolean approved;
-	
-	@Column(name="application_status")
-	private String status;
-	
-	@Column(name="application_date")
-	private LocalDate date;
-	
-	@Column(name="decision_date")
-	private LocalDate decisionDate;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="job_post_id")
-	private JobPost jobPost;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
-	
-	@OneToMany(mappedBy="application")
-	private List<JobApplicationComment> comments;
-	
-	@OneToMany(mappedBy="application")
-	private List<JobDetail> details;
-	
-	//Methods
 
-	
-	
+	@Column(name = "application_approval")
+	private boolean approved;
+
+	@Column(name = "application_status")
+	private String status;
+
+	@Column(name = "application_date")
+	private LocalDate date;
+
+	@Column(name = "decision_date")
+	private LocalDate decisionDate;
+
+	@JsonIgnoreProperties({ "applications" })
+	@ManyToOne
+	@JoinColumn(name = "job_post_id")
+	private JobPost jobPost;
+
+	@JsonIgnoreProperties({ "user", "applications" })
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@OneToMany(mappedBy = "application")
+	private List<JobApplicationComment> comments;
+
+	@OneToMany(mappedBy = "application")
+	private List<JobDetail> details;
+
+	// Methods
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -118,7 +116,6 @@ public class JobApplication {
 		this.jobPost = jobPost;
 	}
 
-
 	public List<JobApplicationComment> getComments() {
 		return comments;
 	}
@@ -126,7 +123,6 @@ public class JobApplication {
 	public void setComments(List<JobApplicationComment> comments) {
 		this.comments = comments;
 	}
-
 
 	public List<JobDetail> getDetails() {
 		return details;
@@ -159,10 +155,8 @@ public class JobApplication {
 	@Override
 	public String toString() {
 		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
-				+ ", decisionDate=" + decisionDate + ", jobPost=" + jobPost + ", comments="
-				+ comments + ", details=" + details + "]";
+				+ ", decisionDate=" + decisionDate + ", jobPost=" + jobPost + ", comments=" + comments + ", details="
+				+ details + "]";
 	}
-	
-	
 
 }

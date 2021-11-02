@@ -53,7 +53,7 @@ public class JobPost {
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
 
-	@JsonIgnoreProperties({"posts"})
+	@JsonIgnoreProperties({"posts", "applications"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
