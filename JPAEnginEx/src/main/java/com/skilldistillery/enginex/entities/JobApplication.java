@@ -21,9 +21,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "job_application")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "id")
+//@JsonIdentityInfo(
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "id")
 public class JobApplication {
 
 	public JobApplication() {
@@ -51,7 +51,7 @@ public class JobApplication {
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
 
-	@JsonIgnoreProperties({ "user", "applications" })
+	@JsonIgnoreProperties({ "user", "applications", "posts" })
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

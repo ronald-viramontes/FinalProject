@@ -62,6 +62,7 @@ public class JobPost {
 	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
 
+	@JsonIgnoreProperties({"jobPost"})
 	@OneToMany(mappedBy = "jobPost")
 	private List<JobApplication> applications;
 
