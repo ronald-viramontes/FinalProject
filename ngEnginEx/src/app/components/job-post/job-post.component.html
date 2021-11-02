@@ -25,7 +25,7 @@
     background-color: white;
   }
 </style>
-<div style="margin-right: 10%; margin-left: 5%" *ngIf="!showNewJob">
+<div style="margin-right: 10%; margin-left: 5%; margin-bottom: 1%;" *ngIf="!showNewJob">
   <td><button (click)="createNewPost()" class="btn btn-primary">Create New Job</button></td>
 </div>
 <div style="margin-right: 10%; margin-left: 5%">
@@ -81,8 +81,6 @@
           </ng-template>
         </ngb-panel>
       </ngb-accordion>
-      <br>
-      <br>
       <button (click)="update(editJob)" class="btn btn-primary">Update Job Post</button>
     </form>
   </div>
@@ -108,8 +106,6 @@
       <select name="jobType" [(ngModel)]="newJob.type">
         <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
       </select>
-      <br>
-      <br>
       <button (click)="createPreCall(newJob)" class="btn btn-primary">Create Job Post</button>
     </div>
     <div *ngIf="selected">
@@ -120,6 +116,7 @@
               <ul>
                 <li>ID: {{selected.id}}</li>
                 <li>Requirements: {{selected.jobRequirements}}</li>
+                <li>Approved Applicants Required: {{selected.developersNeeded}}</li>
                 <li>Is Active: {{selected.jobActive}}</li>
                 <li>Start Date: {{selected.startDate}}</li>
                 <li>Completion Date: {{selected.completionDate}}</li>
@@ -130,7 +127,7 @@
           </ngb-panel>
         </ngb-accordion>
       </div>
-      <div>
+      <div *ngIf="isOwner">
         <ngb-accordion>
           <ngb-panel title="Client Info">
             <ng-template ngbPanelContent>

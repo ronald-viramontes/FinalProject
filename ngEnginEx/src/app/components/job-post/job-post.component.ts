@@ -80,6 +80,22 @@ export class JobPostComponent implements OnInit {
 
   setEditJob(job: JobPost) {
     this.editJob = job;
+    this.jobService.indexStatus().subscribe(
+      (statusList) => {
+        this.jobStatuses = statusList;
+      },
+      (fail) => {
+        console.error('Job Status load failed');
+      }
+    );
+    this.jobService.indexType().subscribe(
+      (typeList) => {
+        this.jobTypes = typeList;
+      },
+      (fail) => {
+        console.error('Job Type load failed');
+      }
+    );
   }
 
   displayJob(job: JobPost) {
@@ -124,7 +140,6 @@ export class JobPostComponent implements OnInit {
         console.error('Job Type load failed');
       }
     );
-    console.log(this.activeUser);
   }
 
   createPreCall(jobPost: JobPost) {
