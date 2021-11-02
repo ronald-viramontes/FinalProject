@@ -15,21 +15,22 @@
         <form>
           <br>
           <label for="start">Job Title</label>
+          <br>
           <input type="text" name="selected.jobTitle" [(ngModel)]="editExp.jobTitle" />
           <br />
-          <br />
           <label for="start">Company</label>
+          <br>
           <input type="text" name="selected.companyName" [(ngModel)]="editExp.companyName" />
           <br />
-          <br />
           <label for="start">Start Date</label>
+          <br />
           <input type="date" name="selected.startDate" [(ngModel)]="editExp.startDate" />
           <br />
-          <br />
           <label for="end">End Date</label>
+          <br />
           <input type="date" name="selected.endDate" [(ngModel)]="editExp.endDate" />
           <br />
-          <br />
+          <br>
           <button class="btn btn-success btn-lg" (click)="updateExp(editExp)">
             ✔
           </button>

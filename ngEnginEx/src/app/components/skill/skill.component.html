@@ -13,13 +13,14 @@
         <form>
           <br>
           <label for="jobTitle">Job Title</label>
+          <br />
           <input type="text" name="selected.skillTitle" [(ngModel)]="editSkill.skillTitle" />
           <br />
-          <br />
           <label for="skillLevel">Skill Level</label>
+          <br />
           <input type="text" name="selected.companyName" [(ngModel)]="editSkill.skillLevel" />
           <br />
-          <br />
+          <br>
           <button class="btn btn-success btn-lg" (click)="updateSkill(editSkill)">
             ✔
           </button>
