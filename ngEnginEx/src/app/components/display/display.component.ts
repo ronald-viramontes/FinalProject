@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Education } from 'src/app/models/education';
 import { Experience } from 'src/app/models/experience';
 import { JobApplication } from 'src/app/models/job-application';
@@ -15,7 +16,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class DisplayComponent implements OnInit {
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
   experiences: Experience[] = [];
   skills: Skill[] = [];
@@ -39,6 +40,7 @@ export class DisplayComponent implements OnInit {
         this.educations = data.educations;
         this.experiences = data.experiences;
         this.applications = data.applications;
+        this.jobPosts = data.posts;
         this.loaded = true;
       },
       err => {
@@ -70,7 +72,9 @@ export class DisplayComponent implements OnInit {
     return this.authService.checkLogin();
   }
 
-
+editProfile(){
+  this.router.navigateByUrl('editprofile');
+}
   // selectDev(dev: Developer){
   //   this.selected = dev;
   //   this.loadProfileInfo(dev.id);
