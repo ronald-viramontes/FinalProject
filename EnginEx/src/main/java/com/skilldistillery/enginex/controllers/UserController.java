@@ -64,7 +64,7 @@ public class UserController {
 	@PutMapping(path = "/users/{id}")
 	public User update(@PathVariable int id, @RequestBody User user, HttpServletRequest req
 			, HttpServletResponse res, Principal principal) {
-		
+		System.out.println("-------------------------------------------------------------------------------------"+user);
 		user = userServ.update(principal.getName(), id, user);
 		return user;
 	}

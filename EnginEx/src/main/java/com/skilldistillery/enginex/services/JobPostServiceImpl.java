@@ -38,7 +38,7 @@ public class JobPostServiceImpl implements JobPostService {
 			existingJobPost.setCompletionDate(jobPost.getCompletionDate());
 			existingJobPost.setDevelopersNeeded(jobPost.getDevelopersNeeded());
 			existingJobPost.setJobActive(true);
-			existingJobPost.setStartDate(LocalDate.now());
+			existingJobPost.setStartDate(jobPost.getStartDate());
 			existingJobPost.setDateClosed(jobPost.getDateClosed());
 			jobPostRepo.saveAndFlush(existingJobPost);
 			return existingJobPost;

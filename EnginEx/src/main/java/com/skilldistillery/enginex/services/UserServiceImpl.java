@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
 				existingUser.setPassword(user.getPassword());
 				existingUser.setEnabled(user.isEnabled());
 				existingUser.setRole(user.getRole());
+				existingUser.setFirstName(user.getFirstName());
+				existingUser.setLastName(user.getLastName());
+				existingUser.setEmail(user.getEmail());
+				existingUser.setPhoneNumber(user.getPhoneNumber());
+				existingUser.setImageUrl(user.getImageUrl());
 				userRepo.saveAndFlush(existingUser);
 				return existingUser;
 			}

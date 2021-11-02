@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(user: User){
-    console.log(user);
     this.authService.login(user.username, user.password).subscribe(
       data => {
         this.router.navigateByUrl('/home')
