@@ -30,6 +30,8 @@ import { EducationService } from './services/education.service';
 import { UserService } from './services/user.service';
 import { JobSearchComponent } from './components/job-search/job-search.component';
 import { DateSortPipe } from './pipes/date-sort.pipe';
+import { UserJobPipe } from './pipes/user-job.pipe';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 
 
@@ -53,6 +55,8 @@ import { DateSortPipe } from './pipes/date-sort.pipe';
     UserHomeComponent,
     JobSearchComponent,
     DateSortPipe,
+    UserJobPipe,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -42,4 +42,13 @@ export class UserService {
       })
     );
   }
+
+  edit(userId: number, user: User){
+    return this.http.put<User>(`${this.baseUrl}/${userId}`, user, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('UserService.edit(): error editing user');
+      })
+    );
+  }
 }
