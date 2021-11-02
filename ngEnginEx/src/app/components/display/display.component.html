@@ -7,7 +7,7 @@
       <div class="col-sm-4">
         <div name="developerDetails" *ngIf="loggedIn()">
           <h1>profile stuff</h1>
-          <app-skill [skills]="skills"></app-skill>
+          <app-skill [skills]="skills" [activeUser]="activeUser"></app-skill>
           <app-education [educations]="educations" [activeUser]="activeUser"></app-education>
           <app-experience [experiences]="experiences" [activeUser]="activeUser"></app-experience>
           <!-- <app-job-application [applications]="applications"></app-job-application> -->

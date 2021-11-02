@@ -21,14 +21,19 @@ public class SkillServiceImpl implements SkillService {
 	
 	
 	@Override
-	public List<DeveloperSkill> findAll() {
+	public List<DeveloperSkill> index() {
 		return skillRepo.findAll();
 	}
 
 
 	@Override
-	public List<DeveloperSkill> findByDevId(int userId) {
-		return skillRepo.findByUserId(userId);
+	public List<DeveloperSkill> findByDevId(int userId, String username) {
+		if (username.equals(userRepo.findById(userId).get().getUsername())) {
+			return skillRepo.findByUserId(userId);
+		} else {
+			return null;
+		}
+				
 	}
 
 
@@ -41,28 +46,31 @@ public class SkillServiceImpl implements SkillService {
 
 
 	@Override
-	public DeveloperSkill edit(DeveloperSkill edit, int userId, int skillId) {
+	public DeveloperSkill edit(int userId, DeveloperSkill edit, String username, int skillId) {
 		Optional<DeveloperSkill> opt = skillRepo.findById(skillId);
+		User user = userRepo.findByUsername(username);
 		DeveloperSkill skill = null;
-		if(opt.isPresent() && opt.get().getUser().getId() == userId) {
+		if(user.getId() == userId) {
+		
+		if(opt.isPresent()) {
 			skill = opt.get();
 			skill.setSkillLevel(edit.getSkillLevel());
 			skill.setSkillTitle(edit.getSkillTitle());
-			return skillRepo.saveAndFlush(skill);
+			
+			skill = skillRepo.saveAndFlush(skill);
 		}
-		return skill;
-	}
+			return skill;
+		}
+			return null;
+		
+		}
 
 
 	@Override
-	public boolean delete(int skillId, int userId) {
-		Optional<DeveloperSkill> opt = skillRepo.findById(skillId);
-		if(opt.isPresent() && opt.get().getUser().getId() == userId) {
-			DeveloperSkill skill = opt.get();
-			skillRepo.delete(skill);
-			return true;
+	public void delete(int userId, String username, int skillId) {
+		if(username.equals(userRepo.findById(userId).get().getUsername())) {
+			skillRepo.deleteById(skillId);
 		}
-		return false;
 	}
 
 

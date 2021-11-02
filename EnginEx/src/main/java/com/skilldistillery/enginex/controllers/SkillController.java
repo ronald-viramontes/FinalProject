@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.enginex.entities.DeveloperSkill;
-import com.skilldistillery.enginex.repositories.UserRepository;
 import com.skilldistillery.enginex.services.SkillService;
 
 @RestController
@@ -28,37 +27,74 @@ public class SkillController {
 
 	@Autowired
 	private SkillService skillSvc;
-	@Autowired
-	private UserRepository userRepo;
 
 	@GetMapping("skills")
 	public List<DeveloperSkill> index(){
-		return skillSvc.findAll();
+		return skillSvc.index();
 	}
 	
-	@GetMapping("skills/users/{userId}")
-	public List<DeveloperSkill> skillsByDevId(@PathVariable int userId){
-		return skillSvc.findByDevId(userId);
+	@GetMapping("skills/{userId}")
+	public List<DeveloperSkill> skillsByDevId(HttpServletRequest req, 
+											  HttpServletResponse res, 
+											  Principal principal,
+											  @PathVariable int userId){
+		
+		List<DeveloperSkill> skills = skillSvc.findByDevId(userId, principal.getName());
+		if(skills.size() < 0 ) {
+			res.setStatus(400);
+			return null;
+		} else {
+			res.setStatus(200);
+			return skills;
+		}
+		
 	}
 	
 	@PostMapping("skills")
-	public DeveloperSkill create(HttpServletRequest req, HttpServletResponse res, 
-			Principal principal, @RequestBody DeveloperSkill newSkill) {
-		return skillSvc.create(newSkill, principal.getName());
+	public DeveloperSkill create(HttpServletRequest req, 
+								 			HttpServletResponse res, 
+								 			Principal principal, 
+								 			@RequestBody DeveloperSkill skill) {
+		
+		skill = skillSvc.create(skill, principal.getName());
+		
+		if(skill == null) {
+			res.setStatus(400);
+			return null;
+		} else {
+			res.setStatus(200);
+			return skill;
+		}
+		
+
 	}
 	
-	@PutMapping("skills/{sId}")
-	public DeveloperSkill edit(HttpServletRequest req, HttpServletResponse res, 
-			Principal principal, @RequestBody DeveloperSkill edit, @PathVariable int sId) {
-		int userId = userRepo.findByUsername(principal.getName()).getId();
-		return skillSvc.edit(edit, userId, sId);
+	@PutMapping("skills/{userId}/{sId}")
+	public DeveloperSkill edit(HttpServletRequest req, 
+										HttpServletResponse res, 
+										Principal principal, 
+										@RequestBody DeveloperSkill edit, 
+										@PathVariable Integer sId,
+										@PathVariable Integer userId) {
+		
+		
+		edit = skillSvc.edit(userId, edit, principal.getName(), sId);
+		if(edit == null) {
+			res.setStatus(400);
+			return null;
+		} else {
+			res.setStatus(200);
+			return edit;
+		}
 	}
 	
 	
-	@DeleteMapping("skills/{sId}")
-	public boolean delete(HttpServletRequest req, HttpServletResponse res, 
-			Principal principal, @PathVariable int sId) {
-		int userId = userRepo.findByUsername(principal.getName()).getId();
-		return skillSvc.delete(sId, userId);
+	@DeleteMapping("skills/{userId}/{sId}")
+	public void delete(HttpServletRequest req, HttpServletResponse res, 
+									Principal principal, 
+									@PathVariable Integer sId,
+									@PathVariable Integer userId) {
+		
+		skillSvc.delete(userId, principal.getName(), sId);
 	}
 }

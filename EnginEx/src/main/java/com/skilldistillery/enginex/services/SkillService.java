@@ -6,10 +6,10 @@ import com.skilldistillery.enginex.entities.DeveloperSkill;
 
 public interface SkillService {
 	
-	List<DeveloperSkill> findAll();
-	List<DeveloperSkill> findByDevId(int userId);
+	List<DeveloperSkill> findByDevId(int userId, String username);
+	List<DeveloperSkill> index();
 	DeveloperSkill create(DeveloperSkill newSkill, String username);
-	DeveloperSkill edit(DeveloperSkill skill, int userId, int skillId);
-	boolean delete(int skillId, int userId);
+	DeveloperSkill edit(int userId, DeveloperSkill skill, String username, int skillId);
+	void delete(int userId, String username, int skillId);
 	
 }

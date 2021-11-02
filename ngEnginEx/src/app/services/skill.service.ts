@@ -23,19 +23,6 @@ export class SkillService {
     );
   }
 
-  devSkillIndex(dId: number): Observable<Skill[]> {
-    return this.http
-      .get<Skill[]>(`${this.url}/developers/${dId}`, this.getHttpOptions())
-      .pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError(
-            'Something went wrong finding developer skills list'
-          );
-        })
-      );
-  }
-
   create(newSkill: Skill) {
     console.log(newSkill);
     return this.http
@@ -48,10 +35,10 @@ export class SkillService {
       );
   }
 
-  update(skill: Skill, sId: number) {
+  update(sId: number, userId: number, skill: Skill) {
     const httpOptions = {};
     return this.http
-      .put<Skill>(`${this.url}/${sId}`, skill, this.getHttpOptions())
+      .put<Skill>(`${this.url}/${userId}/${sId}`, skill, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -60,10 +47,10 @@ export class SkillService {
       );
   }
 
-  destroy(sId: number) {
+  destroy(sId: number, userId: number) {
     const httpOptions = {};
     return this.http
-      .delete<Skill>(`${this.url}/${sId}`, this.getHttpOptions())
+      .delete<Skill>(`${this.url}/${userId}/${sId}`, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -80,6 +67,19 @@ export class SkillService {
         catchError((err: any) => {
           console.log(err);
           return throwError('Something went wrong finding the skill');
+        })
+      );
+  }
+
+  userSkills(userId: number): Observable<Skill[]> {
+    return this.http
+      .get<Skill[]>(`${this.url}/${userId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'Something went wrong finding developer skills list'
+          );
         })
       );
   }

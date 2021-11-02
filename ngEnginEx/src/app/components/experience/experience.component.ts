@@ -62,6 +62,7 @@ export class ExperienceComponent implements OnInit {
   }
 
   loadExps(userId: number) {
+    this.addButton = false;
     this.expService.userExperiences(userId).subscribe(
       (data) => {
         this.experiences = data;
@@ -94,8 +95,8 @@ export class ExperienceComponent implements OnInit {
     this.editExp = null;
   }
 
-  setEditExp(edu: Experience) {
-    this.editExp = edu;
+  setEditExp(ex: Experience) {
+    this.editExp = ex;
   }
   setAddButton() {
     this.addButton = true;

@@ -11,15 +11,6 @@ import { SkillService } from 'src/app/services/skill.service';
   styleUrls: ['./skill.component.css'],
 })
 export class SkillComponent implements OnInit {
-  @Input() skills: Skill[] = [];
-  skill: Skill = new Skill();
-  newSkill: Skill = new Skill();
-  tableSkill: Skill = new Skill();
-
-  editSkill: Skill | null = null;
-  selected: Skill | null = null;
-  devSkills: Skill[] = [];
-  id: number = 0;
   constructor(
     private skillService: SkillService,
     private currentRoute: ActivatedRoute,
@@ -27,32 +18,25 @@ export class SkillComponent implements OnInit {
     private auth: AuthService
   ) {}
 
-  ngOnInit(): void {
-    let id = this.currentRoute.snapshot.params['id'];
-    if (this.currentRoute.snapshot.paramMap.get('id')) {
-      this.skillService.show(id).subscribe(
-        (found) => {
-          this.selected = found;
-        },
-        (notFound) => {
-          console.error('Skill not found');
-          console.error(notFound);
-          this.router.navigateByUrl('**');
-        }
-      );
-    } else {
-      this.reloadSkills();
-    }
-  }
+  @Input() skills: Skill[] = [];
+  @Input() activeUser: User | null = null;
 
-  addSkill(newSkill: Skill) {
+  selected: Skill | null = null;
+  newSkill: Skill = new Skill();
+  editSkill: Skill | null = null;
+  skillDetail: Skill | null = null;
+  skill: Skill | null = null;
+  addButton: boolean = false;
+  ngOnInit(): void {}
+
+  create(newSkill: Skill) {
     this.skillService.create(newSkill).subscribe(
       (created) => {
         console.log('Skill created');
         console.log(created);
-        this.ngOnInit();
-        this.reloadSkills;
         this.newSkill = new Skill();
+        this.addButton = false;
+        if (this.activeUser != null) this.loadSkills(this.activeUser.id);
       },
       (fail) => {
         console.error('Something went wrong during skill creation', fail);
@@ -60,87 +44,59 @@ export class SkillComponent implements OnInit {
     );
   }
 
-  updateSkill(skill: Skill) {
-    this.skillService.update(skill, skill.id).subscribe(
-      (updated) => {
-        this.skill = updated;
-        this.editSkill = null;
-        this.displayTable();
-      },
-      (fail) => {
-        console.error('Something went wrong with updating skill', fail);
-      }
-    );
-  }
-
-  showDevSkills(id: number) {
-    this.id = id;
-    this.skillService.devSkillIndex(id).subscribe(
-      (data) => {
-        this.devSkills = data;
-        console.log('devSkills: ' + this.devSkills);
-      },
-      (fail) => {
-        console.error(
-          'Something went wrong with the developer skills list',
-          fail
+  updateSkill(editSkill: Skill) {
+    if (this.activeUser)
+      this.skillService
+        .update(editSkill.id, this.activeUser.id, editSkill)
+        .subscribe(
+          (updated) => {
+            console.log('User Skill has been updated successfully');
+            this.editSkill = null;
+            if (this.activeUser) this.loadSkills(this.activeUser.id);
+          },
+          (fail) => {
+            console.error('Something went wrong with updating skill', fail);
+          }
         );
-      }
-    );
   }
 
-  reloadSkills(): void {
-    this.skillService.index().subscribe(
+  loadSkills(userId: number) {
+    this.addButton = false;
+    this.skillService.userSkills(userId).subscribe(
       (data) => {
         this.skills = data;
-      },
-      (err) => {
-        console.error('Error retrieving skill list', err);
-        console.error(err);
-      }
-    );
-  }
-
-  deleteSkill(skillId: number) {
-    this.skillService.destroy(skillId).subscribe(
-      (success) => {
-        this.editSkill = null;
-        this.reloadSkills();
-        console.log('Successfully removed skill', success);
+        console.log('Skills have been loaded');
       },
       (fail) => {
-        console.error('Failed to remove user', fail);
+        console.error('Something went wrong loading user skills', fail);
       }
     );
   }
 
-  displaySkill(skill: Skill) {
-    this.editSkill = skill;
-    this.tableSkill.skillTitle = this.editSkill.skillTitle;
-    this.tableSkill.skillLevel = this.editSkill.skillLevel;
-    return this.tableSkill;
+  delete(skillId: number) {
+    if (this.activeUser)
+      this.skillService.destroy(skillId, this.activeUser.id).subscribe(
+        (success) => {
+          this.skillDetail = null;
+          if (this.activeUser) this.loadSkills(this.activeUser.id);
+          console.log('Successfully removed skill', success);
+        },
+        (fail) => {
+          console.error('Failed to remove user', fail);
+        }
+      );
   }
 
-  addTableSkill(tableSkill: Skill) {
-    this.displaySkill(tableSkill);
-    this.skillService.create(this.tableSkill).subscribe(
-      (created) => {
-        this.tableSkill = created;
-        console.log('Skill created');
-        console.log(created);
-      },
-      (fail) => {
-        console.error('Something went wrong during skill creation', fail);
-      }
-    );
+  selectSkill(skill: Skill) {
+    this.selected = skill;
+    this.editSkill = null;
   }
 
-  displayTable() {
-    this.reloadSkills();
-    return (this.editSkill = null);
+  setEditSkill(sk: Skill) {
+    this.editSkill = sk;
   }
 
-  setEditSkill() {
-    this.editSkill = Object.assign({}, this.selected);
+  setAddButton() {
+    this.addButton = true;
   }
 }

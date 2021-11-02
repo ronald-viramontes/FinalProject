@@ -6,35 +6,36 @@
     <ng-template ngbPanelContent>
       <strong>{{exp.companyName}}</strong><br>
       Job Title: {{exp.jobTitle}} <br>
-      Company Name: {{exp.companyName}} <br>
       Started: {{exp.startDate}}
       Ended: {{exp.endDate}}
+      <br>
       <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="setEditExp(exp)">✏</button>
       <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="deleteExp(exp.id)">❌</button>
       <div *ngIf="editExp" style="text-align: center" class="form-control">
         <form>
           <br>
+          <label for="start">Job Title</label>
           <input type="text" name="selected.jobTitle" [(ngModel)]="editExp.jobTitle" />
           <br />
           <br />
+          <label for="start">Company</label>
           <input type="text" name="selected.companyName" [(ngModel)]="editExp.companyName" />
           <br />
           <br />
+          <label for="start">Start Date</label>
           <input type="date" name="selected.startDate" [(ngModel)]="editExp.startDate" />
           <br />
           <br />
+          <label for="end">End Date</label>
           <input type="date" name="selected.endDate" [(ngModel)]="editExp.endDate" />
           <br />
           <br />
           <button class="btn btn-success btn-lg" (click)="updateExp(editExp)">
             ✔
           </button>
-          <button style="margin-left: 10px" class="btn btn-secondary btn-lg">⟲</button>
+          <button style="margin-left: 10px" class="btn btn-secondary btn-lg" (click)="editExp = null">⟲</button>
         </form>
       </div>
-
-
-
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
@@ -44,35 +45,35 @@
 <div id="newExp" *ngIf="addButton">
 
   <form class="form-control">
-    <h2 style="text-shadow: 2px 2px 4px black">New Exp</h2>
-    <label for="start">Job Title</label>
+    <h5 style="text-shadow: 2px 2px 4px black">New Experience</h5>
+    <label for="jobtitle">Job Title</label>
 
-    <input id="jobtitle" type="text" name="selected.jobTitle" [(ngModel)]="newExp.jobTitle" />
+    <input id="jobtitle" type="text" name="jobTitle" [(ngModel)]="newExp.jobTitle" />
     <br />
     <label for="start">Company</label>
 
-    <input id="company" type="text" name="selected.companyName" [(ngModel)]="newExp.companyName" />
+    <input id="company" type="text" name="companyName" [(ngModel)]="newExp.companyName" />
     <br />
     <label for="start">Start Date</label>
     <br>
-    <input id="start" type="date" name="selected.startDate" [(ngModel)]="newExp.startDate" />
+    <input id="start" type="date" name="startDate" [(ngModel)]="newExp.startDate" />
     <br />
     <label for="end">End Date</label>
     <br>
-    <input id="end" type="date" name="selected.endDate" [(ngModel)]="newExp.endDate" />
+    <input id="end" type="date" name="endDate" [(ngModel)]="newExp.endDate" />
     <br />
-    <button class="btn btn-success btn-outline-light" (click)="create(newExp)">
-      Save
+    <br>
+    <button class="btn btn-success btn-outline-light btn-sm" (click)="create(newExp)">
+      ✔
     </button>
-    <button *ngIf="activeUser" style="margin-left: 10px" class="btn btn-secondary btn-outline-light"
-      (click)="loadExps(activeUser.id)">
-      Cancel
+    <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm" (click)="addButton=false">
+      ⟲
     </button>
 
   </form>
 </div>
 
-
+<hr>
 
 
 <!-- <div class="mat-grid-container">
