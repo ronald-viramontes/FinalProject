@@ -44,6 +44,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		JobPost post = postRepo.findById(postId).get();
 		app.setUser(user);
 		app.setJobPost(post);
+		app.setStatus("Open");
 		app.setDate(LocalDate.now());
 		return appRepo.saveAndFlush(app);
 	}

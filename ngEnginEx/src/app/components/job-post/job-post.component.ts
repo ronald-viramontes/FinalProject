@@ -24,6 +24,7 @@ export class JobPostComponent implements OnInit {
   selected: JobPost | null = null;
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
+  editApp: JobApplication | null = null;
   activeUser: User | null = null;
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
@@ -76,6 +77,7 @@ export class JobPostComponent implements OnInit {
       );
     }
   }
+
   setEditJob(job: JobPost) {
     this.editJob = job;
   }
@@ -167,6 +169,42 @@ export class JobPostComponent implements OnInit {
     );
     console.log('Done');
     //this.
+  }
+
+  approveApplication(app: JobApplication) {
+    console.log('in approve');
+
+    if (app) {
+      app.status = 'Approved';
+      this.jobService.approveApplication(app).subscribe(
+        (udpated) => {
+          console.log('approval happening!');
+
+          this.editApp = null;
+          this.selected = null;
+        },
+        (fail) => {
+          console.error('This approval failed');
+        }
+      );
+    } else {
+      console.log('No edit app...');
+    }
+  }
+
+  declineApplication(app: JobApplication) {
+    if (app) {
+      app.status = 'Declined';
+      this.jobService.approveApplication(app).subscribe(
+        (updated) => {
+          this.editApp = null;
+          this.selected = null;
+        },
+        (fail) => {
+          console.error('This decline did not work.');
+        }
+      );
+    }
   }
   setStatus(jobStatus: JobStatus) {
     this.newJob.status = jobStatus;

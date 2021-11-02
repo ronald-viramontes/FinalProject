@@ -166,9 +166,21 @@
                 <li>First Name: {{app.user.firstName}}</li>
                 <li>Last Name: {{app.user.lastName}}</li>
                 <li>Application Status: {{app.status}}</li>
-                <li>Application Date {{app.date}}</li>
-                <li>Application Approved {{app.approved}}</li>
-                <li>Application Decision Date {{app.decisionDate}}</li>
+                <li>Application Date: {{app.date}}</li>
+                <li>Application Approved: {{app.approved}}</li>
+                <!-- <button (click)="setEditApp(app)" class="btn btn-primary">Respond To App.</button> -->
+                <li *ngIf="app.status == 'Open'">
+                <ngb-accordion>
+                  <ngb-panel title="Application Actions">
+                    <ng-template ngbPanelContent>
+                      <ul>
+                        <button (click)="approveApplication(app)" class="btn btn-primary">Approve Application</button>
+                        <button (click)="declineApplication(app)" class="btn btn-primary">Decline Application</button>
+                      </ul>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
+                </li>
               </ul>
             </ng-template>
           </ngb-panel>
