@@ -191,13 +191,14 @@ export class JobPostComponent implements OnInit {
       this.newJobApp.user = this.activeUser;
     }
     if (jobPost) {
-      this.newJobApp.jobPost = jobPost;
+      // this.newJobApp.jobPost = jobPost;
+
     }
     if (this.newJobApp.user) this.newJobApp.user.posts = [];
     this.newJobApp.detail = null;
     console.log(this.newJobApp);
 
-    this.jobService.createApplication(this.newJobApp).subscribe(
+    this.jobService.createApplication(jobPost).subscribe(
       (created) => {
         console.log('Job App created successfully');
         this.selected = null;

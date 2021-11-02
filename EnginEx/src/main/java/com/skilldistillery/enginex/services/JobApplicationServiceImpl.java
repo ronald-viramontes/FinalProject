@@ -39,9 +39,10 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 
 	@Override
-	public JobApplication create(JobApplication app, int userId, int postId) {
+	public JobApplication create(int userId, int postId) {
 		User user = userRepo.findById(userId).get();
 		JobPost post = postRepo.findById(postId).get();
+		JobApplication app = new JobApplication();
 		app.setUser(user);
 		app.setJobPost(post);
 		app.setStatus("Open");

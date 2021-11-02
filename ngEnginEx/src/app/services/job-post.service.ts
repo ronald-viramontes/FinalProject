@@ -37,13 +37,9 @@ export class JobPostService {
       })
     );
   }
-  createApplication(jobApplication: JobApplication) {
-    console.log(jobApplication);
-
-    return this.http
-      .post(
-        `${this.appUrl}/${jobApplication.jobPost.id}`,
-        jobApplication,
+  createApplication(post: JobPost) {
+     return this.http
+      .post(`${this.appUrl}/${post.id}`, new JobApplication(),
         this.getHttpOptions()
       )
       .pipe(
