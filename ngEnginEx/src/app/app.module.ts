@@ -38,6 +38,7 @@ import { OpenJobPipe } from './pipes/open-job.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { MatCardModule } from '@angular/material/card';
     BrowserAnimationsModule,
     MatSliderModule,
     MatCardModule,
+    MatTabsModule
   ],
   providers: [
     AuthService,
