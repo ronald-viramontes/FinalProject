@@ -30,8 +30,8 @@
       Institution Type:     {{edu.educationType}} <br>
       Certificate Received: {{edu.degreeCertificateName}} <br>
       Graduated:            {{edu.completeDate}}
-      <button *ngIf="!editEducation" (click)="setEdit(edu)">✏</button>
-      <button *ngIf="!editEducation" (click)="delete(edu.id)">❌</button>
+      <button class="badge" *ngIf="!editEducation" (click)="setEdit(edu)">✏</button>
+      <button class="badge" *ngIf="!editEducation" (click)="delete(edu.id)">❌</button>
       <form *ngIf="editEducation" name="editEducation">
         Institution Name <br>
         <input type="text" name="institutionName" [(ngModel)]="editEducation.institutionName"><br>
@@ -41,8 +41,8 @@
         <input type="text" name="degreeCertificateName" [(ngModel)]="editEducation.degreeCertificateName"> <br>
         Complete Date <br>
         <input type="date" name="completeDate" [(ngModel)]="editEducation.completeDate"><br>
-        <button (click)="edit(editEducation, edu.id); editEducation = null">✏</button><button (click)="delete(edu.id); editEducation = null;">❌</button>
-        <button (click)="editEducation = null">Cancel</button>
+        <button class="badge" (click)="edit(editEducation, edu.id); editEducation = null">✏</button><button class="badge" (click)="delete(edu.id); editEducation = null;">❌</button>
+        <button class="badge" (click)="editEducation = null">Cancel</button>
       </form>
     </ng-template>
   </ngb-panel>

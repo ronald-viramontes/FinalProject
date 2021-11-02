@@ -15,12 +15,11 @@
     <input type="text" name="firstName" [(ngModel)]="editUser.firstName"><br>
     <label for="lastName">Last Name</label>
     <input type="text" name="lastName" [(ngModel)]="editUser.lastName"><br>
-    <label for="username">Username</label>
-    <input type="text" name="username" [(ngModel)]="editUser.username"><br>
     <label for="emailAddress">Email</label>
     <input type="text" name="email" [(ngModel)]="editUser.email"><br>
     <label for="phoneNumber">PhoneNumber</label>
     <input type="text" name="phoneNumber" [(ngModel)]="editUser.phoneNumber"><br>
     <button class="btn btn-light" (click)="edit(editUser)">Submit Changes</button><button class="btn btn-light" (click)="cancel()">Cancel</button>
+    <button class="btn btn-danger" (click)="disableProfile()">Disable Account</button>
   </form>
 </div>
