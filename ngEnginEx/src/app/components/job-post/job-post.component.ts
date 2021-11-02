@@ -5,9 +5,12 @@ import { JobPost } from 'src/app/models/job-post';
 import { JobStatus } from 'src/app/models/job-status';
 import { JobType } from 'src/app/models/job-type';
 import { User } from 'src/app/models/user';
+import { OpenJobPipe } from 'src/app/pipes/open-job.pipe';
+import { UserJobPipe } from 'src/app/pipes/user-job.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { JobPostService } from 'src/app/services/job-post.service';
 import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-job-post',
@@ -24,7 +27,8 @@ export class JobPostComponent implements OnInit {
   selected: JobPost | null = null;
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
-  activeUser: User | null = null;
+  editApp: JobApplication | null = null;
+  activeUser: User = new User();
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
 
@@ -33,15 +37,18 @@ export class JobPostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private jobPipe: UserJobPipe,
+    private openJob: OpenJobPipe
+  ) { }
 
   ngOnInit(): void {
-    this.reloadJobs();
 
     if (this.loggedIn()) {
       this.getActiveUser();
     }
+    this.reloadJobs();
+    this.getRoute();
   }
   loggedIn() {
     return this.authService.checkLogin();
@@ -61,8 +68,6 @@ export class JobPostComponent implements OnInit {
     let creds = this.authService.getCredentials();
     if (creds != null) {
       creds = atob(creds);
-      console.log(creds);
-
       let unArr = creds.split(':');
       let username = unArr[0];
       this.userService.show(username).subscribe(
@@ -76,8 +81,25 @@ export class JobPostComponent implements OnInit {
       );
     }
   }
+
   setEditJob(job: JobPost) {
     this.editJob = job;
+    this.jobService.indexStatus().subscribe(
+      (statusList) => {
+        this.jobStatuses = statusList;
+      },
+      (fail) => {
+        console.error('Job Status load failed');
+      }
+    );
+    this.jobService.indexType().subscribe(
+      (typeList) => {
+        this.jobTypes = typeList;
+      },
+      (fail) => {
+        console.error('Job Type load failed');
+      }
+    );
   }
 
   displayJob(job: JobPost) {
@@ -122,7 +144,6 @@ export class JobPostComponent implements OnInit {
         console.error('Job Type load failed');
       }
     );
-    console.log(this.activeUser);
   }
 
   createPreCall(jobPost: JobPost) {
@@ -160,6 +181,8 @@ export class JobPostComponent implements OnInit {
     this.jobService.createApplication(this.newJobApp).subscribe(
       (created) => {
         console.log('Job App created successfully');
+        this.selected = null;
+        this.reloadJobs();
       },
       (failed) => {
         console.error('Error creation Job App');
@@ -167,6 +190,42 @@ export class JobPostComponent implements OnInit {
     );
     console.log('Done');
     //this.
+  }
+
+  approveApplication(app: JobApplication) {
+    console.log('in approve');
+
+    if (app) {
+      app.status = 'Approved';
+      this.jobService.approveApplication(app).subscribe(
+        (udpated) => {
+          console.log('approval happening!');
+
+          this.editApp = null;
+          this.selected = null;
+        },
+        (fail) => {
+          console.error('This approval failed');
+        }
+      );
+    } else {
+      console.log('No edit app...');
+    }
+  }
+
+  declineApplication(app: JobApplication) {
+    if (app) {
+      app.status = 'Declined';
+      this.jobService.approveApplication(app).subscribe(
+        (updated) => {
+          this.editApp = null;
+          this.selected = null;
+        },
+        (fail) => {
+          console.error('This decline did not work.');
+        }
+      );
+    }
   }
   setStatus(jobStatus: JobStatus) {
     this.newJob.status = jobStatus;
@@ -184,5 +243,10 @@ export class JobPostComponent implements OnInit {
       this.reloadJobs();
       this.editJob = null;
     });
+  }
+
+  getRoute() {
+    return this.router.url === '/home';
+
   }
 }

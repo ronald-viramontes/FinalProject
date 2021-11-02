@@ -54,12 +54,18 @@ export class JobPostService {
       );
   }
   approveApplication(jobApplication: JobApplication) {
-    return this.http.put<JobApplication>(`${this.appUrl}/${jobApplication.id}`, jobApplication).pipe(
-      catchError((err: any) =>{
-        console.log(err);
-        return throwError('Job Application approval failed')
-      })
-    )
+    return this.http
+      .put<JobApplication>(
+        `${this.appUrl}/${jobApplication.id}`,
+        jobApplication,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Job Application approval failed');
+        })
+      );
   }
 
   update(jobPost: JobPost) {
