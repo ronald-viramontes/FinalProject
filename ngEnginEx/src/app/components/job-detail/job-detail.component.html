@@ -12,3 +12,41 @@
   </ul>
 
 </div>
+
+<div>
+  <div id="addButton">
+
+    <button id="addButton" class="badge btn-success" (click)="addButton = true">➕ Experience</button>
+  </div>
+
+  <div id="newExp" *ngIf="addButton && app">
+    <br>
+    <form class="form-control">
+      <h5 style="text-shadow: 2px 2px 4px black">New Job Detail</h5>
+      <label for="startDate">Start Date</label>
+      <br>
+      <input id="startDate" type="date" name="startDate" [(ngModel)]="newJobDetail.startDate" />
+      <br />
+      <label for="start">Finish Date</label>
+      <br>
+      <input id="finishDate" type="date" name="finishDate" [(ngModel)]="newJobDetail.finishDate" />
+      <br />
+      <label for="start">Comment</label>
+      <br>
+      <input id="comment" type="date" name="comment" [(ngModel)]="newJobDetail.comment" />
+      <label for="start">Rating</label>
+      <br>
+      <input id="rating" type="number" name="rating" [(ngModel)]="newJobDetail.rating" />
+
+      <br />
+      <br>
+      <button class="btn btn-success btn-outline-light btn-sm" (click)="create(newJobDetail, app)">
+        ✔
+      </button>
+      <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm" (click)="addButton=false">
+        ⟲
+      </button>
+
+    </form>
+  </div>
+</div>

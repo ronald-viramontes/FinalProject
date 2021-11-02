@@ -21,7 +21,7 @@ export class JobDetailComponent implements OnInit {
 
   @Input() activeUser: User | null = null;
   @Input() applications: JobApplication[] = [];
-
+  app: JobApplication | null = null;
   selected: JobDetail | null = null;
   detail: JobDetail | null = null;
   newJobDetail: JobDetail = new JobDetail();
@@ -30,19 +30,20 @@ export class JobDetailComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  create(newJobDetail: JobDetail, appId: number) {
-    this.jobDetailService.create(newJobDetail, appId).subscribe(
-      (created) => {
-        console.log('JobDetail created');
-        console.log(created);
-        this.newJobDetail = new JobDetail();
-        this.addButton = false;
-        if (this.activeUser != null) this.loadJobDetail(this.activeUser.id);
-      },
-      (fail) => {
-        console.error('Something went wrong during jobDetail creation', fail);
-      }
-    );
+  create(newJobDetail: JobDetail, app: JobApplication) {
+    if (this.app)
+      this.jobDetailService.create(newJobDetail, app.id).subscribe(
+        (created) => {
+          console.log('JobDetail created');
+          console.log(created);
+          this.newJobDetail = new JobDetail();
+          this.addButton = false;
+          if (this.activeUser != null) this.loadJobDetail(this.activeUser.id);
+        },
+        (fail) => {
+          console.error('Something went wrong during jobDetail creation', fail);
+        }
+      );
   }
 
   updateJobDetail(editJobDetail: JobDetail) {
