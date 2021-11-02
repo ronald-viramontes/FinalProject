@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { JobApplication } from '../models/job-application';
 import { JobPost } from '../models/job-post';
 import { JobStatus } from '../models/job-status';
 import { JobType } from '../models/job-type';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +16,9 @@ export class JobPostService {
   private jobsUrl = this.baseUrl + 'api/jobs';
   private statusUrl = this.baseUrl + 'api/jobstatus';
   private typeUrl = this.baseUrl + 'api/jobtypes';
+  private appUrl = this.baseUrl + 'api/apps';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   index(): Observable<JobPost[]> {
     console.log('In call to DB.');
@@ -34,14 +37,40 @@ export class JobPostService {
       })
     );
   }
+  createApplication(jobApplication: JobApplication) {
+    console.log(jobApplication);
 
-  update(jobPost: JobPost) {
-    return this.http.put<JobPost>(`${this.jobsUrl}/${jobPost.id}`, jobPost).pipe(
-      catchError((err: any)=> {
+    return this.http
+      .post(
+        `${this.appUrl}/${jobApplication.jobPost.id}`,
+        jobApplication,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Failure creating Job Application');
+        })
+      );
+  }
+  approveApplication(jobApplication: JobApplication) {
+    return this.http.put<JobApplication>(`${this.appUrl}/${jobApplication.id}`, jobApplication).pipe(
+      catchError((err: any) =>{
         console.log(err);
-        return throwError('Job Post update unsuccessful')
+        return throwError('Job Application approval failed')
       })
     )
+  }
+
+  update(jobPost: JobPost) {
+    return this.http
+      .put<JobPost>(`${this.jobsUrl}/${jobPost.id}`, jobPost)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Job Post update unsuccessful');
+        })
+      );
   }
   indexStatus(): Observable<JobStatus[]> {
     console.log('in call to type DB');
@@ -73,12 +102,23 @@ export class JobPostService {
       })
     );
   }
-
-  indexByStatus(status: string){
+  getHttpOptions() {
+    let credentials = this.authService.getCredentials();
+    let options = {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Basic ${credentials}`,
+      },
+    };
+    return options;
+  }
+  indexByStatus(status: string) {
     return this.http.get<JobPost[]>(`${this.jobsUrl}/status/${status}`).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('jobPostService.indexByStatus(): error retrieving job posts');
+        return throwError(
+          'jobPostService.indexByStatus(): error retrieving job posts'
+        );
       })
     );
   }

@@ -19,12 +19,14 @@ export class JobPostComponent implements OnInit {
   jobStatuses: JobStatus[] = [];
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
+  isOwner: boolean = false;
   newJob: JobPost = new JobPost();
   selected: JobPost | null = null;
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
   activeUser: User | null = null;
   currentDate: Date = new Date();
+  newJobApp: JobApplication = new JobApplication();
 
   constructor(
     private jobService: JobPostService,
@@ -77,14 +79,25 @@ export class JobPostComponent implements OnInit {
   setEditJob(job: JobPost) {
     this.editJob = job;
   }
+
   displayJob(job: JobPost) {
     this.selected = job;
     this.apps = this.selected.applications;
+    console.log(this.apps);
+
+    if (this.activeUser) {
+      if (job.user.id != this.activeUser.id) {
+        this.isOwner = true;
+      }
+    }
     console.log(this.selected);
   }
   returnToList() {
     this.selected = null;
+    this.isOwner = false;
+    this.reloadJobs();
   }
+
   createNewPost() {
     this.showNewJob = true;
     if (this.activeUser) {
@@ -111,6 +124,11 @@ export class JobPostComponent implements OnInit {
     );
     console.log(this.activeUser);
   }
+
+  createPreCall(jobPost: JobPost) {
+    this.createPost(jobPost);
+    this.reloadJobs();
+  }
   createPost(jobPost: JobPost) {
     console.log(jobPost);
     jobPost.user = new User();
@@ -128,6 +146,27 @@ export class JobPostComponent implements OnInit {
     this.newJob = new JobPost();
     this.showNewJob = false;
     this.reloadJobs();
+  }
+  createApplication(jobPost: JobPost) {
+    if (this.activeUser) {
+      this.newJobApp.user = this.activeUser;
+    }
+    if (jobPost) {
+      this.newJobApp.jobPost = jobPost;
+    }
+    this.newJobApp.user.posts = [];
+    console.log(this.newJobApp);
+
+    this.jobService.createApplication(this.newJobApp).subscribe(
+      (created) => {
+        console.log('Job App created successfully');
+      },
+      (failed) => {
+        console.error('Error creation Job App');
+      }
+    );
+    console.log('Done');
+    //this.
   }
   setStatus(jobStatus: JobStatus) {
     this.newJob.status = jobStatus;
