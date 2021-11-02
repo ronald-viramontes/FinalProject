@@ -32,15 +32,16 @@ export class JobPostComponent implements OnInit {
   newJobApp: JobApplication = new JobApplication();
   appDetail: boolean = false;
   statusId: number = 2;
-  appStyle(jobPost: JobPost):string{
-    if(jobPost.applications.length > 0){
-      for(let app of jobPost.applications){
-        if(app.status === 'Open'){
-          return 'appWaiting'
+  appStyle(jobPost: JobPost): string {
+    if (jobPost.applications.length > 0) {
+      for (let app of jobPost.applications) {
+        if (app.status === 'Open') {
+          return 'appWaiting';
         }
       }
-    } return '';
-  };
+    }
+    return '';
+  }
 
   constructor(
     private jobService: JobPostService,
@@ -55,6 +56,14 @@ export class JobPostComponent implements OnInit {
   ngOnInit(): void {
     if (this.loggedIn()) {
       this.getActiveUser();
+      this.jobService.indexStatus().subscribe(
+        (statusList) => {
+          this.jobStatuses = statusList;
+        },
+        (fail) => {
+          console.error('Job Status load failed');
+        }
+      );
     }
     this.reloadJobs();
     this.getRoute();
@@ -168,14 +177,14 @@ export class JobPostComponent implements OnInit {
     this.jobService.create(jobPost).subscribe(
       (created) => {
         console.log('Job Post Created');
+        this.reloadJobs();
+        this.newJob = new JobPost();
+        this.showNewJob = false;
       },
       (failed) => {
         console.error('Error creating Job Post');
       }
     );
-    this.newJob = new JobPost();
-    this.showNewJob = false;
-    this.reloadJobs();
   }
   createApplication(jobPost: JobPost) {
     if (this.activeUser) {
