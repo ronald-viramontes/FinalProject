@@ -36,7 +36,7 @@ import { JobApplicationCommentService } from './services/job-application-comment
 import { JobDetailService } from './services/job-detail.service';
 import { OpenJobPipe } from './pipes/open-job.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatSliderModule } from '@angular/material/slider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +59,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EditProfileComponent,
     DateSortPipe,
     UserJobPipe,
-    OpenJobPipe
+    OpenJobPipe,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +69,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     NgbAccordionModule,
     BrowserAnimationsModule,
+    MatSliderModule,
   ],
   providers: [
     AuthService,
@@ -82,7 +83,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserService,
     DateSortPipe,
     UserJobPipe,
-    OpenJobPipe
+    OpenJobPipe,
   ],
   bootstrap: [AppComponent],
 })
