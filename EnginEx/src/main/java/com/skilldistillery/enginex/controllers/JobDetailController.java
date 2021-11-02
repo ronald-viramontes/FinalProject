@@ -1,7 +1,6 @@
 package com.skilldistillery.enginex.controllers;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,13 +26,7 @@ public class JobDetailController {
 	@Autowired
 	private JobDetailService jobDetailSvc;
 	
-	
-	@GetMapping("jobdetails")
-	public List<JobDetail> getAllJobDetails(){
 		
-		return jobDetailSvc.getAllDetails();
-	}
-	
 	@GetMapping("jobdetails/{jobDetailId}")
 	public JobDetail getJobDetailById(@PathVariable Integer jobDetailId, 
 												HttpServletResponse res) {
@@ -49,6 +42,24 @@ public class JobDetailController {
 		}
 		
 	}
+	
+	@GetMapping("jobdetails/applications/{appId}")
+	public JobDetail getJobDetailByAppId(@PathVariable Integer appId,
+													HttpServletResponse res, 
+													Principal principal) {
+		
+		JobDetail jobDetail = jobDetailSvc.getJobDetailByAppId(appId, principal.getName());
+		if(jobDetail == null) {
+			res.setStatus(400);
+			return null;
+		}	else {
+			res.setStatus(202);
+			return jobDetail;
+		}
+		
+		
+	}
+	
 	
 	@PostMapping("jobdetails/{jobAppId}")
 	public JobDetail createJobDetail(@PathVariable Integer jobAppId,
@@ -68,17 +79,17 @@ public class JobDetailController {
 		
 	}
 	
-	@PutMapping("jobdetails/{jobDetailId}")
+	@PutMapping("jobdetails/{userId}/{jobDetailId}")
 	public JobDetail updateJobDetail(@PathVariable Integer jobDetailId,
+									 @PathVariable Integer userId,
 									 @RequestBody JobDetail jobDetail,
 									 HttpServletResponse res, 
 									 Principal principal) {
 
 		
 		
-		jobDetail = jobDetailSvc.update(principal.getName(), jobDetail, jobDetailId);
-		
-		
+		jobDetail = jobDetailSvc.update(principal.getName(), userId, jobDetail, jobDetailId);
+				
 		if(jobDetail == null) {
 			res.setStatus(400);
 			return null;
@@ -89,16 +100,13 @@ public class JobDetailController {
 		
 	}
 	
-	@DeleteMapping("jobdetails/{jobDetailId}")
+	@DeleteMapping("jobdetails/{userId}/{jobDetailId}")
 	public void deleteJobDetail(@PathVariable Integer jobDetailId,
-											HttpServletResponse res, 
+								@PathVariable Integer userId,
+											
 											Principal principal) {
 		
-		if(jobDetailSvc.delete(principal.getName(), jobDetailId)) {
-			res.setStatus(200);
-		} else {
-			res.setStatus(400);
-		}
+		jobDetailSvc.delete(principal.getName(), userId, jobDetailId); 
 		
 		
 	}

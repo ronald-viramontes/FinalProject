@@ -22,10 +22,14 @@ export class JobDetailService {
     );
   }
 
-  create(newJobDetail: JobDetail) {
+  create(newJobDetail: JobDetail, appId: number) {
     console.log(newJobDetail);
     return this.http
-      .post<JobDetail>(`${this.url}`, newJobDetail, this.getHttpOptions())
+      .post<JobDetail>(
+        `${this.url}/${appId}`,
+        newJobDetail,
+        this.getHttpOptions()
+      )
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -74,9 +78,12 @@ export class JobDetailService {
       );
   }
 
-  userJobDetails(userId: number): Observable<JobDetail[]> {
+  userAppJobDetail(appId: number): Observable<JobDetail> {
     return this.http
-      .get<JobDetail[]>(`${this.url}/${userId}`, this.getHttpOptions())
+      .get<JobDetail>(
+        `${this.url}/applications/${appId}`,
+        this.getHttpOptions()
+      )
       .pipe(
         catchError((err: any) => {
           console.log(err);

@@ -57,7 +57,7 @@ class JobApplicationTest {
 	void test2() {
 		assertNotNull(app);
 		assertEquals("Ron", app.getUser().getFirstName());
-		assertEquals("Excellent work!", app.getDetails().get(0).getComment());
+		assertEquals("Excellent work!", app.getDetail().getComment());
 	}
 
 }

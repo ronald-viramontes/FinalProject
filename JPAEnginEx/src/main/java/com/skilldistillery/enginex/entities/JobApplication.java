@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -58,8 +59,8 @@ public class JobApplication {
 	@OneToMany(mappedBy = "application")
 	private List<JobApplicationComment> comments;
 
-	@OneToMany(mappedBy = "application")
-	private List<JobDetail> details;
+	@OneToOne(mappedBy="application")
+	private JobDetail detail;
 
 	// Methods
 
@@ -116,6 +117,14 @@ public class JobApplication {
 		this.jobPost = jobPost;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public List<JobApplicationComment> getComments() {
 		return comments;
 	}
@@ -124,20 +133,12 @@ public class JobApplication {
 		this.comments = comments;
 	}
 
-	public List<JobDetail> getDetails() {
-		return details;
+	public JobDetail getDetail() {
+		return detail;
 	}
 
-	public void setDetails(List<JobDetail> details) {
-		this.details = details;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setDetail(JobDetail detail) {
+		this.detail = detail;
 	}
 
 	@Override
@@ -155,8 +156,10 @@ public class JobApplication {
 	@Override
 	public String toString() {
 		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
-				+ ", decisionDate=" + decisionDate + ", jobPost=" + jobPost + ", comments=" + comments + ", details="
-				+ details + "]";
+				+ ", decisionDate=" + decisionDate + "]";
 	}
+
+	
+
 
 }

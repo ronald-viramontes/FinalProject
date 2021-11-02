@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,11 +35,9 @@ public class JobDetail {
 	private String comment;
 	
 	@JsonIgnore
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;
-	
-	//Methods
 
 	public int getId() {
 		return id;
@@ -89,16 +87,6 @@ public class JobDetail {
 		this.application = application;
 	}
 
-	public JobDetail() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "JobDetail [id=" + id + ", startDate=" + startDate + ", finishDate=" + finishDate + ", rating=" + rating
-				+ ", comment=" + comment + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -115,6 +103,16 @@ public class JobDetail {
 		JobDetail other = (JobDetail) obj;
 		return id == other.id;
 	}
+
+	@Override
+	public String toString() {
+		return "JobDetail [id=" + id + ", startDate=" + startDate + ", finishDate=" + finishDate + ", rating=" + rating
+				+ ", comment=" + comment + ", application=" + application + "]";
+	}
+	
+	//Methods
+
+
 	
 	
 }
