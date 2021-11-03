@@ -22,7 +22,7 @@ export class JobPostComponent implements OnInit {
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
   isOwner: boolean = false;
-  newJob: JobPost = new JobPost(0, '','','',0,true,'','',new JobType(1), new User(), new JobStatus(2));
+  newJob: JobPost = new JobPost(0, '', '', '', 0, true, '', '', new JobType(1), new User(), new JobStatus(2));
   selected: JobPost | null = null;
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
@@ -33,16 +33,7 @@ export class JobPostComponent implements OnInit {
   appDetail: boolean = false;
   statusId: number = 2;
   newAppCount: number = 0;
-  appStyle(jobPost: JobPost): string {
-    if (jobPost.applications.length > 0) {
-      for (let app of jobPost.applications) {
-        if (app.status === 'Open') {
-          return 'appWaiting';
-        }
-      }
-    }
-    return '';
-  }
+
   appStyleBadge(jobPost: JobPost): string {
     let count = 0;
     if (jobPost.applications.length > 0) {
@@ -51,7 +42,7 @@ export class JobPostComponent implements OnInit {
           count++;
         }
       }
-      if(count > 0){
+      if (count > 0) {
         this.newAppCount = count;
         count = 0;
         return 'badge rounded-pill bg-danger';
@@ -70,7 +61,7 @@ export class JobPostComponent implements OnInit {
     private userService: UserService,
     private jobPipe: UserJobPipe,
     private openJob: OpenJobPipe
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.loggedIn()) {
@@ -87,8 +78,9 @@ export class JobPostComponent implements OnInit {
     this.reloadJobs();
     this.getRoute();
     let passedPost: JobPost = history.state;
-    if(passedPost.id !== undefined)
-    this.selected = history.state;
+    if (passedPost.id !== undefined) {
+      this.displayJob(passedPost);
+    }
   }
 
   loggedIn() {
@@ -146,15 +138,13 @@ export class JobPostComponent implements OnInit {
   displayJob(job: JobPost) {
     this.selected = job;
     this.apps = this.selected.applications;
-    console.log(this.apps);
-
     if (this.activeUser) {
       if (job.user.id != this.activeUser.id) {
         this.isOwner = true;
       }
     }
-    console.log(this.selected);
   }
+
   returnToList() {
     this.selected = null;
     this.isOwner = false;
@@ -201,7 +191,7 @@ export class JobPostComponent implements OnInit {
       (created) => {
         console.log('Job Post Created');
         this.reloadJobs();
-        this.newJob = new JobPost(0, '','','',0,true,'','',new JobType(1), new User(), new JobStatus(2));
+        this.newJob = new JobPost(0, '', '', '', 0, true, '', '', new JobType(1), new User(), new JobStatus(2));
         this.showNewJob = false;
       },
       (failed) => {
@@ -281,13 +271,13 @@ export class JobPostComponent implements OnInit {
   }
 
   setEditStatus(jobStatus: JobStatus) {
-    if(this.editJob)
-    this.editJob.status = jobStatus;
+    if (this.editJob)
+      this.editJob.status = jobStatus;
     console.log(this.newJob);
   }
   setEditType(jobType: JobType) {
-    if(this.editJob)
-    this.editJob.type = jobType;
+    if (this.editJob)
+      this.editJob.type = jobType;
     console.log(this.newJob);
   }
 
@@ -304,8 +294,8 @@ export class JobPostComponent implements OnInit {
     return this.router.url === '/home';
   }
 
-  deletePost(post: JobPost){
-    if(confirm('Are you sure you want to delete this Job Posting?')){
+  deletePost(post: JobPost) {
+    if (confirm('Are you sure you want to delete this Job Posting?')) {
       this.jobService.delete(post).subscribe(
         data => {
           this.editJob = null;
