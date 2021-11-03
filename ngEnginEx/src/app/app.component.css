@@ -44,9 +44,6 @@
   font-weight: bold;
 }
 
-#padded {
-  /* padding-bottom: 200px; */
-}
 #outsideBorder {
   vertical-align: middle;
   /* margin-top: 250px; */
@@ -64,4 +61,19 @@
 #topLevel {
   position: relative;
   min-height: 110vh;
+}
+
+#editProfileOutside {
+  vertical-align: middle;
+  /* margin-top: 250px; */
+  width: 500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid white;
+  border-radius: 8px;
+  color: white;
+  background-color: rgb(33, 34, 35);
+  /* padding: 1em 1em 1em 1em; */
+  padding: 1em 3em 3em 3em;
 }

@@ -11,3 +11,20 @@
   background-color: none;
   color: white;
 }
+
+#updateUser {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  border: 2px solid white;
+  width: 350px;
+  height: auto;
+  border-radius: 8px;
+  padding: 2em 2em 5em 2em;
+  background-color: none;
+  color: white;
+}
+#editProfileForm {
+  border: 2px solid white;
+}
