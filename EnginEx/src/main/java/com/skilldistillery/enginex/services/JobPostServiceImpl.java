@@ -40,6 +40,7 @@ public class JobPostServiceImpl implements JobPostService {
 			existingJobPost.setJobActive(true);
 			existingJobPost.setStartDate(jobPost.getStartDate());
 			existingJobPost.setDateClosed(jobPost.getDateClosed());
+			existingJobPost.setStatus(jobPost.getStatus());
 			jobPostRepo.saveAndFlush(existingJobPost);
 			return existingJobPost;
 		}

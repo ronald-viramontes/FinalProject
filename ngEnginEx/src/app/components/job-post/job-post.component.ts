@@ -257,6 +257,17 @@ export class JobPostComponent implements OnInit {
     console.log(this.newJob);
   }
 
+  setEditStatus(jobStatus: JobStatus) {
+    if(this.editJob)
+    this.editJob.status = jobStatus;
+    console.log(this.newJob);
+  }
+  setEditType(jobType: JobType) {
+    if(this.editJob)
+    this.editJob.type = jobType;
+    console.log(this.newJob);
+  }
+
   update(jobPost: JobPost) {
     console.log(jobPost);
     jobPost.applications = [];
