@@ -34,71 +34,82 @@
     visibility: hidden;
   }
 </style>
-<div style="margin-right: 10%; margin-left: 5%; margin-bottom: 1%;" *ngIf="!showNewJob">
-  <td><button (click)="createNewPost()" class="btn btn-primary" *ngIf="loggedIn()">Create New Job</button></td>
+<div *ngIf="!showNewJob">
+  <button (click)="createNewPost()" class="btn btn-primary" *ngIf="loggedIn()">Create New Job</button>
   <label for="status" *ngIf="!getRoute() && !selected">Filter by Job Status:</label>
   <select name="status" *ngIf="!getRoute() && !selected" [(ngModel)]="statusId">
     <option *ngFor="let stat of jobStatuses" [ngValue]="stat.id">{{stat.name}}</option>
   </select>
 </div>
 
-<div style="margin-right: 10%; margin-left: 5%">
+<div>
   <div *ngIf="!selected && !showNewJob && !editJob" style="text-align: center">
-    <table class="table table-striped table-hover table-bordered" *ngIf="getRoute()">
-      <thead class="table-dark">
-        <tr>
-          <th>Job Description</th>
-          <th>Job Start Date</th>
-          <th>Job Completion Date</th>
-          <th>Job Posted Date</th>
-          <th>Job Status</th>
-          <th>View Details</th>
-          <th>Edit Job</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor='let job of jobPosts | userJob: activeUser'>
-          <td>{{job.jobRequirements}}</td>
-          <td>{{job.startDate}}</td>
-          <td>{{job.completionDate}}</td>
-          <td>{{job.datePosted}}</td>
-          <td>{{job.status.name}}</td>
-          <td><button (click)="displayJob(job)" class="btn btn-primary">
-              View Job
-              <span [ngClass]="appStyleBadge(job)">
-                {{newAppCount}}
-              </span></button></td>
-          <td><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="table table-striped table-hover table-bordered" *ngIf="!getRoute()">
-      <thead class="table-dark">
-        <tr>
-          <th>Job Description</th>
-          <th>Job Start Date</th>
-          <th>Job Completion Date</th>
-          <th>Job Posted Date</th>
-          <th>Job Status</th>
-          <th>View Details</th>
-          <th *ngIf="loggedIn()">Edit Job</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor='let job of jobPosts'>
-          <td>{{job.jobRequirements}}</td>
-          <td>{{job.startDate}}</td>
-          <td>{{job.completionDate}}</td>
-          <td>{{job.datePosted}}</td>
-          <td>{{job.status.name}}</td>
-          <td><button (click)="displayJob(job)" class="btn btn-primary">View Job</button></td>
-          <td *ngIf="loggedIn() && job.user.id == activeUser.id"><button (click)="setEditJob(job)"
-              class="btn btn-primary">Edit Job</button></td>
-          <td *ngIf="loggedIn() && job.user.id != activeUser.id"><button (click)="setEditJob(job)" disabled="disabled"
-              class="btn btn-primary">Edit Job</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <mat-card class="flex">
+        <mat-card-title>Hello</mat-card-title>
+        <div class="scrollable">
+          <mat-card-content>
+            <div>
+              <table class="table table-striped table-hover table-bordered" *ngIf="getRoute()">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Job Description</th>
+                    <th>Job Start Date</th>
+                    <th>Job Completion Date</th>
+                    <th>Job Posted Date</th>
+                    <th>Job Status</th>
+                    <th>View Details</th>
+                    <th>Edit Job</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let job of jobPosts | userJob: activeUser'>
+                    <td>{{job.jobRequirements}}</td>
+                    <td>{{job.startDate}}</td>
+                    <td>{{job.completionDate}}</td>
+                    <td>{{job.datePosted}}</td>
+                    <td>{{job.status.name}}</td>
+                    <td><button (click)="displayJob(job)" class="btn btn-primary">
+                        View Job
+                        <span [ngClass]="appStyleBadge(job)">
+                          {{newAppCount}}
+                        </span></button></td>
+                    <td><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+      <table class="table table-striped table-hover table-bordered" *ngIf="!getRoute()">
+        <thead class="table-dark">
+          <tr>
+            <th>Job Description</th>
+            <th>Job Start Date</th>
+            <th>Job Completion Date</th>
+            <th>Job Posted Date</th>
+            <th>Job Status</th>
+            <th>View Details</th>
+            <th *ngIf="loggedIn()">Edit Job</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let job of jobPosts'>
+            <td>{{job.jobRequirements}}</td>
+            <td>{{job.startDate}}</td>
+            <td>{{job.completionDate}}</td>
+            <td>{{job.datePosted}}</td>
+            <td>{{job.status.name}}</td>
+            <td><button (click)="displayJob(job)" class="btn btn-primary">View Job</button></td>
+            <td *ngIf="loggedIn() && job.user.id == activeUser.id"><button (click)="setEditJob(job)"
+                class="btn btn-primary">Edit Job</button></td>
+            <td *ngIf="loggedIn() && job.user.id != activeUser.id"><button (click)="setEditJob(job)" disabled="disabled"
+                class="btn btn-primary">Edit Job</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div *ngIf="!selected && editJob">
     <form>
@@ -182,7 +193,7 @@
       </div>
       <div *ngIf="isOwner">
         <ngb-accordion>
-          <ngb-panel title="Applications">
+          <ngb-panel *ngIf="apps && apps.length > 0" title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
             <ng-template ngbPanelContent>
               <ul *ngFor='let app of apps'>
                 <li>ID: {{app.id}}</li>
@@ -195,7 +206,7 @@
       </div>
       <div *ngIf="!isOwner">
         <ngb-accordion>
-          <ngb-panel title="Applications">
+          <ngb-panel *ngIf="apps && apps.length > 0" title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
             <ng-template ngbPanelContent>
               <div class="apps">
                 <ul *ngFor='let app of apps'>
