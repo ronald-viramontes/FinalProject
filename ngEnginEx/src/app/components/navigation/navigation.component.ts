@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JobPost } from 'src/app/models/job-post';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { JobPostService } from 'src/app/services/job-post.service';
 
 @Component({
   selector: 'app-navigation',
@@ -10,8 +12,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private postService: JobPostService) { }
   user: User = new User();
+  keyword: string = '';
+  searchResults: JobPost[] = [];
   ngOnInit(): void {
   }
 
@@ -41,4 +45,15 @@ export class NavigationComponent implements OnInit {
     this.router.navigateByUrl('/register');
   }
 
+  search(searchKeyword: string){
+    this.postService.indexByKeyword(this.keyword).subscribe(
+      data => {
+        this.searchResults = data;
+        console.log(this.searchResults);
+      },
+      err => {
+        console.error(err);
+      }
+    )
+  }
 }

@@ -68,5 +68,10 @@ public class JobPostController {
 	public List<JobPost> jobsByStatus(HttpServletRequest req, HttpServletResponse res, @PathVariable String status){
 		return jobPostServ.findByStatus(status);
 	}
+	
+	@GetMapping("jobs/search/{keyword}")
+	public List<JobPost> findByKeyword (HttpServletRequest req, HttpServletResponse res, @PathVariable String keyword){
+		return jobPostServ.findByKeyword(keyword);
+	}
 
 }

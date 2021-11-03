@@ -72,4 +72,9 @@ public class JobPostServiceImpl implements JobPostService {
 		return jobPostRepo.findByStatusNameLike(status);
 	}
 
+	@Override
+	public List<JobPost> findByKeyword(String keyword) {
+		return jobPostRepo.findByJobRequirementsContaining(keyword);
+	}
+
 }

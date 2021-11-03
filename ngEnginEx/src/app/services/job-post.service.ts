@@ -124,4 +124,14 @@ export class JobPostService {
       })
     );
   }
+
+  indexByKeyword(keyword: string) {
+    return this.http.get<JobPost[]>(`${this.jobsUrl}/search/${keyword}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('JobPostService.indexByKeyword(): error retrieving job posts');
+
+      })
+    );
+  }
 }
