@@ -195,9 +195,9 @@
                 <li>Application Status: {{app.status}}</li>
                 <li>Application Date: {{app.date}}</li>
                 <li>Application Approved: {{app.approved}}</li>
-                <div style="color: black">
-                  <mat-tab-group style="color: black">
-                    <mat-tab label="Experiences" style="color: black">
+                <div>
+                  <mat-tab-group>
+                    <mat-tab label="Experiences">
                       <ul *ngFor='let exp of app.user.experiences'>
                         <li>Company Name: {{exp.companyName}}</li>
                         <li>Job Title: {{exp.jobTitle}}</li>
