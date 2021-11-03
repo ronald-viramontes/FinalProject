@@ -27,18 +27,17 @@
 
   .appWaiting {
     font-weight: bold;
-    background-color: rgb(210,180,180);
+    background-color: rgb(210, 180, 180);
   }
 
-  .appWaitingBadge{
+  .appWaitingBadge {
     visibility: hidden;
   }
-
 </style>
 <div style="margin-right: 10%; margin-left: 5%; margin-bottom: 1%;" *ngIf="!showNewJob">
   <td><button (click)="createNewPost()" class="btn btn-primary" *ngIf="loggedIn()">Create New Job</button></td>
-  <label for="status" *ngIf="!getRoute()">Filter by Job Status:</label>
-  <select name="status" *ngIf="!getRoute()" [(ngModel)]="statusId">
+  <label for="status" *ngIf="!getRoute() && !selected">Filter by Job Status:</label>
+  <select name="status" *ngIf="!getRoute() && !selected" [(ngModel)]="statusId">
     <option *ngFor="let stat of jobStatuses" [ngValue]="stat.id">{{stat.name}}</option>
   </select>
 </div>
@@ -64,12 +63,11 @@
           <td>{{job.completionDate}}</td>
           <td>{{job.datePosted}}</td>
           <td>{{job.status.name}}</td>
-          <td><button (click)="displayJob(job)" class="btn btn-primary position-relative">
-            View Job
-            <span [ngClass]="appStyleBadge(job)">
-              {{newAppCount}}
-              <span class="visually-hidden">New Applications</span>
-            </span></button></td>
+          <td><button (click)="displayJob(job)" class="btn btn-primary">
+              View Job
+              <span [ngClass]="appStyleBadge(job)">
+                {{newAppCount}}
+              </span></button></td>
           <td><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
         </tr>
       </tbody>
@@ -87,14 +85,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let job of jobPosts | openJob : statusId'>
+        <tr *ngFor='let job of jobPosts'>
           <td>{{job.jobRequirements}}</td>
           <td>{{job.startDate}}</td>
           <td>{{job.completionDate}}</td>
           <td>{{job.datePosted}}</td>
           <td>{{job.status.name}}</td>
           <td><button (click)="displayJob(job)" class="btn btn-primary">View Job</button></td>
-          <td *ngIf="loggedIn() && job.user.id == activeUser.id"><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
+          <td *ngIf="loggedIn() && job.user.id == activeUser.id"><button (click)="setEditJob(job)"
+              class="btn btn-primary">Edit Job</button></td>
+          <td *ngIf="loggedIn() && job.user.id != activeUser.id"><button (click)="setEditJob(job)" disabled="disabled"
+              class="btn btn-primary">Edit Job</button></td>
         </tr>
       </tbody>
     </table>
@@ -110,13 +111,13 @@
       <label>Completion Date:</label>
       <input class="form-control form-control-lg" placeholder="Completion Date" ype="date" min="2018-07-22"
         name="jobCompletionDate" [(ngModel)]="editJob.completionDate">
-        <select name="status" [(ngModel)]="editJob.status">
-          <option *ngFor="let stat of jobStatuses" [ngValue]="stat">{{stat.name}}</option>
-        </select>
-        <label for="jobType">Choose a Job Type:</label>
-        <select name="jobType" [(ngModel)]="editJob.type">
-          <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
-        </select>
+      <select name="status" [(ngModel)]="editJob.status">
+        <option *ngFor="let stat of jobStatuses" [ngValue]="stat">{{stat.name}}</option>
+      </select>
+      <label for="jobType">Choose a Job Type:</label>
+      <select name="jobType" [(ngModel)]="editJob.type">
+        <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
+      </select>
       <button (click)="update(editJob)" class="btn btn-primary">Update Job Post</button>
       <button (click)="editJob = null" class="btn btn-warning" style="margin-left: 10px;">Cancel Changes</button>
       <button (click)="deletePost(editJob)" class="btn btn-danger" style="margin-left: 10px;">Delete Post</button>
@@ -196,45 +197,47 @@
         <ngb-accordion>
           <ngb-panel title="Applications">
             <ng-template ngbPanelContent>
-              <ul *ngFor='let app of apps'>
-                <h3>{{app.user.firstName}} {{app.user.lastName}}</h3>
-                <li>Application Status: {{app.status}}</li>
-                <li>Application Date: {{app.date}}</li>
-                <li>Application Approved: {{app.approved}}</li>
-                <div>
-                  <mat-tab-group class="remove-border-bottom">
-                    <mat-tab label="Experiences">
-                      <ul *ngFor='let exp of app.user.experiences'>
-                        <li>Company Name: {{exp.companyName}}</li>
-                        <li>Job Title: {{exp.jobTitle}}</li>
-                        <li>Start Date: {{exp.startDate}}</li>
-                        <li>End Date: {{exp.endDate}}</li>
-                      </ul>
-                    </mat-tab>
-                    <mat-tab label="Education">
-                      <ul *ngFor='let ed of app.user.educations'>
-                        <li>Institution Name: {{ed.institutionName}}</li>
-                        <li>Education Type: {{ed.educationType}}</li>
-                        <li>Degree Type: {{ed.degreeCertificateName}}</li>
-                        <li>Completed: {{ed.completeDate}}</li>
-                      </ul>
-                    </mat-tab>
-                    <mat-tab label="Skills">
-                      <ul *ngFor='let sk of app.user.skills'>
-                        <li>Skill Description: {{sk.skillTitle}}</li>
-                        <li>Skill Level: {{sk.skillLevel}}</li>
-                      </ul>
-                    </mat-tab>
-                  </mat-tab-group>
-                  <div *ngIf="app.status == 'Open'">
-                    <button (click)="approveApplication(app)" class="btn sm btn-primary">Approve
-                      Application</button>
-                    <button (click)="declineApplication(app)" class="btn sm btn-primary">Decline
-                      Application</button>
+              <div class="apps">
+                <ul *ngFor='let app of apps'>
+                  <h3>{{app.user.firstName}} {{app.user.lastName}}</h3>
+                  <li>Application Status: {{app.status}}</li>
+                  <li>Application Date: {{app.date}}</li>
+                  <li>Application Approved: {{app.approved}}</li>
+                  <div>
+                    <mat-tab-group class="remove-border-bottom">
+                      <mat-tab label="Experiences">
+                        <ul *ngFor='let exp of app.user.experiences'>
+                          <li>Company Name: {{exp.companyName}}</li>
+                          <li>Job Title: {{exp.jobTitle}}</li>
+                          <li>Start Date: {{exp.startDate}}</li>
+                          <li>End Date: {{exp.endDate}}</li>
+                        </ul>
+                      </mat-tab>
+                      <mat-tab label="Education">
+                        <ul *ngFor='let ed of app.user.educations'>
+                          <li>Institution Name: {{ed.institutionName}}</li>
+                          <li>Education Type: {{ed.educationType}}</li>
+                          <li>Degree Type: {{ed.degreeCertificateName}}</li>
+                          <li>Completed: {{ed.completeDate}}</li>
+                        </ul>
+                      </mat-tab>
+                      <mat-tab label="Skills">
+                        <ul *ngFor='let sk of app.user.skills'>
+                          <li>Skill Description: {{sk.skillTitle}}</li>
+                          <li>Skill Level: {{sk.skillLevel}}</li>
+                        </ul>
+                      </mat-tab>
+                    </mat-tab-group>
+                    <div *ngIf="app.status == 'Open'">
+                      <button (click)="approveApplication(app)" class="btn sm btn-primary">Approve
+                        Application</button>
+                      <button (click)="declineApplication(app)" class="btn sm btn-primary">Decline
+                        Application</button>
+                    </div>
                   </div>
-                </div>
 
-              </ul>
+                </ul>
+              </div>
             </ng-template>
           </ngb-panel>
         </ngb-accordion>

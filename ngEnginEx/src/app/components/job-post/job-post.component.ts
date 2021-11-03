@@ -17,7 +17,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./job-post.component.css'],
 })
 export class JobPostComponent implements OnInit {
-  @Input() jobPosts: JobPost[] = [];
+  jobPosts: JobPost[] = [];
   jobStatuses: JobStatus[] = [];
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
@@ -54,7 +54,7 @@ export class JobPostComponent implements OnInit {
       if(count > 0){
         this.newAppCount = count;
         count = 0;
-        return 'position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle';
+        return 'badge rounded-pill bg-danger';
       }
     }
     return 'appWaitingBadge';
@@ -244,7 +244,7 @@ export class JobPostComponent implements OnInit {
       this.jobService.approveApplication(app).subscribe(
         (udpated) => {
           console.log('approval happening!');
-
+          this.reloadJobs();
           this.editApp = null;
           this.selected = null;
         },

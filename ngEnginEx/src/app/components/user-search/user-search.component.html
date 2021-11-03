@@ -1,0 +1,13 @@
+<h2>Search for an Engineer for your Project</h2>
+<form>
+  <input name="search" type="search" placeholder="Search for User" [(ngModel)]="keyword" required>
+  <button (click)="search(keyword)">Search</button>
+</form>
+
+<ul *ngIf="searchResults.length > 0">
+  <li *ngFor="let user of searchResults">{{user.username}}
+    <div *ngFor="let skill of user.skills">
+      {{skill.skillTitle}}: {{skill.skillLevel}}
+    </div>
+  </li>
+</ul>

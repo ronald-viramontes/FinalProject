@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
+import { UserSearchComponent } from './components/user-search/user-search.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     DateSortPipe,
     UserJobPipe,
     OpenJobPipe,
+    UserSearchComponent,
   ],
   imports: [
     BrowserModule,

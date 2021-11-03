@@ -2,7 +2,7 @@
 <hr>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-4" *ngIf="loggedIn()">
+    <div class="col-sm-3" *ngIf="loggedIn()">
       <div name="developerDetails">
         <h2>Your Profile</h2>
 
@@ -41,12 +41,12 @@
       </div>
     </div>
     <div class="col-sm">
+      <app-user-search></app-user-search>
       <h1>Search Active Job Posts</h1>
-      NEWEST JOBS etc
       <app-job-search></app-job-search>
       <div *ngIf="loggedIn()">
         <h4>My Job Posts</h4>
-        <app-job-post [jobPosts]="jobPosts"></app-job-post>
+        <app-job-post></app-job-post>
       </div>
       <!-- <app-finished-jobs></app-finished-jobs> -->
     </div>

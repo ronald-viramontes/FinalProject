@@ -65,4 +65,10 @@ public class UserServiceImpl implements UserService {
 		return userRepo.findByUsername(username);
 	}
 
+	@Override
+	public List<User> findBySkill(String skill) {
+		skill = "%"+skill+"%";
+		return userRepo.findBySkills_skillTitleLike(skill);
+	}
+
 }
