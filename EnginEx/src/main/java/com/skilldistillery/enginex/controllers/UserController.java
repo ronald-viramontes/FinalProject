@@ -69,4 +69,9 @@ public class UserController {
 		return user;
 	}
 	
+	@GetMapping("/users/skills/{keyword}")
+	public List<User> findBySkill(HttpServletResponse res, HttpServletRequest req, @PathVariable String keyword){
+		return userServ.findBySkill(keyword);
+	}
+	
 }
