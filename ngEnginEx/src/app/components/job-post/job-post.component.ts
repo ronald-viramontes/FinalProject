@@ -17,7 +17,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./job-post.component.css'],
 })
 export class JobPostComponent implements OnInit {
-  @Input() jobPosts: JobPost[] = [];
+  jobPosts: JobPost[] = [];
   jobStatuses: JobStatus[] = [];
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
@@ -244,7 +244,7 @@ export class JobPostComponent implements OnInit {
       this.jobService.approveApplication(app).subscribe(
         (udpated) => {
           console.log('approval happening!');
-
+          this.reloadJobs();
           this.editApp = null;
           this.selected = null;
         },

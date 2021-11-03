@@ -37,8 +37,8 @@
 </style>
 <div style="margin-right: 10%; margin-left: 5%; margin-bottom: 1%;" *ngIf="!showNewJob">
   <td><button (click)="createNewPost()" class="btn btn-primary" *ngIf="loggedIn()">Create New Job</button></td>
-  <label for="status" *ngIf="!getRoute()">Filter by Job Status:</label>
-  <select name="status" *ngIf="!getRoute()" [(ngModel)]="statusId">
+  <label for="status" *ngIf="!getRoute() && !selected">Filter by Job Status:</label>
+  <select name="status" *ngIf="!getRoute() && !selected" [(ngModel)]="statusId">
     <option *ngFor="let stat of jobStatuses" [ngValue]="stat.id">{{stat.name}}</option>
   </select>
 </div>
