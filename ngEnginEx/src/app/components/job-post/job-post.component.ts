@@ -67,7 +67,8 @@ export class JobPostComponent implements OnInit {
     }
     this.reloadJobs();
     this.getRoute();
-    if(history.state)
+    let passedPost: JobPost = history.state;
+    if(passedPost.id !== undefined)
     this.selected = history.state;
   }
 
