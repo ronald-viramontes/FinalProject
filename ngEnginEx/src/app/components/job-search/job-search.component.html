@@ -1,9 +1,35 @@
-<h2>Search Active Job Posts</h2>
-<p>Jobs are sorted by newest first</p>
-<form>
-  <input name="search" type="search" placeholder="Search for Job" [(ngModel)]="keyword" required>
-  <button (click)="search(keyword)">Search</button>
-</form>
-<ul>
-  <li *ngFor="let post of jobPosts | dateSort" (click)="goToJob(post)"> {{post.jobRequirements}}: {{post.datePosted}}</li>
-</ul>
+<div class="wrap">
+  <mat-card class="flex">
+    <div class="scrollable">
+      <mat-card-title>Recent Job Postings</mat-card-title>
+      <form>
+        <input name="search" type="search" placeholder="Search for Job" [(ngModel)]="keyword" required>
+        <button (click)="search(keyword)">Search</button>
+      </form>
+      <mat-card-content>
+        <div>
+          <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>Job Description</th>
+                <th>Job Start Date</th>
+                <th>Job Completion Date</th>
+                <th>Job Posted Date</th>
+                <th>Job Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let post of jobPosts | dateSort: returnNum' (click)="goToJob(post)">
+                <td>{{post.jobRequirements}}</td>
+                <td>{{post.startDate}}</td>
+                <td>{{post.completionDate}}</td>
+                <td>{{post.datePosted}}</td>
+                <td>{{post.status.name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>
