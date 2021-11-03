@@ -64,11 +64,10 @@
           <td>{{job.completionDate}}</td>
           <td>{{job.datePosted}}</td>
           <td>{{job.status.name}}</td>
-          <td><button (click)="displayJob(job)" class="btn btn-primary position-relative">
+          <td><button (click)="displayJob(job)" class="btn btn-primary">
             View Job
             <span [ngClass]="appStyleBadge(job)">
               {{newAppCount}}
-              <span class="visually-hidden">New Applications</span>
             </span></button></td>
           <td><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
         </tr>
