@@ -80,6 +80,7 @@ public class JobPostServiceImpl implements JobPostService {
 
 	@Override
 	public List<JobPost> findByKeyword(String keyword) {
+		keyword = "%"+keyword+"%";
 		return jobPostRepo.findByJobRequirementsContaining(keyword);
 	}
 

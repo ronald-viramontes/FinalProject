@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findBySkill(String skill) {
+		skill = "%"+skill+"%";
 		return userRepo.findBySkills_skillTitleLike(skill);
 	}
 
