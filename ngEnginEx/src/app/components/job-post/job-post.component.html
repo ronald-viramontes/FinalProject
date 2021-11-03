@@ -29,6 +29,11 @@
     font-weight: bold;
     background-color: rgb(210,180,180);
   }
+
+  .appWaitingBadge{
+    visibility: hidden;
+  }
+
 </style>
 <div style="margin-right: 10%; margin-left: 5%; margin-bottom: 1%;" *ngIf="!showNewJob">
   <td><button (click)="createNewPost()" class="btn btn-primary" *ngIf="loggedIn()">Create New Job</button></td>
@@ -54,13 +59,18 @@
       </thead>
       <tbody>
         <tr *ngFor='let job of jobPosts | userJob: activeUser'>
-          <td [ngClass]="appStyle(job)">{{job.jobRequirements}}</td>
-          <td [ngClass]="appStyle(job)">{{job.startDate}}</td>
-          <td [ngClass]="appStyle(job)">{{job.completionDate}}</td>
-          <td [ngClass]="appStyle(job)">{{job.datePosted}}</td>
-          <td [ngClass]="appStyle(job)">{{job.status.name}}</td>
-          <td [ngClass]="appStyle(job)"><button (click)="displayJob(job)" class="btn btn-primary">View Job</button></td>
-          <td [ngClass]="appStyle(job)"><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
+          <td>{{job.jobRequirements}}</td>
+          <td>{{job.startDate}}</td>
+          <td>{{job.completionDate}}</td>
+          <td>{{job.datePosted}}</td>
+          <td>{{job.status.name}}</td>
+          <td><button (click)="displayJob(job)" class="btn btn-primary position-relative">
+            View Job
+            <span [ngClass]="appStyleBadge(job)">
+              {{newAppCount}}
+              <span class="visually-hidden">New Applications</span>
+            </span></button></td>
+          <td><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
         </tr>
       </tbody>
     </table>
@@ -144,8 +154,8 @@
     </div>
     <div *ngIf="selected">
       <div>
-        <ngb-accordion>
-          <ngb-panel title="Job Info">
+        <ngb-accordion activeIds="static-1">
+          <ngb-panel title="Job Info" id="static-1">
             <ng-template ngbPanelContent>
               <ul>
                 <li>Job Description: {{selected.jobRequirements}}</li>

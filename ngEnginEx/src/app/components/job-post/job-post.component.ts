@@ -32,6 +32,7 @@ export class JobPostComponent implements OnInit {
   newJobApp: JobApplication = new JobApplication();
   appDetail: boolean = false;
   statusId: number = 2;
+  newAppCount: number = 0;
   appStyle(jobPost: JobPost): string {
     if (jobPost.applications.length > 0) {
       for (let app of jobPost.applications) {
@@ -42,6 +43,24 @@ export class JobPostComponent implements OnInit {
     }
     return '';
   }
+  appStyleBadge(jobPost: JobPost): string {
+    let count = 0;
+    if (jobPost.applications.length > 0) {
+      for (let app of jobPost.applications) {
+        if (app.status === 'Open') {
+          count++;
+        }
+      }
+      if(count > 0){
+        this.newAppCount = count;
+        count = 0;
+        return 'position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle';
+      }
+    }
+    return 'appWaitingBadge';
+  }
+
+
 
   constructor(
     private jobService: JobPostService,
