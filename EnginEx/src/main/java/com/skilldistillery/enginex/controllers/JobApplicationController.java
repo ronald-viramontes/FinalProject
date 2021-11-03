@@ -45,7 +45,7 @@ public class JobApplicationController {
 
 	@PostMapping("apps/{pId}")
 	public JobApplication create(HttpServletRequest req, HttpServletResponse res,
-			@PathVariable int pId, Principal principal) {
+			@PathVariable int pId, @RequestBody JobApplication app, Principal principal) {
 		int userId = userRepo.findByUsername(principal.getName()).getId();
 		return appSvc.create(userId, pId);
 
