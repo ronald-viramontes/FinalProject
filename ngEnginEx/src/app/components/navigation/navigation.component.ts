@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JobPost } from 'src/app/models/job-post';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { JobPostService } from 'src/app/services/job-post.service';
 
 @Component({
   selector: 'app-navigation',
@@ -10,8 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private postService: JobPostService) { }
   user: User = new User();
+
   ngOnInit(): void {
   }
 
@@ -40,5 +43,6 @@ export class NavigationComponent implements OnInit {
   register(){
     this.router.navigateByUrl('/register');
   }
+
 
 }

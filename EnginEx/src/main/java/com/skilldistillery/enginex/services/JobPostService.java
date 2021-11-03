@@ -18,4 +18,6 @@ public interface JobPostService {
 	public void destroy(int id);
 	
 	public List<JobPost> findByStatus(String status);
+	
+	public List<JobPost> findByKeyword(String keyword);
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JobPost } from 'src/app/models/job-post';
 import { DateSortPipe } from 'src/app/pipes/date-sort.pipe';
 import { JobPostService } from 'src/app/services/job-post.service';
@@ -10,9 +11,11 @@ import { JobPostService } from 'src/app/services/job-post.service';
 })
 export class JobSearchComponent implements OnInit {
 
-  constructor(private postService: JobPostService, private datePipe: DateSortPipe) { }
+  constructor(private postService: JobPostService, private datePipe: DateSortPipe, private router: Router) { }
 
   jobPosts: JobPost[] = [];
+  keyword: string = '';
+  searchResults: JobPost[] = [];
 
   ngOnInit(): void {
     this.loadPosts();
@@ -24,5 +27,21 @@ export class JobSearchComponent implements OnInit {
         this.jobPosts = data;
       }
     )
+  }
+
+  search(searchKeyword: string){
+    this.postService.indexByKeyword(this.keyword).subscribe(
+      data => {
+        this.jobPosts = data;
+        console.log(this.searchResults);
+      },
+      err => {
+        console.error(err);
+      }
+    )
+  }
+
+  goToJob(selected: JobPost){
+    this.router.navigateByUrl('/jobs', {state: selected});
   }
 }

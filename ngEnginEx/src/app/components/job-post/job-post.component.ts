@@ -67,7 +67,11 @@ export class JobPostComponent implements OnInit {
     }
     this.reloadJobs();
     this.getRoute();
+    let passedPost: JobPost = history.state;
+    if(passedPost.id !== undefined)
+    this.selected = history.state;
   }
+
   loggedIn() {
     return this.authService.checkLogin();
   }
@@ -254,6 +258,17 @@ export class JobPostComponent implements OnInit {
   }
   setType(jobType: JobType) {
     this.newJob.type = jobType;
+    console.log(this.newJob);
+  }
+
+  setEditStatus(jobStatus: JobStatus) {
+    if(this.editJob)
+    this.editJob.status = jobStatus;
+    console.log(this.newJob);
+  }
+  setEditType(jobType: JobType) {
+    if(this.editJob)
+    this.editJob.type = jobType;
     console.log(this.newJob);
   }
 

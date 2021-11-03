@@ -5,6 +5,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { JobPostComponent } from './components/job-post/job-post.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { JobPost } from './models/job-post';
 import { AuthService } from './services/auth.service';
 
 const routes: Routes = [

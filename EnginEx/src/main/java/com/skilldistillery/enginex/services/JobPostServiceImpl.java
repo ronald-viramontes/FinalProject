@@ -40,6 +40,7 @@ public class JobPostServiceImpl implements JobPostService {
 			existingJobPost.setJobActive(true);
 			existingJobPost.setStartDate(jobPost.getStartDate());
 			existingJobPost.setDateClosed(jobPost.getDateClosed());
+			existingJobPost.setStatus(jobPost.getStatus());
 			jobPostRepo.saveAndFlush(existingJobPost);
 			return existingJobPost;
 		}
@@ -69,6 +70,11 @@ public class JobPostServiceImpl implements JobPostService {
 	@Override
 	public List<JobPost> findByStatus(String status) {
 		return jobPostRepo.findByStatusNameLike(status);
+	}
+
+	@Override
+	public List<JobPost> findByKeyword(String keyword) {
+		return jobPostRepo.findByJobRequirementsContaining(keyword);
 	}
 
 }

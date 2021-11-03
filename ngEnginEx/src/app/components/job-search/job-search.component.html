@@ -1,5 +1,8 @@
 <p>Jobs are sorted by newest first</p>
-
+<form>
+  <input name="search" type="search" placeholder="Search for Job" [(ngModel)]="keyword" required>
+  <button (click)="search(keyword)">Search</button>
+</form>
 <ul>
-  <li *ngFor="let post of jobPosts | dateSort"> {{post.jobRequirements}}: {{post.datePosted}}</li>
+  <li *ngFor="let post of jobPosts | dateSort" (click)="goToJob(post)"> {{post.jobRequirements}}: {{post.datePosted}}</li>
 </ul>
