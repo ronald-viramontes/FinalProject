@@ -110,7 +110,14 @@
       <label>Completion Date:</label>
       <input class="form-control form-control-lg" placeholder="Completion Date" ype="date" min="2018-07-22"
         name="jobCompletionDate" [(ngModel)]="editJob.completionDate">
-      <ngb-accordion>
+        <select name="status" [(ngModel)]="editJob.status">
+          <option *ngFor="let stat of jobStatuses" [ngValue]="stat">{{stat.name}}</option>
+        </select>
+        <label for="jobType">Choose a Job Type:</label>
+        <select name="jobType" [(ngModel)]="editJob.type">
+          <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
+        </select>
+      <!-- <ngb-accordion>
         <ngb-panel title="Job Status">
           <ng-template ngbPanelContent>
             <button (click)="setEditStatus(stat)" *ngFor='let stat of jobStatuses'>{{stat.name}}</button><br>
@@ -124,7 +131,7 @@
             <button (click)="setEditType(type)" *ngFor='let type of jobTypes'>{{type.name}}</button><br>
           </ng-template>
         </ngb-panel>
-      </ngb-accordion>
+      </ngb-accordion> -->
       <button (click)="update(editJob)" class="btn btn-primary">Update Job Post</button>
     </form>
   </div>
