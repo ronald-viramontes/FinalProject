@@ -31,7 +31,7 @@
   }
 </style>
 <div style="margin-right: 10%; margin-left: 5%; margin-bottom: 1%;" *ngIf="!showNewJob">
-  <td><button (click)="createNewPost()" class="btn btn-primary">Create New Job</button></td>
+  <td><button (click)="createNewPost()" class="btn btn-primary" *ngIf="loggedIn()">Create New Job</button></td>
   <label for="status">Choose a Job Status:</label>
   <select name="status" [(ngModel)]="newJob.status">
     <option *ngFor="let stat of jobStatuses" [ngValue]="stat">{{stat.name}}</option>
@@ -73,7 +73,7 @@
           <th>Job Posted Date</th>
           <th>Job Status</th>
           <th>View Details</th>
-          <th>Edit Job</th>
+          <th *ngIf="loggedIn()">Edit Job</th>
         </tr>
       </thead>
       <tbody>
@@ -84,7 +84,7 @@
           <td>{{job.datePosted}}</td>
           <td>{{job.status.name}}</td>
           <td><button (click)="displayJob(job)" class="btn btn-primary">View Job</button></td>
-          <td><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
+          <td *ngIf="loggedIn() && job.user.id == activeUser.id"><button (click)="setEditJob(job)" class="btn btn-primary">Edit Job</button></td>
         </tr>
       </tbody>
     </table>
