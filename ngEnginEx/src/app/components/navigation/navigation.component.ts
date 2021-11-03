@@ -14,8 +14,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private postService: JobPostService) { }
   user: User = new User();
-  keyword: string = '';
-  searchResults: JobPost[] = [];
+
   ngOnInit(): void {
   }
 
@@ -45,15 +44,5 @@ export class NavigationComponent implements OnInit {
     this.router.navigateByUrl('/register');
   }
 
-  search(searchKeyword: string){
-    this.postService.indexByKeyword(this.keyword).subscribe(
-      data => {
-        this.searchResults = data;
-        console.log(this.searchResults);
-      },
-      err => {
-        console.error(err);
-      }
-    )
-  }
+
 }

@@ -5,6 +5,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { JobPostComponent } from './components/job-post/job-post.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { JobPost } from './models/job-post';
 import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
   { path: 'home', component: DisplayComponent},
-  { path: 'jobs', component: JobPostComponent},
+  { path: 'jobs', component: JobPostComponent, data: {}},
   { path: 'editprofile', component: EditProfileComponent}
 ];
 

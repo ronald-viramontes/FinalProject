@@ -67,7 +67,10 @@ export class JobPostComponent implements OnInit {
     }
     this.reloadJobs();
     this.getRoute();
+    if(history.state)
+    this.selected = history.state;
   }
+
   loggedIn() {
     return this.authService.checkLogin();
   }
