@@ -1,3 +1,37 @@
+.form-control,
+.form-inline {
+  margin: auto;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 4px black;
+  border: 1px solid black;
+  width: 85%;
+  background-color: rgb(139, 145, 147);
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+}
+
 #addButton {
   text-align: center;
   margin: auto;

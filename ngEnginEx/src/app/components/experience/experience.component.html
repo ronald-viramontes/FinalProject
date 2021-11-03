@@ -11,6 +11,7 @@
       <br>
       <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="setEditExp(exp)">✏️</button>
       <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="deleteExp(exp.id)">❌</button>
+      <br>
       <div *ngIf="editExp" style="text-align: center" class="form-control">
         <form>
           <br>
@@ -31,16 +32,18 @@
           <input type="date" name="selected.endDate" [(ngModel)]="editExp.endDate" />
           <br />
           <br>
-          <button class="btn btn-success btn-lg" (click)="updateExp(editExp)">
-            ✔
+          <button class="btn btn-success btn-outline-light btn-sm" (click)="updateExp(editExp)">
+            Save
           </button>
-          <button style="margin-left: 10px" class="btn btn-secondary btn-lg" (click)="editExp = null">⟲</button>
+          <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm"
+            (click)="editExp = null">Cancel</button>
         </form>
       </div>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
-<div id="addButton">
+
+<div id="addButton" *ngIf="!addButton">
 
   <button id="addButton" class="badge btn-success" (click)="addButton = true">➕ Experience</button>
 </div>
@@ -53,7 +56,7 @@
     <br>
     <input id="jobtitle" type="text" name="jobTitle" [(ngModel)]="newExp.jobTitle" />
     <br />
-    <label for="start">Company</label>
+    <label for="company">Company</label>
     <br>
     <input id="company" type="text" name="companyName" [(ngModel)]="newExp.companyName" />
     <br />
@@ -67,13 +70,14 @@
     <br />
     <br>
     <button class="btn btn-success btn-outline-light btn-sm" (click)="create(newExp)">
-      ✔
+      Save
     </button>
     <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm" (click)="addButton=false">
-      ⟲
+      Cancel
     </button>
 
   </form>
+  <br>
 </div>
 
 

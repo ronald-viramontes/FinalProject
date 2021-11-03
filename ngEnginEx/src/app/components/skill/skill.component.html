@@ -21,18 +21,18 @@
           <input type="text" name="selected.companyName" [(ngModel)]="editSkill.skillLevel" />
           <br />
           <br>
-          <button class="btn btn-success btn-lg" (click)="updateSkill(editSkill)">
-            ✔
+          <button class="btn btn-success btn-outline-light btn-sm" (click)="updateSkill(editSkill)">
+            Save
           </button>
-          <button style="margin-left: 10px" class="btn btn-secondary btn-lg" (click)="editSkill = null">⟲</button>
+          <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm"
+            (click)="editSkill = null">Cancel</button>
         </form>
       </div>
-
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
 
-<div id="addButton">
+<div id="addButton" *ngIf="!addButton">
   <button class="badge btn-success" (click)="addButton = true">➕ Skill</button>
 
 </div>
@@ -53,11 +53,12 @@
     <br />
     <br>
     <button class="btn btn-success btn-outline-light btn-sm" (click)="create(newSkill)">
-      ✔
+      Save
     </button>
     <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm" (click)="addButton=false">
-      ⟲
+      Cancel
     </button>
 
   </form>
+  <br>
 </div>

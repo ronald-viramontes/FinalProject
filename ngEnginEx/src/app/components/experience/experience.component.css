@@ -6,7 +6,7 @@
   text-shadow: 1px 1px 4px black;
   border: 1px solid black;
   width: 85%;
-  background-color: rgb(24, 28, 30);
+  background-color: rgb(139, 145, 147);
 }
 .accordion {
   background-color: #eee;
@@ -31,14 +31,14 @@
   background-color: white;
 }
 
-.div {
+/* .div {
   text-align: center;
-}
-.button {
+} */
+/* .button {
   display: block;
   margin: auto;
   margin-top: 10px;
-}
+} */
 
 #addButton {
   text-align: center;
