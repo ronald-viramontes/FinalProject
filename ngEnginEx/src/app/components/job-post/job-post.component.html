@@ -117,21 +117,6 @@
         <select name="jobType" [(ngModel)]="editJob.type">
           <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
         </select>
-      <!-- <ngb-accordion>
-        <ngb-panel title="Job Status">
-          <ng-template ngbPanelContent>
-            <button (click)="setEditStatus(stat)" *ngFor='let stat of jobStatuses'>{{stat.name}}</button><br>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
-      <label for="types">Choose a Job Type:</label>
-      <ngb-accordion>
-        <ngb-panel title="Job Types">
-          <ng-template ngbPanelContent>
-            <button (click)="setEditType(type)" *ngFor='let type of jobTypes'>{{type.name}}</button><br>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion> -->
       <button (click)="update(editJob)" class="btn btn-primary">Update Job Post</button>
     </form>
   </div>
