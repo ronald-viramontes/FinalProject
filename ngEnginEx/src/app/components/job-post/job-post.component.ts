@@ -303,4 +303,18 @@ export class JobPostComponent implements OnInit {
   getRoute() {
     return this.router.url === '/home';
   }
+
+  deletePost(post: JobPost){
+    if(confirm('Are you sure you want to delete this Job Posting?')){
+      this.jobService.delete(post).subscribe(
+        data => {
+          this.editJob = null;
+          this.reloadJobs();
+        },
+        err => {
+          console.error(err);
+        }
+      );
+    }
+  }
 }
