@@ -22,7 +22,7 @@ export class JobPostComponent implements OnInit {
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
   isOwner: boolean = false;
-  newJob: JobPost = new JobPost();
+  newJob: JobPost = new JobPost(0, '','','',0,true,'','',new JobType(1), new User(), new JobStatus(2));
   selected: JobPost | null = null;
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
@@ -201,7 +201,7 @@ export class JobPostComponent implements OnInit {
       (created) => {
         console.log('Job Post Created');
         this.reloadJobs();
-        this.newJob = new JobPost();
+        this.newJob = new JobPost(0, '','','',0,true,'','',new JobType(1), new User(), new JobStatus(2));
         this.showNewJob = false;
       },
       (failed) => {
