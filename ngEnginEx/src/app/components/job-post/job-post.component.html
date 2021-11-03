@@ -234,7 +234,7 @@
           </ngb-panel>
         </ngb-accordion>
       </div>
-      <div *ngIf="isOwner">
+      <div *ngIf="isOwner && loggedIn()">
         <button (click)="createApplication(selected)" class="btn btn-primary">Apply For Job!</button>
       </div>
       <button (click)="returnToList()" class="btn btn-primary">Back</button>
