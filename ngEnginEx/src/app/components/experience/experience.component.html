@@ -7,7 +7,9 @@
       <strong>{{exp.companyName}}</strong><br>
       Job Title: {{exp.jobTitle}} <br>
       Started: {{exp.startDate}}
-      Ended: {{exp.endDate}}
+      <div *ngIf="exp.endDate">
+        Ended: {{exp.endDate}}
+      </div>
       <br>
       <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="setEditExp(exp)">✏️</button>
       <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="deleteExp(exp.id)">❌</button>

@@ -1,13 +1,14 @@
 package com.skilldistillery.enginex.services;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobPost;
+import com.skilldistillery.enginex.repositories.JobApplicationRepository;
 import com.skilldistillery.enginex.repositories.JobPostRepository;
 
 @Service
@@ -15,7 +16,9 @@ public class JobPostServiceImpl implements JobPostService {
 
 	@Autowired
 	private JobPostRepository jobPostRepo;
-
+	@Autowired
+	private JobApplicationRepository jobAppRepo;
+	
 	@Override
 	public List<JobPost> index() {
 		return jobPostRepo.findAll();
@@ -52,6 +55,9 @@ public class JobPostServiceImpl implements JobPostService {
 	public void destroy(int id) {
 		Optional<JobPost> j = jobPostRepo.findById(id);
 		JobPost delJob = j.get();
+		for (JobApplication app : delJob.getApplications()) {
+			jobAppRepo.delete(app);
+		}
 		jobPostRepo.delete(delJob);
 
 	}

@@ -134,4 +134,13 @@ export class JobPostService {
       })
     );
   }
+
+  delete(post: JobPost){
+    return this.http.delete(`${this.jobsUrl}/${post.id}`, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('JobPostService.delete(): error deleting jobPost');
+      })
+    );
+  }
 }
