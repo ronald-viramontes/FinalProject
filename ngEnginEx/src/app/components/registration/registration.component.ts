@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +11,6 @@ import { LoginComponent } from '../login/login.component';
 export class RegistrationComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private loginComp: LoginComponent,
     private router: Router
   ) {}
   newUser: User = new User();
@@ -49,4 +47,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   update() {}
+
+  cancel(){
+    this.router.navigateByUrl('/home');
+  }
 }

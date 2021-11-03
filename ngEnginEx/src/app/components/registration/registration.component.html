@@ -1,4 +1,4 @@
-<div id="registerUser" class="container-liquid">
+<div id="registerUser" class="container-liquid" style="text-align: center; padding-top: 10%;">
   <form name="registrationForm">
     <input type="text" name="username" [(ngModel)]="newUser.username" placeholder="Username" />
     <p *ngIf="duplicateUsername">Username already in use!</p>
@@ -24,6 +24,7 @@
     <br />
     <input type="text" name="imageUrl" placeholder="Image URL" [(ngModel)]="newUser.imageUrl"
       (ngModelChange)="update()" /> <br>
-    <button style="margin-left: 10px" class="btn-dark" value="Register" (click)="register()">Register</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" value="Register" (click)="register()">Register</button>
+    <button stye="padding: 10px" class="btn btn-outline-danger my-2 my-sm-0" value="Cancel" (click)="cancel()">Cancel</button>
   </form>
 </div>

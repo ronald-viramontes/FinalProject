@@ -27,7 +27,7 @@ export class NavigationComponent implements OnInit {
     this.authService.login(user.username, user.password).subscribe(
       data => {
         location.reload();
-        this.router.navigateByUrl('/home')
+        this.router.navigateByUrl('/home');
         this.user = new User();
       },
       err => {
@@ -35,6 +35,10 @@ export class NavigationComponent implements OnInit {
         console.error(err);
       }
     )
+  }
+
+  register(){
+    this.router.navigateByUrl('/register');
   }
 
 }
