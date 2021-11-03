@@ -15,4 +15,6 @@ public interface UserService {
 	public User update(String username, int id, User user);
 
 	public void destroy(String username, int id);
+	
+	public List<User> findBySkill(String skill);
 }

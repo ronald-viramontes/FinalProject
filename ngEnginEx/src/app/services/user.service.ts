@@ -51,4 +51,13 @@ export class UserService {
       })
     );
   }
+
+  indexBySkill(keyword: string){
+    return this.http.get<User[]>(`${this.baseUrl}/skills/${keyword}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('UserService.indexBySkill(): error retrieving users');
+      })
+    );
+  }
 }

@@ -1,0 +1,8 @@
+<form>
+  <input name="search" type="search" placeholder="Search for User" [(ngModel)]="keyword" required>
+  <button (click)="search(keyword)">Search</button>
+</form>
+
+<ul *ngIf="searchResults.length > 0">
+  <li *ngFor="let user of searchResults">{{user.firstName}}</li>
+</ul>
