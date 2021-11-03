@@ -195,7 +195,7 @@
       </div>
       <div *ngIf="!isOwner">
         <ngb-accordion>
-          <ngb-panel title="Applications">
+          <ngb-panel *ngIf="apps && apps.length > 0" title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
             <ng-template ngbPanelContent>
               <div class="apps">
                 <ul *ngFor='let app of apps'>
