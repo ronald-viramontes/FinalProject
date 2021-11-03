@@ -1,3 +1,69 @@
+<div id="outsideBorder">
+  <h4 style="text-align:center; margin-bottom: auto; margin-top: 25px; color: white">User Registration</h4>
+  <div id="registerUser">
+    <form class="row g-3" name="registrationForm" id="registrationForm">
+      <div class="col-md-6">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" required name="username" [(ngModel)]="newUser.username" />
+        <div *ngIf="duplicateUsername" class="col-md-12" class="alert alert-warning" role="alert">
+          Username already in use!
+          <br *ngIf="!duplicateUsername">
+          <br *ngIf="!duplicateUsername">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" required name="password" [(ngModel)]="newUser.password" />
+      </div>
+
+      <div class="col-md-6">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" required name="firstName" [(ngModel)]="newUser.firstName"
+          (ngModelChange)="update()" />
+      </div>
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" required name="lastName" [(ngModel)]="newUser.lastName"
+          (ngModelChange)="update()" />
+      </div>
+
+      <div class="col-md-7">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" required name="email" [(ngModel)]="newUser.email"
+          (ngModelChange)="update()" />
+      </div>
+      <div class="col-md-5">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="newUser.phoneNumber"
+          (ngModelChange)="update()" />
+      </div>
+
+      <div class="col-md-12">
+        <label for="imageUrl" class="form-label">Profile Image URL</label>
+        <input type="text" class="form-control" name="imageUrl" [(ngModel)]="newUser.imageUrl"
+          (ngModelChange)="update()" />
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-success btn-sm" value="Register" (click)="register()">Register</button>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-danger btn-sm" value="Cancel" (click)="cancel()">Cancel</button>
+      </div>
+      <div class="col-md-4">
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<div id="padded">
+
+</div>
+
+
+<!--
 <div id="registerUser" class="container-liquid" style="text-align: center; padding-top: 10%;">
   <form name="registrationForm">
     <input type="text" name="username" [(ngModel)]="newUser.username" placeholder="Username" />
@@ -25,6 +91,7 @@
     <input type="text" name="imageUrl" placeholder="Image URL" [(ngModel)]="newUser.imageUrl"
       (ngModelChange)="update()" /> <br>
     <button class="btn btn-outline-success my-2 my-sm-0" value="Register" (click)="register()">Register</button>
-    <button stye="padding: 10px" class="btn btn-outline-danger my-2 my-sm-0" value="Cancel" (click)="cancel()">Cancel</button>
+    <button stye="padding: 10px" class="btn btn-outline-danger my-2 my-sm-0" value="Cancel"
+      (click)="cancel()">Cancel</button>
   </form>
-</div>
+</div> -->
