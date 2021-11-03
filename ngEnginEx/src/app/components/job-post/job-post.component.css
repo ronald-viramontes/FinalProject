@@ -1,15 +1,14 @@
-/* .mat-tab {
-  background-color: black;
-} */
-/* ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
-  color: white;
-  background-color: rgb(245, 1, 1);
-} */
-::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label {
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
   color: white;
   background-color: rgb(40, 39, 40);
+  opacity: 1 !important;
+  border-radius: 8px;
+  align-items: center;
 }
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label {
+  color: white;
+  background-color: rgb(40, 37, 37);
 
-.remove-border-bottom .mat-tab-footer {
-  border-bottom: none;
+  border-radius: 8px;
+  align-items: center;
 }
