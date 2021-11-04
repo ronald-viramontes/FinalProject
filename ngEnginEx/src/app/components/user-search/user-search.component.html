@@ -4,8 +4,17 @@
   width: 50%;
   float: left;
   padding: 5px;
+}
 
-}</style>
+.loggedIn{
+    max-width: 30%;
+  }
+
+.loggedOut{
+  max-width: 18%;
+
+}
+</style>
 <h2>Search for an Engineer for your Project</h2>
 <form>
   <input name="search" type="search" placeholder="Search for User" [(ngModel)]="keyword" required>
@@ -23,9 +32,10 @@
   </li>
 </ul> -->
 <div class="float-container scrollable" *ngIf="searchResults.length > 0">
-  <div class="float-child" *ngFor="let user of searchResults; index as i" style="max-width: 30%;">
-    <div class="card" style="max-width: 100%; height: 275px;" *ngIf="i < 6">
+  <div class="float-child" *ngFor="let user of searchResults; index as i" [ngClass]="loggedInClass()">
+    <div class="card" style="max-width: 100%; min-height: 275px;" *ngIf="i < 6">
       <div class="card-body">
+        <img src="{{user.imageUrl}}" width="50%" style="position: relative; top: 0; left: 25%;">
         <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Skills</h6>
         <div *ngFor="let skill of user.skills">

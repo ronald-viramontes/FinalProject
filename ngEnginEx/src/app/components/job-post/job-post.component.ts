@@ -31,7 +31,7 @@ export class JobPostComponent implements OnInit {
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
   appDetail: boolean = false;
-  statusId: number = 2;
+  statusId: number = 1;
   newAppCount: number = 0;
 
   appStyleBadge(jobPost: JobPost): string {
@@ -307,6 +307,14 @@ export class JobPostComponent implements OnInit {
           console.error(err);
         }
       );
+    }
+  }
+
+  scrollStyle(){
+    if(this.getRoute()){
+      return 'scrollable'
+    } else {
+      return '';
     }
   }
 }

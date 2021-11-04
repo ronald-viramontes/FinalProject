@@ -92,7 +92,7 @@
     <div class="wrap">
       <mat-card class="flex" style="min-height: 50px;">
         <mat-card-title>Job Postings</mat-card-title>
-        <div class="scrollable">
+        <div>
           <mat-card-content>
             <div>
               <table class="table table-striped table-hover table-bordered">
@@ -276,7 +276,7 @@
       </ngb-accordion>
     </div>
     <div *ngIf="isOwner && loggedIn()">
-      <button (click)="createApplication(selected)" class="btn btn-primary">Apply For Job!</button>
+      <button (click)="createApplication(selected)" class="btn btn-primary" *ngIf="selected.status.id == 1">Apply For Job!</button>
     </div>
     <button (click)="returnToList()" class="btn btn-primary">Back</button>
   </div>

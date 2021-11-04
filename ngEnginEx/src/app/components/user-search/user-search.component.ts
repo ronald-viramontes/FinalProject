@@ -22,6 +22,14 @@ export class UserSearchComponent implements OnInit {
     }
   }
 
+  loggedInClass(){
+    if(this.loggedIn()){
+      return 'loggedIn'
+    } else {
+      return 'loggedOut';
+    }
+  }
+
   search(skillKeyword: string){
     this.userService.indexBySkill(skillKeyword).subscribe(
       data => {

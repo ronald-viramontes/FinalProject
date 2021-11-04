@@ -87,7 +87,7 @@
           <h1 id="jobText">Find a Developer</h1>
           <app-user-search></app-user-search>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid" *ngIf="loggedIn()">
           <h1 id="enginExp">My Job Posts</h1>
           <app-job-post></app-job-post>
         </div>
