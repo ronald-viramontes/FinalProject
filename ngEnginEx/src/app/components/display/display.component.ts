@@ -67,7 +67,13 @@ export class DisplayComponent implements OnInit {
       );
     }
   }
-
+  loggedInClass(){
+    if(this.loggedIn()){
+      return 'col-sm-5';
+    } else {
+      return 'col-sm';
+    }
+  }
   loggedIn(){
     return this.authService.checkLogin();
   }

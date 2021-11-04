@@ -77,8 +77,8 @@
       </mat-card>
     </div>
 
-    <div class="col-sm-5">
-      <div *ngIf="loggedIn()">
+    <div [ngClass]="loggedInClass()">
+      <div>
         <div class="container-fluid">
           <h1 id="jobText">Search Active Job Post</h1>
           <app-job-search></app-job-search>
