@@ -66,15 +66,15 @@ export class JobPostComponent implements OnInit {
   ngOnInit(): void {
     if (this.loggedIn()) {
       this.getActiveUser();
-      this.jobService.indexStatus().subscribe(
-        (statusList) => {
-          this.jobStatuses = statusList;
-        },
-        (fail) => {
-          console.error('Job Status load failed');
-        }
-      );
     }
+    this.jobService.indexStatus().subscribe(
+      (statusList) => {
+        this.jobStatuses = statusList;
+      },
+      (fail) => {
+        console.error('Job Status load failed');
+      }
+    );
     this.reloadJobs();
     this.getRoute();
     let passedPost: JobPost = history.state;
@@ -310,8 +310,8 @@ export class JobPostComponent implements OnInit {
     }
   }
 
-  scrollStyle(){
-    if(this.getRoute()){
+  scrollStyle() {
+    if (this.getRoute()) {
       return 'scrollable'
     } else {
       return '';
