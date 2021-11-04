@@ -36,9 +36,10 @@ import { JobApplicationCommentService } from './services/job-application-comment
 import { JobDetailService } from './services/job-detail.service';
 import { OpenJobPipe } from './pipes/open-job.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCommonModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 
 @NgModule({
@@ -76,7 +77,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
     BrowserAnimationsModule,
     MatSliderModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
   ],
   providers: [
     AuthService,
@@ -91,6 +92,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
     DateSortPipe,
     UserJobPipe,
     OpenJobPipe,
+    MatCommonModule,
   ],
   bootstrap: [AppComponent],
 })

@@ -6,6 +6,7 @@
     <input type="button" value="Register" (click)="isRegistering = true;">
   </form>
   <app-registration *ngIf="isRegistering"></app-registration>
-  <p *ngIf="isRegistering" style="margin-left: 10px">or</p>
-  <input style="margin-left: 10px" class="btn-dark" type="button" value="Login" (click)="isRegistering = false;" *ngIf="isRegistering">
+  <p *ngIf="isRegistering" style="margin-right: 10px">or</p>
+  <input style="margin-right: 10px" class="btn-dark" type="button" value="Login" (click)="isRegistering = false;"
+    *ngIf="isRegistering">
 </div>
