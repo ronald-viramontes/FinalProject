@@ -152,7 +152,8 @@ export class JobPostComponent implements OnInit {
   }
 
   createNewPost() {
-    this.showNewJob = true;
+    console.log(this.showNewJob);
+
     if (this.activeUser) {
       this.newJob.user = this.activeUser;
     }
@@ -181,10 +182,13 @@ export class JobPostComponent implements OnInit {
     this.createPost(jobPost);
     this.reloadJobs();
   }
+
   createPost(jobPost: JobPost) {
-    console.log(jobPost);
+    // console.log(jobPost);
     jobPost.user = new User();
     if (this.activeUser) {
+      console.log(this.activeUser.id);
+
       jobPost.user.id = this.activeUser.id;
     }
     this.jobService.create(jobPost).subscribe(
@@ -203,15 +207,13 @@ export class JobPostComponent implements OnInit {
     if (this.activeUser) {
       this.newJobApp.user = this.activeUser;
     }
-    if (jobPost) {
-      // this.newJobApp.jobPost = jobPost;
+    console.log(this.activeUser);
 
-    }
     if (this.newJobApp.user) this.newJobApp.user.posts = [];
     this.newJobApp.detail = null;
     console.log(this.newJobApp);
 
-    this.jobService.createApplication(jobPost).subscribe(
+    this.jobService.createApplication(jobPost.id, this.activeUser.id).subscribe(
       (created) => {
         console.log('Job App created successfully');
         this.selected = null;
@@ -231,7 +233,7 @@ export class JobPostComponent implements OnInit {
     app.user = new User();
     if (app) {
       app.status = 'Approved';
-      this.jobService.approveApplication(app).subscribe(
+      this.jobService.approveApplication(app, 1).subscribe(
         (udpated) => {
           console.log('approval happening!');
           this.reloadJobs();
@@ -250,7 +252,7 @@ export class JobPostComponent implements OnInit {
   declineApplication(app: JobApplication) {
     if (app) {
       app.status = 'Declined';
-      this.jobService.approveApplication(app).subscribe(
+      this.jobService.approveApplication(app, 0).subscribe(
         (updated) => {
           this.editApp = null;
           this.selected = null;

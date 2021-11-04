@@ -7,12 +7,14 @@ import { JobPost } from '../models/job-post';
 import { JobStatus } from '../models/job-status';
 import { JobType } from '../models/job-type';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JobPostService {
-  private baseUrl = 'http://localhost:8091/';
+  private baseUrl = environment.baseUrl;
+  // private baseUrl = '/EnginEx/';
   private jobsUrl = this.baseUrl + 'api/jobs';
   private statusUrl = this.baseUrl + 'api/jobstatus';
   private typeUrl = this.baseUrl + 'api/jobtypes';
@@ -25,7 +27,7 @@ export class JobPostService {
     return this.http.get<JobPost[]>(this.jobsUrl).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('Bad Post Request');
+        return throwError('JPS.update(): error retrieving JobPosts');
       })
     );
   }
@@ -33,26 +35,25 @@ export class JobPostService {
     return this.http.post(this.jobsUrl, jobPost).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('creating a Job Post was not successful.');
+        return throwError('JPS.create(): creating a Job Post was not successful.');
       })
     );
   }
-  createApplication(post: JobPost) {
+  createApplication(postId: number, userId: number) {
      return this.http
-      .post(`${this.appUrl}/${post.id}`, new JobApplication(),
-        this.getHttpOptions()
+      .post(`${this.appUrl}/${postId}/${userId}`, this.getHttpOptions()
       )
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('Failure creating Job Application');
+          return throwError('JPS.createApplication(): Failure creating Job Application');
         })
       );
   }
-  approveApplication(jobApplication: JobApplication) {
+  approveApplication(jobApplication: JobApplication, status: number) {
     return this.http
       .put<JobApplication>(
-        `${this.appUrl}/${jobApplication.id}`,
+        `${this.appUrl}/${jobApplication.id}/${status}`,
         jobApplication,
         this.getHttpOptions()
       )
@@ -70,7 +71,7 @@ export class JobPostService {
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('Job Post update unsuccessful');
+          return throwError('JPS.update(): Job Post update unsuccessful');
         })
       );
   }
