@@ -1,3 +1,4 @@
+import { KeyedWrite } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -65,5 +66,11 @@ export class UserSearchComponent implements OnInit {
         }
       );
     }
+  }
+
+  checkKeyword(key: string){
+    key = key.toUpperCase();
+    let normKeyword = this.keyword.toUpperCase();
+    return key.includes(normKeyword);
   }
 }

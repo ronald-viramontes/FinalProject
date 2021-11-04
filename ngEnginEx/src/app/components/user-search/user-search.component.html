@@ -39,7 +39,7 @@
         <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Skills</h6>
         <div *ngFor="let skill of user.skills">
-          <span class="card-text"><strong>{{skill.skillTitle}}</strong>: {{skill.skillLevel}}</span>
+          <span class="card-text" *ngIf="checkKeyword(skill.skillTitle)"><strong>{{skill.skillTitle}}</strong>: {{skill.skillLevel}}</span>
         </div><br>
         <a href="mailto:{{user.email}}?subject=Email from {{activeUser.firstName}} {{activeUser.lastName}} on Engineer Exchange
     &body=I saw your profile on Engineer Exchange and thought your skills might be perfect for my project.  I'd like to discuss a collaboration!"
