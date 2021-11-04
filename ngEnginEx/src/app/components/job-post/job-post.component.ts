@@ -31,7 +31,7 @@ export class JobPostComponent implements OnInit {
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
   appDetail: boolean = false;
-  statusId: number = 2;
+  statusId: number = 1;
   newAppCount: number = 0;
 
   appStyleBadge(jobPost: JobPost): string {
@@ -66,15 +66,15 @@ export class JobPostComponent implements OnInit {
   ngOnInit(): void {
     if (this.loggedIn()) {
       this.getActiveUser();
-      this.jobService.indexStatus().subscribe(
-        (statusList) => {
-          this.jobStatuses = statusList;
-        },
-        (fail) => {
-          console.error('Job Status load failed');
-        }
-      );
     }
+    this.jobService.indexStatus().subscribe(
+      (statusList) => {
+        this.jobStatuses = statusList;
+      },
+      (fail) => {
+        console.error('Job Status load failed');
+      }
+    );
     this.reloadJobs();
     this.getRoute();
     let passedPost: JobPost = history.state;
@@ -307,6 +307,14 @@ export class JobPostComponent implements OnInit {
           console.error(err);
         }
       );
+    }
+  }
+
+  scrollStyle() {
+    if (this.getRoute()) {
+      return 'scrollable'
+    } else {
+      return '';
     }
   }
 }

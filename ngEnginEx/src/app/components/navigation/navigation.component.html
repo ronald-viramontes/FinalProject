@@ -38,15 +38,33 @@
 </nav>
 
 
-<div class="jumbotron jumbotron-fluid" style="text-align: center">
-  <div class="container">
-    <h1 id="enginExIntro" class="display-4">Welcome to Engineer Exchange</h1>
-    <p id="enginExP" style="width: 500px; ">Our sole focus throughout the development of EnginEx, was
-      to provide
-      experience platform for aspiring
-      developers
-      of all walks of life.</p>
-    <br>
-  </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/jobs">Job Posts</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn()">
+            <a class="nav-link" href="#/editprofile">Edit Profile</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn()">
+            <a class="nav-link" href="#/home" (click)="logOut()">Logout</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" *ngIf="!loggedIn()">
+          <input class="form-control mr-sm-2" name="username" type="text" placeholder="Username" aria-label="Username"
+            [(ngModel)]="user.username">
+        </form>
+        <form class="form-inline my-2 my-lg-0" *ngIf="!loggedIn()">
+          <input class="form-control mr-sm-2" name="password" type="password" placeholder="Password"
+            aria-label="Password" [(ngModel)]="user.password">
+        </form>
+        <button *ngIf="!loggedIn()" class="btn btn-success my-2 my-sm-0" (click)="login(user)">Login</button>
+        <button *ngIf="!loggedIn()" class="btn btn-success my-2 my-sm-0" (click)="register()">Register</button>
+      </div>
+    </div>
+  </nav>
 </div>
 <hr> -->
