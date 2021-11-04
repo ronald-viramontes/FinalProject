@@ -61,10 +61,11 @@
         <label for="imageUrl" class="form-label">Profile Image URL</label>
         <input type="text" class="form-control" name="imageUrl" [(ngModel)]="editUser.imageUrl" />
       </div>
-      <div class="form-group">
-        <button class="btn btn-danger btn-sm" (click)="edit(editUser)">Save</button>
-        <button class="btn btn-danger btn-sm" style="margin-left: 10px;" value="Cancel"
-          (click)="cancel()">Cancel</button>
+      <br>
+      <div style=" text-align: center; margin-left: auto; margin-right: auto;">
+        <button class="btn btn-success" (click)="edit(editUser)">Save</button>
+        <button class="btn btn-warning" style="margin-left: 10px;" value="Cancel" (click)="cancel()">Cancel</button>
+        <button class="btn btn-danger" style="margin-left: 10px;" (click)="disableProfile()">Disable</button>
       </div>
     </form>
   </div>

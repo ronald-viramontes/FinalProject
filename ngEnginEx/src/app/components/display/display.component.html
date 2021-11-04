@@ -1,11 +1,22 @@
-<h1 *ngIf="activeUser && loggedIn()" id="welcomeHeading" style="text-align: center"><b>Welcome,
-    {{activeUser.firstName}}!</b></h1>
+<div class="jumbotron jumbotron-fluid" style="text-align: center">
+  <div class="container">
+    <h1 id="enginExIntro" class="display-4">Welcome to Engineer Exchange</h1>
+    <p id="enginExP" style="width: 500px; height: auto;">Our sole focus throughout the development of EnginEx, was
+      to provide
+      experience platform for aspiring
+      developers
+      of all walks of life.</p>
+    <br>
+  </div>
+</div>
+
 <hr>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3" *ngIf="loggedIn()">
       <div name="developerDetails">
-        <h2>Your Profile</h2>
+        <!-- <h2 style="text-align: center">Your Profile</h2> -->
 
         <mat-card>
           <mat-card-title>Skills</mat-card-title>
@@ -41,15 +52,47 @@
         <!-- <app-job-detail [applications]="applications" [activeUser]="activeUser"></app-job-detail> -->
       </div>
     </div>
-    <div class="col-sm">
-      <app-user-search></app-user-search>
-      <h1>Search Active Job Posts</h1>
-      <app-job-search></app-job-search>
+
+    <div class="col-sm-4" *ngIf="activeUser && loggedIn()">
+      <mat-card class="personal-dashboard">
+        <mat-card-header class="personal-header">
+          <div mat-card-avatar class="personal-dashboard-header-image"></div>
+          <mat-card-title>User Dashboard</mat-card-title>
+          <mat-card-subtitle>{{activeUser.firstName}} {{activeUser.lastName}}'s Profile</mat-card-subtitle>
+
+
+
+
+        </mat-card-header>
+        <img mat-card-image class="personal-dashboard-header-image" src="{{activeUser.imageUrl}}">
+        <mat-card-content>
+
+          <ul *ngFor="let exp of activeUser.experiences">
+            <li>{{exp.companyName}} {{exp.jobTitle}}</li>
+          </ul>
+        </mat-card-content>
+        <mat-card-actions align="start">
+          <app-experience [activeUser]="activeUser" [activeUser]="activeUser"></app-experience>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-sm-5">
       <div *ngIf="loggedIn()">
-        <h4>My Job Posts</h4>
-        <app-job-post></app-job-post>
+        <div class="container-fluid">
+          <h1 id="jobText">Search Active Job Post</h1>
+          <app-job-search></app-job-search>
+        </div>
+        <div class="container-fluid">
+          <h1 id="jobText">Find a Developer</h1>
+          <app-user-search></app-user-search>
+        </div>
+        <div class="container-fluid">
+          <h1 id="enginExp">My Job Posts</h1>
+          <app-job-post></app-job-post>
+        </div>
+
       </div>
-      <!-- <app-finished-jobs></app-finished-jobs> -->
     </div>
   </div>
 </div>

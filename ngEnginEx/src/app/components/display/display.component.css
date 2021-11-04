@@ -8,3 +8,19 @@
   min-width: 290px;
   margin: 0 auto;
 }
+
+.personal-dashboard {
+  background-color: rgb(20, 60, 100);
+  margin: 0 auto;
+  max-width: 450px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: white;
+  font-weight: bold;
+}
+
+.personal-header > child:after {
+  /* background-color: rgb(41, 97, 152); */
+  text-align: center;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
