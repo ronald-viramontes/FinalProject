@@ -177,6 +177,7 @@
       <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
     </select>
     <button (click)="createPreCall(newJob)" class="btn btn-primary">Create Job Post</button>
+    <button (click)="showNewJob = false" class="btn btn-warning" style="margin-left: 10px">Go Back</button>
   </div>
 
   <div *ngIf="selected">

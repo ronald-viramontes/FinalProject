@@ -1,13 +1,40 @@
+<style>
+
+.float-child {
+  width: 50%;
+  float: left;
+  padding: 5px;
+
+}</style>
 <h2>Search for an Engineer for your Project</h2>
 <form>
   <input name="search" type="search" placeholder="Search for User" [(ngModel)]="keyword" required>
   <button (click)="search(keyword)">Search</button>
 </form>
 
-<ul *ngIf="searchResults.length > 0">
-  <li *ngFor="let user of searchResults">{{user.username}}
+<!-- <ul *ngIf="searchResults.length > 0 && !emailForm">
+  <li *ngFor="let user of searchResults">{{user.firstName}} {{user.lastName}}
     <div *ngFor="let skill of user.skills">
-      {{skill.skillTitle}}: {{skill.skillLevel}}
+      <span *ngIf="skill.skillTitle.includes(keyword)">{{skill.skillTitle}}: {{skill.skillLevel}}</span>
     </div>
+    <a href="mailto:{{user.email}}?subject=Email from {{activeUser.firstName}} {{activeUser.lastName}} on Engineer Exchange
+    &body=I saw your profile on Engineer Exchange and thought your skills might be perfect for my project.  I'd like to discuss a collaboration!"
+      *ngIf="loggedIn()" style="text-decoration: none;">Contact Engineer</a>
   </li>
-</ul>
+</ul> -->
+<div class="float-container scrollable" *ngIf="searchResults.length > 0">
+  <div class="float-child" *ngFor="let user of searchResults; index as i" style="max-width: 30%;">
+    <div class="card" style="max-width: 100%; height: 275px;" *ngIf="i < 6">
+      <div class="card-body">
+        <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Skills</h6>
+        <div *ngFor="let skill of user.skills">
+          <span class="card-text"><strong>{{skill.skillTitle}}</strong>: {{skill.skillLevel}}</span>
+        </div><br>
+        <a href="mailto:{{user.email}}?subject=Email from {{activeUser.firstName}} {{activeUser.lastName}} on Engineer Exchange
+    &body=I saw your profile on Engineer Exchange and thought your skills might be perfect for my project.  I'd like to discuss a collaboration!"
+          *ngIf="loggedIn()" style="text-decoration: none; position: absolute; bottom: 0;">Contact Engineer</a>
+      </div>
+    </div>
+    </div>
+</div>
