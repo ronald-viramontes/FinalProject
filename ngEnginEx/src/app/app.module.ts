@@ -41,6 +41,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { UserSearchComponent } from './components/user-search/user-search.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
     JobStatusComponent,
     LoginComponent,
     NavigationComponent,
+    HeaderComponent,
+    FooterComponent,
     RegistrationComponent,
     SkillComponent,
     UserComponent,

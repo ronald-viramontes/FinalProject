@@ -1,16 +1,11 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
-/* html,
-body {
-  margin-top: 150px;
-  height: 100%;
+/* .page-container {
+  position: relative;
+  min-height: 60vh;
 } */
-
-/* html {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-
+body {
   background: #b5b5b5;
   background: -moz-linear-gradient(
     45deg,
@@ -25,23 +20,56 @@ body {
     #464746 100%
   );
   background: linear-gradient(45deg, #b5b5b5 0%, #bdbdc2 33%, #464746 100%);
-} */
-body {
-  margin-top: 105px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-  background: #b5b5b5;
-  background: -moz-linear-gradient(
-    45deg,
-    #b5b5b5 0%,
-    #bdbdc2 33%,
-    #464746 100%
-  );
-  background: -webkit-linear-gradient(
-    45deg,
-    #b5b5b5 0%,
-    #bdbdc2 33%,
-    #464746 100%
-  );
-  background: linear-gradient(45deg, #b5b5b5 0%, #bdbdc2 33%, #464746 100%);
+#outsideBorder {
+  vertical-align: middle;
+  /* margin-top: 250px; */
+  width: 550px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid white;
+  border-radius: 8px;
+  background-color: rgb(33, 34, 35);
+  /* padding: 1em 1em 1em 1em; */
+  /* padding: 2em 2em 2em 2em; */
+}
+
+#editProfileOutside {
+  vertical-align: middle;
+  /* margin-top: 250px; */
+  width: 500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid white;
+  border-radius: 8px;
+  color: white;
+  background-color: rgb(33, 34, 35);
+  /* padding: 1em 1em 1em 1em; */
+  padding: 1em 3em 3em 3em;
+}
+
+#enginExIntro,
+#enginExP {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+}
+#jobText {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+}
+#welcomeHeading {
+  font-family: "Irish Grover", cursive;
+  font-size: 40px;
+  font-weight: bold;
+  color: black;
 }

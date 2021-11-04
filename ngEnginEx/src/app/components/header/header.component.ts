@@ -1,21 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { JobPost } from 'src/app/models/job-post';
+import { Navigation, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { JobPostService } from 'src/app/services/job-post.service';
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css'],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+  template: `
+    <nav class="nav-bar">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img
+            src="assets/EnginEx.png"
+            style="border-radius: 50%;"
+            height="50"
+          />
+        </a>
+      </div>
+    </nav>
+  `,
 })
-export class NavigationComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
     private postService: JobPostService
   ) {}
+
   user: User = new User();
 
   ngOnInit(): void {}

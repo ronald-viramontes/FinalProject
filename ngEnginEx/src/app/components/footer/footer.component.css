@@ -1,0 +1,30 @@
+.page-container {
+  /* position: absolute; */
+  height: 100vh;
+  /* width: 100%; */
+}
+
+.content-wrap {
+  padding-top: 5rem;
+}
+
+.footer {
+  background: #e0e0e0;
+  background: -moz-linear-gradient(top, #e0e0e0 0%, #4d4d4f 49%, #d8dbd8 100%);
+  background: -webkit-linear-gradient(
+    top,
+    #e0e0e0 0%,
+    #4d4d4f 49%,
+    #d8dbd8 100%
+  );
+  background: linear-gradient(to bottom, #e0e0e0 0%, #4d4d4f 49%, #d8dbd8 100%);
+
+  height: 3.5rem;
+  position: fixed;
+  /* position: fixed; */
+  bottom: 0;
+  /* padding: 10px 10px 0px 10px; */
+  width: 100%;
+
+  /* min-width: max-content; */
+}

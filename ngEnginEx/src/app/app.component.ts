@@ -1,11 +1,15 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  encapsulation: ViewEncapsulation.None,
+  template: ` <app-header></app-header>
+
+    <router-outlet></router-outlet>
+
+    <footer></footer>`,
 })
 export class AppComponent {
   title = 'ngEnginEx';
