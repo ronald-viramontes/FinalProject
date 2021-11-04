@@ -31,10 +31,9 @@
         <input class="form-control mr-sm-2" name="password" type="password" placeholder="Password" aria-label="Password"
           [(ngModel)]="user.password">
       </form>
-      <button *ngIf="!loggedIn()" class="btn btn-outline-success my-2 my-sm-0" (click)="login(user)">Login</button>
-      <button *ngIf="!loggedIn()" class="btn btn-outline-success my-2 my-sm-0" (click)="register()">Register</button>
+      <button *ngIf="!loggedIn()" class="btn btn-success my-2 my-sm-0" (click)="login(user)" style="margin-left: 3px;">Login</button>
+      <button *ngIf="!loggedIn()" class="btn btn-success my-2 my-sm-0" (click)="register()" style="margin-left: 3px;">Register</button>
     </div>
-
   </nav>
 </div>
 
