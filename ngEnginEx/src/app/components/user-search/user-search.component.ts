@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,12 +9,17 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-search.component.css']
 })
 export class UserSearchComponent implements OnInit {
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   keyword: string = '';
   searchResults: User[] = [];
-  constructor(private userService: UserService) { }
+  emailForm: boolean = false;
+  activeUser: User = new User();
 
   ngOnInit(): void {
+    if(this.loggedIn()){
+      this.getActiveUser();
+    }
   }
 
   search(skillKeyword: string){
@@ -25,5 +31,31 @@ export class UserSearchComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+
+  email(address: string){
+    this.emailForm = true;
+
+  }
+
+  loggedIn(){
+    return this.authService.checkLogin();
+  }
+
+  getActiveUser(){
+    let creds = this.authService.getCredentials();
+    if(creds != null){
+      creds = atob(creds);
+      let unArr = creds.split(':');
+      let username = unArr[0]
+      this.userService.show(username).subscribe(
+        data => {
+          this.activeUser = data;
+        },
+        err => {
+          console.error(err);
+        }
+      );
+    }
   }
 }
