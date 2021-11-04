@@ -8,3 +8,6 @@ bin
 .gradle
 *.war
 *.bak
+*.pack
+*.old
+*.json
