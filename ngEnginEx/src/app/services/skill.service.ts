@@ -4,12 +4,15 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Skill } from '../models/skill';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class SkillService {
-  private baseUrl = 'http://localhost:8091/';
+  // private baseUrl = 'http://localhost:8091/';
+  private baseUrl = environment.baseUrl;
   private url = this.baseUrl + 'api/skills';
 
   constructor(private http: HttpClient, private authService: AuthService) {}

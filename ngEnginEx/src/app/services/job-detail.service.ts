@@ -4,12 +4,15 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { JobDetail } from '../models/job-detail';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class JobDetailService {
-  private baseUrl = 'http://localhost:8091/';
+  private baseUrl = environment.baseUrl;
+  // private baseUrl = '/EnginEx/';
   private url = this.baseUrl + 'api/jobdetails';
   constructor(private http: HttpClient, private authService: AuthService) {}
 

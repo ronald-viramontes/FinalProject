@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Education } from '../models/education';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,9 @@ export class EducationService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  private baseUrl = 'http://localhost:8091/api/educations'
+  // private baseUrl = 'http://localhost:8091/'
+  private baseUrl = environment.baseUrl;
+  private EdUrl = this.baseUrl+'api/educations'
 
   getHttpOptions() {
     let credentials = this.authService.getCredentials();
@@ -26,7 +30,7 @@ export class EducationService {
   }
 
   index(): Observable<Education[]> {
-    return this.http.get<Education[]>(this.baseUrl).pipe(
+    return this.http.get<Education[]>(this.EdUrl).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService.index(): error retrieving educations');
@@ -35,7 +39,7 @@ export class EducationService {
   }
 
   show(userId: number) {
-    return this.http.get<Education[]>(`${this.baseUrl}/${userId}`).pipe(
+    return this.http.get<Education[]>(`${this.EdUrl}/${userId}`).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService.show: error retrieving educations');
@@ -44,7 +48,7 @@ export class EducationService {
   }
 
   edit(education: Education, edId: number, devId: number) {
-    return this.http.put<Education>(`${this.baseUrl}/${devId}/${edId}`, education, this.getHttpOptions()).pipe(
+    return this.http.put<Education>(`${this.EdUrl}/${devId}/${edId}`, education, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService.edit(): error editing education')
@@ -53,7 +57,7 @@ export class EducationService {
   }
 
   delete(edId: number, userId: number) {
-    return this.http.delete(`${this.baseUrl}/${userId}/${edId}`, this.getHttpOptions()).pipe(
+    return this.http.delete(`${this.EdUrl}/${userId}/${edId}`, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService,delete(): error deleting education')
@@ -62,7 +66,7 @@ export class EducationService {
   }
 
   create(education: Education, userId: number){
-    return this.http.post(`${this.baseUrl}/${userId}`, education, this.getHttpOptions()).pipe(
+    return this.http.post(`${this.EdUrl}/${userId}`, education, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService.create(): error creating education');

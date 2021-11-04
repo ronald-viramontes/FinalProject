@@ -66,12 +66,19 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 
 	@Override
-	public JobApplication edit(JobApplication edit, int appId, int userId) {
+	public JobApplication edit(int statusId, int appId, int userId) {
 		Optional<JobApplication> opt = appRepo.findById(appId);
 		if(opt.isPresent() && opt.get().getJobPost().getUser().getId() == userId) {
 			JobApplication app = appRepo.findById(appId).get();
-			app.setApproved(edit.isApproved());
-			app.setStatus(edit.getStatus());
+			if(statusId == 1) {
+				app.setApproved(true);
+				app.setStatus("Approved");
+				
+			}else {
+				app.setApproved(false);
+				app.setStatus("Declined");
+				
+			}
 			return appRepo.saveAndFlush(app);
 		}
 		return null;

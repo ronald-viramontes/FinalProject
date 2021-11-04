@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,9 @@ export class UserService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  private baseUrl = 'http://localhost:8091/api/users'
+  private baseUrl = environment.baseUrl;
+  // private baseUrl = '/EnginEx/';
+  private userUrl = this.baseUrl+'api/users'
 
   getHttpOptions(){
     let credentials = this.authService.getCredentials();
@@ -35,16 +39,16 @@ export class UserService {
   // }
 
   show(username: string): Observable<User>{
-    return this.http.get<User>('http://localhost:8091/api/user/'+username, this.getHttpOptions()).pipe(
+    return this.http.get<User>(`${this.baseUrl}api/user/${username}`, this.getHttpOptions()).pipe(
       catchError((err:any) => {
         console.log(err);
-        return throwError('DeveloperService.show(): error retrieving user')
+        return throwError('UserService.show(): error retrieving user')
       })
     );
   }
 
   edit(userId: number, user: User){
-    return this.http.put<User>(`${this.baseUrl}/${userId}`, user, this.getHttpOptions()).pipe(
+    return this.http.put<User>(`${this.userUrl}/${userId}`, user, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('UserService.edit(): error editing user');
@@ -53,7 +57,7 @@ export class UserService {
   }
 
   indexBySkill(keyword: string){
-    return this.http.get<User[]>(`${this.baseUrl}/skills/${keyword}`).pipe(
+    return this.http.get<User[]>(`${this.userUrl}/skills/${keyword}`).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('UserService.indexBySkill(): error retrieving users');
