@@ -92,7 +92,7 @@
     <div class="wrap">
       <mat-card class="flex" style="min-height: 50px;">
         <mat-card-title>Job Postings</mat-card-title>
-        <div  class="scrollable" style="min-height: 450px;">
+        <div class="scrollable" style="min-height: 450px;">
           <mat-card-content>
             <div>
               <table class="table table-striped table-hover table-bordered">
@@ -130,7 +130,7 @@
   </div>
 </div>
 <div *ngIf="!selected && editJob">
-  <form>
+  <form class="ngForm">
     <label>Job Description:</label>
     <input class="form-control form-control-lg" placeholder="Job Description" type="text" name="jobRequirements"
       [(ngModel)]="editJob.jobRequirements">
@@ -140,21 +140,48 @@
     <label>Completion Date:</label>
     <input class="form-control form-control-lg" placeholder="Completion Date" ype="date" min="2018-07-22"
       name="jobCompletionDate" [(ngModel)]="editJob.completionDate">
-    <select name="status" [(ngModel)]="editJob.status">
-      <option *ngFor="let stat of jobStatuses" [ngValue]="stat">{{stat.name}}</option>
-    </select>
-    <label for="jobType">Choose a Job Type:</label>
-    <select name="jobType" [(ngModel)]="editJob.type">
-      <option *ngFor="let type of jobTypes" [ngValue]="type">{{type.name}}</option>
-    </select>
-    <button (click)="update(editJob)" class="btn btn-primary">Update Job Post</button>
-    <button (click)="editJob = null" class="btn btn-warning" style="margin-left: 10px;">Cancel
-      Changes</button>
-    <button (click)="deletePost(editJob)" class="btn btn-danger" style="margin-left: 10px;">Delete
-      Post</button>
+
+    <div class="btn-group">
+      <button class="btn btn-default btn-sm dropdown-toggle" type="text" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Status
+        <select name="status" [(ngModel)]="editJob.status">
+          <option *ngFor="let status of jobStatuses" [ngValue]="status">
+            <ul class="dropdown-menu">
+              <li>{{status.name}}</li>
+            </ul>
+          </option>
+        </select>
+
+
+
+      </button>
+
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-default btn-sm dropdown-toggle" type="text" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">Type<select name="type" [(ngModel)]="editJob.type">
+          <option *ngFor="let type of jobTypes" [ngValue]="type">
+            <ul class="dropdown-menu">
+              <li>{{type.name}}</li>
+            </ul>
+          </option>
+        </select>
+
+
+      </button>
+    </div>
+
+    <div class="form-inline display-2" style="text-align: center">
+      <button (click)="update(editJob)" class="btn btn-primary">Update</button>
+      <button (click)="editJob = null" class="btn btn-warning" style="margin-left: 10px;">Cancel</button>
+      <button (click)="deletePost(editJob)" class="btn btn-danger" style="margin-left: 10px;">Delete
+        Post</button>
+    </div>
   </form>
 </div>
 <div>
+
   <div *ngIf="showNewJob">
     <label>Job Description:</label>
     <input class="form-control form-control-lg" placeholder="Job Description" type="text" name="jobRequirements"
@@ -276,7 +303,8 @@
       </ngb-accordion>
     </div>
     <div *ngIf="isOwner && loggedIn()">
-      <button (click)="createApplication(selected)" class="btn btn-primary" *ngIf="selected.status.id == 1">Apply For Job!</button>
+      <button (click)="createApplication(selected)" class="btn btn-primary" *ngIf="selected.status.id == 1">Apply For
+        Job!</button>
     </div>
     <button (click)="returnToList()" class="btn btn-primary">Back</button>
   </div>
