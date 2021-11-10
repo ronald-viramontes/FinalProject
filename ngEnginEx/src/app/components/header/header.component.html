@@ -31,8 +31,10 @@
         <input class="form-control mr-sm-2" name="password" type="password" placeholder="Password" aria-label="Password"
           [(ngModel)]="user.password">
       </form>
-      <button *ngIf="!loggedIn()" class="btn btn-success my-2 my-sm-0" (click)="login(user)" style="margin-left: 3px;">Login</button>
-      <button *ngIf="!loggedIn()" class="btn btn-success my-2 my-sm-0" (click)="register()" style="margin-left: 3px;">Register</button>
+      <button *ngIf="!loggedIn()" class="btn btn-primary btn-outline-light my-2 my-sm-0" (click)="login(user)"
+        style="margin-left: 3px;">Login</button>
+      <button *ngIf="!loggedIn()" class="btn btn-primary btn-outline-light my-2 my-sm-0" (click)="register()"
+        style="margin-left: 3px;">Register</button>
     </div>
   </nav>
 </div>
@@ -40,11 +42,9 @@
 <div class="jumbotron jumbotron-fluid" style="text-align: center">
   <div class="container">
     <h1 id="enginExIntro" class="display-4">Welcome to Engineer Exchange</h1>
-    <p id="enginExP" style="width: 500px; ">Our sole focus throughout the development of EnginEx, was
-      to provide
-      experience platform for aspiring
-      developers
-      of all walks of life.</p>
+    <p id="enginExP" style="width: 500px; ">Our sole focus throughout the development of EnginEx was
+      to provide a platform for aspiring
+      developers to extend or expand their knowledge and experience.</p>
     <br>
   </div>
 </div>

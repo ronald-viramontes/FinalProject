@@ -1,1 +1,17 @@
-<p>job-application-comment works!</p>
+<div>
+  <ng-container *ngFor="let app of applications">
+    <ul *ngFor="let comment of app.comments">
+      <li>{{comment.commentDate}}</li>
+      <li>{{comment.comment}}</li>
+      <li>{{comment.baseComment}}</li>
+    </ul>
+
+  </ng-container>
+
+  <!-- <ul *ngFor="let c of appComments">
+    <li>{{c.commentDate}}</li>
+    <li>{{c.comment}}</li>
+    <li>{{c.baseComment}}</li>
+  </ul> -->
+
+</div>

@@ -61,6 +61,7 @@ export class JobPostComponent implements OnInit {
     private userService: UserService,
     private jobPipe: UserJobPipe,
     private openJob: OpenJobPipe
+
   ) { }
 
   ngOnInit(): void {

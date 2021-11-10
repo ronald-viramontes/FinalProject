@@ -12,30 +12,33 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html',
-  styleUrls: ['./display.component.css']
+  styleUrls: ['./display.component.css'],
 })
 export class DisplayComponent implements OnInit {
-
-  constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   experiences: Experience[] = [];
   skills: Skill[] = [];
   educations: Education[] = [];
-  applications: JobApplication[] =[];
+  applications: JobApplication[] = [];
   jobPosts: JobPost[] = [];
   selected: User | null = null;
   activeUser: User | null = null;
   loaded: boolean = false;
 
   ngOnInit(): void {
-    if(this.loggedIn()){
+    if (this.loggedIn()) {
       this.getActiveUser();
     }
   }
 
-  loadProfileInfo(username: string){
+  loadProfileInfo(username: string) {
     this.userService.show(username).subscribe(
-      data => {
+      (data) => {
         this.skills = data.skills;
         this.educations = data.educations;
         this.experiences = data.experiences;
@@ -43,44 +46,43 @@ export class DisplayComponent implements OnInit {
         this.jobPosts = data.posts;
         this.loaded = true;
       },
-      err => {
+      (err) => {
         console.error(err);
       }
     );
   }
 
-
-  getActiveUser(){
+  getActiveUser() {
     let creds = this.authService.getCredentials();
-    if(creds != null){
+    if (creds != null) {
       creds = atob(creds);
       let unArr = creds.split(':');
-      let username = unArr[0]
+      let username = unArr[0];
       this.userService.show(username).subscribe(
-        data => {
+        (data) => {
           this.activeUser = data;
           this.loadProfileInfo(this.activeUser.username);
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
     }
   }
-  loggedInClass(){
-    if(this.loggedIn()){
+  loggedInClass() {
+    if (this.loggedIn()) {
       return 'col-sm-5';
     } else {
       return 'col-sm';
     }
   }
-  loggedIn(){
+  loggedIn() {
     return this.authService.checkLogin();
   }
 
-editProfile(){
-  this.router.navigateByUrl('editprofile');
-}
+  editProfile() {
+    this.router.navigateByUrl('editprofile');
+  }
   // selectDev(dev: Developer){
   //   this.selected = dev;
   //   this.loadProfileInfo(dev.id);

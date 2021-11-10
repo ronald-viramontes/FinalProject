@@ -114,11 +114,11 @@
                     <td>{{job.completionDate}}</td>
                     <td>{{job.datePosted}}</td>
                     <td>{{job.status.name}}</td>
-                    <td><button (click)="displayJob(job)" class="btn btn-primary">View Job</button></td>
+                    <td><button (click)="displayJob(job)" class="badge btn-primary btn-sm">View Job</button></td>
                     <td *ngIf="loggedIn() && job.user.id == activeUser.id"><button (click)="setEditJob(job)"
-                        class="btn btn-primary">Edit Job</button></td>
+                        class="badge btn-warning btn-sm">Edit Job</button></td>
                     <td *ngIf="loggedIn() && job.user.id != activeUser.id"><button (click)="setEditJob(job)"
-                        disabled="disabled" class="btn btn-primary">Edit Job</button></td>
+                        disabled="disabled" class="badge btn-warning btn-sm">Edit Job</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -173,7 +173,7 @@
     </div>
 
     <div class="form-inline display-2" style="text-align: center">
-      <button (click)="update(editJob)" class="btn btn-primary">Update</button>
+      <button (click)="update(editJob)" class="btn btn-success">Update</button>
       <button (click)="editJob = null" class="btn btn-warning" style="margin-left: 10px;">Cancel</button>
       <button (click)="deletePost(editJob)" class="btn btn-danger" style="margin-left: 10px;">Delete
         Post</button>

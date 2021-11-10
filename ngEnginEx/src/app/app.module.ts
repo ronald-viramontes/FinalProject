@@ -70,6 +70,7 @@ import { HeaderComponent } from './components/header/header.component';
     UserJobPipe,
     OpenJobPipe,
     UserSearchComponent,
+    JobApplicationCommentComponent,
   ],
   imports: [
     BrowserModule,
