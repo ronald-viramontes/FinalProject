@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <ng-container *ngFor="let app of applications">
     <ul *ngFor="let comment of app.comments">
       <li>{{comment.commentDate}}</li>
@@ -6,12 +6,70 @@
       <li>{{comment.baseComment}}</li>
     </ul>
 
-  </ng-container>
+  </ng-container> -->
 
-  <!-- <ul *ngFor="let c of appComments">
+<!-- <ul *ngFor="let c of appComments">
     <li>{{c.commentDate}}</li>
     <li>{{c.comment}}</li>
     <li>{{c.baseComment}}</li>
-  </ul> -->
-
+  </ul>
 </div>
+-->
+
+<!--
+
+<ngb-accordion [closeOthers]="true">
+  <ngb-panel (click)="loadJobApplicationComment(app.id)" title="Application ID: " {{app.id}}
+    *ngFor="let app of applications">
+    <ng-template ngbPanelContent *ngFor="let comment of appComments">
+      <strong>{{comment.date}}</strong><br>
+      Skill Level: {{comment.comment}} <br>
+      <br>
+      <button *ngIf="!editComment" class="badge btn-light btn-sm"
+        (click)="setEditJobApplicationComment(comment)">✏️</button>
+      <button *ngIf="!editComment" class="badge btn-light btn-sm" (click)="delete(app, comment)">❌</button>
+      <div *ngIf="editComment" style="text-align: center" class="form-control">
+        <form>
+          <br>
+          <label for="comment">Comment</label>
+          <br />
+          <input type="text" name="selected.skillTitle" [(ngModel)]="editComment.comment" />
+          <br />
+          <br>
+          <button class="btn btn-success btn-outline-light btn-sm" (click)="updateComment(editComment, app)">
+            Save
+          </button>
+          <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm"
+            (click)="editComment = null">Cancel</button>
+        </form>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+
+<div id="addButton" *ngIf="!addButton">
+  <button class="badge btn-success" (click)="addButton = true">➕ Skill</button>
+
+</div> -->
+
+
+<!-- <div id="newComment" *ngIf="addButton">
+  <br>
+  <form class="form-control">
+
+    <h5 style="text-shadow: 2px 2px 4px black">New Comment</h5>
+    <label for="comment">Comment</label>
+    <br>
+    <input id="skillTitle" type="text" name="skillTitle" [(ngModel)]="newComment.comment" />
+    <br />
+    <br>
+    <button class="btn btn-success btn-outline-light btn-sm" (click)="create(newComment, app)">
+      Save
+    </button>
+    <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm" (click)="addButton=false">
+      Cancel
+    </button>
+
+  </form>
+  <br>
+</div> -->

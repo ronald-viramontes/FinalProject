@@ -30,7 +30,7 @@
         <mat-card>
           <mat-card-title>Applications</mat-card-title>
           <mat-card-actions align="start">
-            <app-job-application [applications]="applications"></app-job-application>
+            <app-job-application [applications]="applications" [activeUser]="activeUser"></app-job-application>
 
           </mat-card-actions>
         </mat-card>
@@ -46,21 +46,36 @@
           <mat-card-title>User Dashboard</mat-card-title>
           <mat-card-subtitle>{{activeUser.firstName}} {{activeUser.lastName}}'s Profile</mat-card-subtitle>
 
-
-
-
         </mat-card-header>
         <img mat-card-image class="personal-dashboard-header-image" src="{{activeUser.imageUrl}}">
         <mat-card-content>
+          <!-- <strong>Application Comments</strong>
+          <ng-container *ngFor="let app of activeUser.applications">
+            <ul *ngFor="let c of app.comments">
 
-          <ul *ngFor="let exp of activeUser.experiences">
-            <li>{{exp.companyName}} {{exp.jobTitle}}</li>
-          </ul>
+              <li>{{c.date}}</li>
+              <li style="color: white">&emsp;{{c.comment}}</li>
+              <ng-container *ngFor="let reply of c.replies">
+                <li>{{reply.date}}</li>
+                <li style="color: rgb(118, 118, 118)">&emsp;⮑&ensp;{{reply.comment}}</li>
+                <ng-container *ngFor="let replyReply of reply.replies">
+                  <li>{{replyReply.date}}</li>
+                  <li style="color: white">&emsp;⮑&ensp;⮑&ensp;{{replyReply.comment}}</li>
+                </ng-container>
+              </ng-container>
+
+            </ul>
+
+
+          </ng-container> -->
         </mat-card-content>
         <mat-card-actions align="start">
-          <app-experience [activeUser]="activeUser" [activeUser]="activeUser"></app-experience>
+          <!-- < [activeUser]="activeUser" [activeUser]="activeUser">
+          </app-job-application-comment> -->
         </mat-card-actions>
       </mat-card>
+
+
     </div>
 
     <div [ngClass]="loggedInClass()">

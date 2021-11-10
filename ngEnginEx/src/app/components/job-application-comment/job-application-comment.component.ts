@@ -17,14 +17,12 @@ import { JobPostService } from 'src/app/services/job-post.service';
 export class JobApplicationCommentComponent implements OnInit {
   constructor(
     private commentService: JobApplicationCommentService,
-    private jobPostService: JobPostService,
-    private appService: JobApplicationService,
-    private currentRoute: ActivatedRoute,
     private router: Router,
     private auth: AuthService
   ) {}
   @Input() activeUser: User | null = null;
   @Input() applications: JobApplication[] = [];
+
   appComments: JobApplicationComment[] = [];
   app: JobApplication | null = null;
   selected: JobApplicationComment | null = null;

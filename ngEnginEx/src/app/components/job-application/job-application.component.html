@@ -33,7 +33,36 @@
       <ng-template ngbPanelContent>
         <strong>{{app.jobPost.jobRequirements}}</strong><br>
         App Date: {{app.date}} <br>
-        Status: {{app.status}}
+        Status: {{app.status}} <br>
+        <strong>Application Comments</strong>
+        <button class=badge btn-primary btn-light-sm (click)="addButton=true">New Comment</button>
+        <ul *ngFor="let c of app.comments">
+          <li><b>Date: </b>{{c.date}}</li>
+          <li><b>Comment: </b>{{c.comment}}</li>
+          <li style="color: red" *ngFor="let rep of c.replies"><b>Reply: </b>{{rep.comment}}</li>
+          <button class=badge btn-primary btn-light-sm (click)="replyForm = true">Reply</button>
+        </ul>
+
+        <form *ngIf="addButton">
+          <label for="comment">Comment</label>
+          <br>
+          <input type="text" name="newComment.comment" [(ngModel)]="newComment.comment">
+
+          <button class=badge btn-primary btn-dark-sm (click)="create(newComment, app)">Post</button>
+        </form>
+
+        <form *ngIf="replyForm">
+          <label for="comment">Comment</label>
+          <br>
+          <input type="text" name="newComment.comment" [(ngModel)]="newComment.comment">
+
+          <button class=badge btn-primary btn-dark-sm (click)="create(newComment, app)">Reply</button>
+        </form>
+
+
+
+
+
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

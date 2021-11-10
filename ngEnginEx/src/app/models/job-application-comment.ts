@@ -3,21 +3,21 @@ import { JobApplication } from './job-application';
 export class JobApplicationComment {
   id: number;
   comment: string;
-  commentDate: string;
+  date: string;
   jobApplication: JobApplication;
-  baseComment: JobApplicationComment;
+  replies: JobApplicationComment[];
 
   constructor(
     id: number = 0,
     comment: string = '',
-    commentDate: string = '',
+    date: string = '',
     jobApplication: JobApplication = new JobApplication(),
-    baseComment: JobApplicationComment = new JobApplicationComment()
+    replies: JobApplicationComment[] = []
   ) {
     this.id = id;
     this.comment = comment;
-    this.commentDate = commentDate;
+    this.date = date;
     this.jobApplication = jobApplication;
-    this.baseComment = baseComment;
+    this.replies = replies;
   }
 }
