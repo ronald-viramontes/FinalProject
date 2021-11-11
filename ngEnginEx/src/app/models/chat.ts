@@ -7,13 +7,15 @@ export class Chat {
   dateTimeStamp: string;
   sender: User;
   receiver: User;
+  reply: Chat;
   constructor(
     id: number = 0,
     subject: string = '',
     message: string = '',
     dateTimeStamp: string = '',
     sender: User = new User(),
-    receiver: User = new User()
+    receiver: User = new User(),
+    reply: Chat = new Chat()
   ) {
     this.id = id;
     this.subject = subject;
@@ -21,5 +23,6 @@ export class Chat {
     this.dateTimeStamp = dateTimeStamp;
     this.sender = sender;
     this.receiver = receiver;
+    this.reply = reply;
   }
 }
