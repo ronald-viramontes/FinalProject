@@ -30,6 +30,9 @@ public class Chat {
 	
 	private String message;
 	
+//	@Column(name="read")
+//	private Boolean reading;
+		
 	@Column(name="send_timestamp")
 	private LocalDateTime dateTimeStamp;
 	
@@ -48,10 +51,11 @@ public class Chat {
 	@JoinColumn(name="in_reply_to_chat_id")
 	private Chat reply;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy="reply")
 	private List<Chat> replies;
 
+	
 	public int getId() {
 		return id;
 	}
@@ -75,6 +79,14 @@ public class Chat {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+//	public Boolean getReading() {
+//		return reading;
+//	}
+//
+//	public void setReading(Boolean reading) {
+//		this.reading = reading;
+//	}
 
 	public LocalDateTime getDateTimeStamp() {
 		return dateTimeStamp;
@@ -100,8 +112,6 @@ public class Chat {
 		this.receiver = receiver;
 	}
 
-	
-	
 	public Chat getReply() {
 		return reply;
 	}
@@ -137,9 +147,17 @@ public class Chat {
 
 	@Override
 	public String toString() {
-		return "Chat [id=" + id + ", subject=" + subject + ", message=" + message + ", dateTimeStamp=" + dateTimeStamp
-				+ ", sender=" + sender + ", receiver=" + receiver + "]";
+		return "Chat [id=" + id + ", subject=" + subject + ", message=" + message + ", dateTimeStamp=" + dateTimeStamp + ", sender=" + sender + ", receiver=" + receiver + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Chat [id=" + id + ", subject=" + subject + ", message=" + message + ", read=" + read
+//				+ ", dateTimeStamp=" + dateTimeStamp + ", sender=" + sender + ", receiver=" + receiver + ", reply="
+//				+ reply + "]";
+//	}
+
+	
 
 	
 	

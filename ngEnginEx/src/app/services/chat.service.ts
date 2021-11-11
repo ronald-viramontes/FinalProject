@@ -40,11 +40,11 @@ export class ChatService {
       );
   }
 
-  create(newChat: Chat, userId: number, receiverId: number) {
+  create(newChat: Chat, userId: number, receiverUsername: string) {
     console.log(newChat);
     return this.http
       .post<Chat>(
-        `${this.url}/users/${userId}/${receiverId}`,
+        `${this.url}/users/${userId}/${receiverUsername}`,
         newChat,
         this.getHttpOptions()
       )

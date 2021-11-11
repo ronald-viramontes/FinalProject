@@ -44,6 +44,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ChatService } from './services/chat.service';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { ChatComponent } from './components/chat/chat.component';
   ],
   providers: [
     AuthService,
+    ChatService,
     EducationService,
     ExperienceService,
     JobApplicationService,

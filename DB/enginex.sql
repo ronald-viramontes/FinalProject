@@ -670,7 +670,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `chat` (`id`, `send_timestamp`, `subject`, `message`, `user_id`, `reply_user_id`, `in_reply_to_chat_id`) VALUES (1, '2021-11-10 10:10:10', 'Future jobs', 'Hello, Do you have any upcoming jobs?', 1, 2, NULL);
+INSERT INTO `chat` (`id`, `send_timestamp`, `subject`, `message`, `user_id`, `reply_user_id`, `in_reply_to_chat_id`) VALUES (1, '2021-11-10 10:10:10', 'Future jobs', 'Hello, Do you have any upcoming jobs?', 1, 3, NULL);
+INSERT INTO `chat` (`id`, `send_timestamp`, `subject`, `message`, `user_id`, `reply_user_id`, `in_reply_to_chat_id`) VALUES (2, '2021-11-11 10:10:10', 'Tech work', 'Hey, do you have any free time to work on a project?', 3, 1, NULL);
 
 COMMIT;
 

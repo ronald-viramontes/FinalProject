@@ -27,8 +27,7 @@ public class ChatController {
 
 	@Autowired
 	private ChatService chatSvc;
-//	@Autowired
-//	private UserRepository userRepo;
+
 
 	@GetMapping("chats/users/{userId}")
 	public List<Chat> indexBySender(HttpServletRequest req, HttpServletResponse res, 
@@ -62,14 +61,14 @@ public class ChatController {
 	
 	
 
-	@PostMapping("chats/users/{userId}/{receiverId}")
+	@PostMapping("chats/users/{userId}/{sentToUsername}")
 	public Chat create(HttpServletRequest req, HttpServletResponse res,
-											@PathVariable Integer receiverId, 
+											@PathVariable String sentToUsername, 
 											@PathVariable Integer userId, 
 											@RequestBody Chat chat, 
 											Principal principal) {
 		
-		chat = chatSvc.createChat(principal.getName(), chat, userId, receiverId);
+		chat = chatSvc.createChat(principal.getName(), chat, userId, sentToUsername);
 		
 		if(chat != null) {
 			res.setStatus(200);
@@ -124,5 +123,13 @@ public class ChatController {
 			return null;
 		}
 	}
+	
+//	@GetMapping("chats/read/{userId}/{chatId}")
+//	public Chat updateReadStatus(@PathVariable int chatId, 
+//			@PathVariable int userId, Principal principal) {
+//		
+//		Chat chat = chatSvc.readChat(chatId, userId);
+//		return chat;
+//	}
 
 }

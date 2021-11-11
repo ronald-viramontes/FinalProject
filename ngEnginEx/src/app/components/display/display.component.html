@@ -35,7 +35,6 @@
           </mat-card-actions>
         </mat-card>
 
-        <!-- <app-job-detail [applications]="applications" [activeUser]="activeUser"></app-job-detail> -->
       </div>
     </div>
 
@@ -49,32 +48,30 @@
         </mat-card-header>
         <img mat-card-image class="personal-dashboard-header-image" src="{{activeUser.imageUrl}}">
         <mat-card-content>
-          <!-- <strong>Application Comments</strong>
-          <ng-container *ngFor="let app of activeUser.applications">
-            <ul *ngFor="let c of app.comments">
 
-              <li>{{c.date}}</li>
-              <li style="color: white">&emsp;{{c.comment}}</li>
-              <ng-container *ngFor="let reply of c.replies">
-                <li>{{reply.date}}</li>
-                <li style="color: rgb(118, 118, 118)">&emsp;⮑&ensp;{{reply.comment}}</li>
-                <ng-container *ngFor="let replyReply of reply.replies">
-                  <li>{{replyReply.date}}</li>
-                  <li style="color: white">&emsp;⮑&ensp;⮑&ensp;{{replyReply.comment}}</li>
-                </ng-container>
-              </ng-container>
-
-            </ul>
-
-
-          </ng-container> -->
         </mat-card-content>
         <mat-card-actions align="start">
-          <!-- < [activeUser]="activeUser" [activeUser]="activeUser">
-          </app-job-application-comment> -->
+
         </mat-card-actions>
       </mat-card>
+      <br>
+      <mat-card>
+        <mat-card-title>Received Messages</mat-card-title>
+        <mat-card-actions align="start">
+          <app-user [activeUser]="activeUser" [receivedChats]="receivedChats"></app-user>
 
+        </mat-card-actions>
+      </mat-card>
+      <br>
+      <mat-card>
+        <mat-card-title>Sent Messages</mat-card-title>
+        <mat-card-actions align="start">
+          <app-chat [activeUser]="activeUser" [sentChats]="sentChats"></app-chat>
+
+        </mat-card-actions>
+      </mat-card>
+      <br>
+      <br>
 
     </div>
 
