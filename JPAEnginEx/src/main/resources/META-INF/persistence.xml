@@ -7,17 +7,18 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider
     </provider>
 
-		<class>com.skilldistillery.enginex.entities.User</class>
-		<class>com.skilldistillery.enginex.entities.DeveloperSkill</class>
+		<class>com.skilldistillery.enginex.entities.Chat</class>
+		<class>com.skilldistillery.enginex.entities.Company</class>
 		<class>com.skilldistillery.enginex.entities.DeveloperEducation</class>
-		<class>com.skilldistillery.enginex.entities.WorkExperience</class>
-		<class>com.skilldistillery.enginex.entities.JobPost</class>
-		<class>com.skilldistillery.enginex.entities.JobType</class>
-		<class>com.skilldistillery.enginex.entities.JobDetail</class>
+		<class>com.skilldistillery.enginex.entities.DeveloperSkill</class>
 		<class>com.skilldistillery.enginex.entities.JobApplication</class>
 		<class>com.skilldistillery.enginex.entities.JobApplicationComment</class>
+		<class>com.skilldistillery.enginex.entities.JobDetail</class>
+		<class>com.skilldistillery.enginex.entities.JobPost</class>
 		<class>com.skilldistillery.enginex.entities.JobStatus</class>
-		<class>com.skilldistillery.enginex.entities.Company</class>
+		<class>com.skilldistillery.enginex.entities.JobType</class>
+		<class>com.skilldistillery.enginex.entities.User</class>
+		<class>com.skilldistillery.enginex.entities.WorkExperience</class>
 		
 
 

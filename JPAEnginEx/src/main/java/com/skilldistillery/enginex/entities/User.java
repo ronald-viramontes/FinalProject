@@ -72,14 +72,12 @@ public class User {
 	@JsonIgnoreProperties({"user"})
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
- 	
-	public List<JobPost> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(List<JobPost> posts) {
-		this.posts = posts;
-	}
+	
+	@OneToMany(mappedBy="sender")
+	private List<Chat> sentMessages;
+	
+	@OneToMany(mappedBy="receiver")
+	private List<Chat> receivedMessages;
 
 	public int getId() {
 		return id;
@@ -120,7 +118,6 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
 
 	public String getFirstName() {
 		return firstName;
@@ -170,14 +167,6 @@ public class User {
 		this.company = company;
 	}
 
-	public List<JobApplication> getApplications() {
-		return applications;
-	}
-
-	public void setApplications(List<JobApplication> applications) {
-		this.applications = applications;
-	}
-
 	public List<DeveloperEducation> getEducations() {
 		return educations;
 	}
@@ -202,6 +191,38 @@ public class User {
 		this.experiences = experiences;
 	}
 
+	public List<JobApplication> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<JobApplication> applications) {
+		this.applications = applications;
+	}
+
+	public List<JobPost> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<JobPost> posts) {
+		this.posts = posts;
+	}
+
+	public List<Chat> getSentMessages() {
+		return sentMessages;
+	}
+
+	public void setSentMessages(List<Chat> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+
+	public List<Chat> getReceivedMessages() {
+		return receivedMessages;
+	}
+
+	public void setReceivedMessages(List<Chat> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -222,7 +243,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + "]";
+				+ ", role=" + role + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + ", imageUrl=" + imageUrl + ", company=" + company + "]";
 	}
-
+ 	
+	
 }

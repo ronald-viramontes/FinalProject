@@ -306,6 +306,40 @@ SHOW WARNINGS;
 CREATE INDEX `fk_job_application_comment_job_application_comment1_idx` ON `job_application_comment` (`in_reply_to_comment_id` ASC);
 
 SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `chat`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `chat` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `chat` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `send_timestamp` DATETIME NULL,
+  `subject` VARCHAR(250) NULL,
+  `message` TEXT NULL DEFAULT NULL,
+  `user_id` INT NOT NULL,
+  `receiver_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_chat_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_chat_chat1`
+    FOREIGN KEY (`receiver_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_chat_user1_idx` ON `chat` (`user_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_chat_chat1_idx` ON `chat` (`receiver_id` ASC);
+
+SHOW WARNINGS;
 SET SQL_MODE = '';
 DROP USER IF EXISTS enginexuser@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -618,6 +652,16 @@ START TRANSACTION;
 USE `enginexdb`;
 INSERT INTO `job_application_comment` (`id`, `comment`, `comment_date`, `job_application_id`, `in_reply_to_comment_id`) VALUES (1, 'Hello, would like to know any additional details about the job.', '2021-11-01', 1, NULL);
 INSERT INTO `job_application_comment` (`id`, `comment`, `comment_date`, `job_application_id`, `in_reply_to_comment_id`) VALUES (2, 'Thank you for your reply!', '2021-11-02', 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `chat`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `chat` (`id`, `send_timestamp`, `subject`, `message`, `user_id`, `receiver_id`) VALUES (1, '2021-11-10 10:10:10', 'Future jobs', 'Hello, Do you have any upcoming jobs?', 1, 2);
 
 COMMIT;
 
