@@ -1,3 +1,75 @@
+<ng-template #content let-modal>
+  <div class="modal-header" id="newChatOutside">
+    <h4 class="modal-title" id="modal-basic-title"
+      style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
+      <strong>Chat Message</strong>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-form #values="ngForm" (ngSubmit)="create(newChat)">
+      <label for="receiverUsername">Recipient:</label>
+      <input placeholder="Username" name="receiverUsername" [(ngModel)]="receiverUsername" />
+      <label for="subject">Subject:</label>
+      <input placeholder="Subject" name="subject" [(ngModel)]="newChat.subject" />
+
+      <label for="message">Message:</label>
+      <textarea placeholder="Message" cols="41" rows="5" name="message" [(ngModel)]="newChat.message"></textarea>
+      <button class="btn btn-success btn-outline-light" (click)="modal.close('ngSubmit')">
+        Send
+      </button>
+
+    </ng-form>
+  </div>
+  <div class="modal-footer">
+
+
+  </div>
+</ng-template>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" (click)="open(content)"
+  data-target="#newChatOutside">Launch Chat</button>
+<pre>{{ closeResult }}</pre>
+
+<!-- <div id="newChatOutside" *ngIf="addButton">
+  <h4 class="modal-title" style="text-align:center; margin-bottom: auto; margin-top: 10px; color: white"><strong>Chat
+      Message</strong></h4>
+
+  <div id="sendChat">
+    <br>
+    <form name="sendChatMessage" id="chatForm">
+      <div class="form-group">
+        <label class="form-label" for="receiverUsername"><b>Recipient:</b></label>
+        <input class="form-control" type="text" name="receiverUsername" placeholder="Username"
+          [(ngModel)]="receiverUsername" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="subject"><b>Subject:</b></label>
+        <input class="form-control" type="text" name="subject" [(ngModel)]="newChat.subject" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message"><b>Message:</b></label>
+        <textarea name="message" cols="45" rows="10" [(ngModel)]="newChat.message"></textarea>
+      </div>
+      <br>
+      <div style=" text-align: center; margin-left: auto; margin-right: auto;">
+        <button class="btn btn-success btn-outline-light" (click)="create(newChat)">
+          Send
+        </button>
+        <button style="margin-left: 10px" class="btn btn-warning btn-outline-light"
+          (click)="addButton=false && receiverUsername = null">
+          Cancel
+        </button>
+      </div>
+
+    </form>
+    <br>
+  </div>
+</div> -->
+
+
 <ngb-accordion [closeOthers]="true">
   <ngb-panel title={{chat.subject}} *ngFor="let chat of receivedChats">
     <ng-template ngbPanelContent>

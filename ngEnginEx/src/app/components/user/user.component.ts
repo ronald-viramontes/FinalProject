@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Chat } from 'src/app/models/chat';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { ChatComponent } from '../chat/chat.component';
 
@@ -10,7 +12,37 @@ import { ChatComponent } from '../chat/chat.component';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  constructor(private chatService: ChatService) {}
+  closeResult = '';
+
+  constructor(
+    private chatService: ChatService,
+    private authService: AuthService,
+    private modalService: NgbModal
+  ) {}
+
+  open(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   @Input() activeUser: User | null = null;
   @Input() receivedChats: Chat[] = [];
   @Input() sentChats: Chat[] = [];
