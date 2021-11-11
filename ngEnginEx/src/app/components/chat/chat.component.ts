@@ -53,7 +53,7 @@ export class ChatComponent implements OnInit {
   updateExp(editChat: Chat) {
     if (this.activeUser)
       this.chatService
-        .update(editChat.id, this.activeUser.id, editChat)
+        .update(editChat.id, this.activeUser.id, editChat.receiver.id, editChat)
         .subscribe(
           (updated) => {
             console.log('User Chat has updated successfully');

@@ -44,7 +44,7 @@ export class ChatService {
     console.log(newChat);
     return this.http
       .post<Chat>(
-        `${this.url}/${userId}/${receiverId}`,
+        `${this.url}/users/${userId}/${receiverId}`,
         newChat,
         this.getHttpOptions()
       )
@@ -55,12 +55,27 @@ export class ChatService {
         })
       );
   }
+  createReply(newReply: Chat, userId: number, chatId: number) {
+    console.log(newReply);
+    return this.http
+      .post<Chat>(
+        `${this.url}/${userId}/chats/${chatId}`,
+        newReply,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Something went wrong creating a chat message');
+        })
+      );
+  }
 
-  update(chatId: number, userId: number, editChat: Chat) {
+  update(chatId: number, userId: number, receiverId: number, editChat: Chat) {
     const httpOptions = {};
     return this.http
       .put<Chat>(
-        `${this.url}/${userId}/${chatId}`,
+        `${this.url}/users/${userId}/receiver/${receiverId}/${chatId}`,
         editChat,
         this.getHttpOptions()
       )
@@ -79,7 +94,7 @@ export class ChatService {
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('Something went wrong deleting exp');
+          return throwError('Something went wrong deleting chat');
         })
       );
   }
@@ -94,7 +109,7 @@ export class ChatService {
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('Something went wrong retrieving an exp by devId');
+          return throwError('Something went wrong retrieving an chat');
         })
       );
   }

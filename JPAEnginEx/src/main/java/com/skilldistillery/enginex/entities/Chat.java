@@ -1,6 +1,7 @@
 package com.skilldistillery.enginex.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,10 +40,17 @@ public class Chat {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="receiver_id")
+	@JoinColumn(name="reply_user_id")
 	private User receiver;
 
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="in_reply_to_chat_id")
+	private Chat reply;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="reply")
+	private List<Chat> replies;
 
 	public int getId() {
 		return id;
@@ -89,6 +98,24 @@ public class Chat {
 
 	public void setReceiver(User receiver) {
 		this.receiver = receiver;
+	}
+
+	
+	
+	public Chat getReply() {
+		return reply;
+	}
+
+	public void setReply(Chat reply) {
+		this.reply = reply;
+	}
+
+	public List<Chat> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<Chat> replies) {
+		this.replies = replies;
 	}
 
 	@Override

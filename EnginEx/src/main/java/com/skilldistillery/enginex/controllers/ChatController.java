@@ -80,6 +80,25 @@ public class ChatController {
 		}
 		
 	}
+
+	@PostMapping("chats/{userId}/chats/{chatId}")
+	public Chat createReply(HttpServletRequest req, HttpServletResponse res,
+							@PathVariable Integer userId, 
+							@PathVariable Integer chatId, 
+							@RequestBody Chat reply, 
+							Principal principal) {
+		
+		reply = chatSvc.replyToChat(principal.getName(), reply, userId, chatId);
+		
+		if(reply != null) {
+			res.setStatus(200);
+			return reply;
+		} else {
+			res.setStatus(400);
+			return null;
+		}
+		
+	}
 	
 	
 	@DeleteMapping("chats/{userId}/{chatId}")
@@ -89,11 +108,14 @@ public class ChatController {
 		chatSvc.deleteChat(principal.getName(), chatId, userId);
 	}
 
-	@PutMapping("chats/{userId}/{chatId}")
+	@PutMapping("chats/users/{userId}/receiver/{receiverId}/{chatId}")
 	public Chat edit(HttpServletRequest req, HttpServletResponse res,
-			@PathVariable int userId, @RequestBody Chat chat,  Principal principal) {
+						@PathVariable int receiverId, @PathVariable int chatId, 
+						@PathVariable int userId, 
+						@RequestBody Chat chat,  Principal principal) {
 		
-		chat = chatSvc.editChat(principal.getName(), chat, userId, chat.getReceiver().getId());
+		
+		chat = chatSvc.editChat(principal.getName(), chat, chatId, userId, receiverId);
 		if(chat != null) {
 			res.setStatus(200);
 			return chat;

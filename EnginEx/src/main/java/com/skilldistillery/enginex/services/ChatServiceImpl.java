@@ -72,8 +72,23 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public Chat replyToChat(String username, Chat chat, int senderId, int receiverId) {
-		// TODO Auto-generated method stub
+	public Chat replyToChat(String username, Chat reply, int senderId, int chatId) {
+		User sender = userRepo.findByUsername(username);
+		
+		Chat origMsg = chatRepo.findById(chatId);
+		if (sender.getId() == senderId && origMsg != null) {
+			Chat dbReply = new Chat();
+			dbReply.setDateTimeStamp(LocalDateTime.now());
+			dbReply.setSubject("In reply: " + reply.getSubject());
+			dbReply.setMessage(reply.getMessage());
+			dbReply.setSender(sender);
+			dbReply.setReceiver(origMsg.getSender());
+			dbReply = chatRepo.saveAndFlush(dbReply);
+			origMsg.setReply(dbReply);
+			chatRepo.saveAndFlush(origMsg);
+			return dbReply;
+		}
+		
 		return null;
 	}
 
@@ -88,16 +103,19 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public Chat editChat(String username, Chat chat, int userId, int receiverId) {
+	public Chat editChat(String username, Chat chat, int chatId, int userId, int receiverId) {
 		User sender = userRepo.findByUsername(username);
 		Optional<User> opt = userRepo.findById(receiverId);
-		Chat editChat = chatRepo.findById(chat.getId());
+		User receiver = opt.get();
+		Chat editChat = chatRepo.findById(chatId);
 		if (sender.getId() == userId && editChat.getSender().getId() == userId && opt.isPresent()) {
+//			editChat.setId(chatId);
 			editChat.setDateTimeStamp(LocalDateTime.now());
 			editChat.setSubject(chat.getSubject());
 			editChat.setMessage(chat.getMessage());
-			editChat.setReceiver(opt.get());
-			editChat = chatRepo.saveAndFlush(editChat);
+			editChat.setSender(sender);
+			editChat.setReceiver(receiver);
+			editChat = chatRepo.save(editChat);
 			return editChat;
 		}
 		

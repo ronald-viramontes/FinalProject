@@ -11,8 +11,8 @@ public interface ChatService {
 	List<Chat> findByReceiverId(String username, int userId, int receiverId);
 	Chat retrieveByChatId(String username, int userId, int chatId);
 	Chat createChat(String username, Chat chat, int senderId, int appId);
-	Chat replyToChat(String username, Chat chat, int senderId, int receiverId);
+	Chat replyToChat(String username, Chat reply, int senderId, int chatId);
 	void deleteChat(String username, int chatId, int senderId);
-	Chat editChat(String username, Chat chat, int userId, int receiverId);
+	Chat editChat(String username, Chat chat, int chatId, int userId, int receiverId);
 
 }

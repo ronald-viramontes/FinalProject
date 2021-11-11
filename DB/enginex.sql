@@ -319,7 +319,8 @@ CREATE TABLE IF NOT EXISTS `chat` (
   `subject` VARCHAR(250) NULL,
   `message` TEXT NULL DEFAULT NULL,
   `user_id` INT NOT NULL,
-  `receiver_id` INT NOT NULL,
+  `reply_user_id` INT NOT NULL,
+  `in_reply_to_chat_id` INT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_chat_user1`
     FOREIGN KEY (`user_id`)
@@ -327,8 +328,13 @@ CREATE TABLE IF NOT EXISTS `chat` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_chat_chat1`
-    FOREIGN KEY (`receiver_id`)
+    FOREIGN KEY (`reply_user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_chat_chat2`
+    FOREIGN KEY (`in_reply_to_chat_id`)
+    REFERENCES `chat` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -337,7 +343,10 @@ SHOW WARNINGS;
 CREATE INDEX `fk_chat_user1_idx` ON `chat` (`user_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_chat_chat1_idx` ON `chat` (`receiver_id` ASC);
+CREATE INDEX `fk_chat_chat2_idx` ON `chat` (`in_reply_to_chat_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_chat_chat1_idx` ON `chat` (`reply_user_id` ASC);
 
 SHOW WARNINGS;
 SET SQL_MODE = '';
@@ -661,7 +670,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `chat` (`id`, `send_timestamp`, `subject`, `message`, `user_id`, `receiver_id`) VALUES (1, '2021-11-10 10:10:10', 'Future jobs', 'Hello, Do you have any upcoming jobs?', 1, 2);
+INSERT INTO `chat` (`id`, `send_timestamp`, `subject`, `message`, `user_id`, `reply_user_id`, `in_reply_to_chat_id`) VALUES (1, '2021-11-10 10:10:10', 'Future jobs', 'Hello, Do you have any upcoming jobs?', 1, 2, NULL);
 
 COMMIT;
 
