@@ -43,6 +43,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { HeaderComponent } from './components/header/header.component';
     OpenJobPipe,
     UserSearchComponent,
     JobApplicationCommentComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

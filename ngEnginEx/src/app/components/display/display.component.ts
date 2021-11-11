@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Chat } from 'src/app/models/chat';
 import { Education } from 'src/app/models/education';
 import { Experience } from 'src/app/models/experience';
 import { JobApplication } from 'src/app/models/job-application';
@@ -21,6 +22,8 @@ export class DisplayComponent implements OnInit {
     private router: Router
   ) {}
 
+  receivedChats: Chat[] = [];
+  sentChats: Chat[] = [];
   experiences: Experience[] = [];
   skills: Skill[] = [];
   educations: Education[] = [];
@@ -44,6 +47,8 @@ export class DisplayComponent implements OnInit {
         this.experiences = data.experiences;
         this.applications = data.applications;
         this.jobPosts = data.posts;
+        this.receivedChats = data.receivedMessages;
+        this.sentChats = data.sentMessages;
         this.loaded = true;
       },
       (err) => {

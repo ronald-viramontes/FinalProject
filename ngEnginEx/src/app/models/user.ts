@@ -1,3 +1,4 @@
+import { Chat } from './chat';
 import { Company } from './company';
 import { Education } from './education';
 import { Experience } from './experience';
@@ -23,11 +24,11 @@ export class User {
   educations: Education[];
   experiences: Experience[];
   applications: JobApplication[];
-  // applicationComments: JobApplicationComment[];
-  // jobDetails: JobDetail[];
   posts: JobPost[];
   jobStatuses: JobStatus[];
   skills: Skill[];
+  sentMessages: Chat[];
+  receivedMessages: Chat[];
 
   constructor(
     id: number = 0,
@@ -44,13 +45,11 @@ export class User {
     educations: Education[] = [],
     experiences: Experience[] = [],
     applications: JobApplication[] = [],
-    // applicationComments = [],
-    // jobDetails = [],
     posts: JobPost[] = [],
     jobStatuses: JobStatus[] = [],
-    skills: Skill[] = []
-
-
+    skills: Skill[] = [],
+    sentMessages: Chat[] = [],
+    receivedMessages: Chat[] = []
   ) {
     this.id = id;
     this.username = username;
@@ -66,10 +65,10 @@ export class User {
     this.educations = educations;
     this.experiences = experiences;
     this.applications = applications;
-    // this.applicationComments = applicationComments;
-    // this.jobDetails = jobDetails;
     this.posts = posts;
     this.jobStatuses = jobStatuses;
     this.skills = skills;
+    this.sentMessages = sentMessages;
+    this.receivedMessages = receivedMessages;
   }
 }
