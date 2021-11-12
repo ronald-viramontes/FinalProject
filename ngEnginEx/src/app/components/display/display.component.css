@@ -5,14 +5,13 @@
 .mat-card {
   background-color: rgb(33, 34, 35);
   width: 75%;
-  min-width: 290px;
   margin: 0 auto;
 }
 
 .personal-dashboard {
   background-color: rgb(20, 60, 100);
   margin: 0 auto;
-  max-width: 450px;
+  min-width: 75%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: white;
   font-weight: bold;

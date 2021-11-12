@@ -19,9 +19,9 @@
         <li class="nav-item" *ngIf="loggedIn()">
           <a class="nav-link" href="#/editprofile">Edit Profile</a>
         </li>
-        <li class="nav-item" *ngIf="loggedIn()">
+        <!-- <li class="nav-item" *ngIf="loggedIn()">
           <a class="nav-link" href="#/chat">Chat</a>
-        </li>
+        </li> -->
         <li class="nav-item" *ngIf="loggedIn()">
           <a class="nav-link" href="#/home" (click)="logOut()">Logout</a>
         </li>
@@ -34,9 +34,9 @@
         <input class="form-control mr-sm-2" name="password" type="password" placeholder="Password" aria-label="Password"
           [(ngModel)]="user.password">
       </form>
-      <button *ngIf="!loggedIn()" class="btn btn-primary btn-outline-light my-2 my-sm-0" (click)="login(user)"
+      <button *ngIf="!loggedIn()" class="btn btn-primary btn-outline-dark my-2 my-sm-0" (click)="login(user)"
         style="margin-left: 3px;">Login</button>
-      <button *ngIf="!loggedIn()" class="btn btn-primary btn-outline-light my-2 my-sm-0" (click)="register()"
+      <button *ngIf="!loggedIn()" class="btn btn-secondary btn-outline-dark my-2 my-sm-0" (click)="register()"
         style="margin-left: 3px;">Register</button>
     </div>
   </nav>
