@@ -1,41 +1,44 @@
-<ng-template #content let-modal>
-  <div class="modal-header" id="newChatOutside">
-    <h4 class="modal-title" id="modal-basic-title"
-      style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
-      <strong>Chat Message</strong>
-    </h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <ng-form #values="ngForm" (ngSubmit)="create(newChat)">
-      <label for="receiverUsername">Recipient:</label>
-      <input placeholder="Username" name="receiverUsername" [(ngModel)]="receiverUsername" />
-      <label for="subject">Subject:</label>
-      <input placeholder="Subject" name="subject" [(ngModel)]="newChat.subject" />
-
-      <label for="message">Message:</label>
-      <textarea placeholder="Message" cols="41" rows="5" name="message" [(ngModel)]="newChat.message"></textarea>
-      <button class="btn btn-success btn-outline-light" (click)="modal.close('ngSubmit')">
-        Send
+<!-- <ng-template #content let-modal id="newChatOutside">
+  <div id="newChatOutside">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"
+        style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
+        <strong>Chat Message</strong>
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
       </button>
+    </div>
+    <div class="modal-body">
+      <form id="sendChat">
+        <label class="form-label" for="receiverUsername">Recipient:</label>
+        <input class="form-control" type="text" placeholder="Username" name="receiverUsername"
+          [(ngModel)]="receiverUsername" />
+        <label class="form-label" for="subject">Subject:</label>
+        <input class="form-control" type="text" placeholder="Subject" name="subject" [(ngModel)]="newChat.subject" />
+        <label class="form-label" for="message">Message:</label>
+        <textarea class="form-control" type="text" placeholder="Message" cols="41" rows="5" name="message"
+          [(ngModel)]="newChat.message"></textarea>
+        <button type="button" class="btn btn-success btn-outline-light" (click)="create(newChat)"
+          (click)="modal.close('Save click')">
+          Send
+        </button>
 
-    </ng-form>
-  </div>
-  <div class="modal-footer">
+      </form>
+    </div>
+    <div class="modal-footer">
 
 
+    </div>
   </div>
 </ng-template>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" (click)="open(content)"
-  data-target="#newChatOutside">Launch Chat</button>
-<pre>{{ closeResult }}</pre>
+<button type="button" class="badge btn-success btn-outline-dark" (click)="open(content)">Launch Chat</button> -->
+<!-- <pre>{{ closeResult }}</pre> -->
 
 <!-- <div id="newChatOutside" *ngIf="addButton">
   <h4 class="modal-title" style="text-align:center; margin-bottom: auto; margin-top: 10px; color: white"><strong>Chat
-      Message</strong></h4>
+    Message</strong></h4>
 
   <div id="sendChat">
     <br>
@@ -73,41 +76,39 @@
 <ngb-accordion [closeOthers]="true">
   <ngb-panel title={{chat.subject}} *ngFor="let chat of receivedChats">
     <ng-template ngbPanelContent>
-      <b *ngIf="chat.sender"> Sender: {{chat.sender.id}} </b><br>
-      <b *ngIf="chat.receiver"> Receiver: {{chat.receiver.username}} </b><br>
-      <strong>Subject: {{chat.subject}}</strong><br>
-      Message: {{chat.message}} <br>
-      Received: {{chat.dateTimeStamp | date: 'medium'}}<br>
+      <div style="color: blue">
+        <!-- <b *ngIf="chat.sender"> Sender: {{chat.sender.id}} </b><br>
+          <b *ngIf="chat.receiver"> Receiver: {{chat.receiver.username}} </b><br> -->
+        <strong>Subject: {{chat.subject}}</strong><br>
+        Message: {{chat.message}} <br>
+        Received: {{chat.dateTimeStamp | date: 'medium'}}<br>
+        <button *ngIf="chat.sender != activeUser && chat" class="badge btn-primary btn-dark-sm"
+          (click)="setReplyChat(chat)">⏎</button>
+        <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>
+        <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm"
+          (click)="deleteChat(chat.id)">❌</button>
+      </div>
 
-
-      <button *ngIf="chat.sender != activeUser && chat" class="badge btn-primary btn-dark-sm"
-        (click)="setReplyChat(chat)">⏎</button>
-      <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>
-      <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm" (click)="deleteChat(chat.id)">❌</button>
-      <!-- <button class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>
-      <button class="badge btn-light btn-sm" (click)="deleteChat(chat.id)">❌</button> -->
       <br>
-      <div *ngFor="let reply of chat.replies" style="color: blue">
+      <div *ngFor="let reply of chat.replies" style="color: black">
 
         Subject: {{reply.subject}}<br>
         Message: {{reply.message}}<br>
         Received: {{reply.dateTimeStamp | date: 'medium'}}<br>
-        <b *ngIf="reply.sender"> Sender: {{reply.sender.username}} </b><br>
         <br>
-        <button *ngIf="reply.sender != activeUser && reply" class="badge btn-primary btn-dark-sm"
-          (click)="setReplyChat(reply)">⏎</button>
+        <!-- <button *ngIf="reply.sender != activeUser && reply" class="badge btn-primary btn-dark-sm"
+        (click)="setReplyChat(reply)">⏎</button> -->
         <button *ngIf="reply.sender == activeUser" class="badge btn-light btn-sm"
           (click)="setEditChat(reply)">✏️</button>
         <button *ngIf="reply.sender == activeUser" class="badge btn-light btn-sm"
           (click)="deleteChat(reply.id)">❌</button>
       </div>
       <br>
-      <div *ngFor="let chat of reply.replies">
-        <b *ngIf="chat.sender"> Sender: {{chat.sender.username}} </b><br>
+      <div *ngFor="let chat of reply.replies" style="color: blue">
+        <!-- <b *ngIf="chat.sender"> Sender: {{chat.sender.username}} </b><br> -->
         Subject: {{chat.subject}}<br>
         Message: {{chat.message}}<br>
         Received: {{chat.dateTimeStamp | date: 'medium'}}<br>
-
 
         <button *ngIf="chat.sender != activeUser && chat" class="badge btn-primary btn-dark-sm"
           (click)="setReplyChat(chat)">⏎</button>

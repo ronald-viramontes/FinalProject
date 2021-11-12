@@ -1,19 +1,60 @@
+<div style="text-align: center">
+
+  <ng-template #content let-modal id="newChatOutside">
+    <div id="newChatOutside">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"
+          style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
+          <strong>Chat Message</strong>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="sendChat">
+          <label class="form-label" for="receiverUsername">Recipient:</label>
+          <input class="form-control" type="text" placeholder="Username" name="receiverUsername"
+            [(ngModel)]="receiverUsername" />
+          <label class="form-label" for="subject">Subject:</label>
+          <input class="form-control" type="text" placeholder="Subject" name="subject" [(ngModel)]="newChat.subject" />
+          <label class="form-label" for="message">Message:</label>
+          <textarea class="form-control" type="text" placeholder="Message" cols="41" rows="5" name="message"
+            [(ngModel)]="newChat.message"></textarea>
+          <button type="button" class="btn btn-success btn-outline-light" (click)="create(newChat)"
+            (click)="modal.close('Save click')">
+            Send
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </ng-template>
+
+  <button style="margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px;" type="button"
+    class="badge btn btn-success btn-lg" (click)="open(content)">➕
+    &nbsp;&nbsp;Chat</button>
+
+</div>
+
+
 <ngb-accordion [closeOthers]="true">
   <ngb-panel title={{chat.subject}} *ngFor="let chat of sentChats">
     <ng-template ngbPanelContent>
-      <strong>{{chat.subject}}</strong><br>
-      Message: {{chat.message}} <br>
-      Sent: {{chat.dateTimeStamp | date: 'medium'}}<br>
-      <button class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>
-      <button class="badge btn-light btn-sm" (click)="deleteChat(chat.id)">❌</button>
+      <div style="color: black">
+        <strong>Subject: </strong> {{chat.subject}}<br>
+        <b> Message: </b>{{chat.message}} <br>
+        <b> Sent: </b>{{chat.dateTimeStamp | date: 'medium'}}<br>
+        <button class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>
+        <button class="badge btn-light btn-sm" (click)="deleteChat(chat.id)">❌</button>
+      </div>
       <br>
       <div *ngFor="let reply of chat.replies" style="color: blue">
-        <b *ngIf="reply.sender"> Sender: {{reply.sender.username}} </b><br>
-        Subject: {{reply.subject}}<br>
-        Message: {{reply.message}}<br>
-        Received: {{reply.dateTimeStamp | date: 'medium'}}<br>
-
-
+        <!-- <b *ngIf="reply.sender"> Sender: {{reply.sender.username}} </b><br> -->
+        <b> Subject: </b>{{reply.subject}}<br>
+        <b> Message: </b>{{reply.message}}<br>
+        <b> Received:</b>{{reply.dateTimeStamp | date: 'medium'}}<br>
         <br>
         <button *ngIf="reply.sender != activeUser && reply" class="badge btn-primary btn-dark-sm"
           (click)="setReplyChat(reply)">⏎</button>
@@ -23,10 +64,10 @@
           (click)="deleteChat(chat.id)">❌</button>
       </div>
       <br>
-      <div *ngFor="let chat of reply.replies">
-        Subject: {{chat.subject}}<br>
-        Message: {{chat.message}}<br>
-        Received: {{chat.dateTimeStamp | date: 'medium'}}<br>
+      <div *ngFor="let chat of reply.replies" style="color: black">
+        <b> Subject: </b> {{chat.subject}}<br>
+        <b> Message: </b> {{chat.message}}<br>
+        <b> Sent: </b> {{chat.dateTimeStamp | date: 'medium'}}<br>
         <br>
         <button *ngIf="chat.sender != activeUser && chat" class="badge btn-primary btn-dark-sm"
           (click)="setReplyChat(chat)">⏎</button>
@@ -80,12 +121,12 @@
   </ngb-panel>
 </ngb-accordion>
 
-<div id="addButton" *ngIf="!addButton">
+<!-- <div id="addButton" *ngIf="!addButton">
 
   <button id="addButton" class="badge btn-success" (click)="addButton = true">➕ Chat</button>
-</div>
+</div> -->
 
-<div id="newChat" *ngIf="addButton">
+<!-- <div id="newChat" *ngIf="addButton">
   <br>
   <form class="form-control">
     <h5 style="text-shadow: 2px 2px 4px black">New Chat</h5>
@@ -113,4 +154,4 @@
 
   </form>
   <br>
-</div>
+</div> -->

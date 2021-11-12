@@ -1,25 +1,47 @@
 <style>
+  .float-child {
+    width: 50%;
+    float: left;
+    padding: 5px;
+  }
 
-.float-child {
-  width: 50%;
-  float: left;
-  padding: 5px;
-}
-
-.loggedIn{
+  .loggedIn {
     max-width: 30%;
   }
 
-.loggedOut{
-  max-width: 18%;
+  .loggedOut {
+    max-width: 18%;
 
-}
+  }
 </style>
-<h2>Search for an Engineer for your Project</h2>
-<form>
-  <input name="search" type="search" placeholder="Search for User" [(ngModel)]="keyword" required>
-  <button (click)="search(keyword)">Search</button>
-</form>
+
+<div class="input-group" style="margin-right: auto; margin-left: auto; width: 85%">
+  <input type="search" class="form-control rounded" placeholder="Skill Keyword Search" aria-label="Search"
+    aria-describedby="search-addon" name="keyword" [(ngModel)]="keyword" />
+  <button type="button" class="btn btn-outline-primary" (click)="search(keyword)">Search</button>
+</div>
+<br>
+
+
+<!-- <section>
+
+  <div class="form-outline" class="bg-image h-100" style="background-color: #1b7049;">
+    <div class="form-control form-control-lg rounde bg-transparent text-white">
+      <div class="mask d-flex align-items-center h-100">
+        <div class="container">
+          <input type="text" class="form-control form-control-lg rounde bg-transparent text-white"
+            placeholder="Developer Search" [(ngModel)]="keyword" />
+          <button type="button" class="btn btn-primary" (click)="search(keyword)">
+            <i class="fas fa-search fa-lg text-white"></i>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
 
 <!-- <ul *ngIf="searchResults.length > 0 && !emailForm">
   <li *ngFor="let user of searchResults">{{user.firstName}} {{user.lastName}}
@@ -39,12 +61,13 @@
         <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Skills</h6>
         <div *ngFor="let skill of user.skills">
-          <span class="card-text" *ngIf="checkKeyword(skill.skillTitle)"><strong>{{skill.skillTitle}}</strong>: {{skill.skillLevel}}</span>
+          <span class="card-text" *ngIf="checkKeyword(skill.skillTitle)"><strong>{{skill.skillTitle}}</strong>:
+            {{skill.skillLevel}}</span>
         </div><br>
         <a href="mailto:{{user.email}}?subject=Email from {{activeUser.firstName}} {{activeUser.lastName}} on Engineer Exchange
     &body=I saw your profile on Engineer Exchange and thought your skills might be perfect for my project.  I'd like to discuss a collaboration!"
           *ngIf="loggedIn()" style="text-decoration: none; position: absolute; bottom: 0;">Contact Engineer</a>
       </div>
     </div>
-    </div>
+  </div>
 </div>

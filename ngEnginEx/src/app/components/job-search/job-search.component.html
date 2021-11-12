@@ -1,35 +1,35 @@
-<div class="wrap">
-  <mat-card class="flex">
-    <div class="scrollable">
-      <mat-card-title>Recent Job Postings</mat-card-title>
-      <form>
-        <input name="search" type="search" placeholder="Search for Job" [(ngModel)]="keyword" required>
-        <button (click)="search(keyword)">Search</button>
-      </form>
-      <mat-card-content>
-        <div>
-          <table class="table table-striped table-hover table-bordered">
-            <thead class="table-dark">
-              <tr>
-                <th>Description</th>
-                <th>Start Date</th>
-                <th>Completion Date</th>
-                <th>Posted Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor='let post of jobPosts | dateSort: returnNum' (click)="goToJob(post)">
-                <td>{{post.jobRequirements}}</td>
-                <td>{{post.startDate}}</td>
-                <td>{{post.completionDate}}</td>
-                <td>{{post.datePosted}}</td>
-                <td>{{post.status.name}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </mat-card-content>
-    </div>
+<div class="container-fluid">
+  <mat-card style="min-height: 400px;">
+    <mat-card-actions>
+      <div class="input-group" style="margin-left: auto; margin-right: auto; width: 96%">
+        <input type="search" class="form-control rounded" placeholder="Job Keyword Search" aria-label="Search"
+          aria-describedby="search-addon" name="keyword" [(ngModel)]="keyword" />
+        <button type="button" class="btn btn-outline-primary" (click)="search(keyword)">Search</button>
+      </div>
+    </mat-card-actions>
+    <mat-card-content>
+      <div>
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Description</th>
+              <th>Start</th>
+              <th>Complete</th>
+              <th>Posted</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let post of jobPosts | dateSort: returnNum' (click)="goToJob(post)">
+              <td>{{post.jobRequirements}}</td>
+              <td>{{post.startDate}}</td>
+              <td>{{post.completionDate}}</td>
+              <td>{{post.datePosted}}</td>
+              <td>{{post.status.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>

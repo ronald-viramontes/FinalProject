@@ -21,6 +21,7 @@ export class UserComponent implements OnInit {
   ) {}
 
   open(content: any) {
+    this.newChat = new Chat();
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(
@@ -71,7 +72,7 @@ export class UserComponent implements OnInit {
             this.newChat = new Chat();
             this.addButton = false;
             this.receiverUsername = null;
-            if (this.activeUser) this.loadSentChats(this.activeUser.id);
+            // if (this.activeUser) this.loadSentChats(this.activeUser.id);
             if (this.activeUser) this.loadReceivedChats();
           },
           (fail) => {

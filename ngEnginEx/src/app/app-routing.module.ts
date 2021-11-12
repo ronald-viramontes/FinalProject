@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'home', component: DisplayComponent },
   { path: 'jobs', component: JobPostComponent },
   { path: 'editprofile', component: EditProfileComponent },
-  { path: 'chat', component: UserComponent },
+  { path: 'chat', component: ChatComponent },
 ];
 
 @NgModule({
