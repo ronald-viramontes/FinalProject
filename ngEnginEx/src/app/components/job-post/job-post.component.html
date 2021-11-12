@@ -115,12 +115,24 @@
               class="btn btn-dark btn-outline-success" *ngIf="loggedIn()">Post
               Job</button><br>
             <br>
-            <label for="status" *ngIf="!getRoute() && !selected">Filter by Job Status:</label>
+            <!-- <label for="status" *ngIf="!getRoute() && !selected">Filter by Job Status:</label>
             <select name="status" *ngIf="!getRoute() && !selected" [(ngModel)]="statusId">
               <option *ngFor="let stat of jobStatuses" [ngValue]="stat.id">{{stat.name}}</option>
-            </select>
-
+            </select> -->
             <mat-card-content>
+              <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-mdb-toggle="dropdown" aria-expanded="false">Job Filter</button>
+                <ul class="dropdown-menu" name="status" role="menu" aria-labelled="dropdownMenuButton"
+                  *ngIf="!getRoute() && !selected" [(ngModel)]="statusId">
+                  <ng-container *ngFor="let stat of jobStatuses">
+                    <li class="dropdown-item">
+                      <button class="dropdown-item" type="button">{{stat.name}}</button>
+                    </li>
+
+                  </ng-container>
+                </ul>
+              </div>
               <div>
                 <table class="table table-striped table-hover table-bordered">
                   <thead class="table-dark">
