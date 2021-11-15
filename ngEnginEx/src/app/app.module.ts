@@ -45,35 +45,46 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ChatService } from './services/chat.service';
+import { MyJobsComponent } from './components/my-jobs/my-jobs.component';
+import { JobListingComponent } from './components/job-listing/job-listing.component';
+import { ChatReceivedComponent } from './components/chat-received/chat-received.component';
+import { SendChatComponent } from './components/send-chat/send-chat.component';
+import { ChatSentComponent } from './components/chat-sent/chat-sent.component';
+import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ChatComponent,
+    ChatReceivedComponent,
+    ChatSentComponent,
     CompanyComponent,
+    DateSortPipe,
     DisplayComponent,
+    EditProfileComponent,
     EducationComponent,
     ExperienceComponent,
+    FooterComponent,
+    HeaderComponent,
     JobApplicationComponent,
     JobApplicationCommentComponent,
     JobDetailComponent,
+    JobListingComponent,
     JobPostComponent,
+    JobSearchComponent,
     JobStatusComponent,
     LoginComponent,
+    MyJobsComponent,
     NavigationComponent,
-    HeaderComponent,
-    FooterComponent,
+    OpenJobPipe,
     RegistrationComponent,
+    SendChatComponent,
     SkillComponent,
     UserComponent,
     UserHomeComponent,
-    JobSearchComponent,
-    EditProfileComponent,
-    DateSortPipe,
     UserJobPipe,
-    OpenJobPipe,
     UserSearchComponent,
-    JobApplicationCommentComponent,
-    ChatComponent,
+    MyJobPostsComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,18 +101,19 @@ import { ChatService } from './services/chat.service';
   providers: [
     AuthService,
     ChatService,
+    ChatComponent,
+    DateSortPipe,
     EducationService,
     ExperienceService,
     JobApplicationService,
     JobApplicationCommentService,
     JobDetailService,
     JobPostService,
+    MatCommonModule,
+    OpenJobPipe,
     SkillService,
     UserService,
-    DateSortPipe,
     UserJobPipe,
-    OpenJobPipe,
-    MatCommonModule,
   ],
   bootstrap: [AppComponent],
 })

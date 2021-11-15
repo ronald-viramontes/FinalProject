@@ -15,9 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "job_application")
@@ -51,7 +50,7 @@ public class JobApplication {
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
 
-	@JsonIgnoreProperties({ "user", "applications", "posts" })
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -156,8 +155,10 @@ public class JobApplication {
 	@Override
 	public String toString() {
 		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
-				+ ", decisionDate=" + decisionDate + "]";
+				+ ", decisionDate=" + decisionDate + ", user=" + user + ", detail=" + detail + "]";
 	}
+
+	
 
 	
 

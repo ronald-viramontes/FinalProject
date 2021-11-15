@@ -1,0 +1,265 @@
+<div style="text-align: center" class="scrollable">
+  <button (click)="open(content)" class="btn btn-success btn-outline-light" *ngIf="loggedIn()">Post
+    Job</button>
+
+  <ng-template #content let-modal id="newChatOutside" style="text-align: center">
+    <div id="newChatOutside">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"
+          style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
+          <strong>New Job Post</strong>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="newJobPost">
+          <label class="form-label" for="jobRequirements">Job Description</label>
+          <textarea ross="3" cols="40" class="form-control" placeholder="Job Description" type="text"
+            name="jobRequirements" required [(ngModel)]="newPost.jobRequirements"></textarea>
+          <label class="form-label" for="jobStartDate">Start Date</label>
+          <input class="form-control" required placeholder="Start Date" type="date" name="jobStartDate"
+            [(ngModel)]="newPost.startDate" />
+          <label class="form-label" for="completionDate">Completion Date</label>
+          <input class="form-control" required placeholder="completionDate" type="date" name="completionDate"
+            [(ngModel)]="newPost.completionDate" />
+          <label class="form-label" for="developersNeeded">Developers Needed</label>
+          <input class="form-control" required placeholder="Start Date" type="number" name="developersNeeded"
+            [(ngModel)]="newPost.developersNeeded" />
+          <!-- <label class="form-label" for="status">Status</label>
+          <input class="form-control" required placeholder="status" type="text" name="status"
+            [(ngModel)]="newJob.status" /> -->
+          <label class="form-label" for="type">Job Type</label>
+          <input class="form-control" required placeholder="Completion Date" type="date" name="type"
+            [(ngModel)]="newPost.type" />
+          <br>
+          <br>
+          <div style="text-align: center">
+            <div class="form-inline" style="text-align: center; margin-top: 4px">
+              <button (click)="createJobPost(newPost)" class="badge btn btn-success">Create Post</button>
+              <button class="badge btn btn-warning" style="margin-left: 10px;"
+                (click)="modal.dismiss('Cross click')">Cancel</button>
+
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<div>
+  <mat-card>
+    <div style="text-align: center; ">
+      <button *ngIf="selected || editJob || editApp || apps" class="btn btn-secondary btn-outline-light"
+        style="margin-right: 10px;" (click)='selected = null && editJob = null'>Return</button>
+      <br>
+    </div>
+    <mat-card-content>
+      <div class="scrollable">
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Description</th>
+              <th>Posted</th>
+              <th>Start</th>
+              <th>Complete</th>
+              <th>Status</th>
+              <th>Details</th>
+              <th>Edit Job</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let job of jobPosts'>
+              <td>{{job.jobRequirements}}</td>
+              <td>{{job.datePosted}}</td>
+              <td>{{job.startDate}}</td>
+              <td>{{job.completionDate}}</td>
+              <td *ngIf="job.status">{{job.status.name}}</td>
+              <td><button (click)="displayJob(job)" class="badge btn-secondary btn-outline-dark">View</button></td>
+              <td><button (click)="setEditJob(job)" (click)="open(content)"
+                  class="badge btn-warning btn-outline-dark">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-template #content let-modal id="newChatOutside" style="text-align: center">
+    <div id="newChatOutside" *ngIf="editJob">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"
+          style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
+          <strong>Edit Job</strong>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+          (click)="editJob = null">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editJobPost">
+          <label class="form-label" for="jobRequirements">Job Description</label>
+          <textarea ross="3" cols="40" class="form-control" placeholder="Job Description" type="text"
+            name="jobRequirements" [(ngModel)]="editJob.jobRequirements"></textarea>
+          <label class="form-label" for="jobStartDate">Start Date</label>
+          <input class="form-control" placeholder="Start Date" type="date" name="jobStartDate"
+            [(ngModel)]="editJob.startDate" />
+          <label class="form-label" for="jobCompletionDate">Complete Date</label>
+          <input class="form-control" placeholder="Completion Date" type="date" name="jobCompletionDate"
+            [(ngModel)]="editJob.completionDate" />
+          <br>
+          <div class="dropdown">
+            <button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Job Status &nbsp;&nbsp;
+              <select name="status" [(ngModel)]="editJob.status">
+                <option *ngFor="let status of jobStatuses" [ngValue]="status">
+                  <ul class="dropdown-menu">
+                    <li>{{status.name}}</li>
+                  </ul>
+                </option>
+              </select>
+            </button>
+            <br>
+          </div>
+          <br>
+          <div class="dropdown">
+
+            <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" name="type">
+              Job Type &nbsp;&nbsp;
+              <select name="type" [(ngModel)]="editJob.type">
+                <option *ngFor="let type of jobTypes" [ngValue]="type">
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li class="dropdown-item">{{type.name}}</li>
+                  </ul>
+
+                </option>
+              </select>
+            </button>
+          </div>
+          <br>
+          <div style="text-align: center">
+            <div class="form-inline" style="text-align: center; margin-top: 4px">
+              <button (click)="update(editJob)" class="badge btn btn-success">Update</button>
+              <button (click)="editJob = null" class="badge btn btn-warning" style="margin-left: 10px;">Cancel</button>
+              <button (click)="deletePost(editJob)" class="badge btn btn-danger"
+                style="margin-left: 10px;">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </ng-template>
+</div>
+<div *ngIf="selected">
+  <div>
+    <ngb-accordion activeIds="static-1">
+      <ngb-panel title="Job Info" id="static-1">
+        <ng-template ngbPanelContent>
+          <ul>
+            <li>Job Description: {{selected.jobRequirements}}</li>
+            <li>Approved Applicants Required: {{selected.developersNeeded}}</li>
+            <li>Is Active: {{selected.jobActive}}</li>
+            <li>Start Date: {{selected.startDate}}</li>
+            <li>Completion Date: {{selected.completionDate}}</li>
+            <li>Date Posted: {{selected.datePosted}}</li>
+            <li *ngIf="selected.status">Status: {{selected.status.name}}</li>
+            <li *ngIf="selected.type">Job Type: {{selected.type.name}}</li>
+          </ul>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+
+
+  <div>
+    <ngb-accordion>
+      <ngb-panel title="Client Info">
+        <ng-template ngbPanelContent>
+          <ul>
+            <li *ngIf="selected.user">First Name: {{selected.user.firstName}}</li>
+            <li *ngIf="selected.user">Last Name: {{selected.user.lastName}}</li>
+          </ul>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+
+
+  <div>
+    <ngb-accordion>
+      <ngb-panel *ngIf="apps && apps.length > 0"
+        title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
+        <ng-template ngbPanelContent>
+          <ul *ngFor='let app of apps'>
+            <li>ID: {{app.id}}</li>
+            <li>First Name: {{app.user.firstName}}</li>
+            <li>Last Name: {{app.user.lastName}}</li>
+          </ul>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+
+
+  <div>
+    <ngb-accordion>
+      <ngb-panel *ngIf="apps && apps.length > 0"
+        title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
+        <ng-template ngbPanelContent>
+          <div class="apps">
+            <ul *ngFor='let app of apps'>
+              <h3>{{app.user.firstName}} {{app.user.lastName}}</h3>
+              <li>Application Status: {{app.status}}</li>
+              <li>Application Date: {{app.date}}</li>
+              <li>Application Approved: {{app.approved}}</li>
+
+              <div>
+                <mat-tab-group class="remove-border-bottom">
+                  <mat-tab label="Experiences">
+                    <ul *ngFor='let exp of app.user.experiences'>
+                      <li>Company Name: {{exp.companyName}}</li>
+                      <li>Job Title: {{exp.jobTitle}}</li>
+                      <li>Start Date: {{exp.startDate}}</li>
+                      <li>End Date: {{exp.endDate}}</li>
+                    </ul>
+                  </mat-tab>
+                  <mat-tab label="Education">
+                    <ul *ngFor='let ed of app.user.educations'>
+                      <li>Institution Name: {{ed.institutionName}}</li>
+                      <li>Education Type: {{ed.educationType}}</li>
+                      <li>Degree Type: {{ed.degreeCertificateName}}</li>
+                      <li>Completed: {{ed.completeDate}}</li>
+                    </ul>
+                  </mat-tab>
+                  <mat-tab label="Skills">
+                    <ul *ngFor='let sk of app.user.skills'>
+                      <li>Skill Description: {{sk.skillTitle}}</li>
+                      <li>Skill Level: {{sk.skillLevel}}</li>
+                    </ul>
+                  </mat-tab>
+                </mat-tab-group>
+                <div *ngIf="app.status == 'Open'">
+                  <button (click)="approveApplication(app)" class="btn sm btn-primary">Approve
+                    Application</button>
+                  <button (click)="declineApplication(app)" class="btn sm btn-primary">Decline
+                    Application</button>
+                </div>
+              </div>
+
+            </ul>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>

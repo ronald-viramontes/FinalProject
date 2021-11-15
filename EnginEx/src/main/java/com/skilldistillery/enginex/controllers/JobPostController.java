@@ -46,7 +46,24 @@ public class JobPostController {
 		jobPost.setDatePosted(LocalDate.now());
 		return jobPostServ.create(jobPost);
 	}
-
+	
+	@PostMapping(path="jobs/{userId}")
+	public JobPost createPost(@RequestBody JobPost jobPost, 
+							  HttpServletRequest req, HttpServletResponse res, 
+							  Principal principal) {
+		
+		jobPost = jobPostServ.createPost(principal.getName(), jobPost);
+		if(jobPost != null) {
+			res.setStatus(200);
+			return jobPost;
+		} else {
+			res.setStatus(400);
+			return null;
+		}
+			
+	}
+	
+	
 	@DeleteMapping(path = "jobs/{id}")
 	public void delete(@PathVariable int id, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		jobPostServ.destroy(id);

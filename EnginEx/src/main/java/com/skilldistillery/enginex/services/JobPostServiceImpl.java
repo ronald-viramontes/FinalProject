@@ -1,5 +1,6 @@
 package com.skilldistillery.enginex.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,8 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobPost;
+import com.skilldistillery.enginex.entities.JobStatus;
+import com.skilldistillery.enginex.entities.User;
 import com.skilldistillery.enginex.repositories.JobApplicationRepository;
 import com.skilldistillery.enginex.repositories.JobPostRepository;
+import com.skilldistillery.enginex.repositories.JobStatusRepository;
+import com.skilldistillery.enginex.repositories.UserRepository;
 
 @Service
 public class JobPostServiceImpl implements JobPostService {
@@ -18,6 +23,10 @@ public class JobPostServiceImpl implements JobPostService {
 	private JobPostRepository jobPostRepo;
 	@Autowired
 	private JobApplicationRepository jobAppRepo;
+	@Autowired
+	private UserRepository userRepo;
+	@Autowired
+	private JobStatusRepository statusRepo;
 	
 	@Override
 	public List<JobPost> index() {
@@ -81,6 +90,30 @@ public class JobPostServiceImpl implements JobPostService {
 	@Override
 	public List<JobPost> findByKeyword(String keyword) {
 		return jobPostRepo.findByJobRequirementsContaining(keyword);
+	}
+
+	@Override
+	public JobPost createPost(String username, JobPost jobPost) {
+		User receiver = userRepo.findByUsername(username);
+		JobPost dbPost = new JobPost();
+		JobStatus status = statusRepo.findByName("Open");
+		
+		dbPost.setUser(receiver);
+		dbPost.setJobRequirements(jobPost.getJobRequirements());
+		dbPost.setStartDate(jobPost.getStartDate());
+		dbPost.setCompletionDate(jobPost.getCompletionDate());
+		dbPost.setDevelopersNeeded(jobPost.getDevelopersNeeded());
+		dbPost.setJobActive(true);
+		dbPost.setDatePosted(LocalDate.now());
+		dbPost.setDateClosed(jobPost.getDateClosed());
+		dbPost.setStatus(status);
+		dbPost.setType(jobPost.getType());
+		
+		
+		dbPost = jobPostRepo.saveAndFlush(null);
+		return dbPost;
+		
+		
 	}
 
 }

@@ -1,6 +1,8 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-3" *ngIf="loggedIn()">
+<div class="scrolling-wrapper">
+  <div class="row" style="column-gap: 50px;">
+
+
+    <div class="col-3" *ngIf="loggedIn()">
       <div name="developerDetails">
         <!-- <h2 style="text-align: center">Your Profile</h2> -->
 
@@ -38,7 +40,7 @@
       </div>
     </div>
 
-    <div class="col-sm-4" *ngIf="activeUser && loggedIn()">
+    <div class="col-3" *ngIf="activeUser && loggedIn() && loggedInClass()">
       <mat-card class="personal-dashboard">
         <mat-card-header class="personal-header">
           <div mat-card-avatar class="personal-dashboard-header-image"></div>
@@ -58,50 +60,52 @@
       <mat-card>
         <mat-card-title>Received Messages</mat-card-title>
         <mat-card-actions align="start">
-          <app-user [activeUser]="activeUser" [receivedChats]="receivedChats"></app-user>
+          <app-chat-received [activeUser]="activeUser"></app-chat-received>
 
         </mat-card-actions>
       </mat-card>
       <br>
-      <mat-card>
+
+      <mat-card style="margin-bottom: 15px;">
         <mat-card-title>Sent Messages</mat-card-title>
         <mat-card-actions align="start">
-          <app-chat [activeUser]="activeUser" [sentChats]="sentChats"></app-chat>
+          <app-chat-sent [activeUser]="activeUser"></app-chat-sent>
 
+        </mat-card-actions>
+      </mat-card>
+
+      <br>
+    </div>
+
+    <div class="col-5" *ngIf="activeUser && loggedIn() && loggedInClass()">
+      <mat-card>
+        <mat-card-title>Developer Skill Search</mat-card-title>
+        <mat-card-actions align="start">
+          <app-user-search></app-user-search>
         </mat-card-actions>
       </mat-card>
       <br>
       <br>
-
-    </div>
-
-    <div [ngClass]="loggedInClass()">
-      <div class="container-fluid">
+      <!-- <mat-card>
+        <mat-card-title>Active Jobs</mat-card-title>
+        <mat-card-actions align="start">
+          <app-job-search></app-job-search>
+        </mat-card-actions>
+      </mat-card>
+      <br>
+      <br> -->
+      <div *ngIf="loggedIn()">
         <mat-card>
-          <mat-card-title>Active Jobs</mat-card-title>
+          <mat-card-title>My Jobs</mat-card-title>
           <mat-card-actions align="start">
-            <app-job-search></app-job-search>
+            <app-my-job-posts [activeUser]="activeUser" [jobPosts]="jobPosts"></app-my-job-posts>
           </mat-card-actions>
         </mat-card>
-      </div>
-      <br>
-      <br>
-      <div class="container-fluid">
-        <mat-card>
-          <mat-card-title>Developer Skill Search</mat-card-title>
-          <mat-card-actions align="start">
-            <app-user-search></app-user-search>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-      <br>
-      <br>
-      <div class="container-fluid" *ngIf="loggedIn()">
-        <app-job-post></app-job-post>
 
       </div>
       <br>
       <br>
     </div>
+
   </div>
 </div>

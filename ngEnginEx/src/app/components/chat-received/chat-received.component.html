@@ -1,0 +1,88 @@
+<ngb-accordion [closeOthers]="true">
+  <ngb-panel title={{chat.subject}} *ngFor="let chat of receivedChats">
+    <ng-template ngbPanelContent>
+      <div style="color: blue">
+        <!-- <b *ngIf="chat.sender"> Sender: {{chat.sender.id}} </b><br>
+          <b *ngIf="chat.receiver"> Receiver: {{chat.receiver.username}} </b><br> -->
+        <strong>Subject: {{chat.subject}}</strong><br>
+        Message: {{chat.message}} <br>
+        Received: {{chat.dateTimeStamp | date: 'medium'}}<br>
+        <button *ngIf="chat.sender != activeUser && chat" class="badge btn-primary btn-dark-sm"
+          (click)="setReplyChat(chat)">⏎</button>
+        <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>
+        <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm"
+          (click)="deleteChat(chat.id)">❌</button>
+      </div>
+
+      <br>
+      <div *ngFor="let reply of chat.replies" style="color: black">
+
+        Subject: {{reply.subject}}<br>
+        Message: {{reply.message}}<br>
+        Received: {{reply.dateTimeStamp | date: 'medium'}}<br>
+        <br>
+        <!-- <button *ngIf="reply.sender != activeUser && reply" class="badge btn-primary btn-dark-sm"
+        (click)="setReplyChat(reply)">⏎</button> -->
+        <button *ngIf="reply.sender == activeUser" class="badge btn-light btn-sm"
+          (click)="setEditChat(reply)">✏️</button>
+        <button *ngIf="reply.sender == activeUser" class="badge btn-light btn-sm"
+          (click)="deleteChat(reply.id)">❌</button>
+      </div>
+      <br>
+      <div *ngFor="let chat of reply.replies" style="color: blue">
+        <!-- <b *ngIf="chat.sender"> Sender: {{chat.sender.username}} </b><br> -->
+        Subject: {{chat.subject}}<br>
+        Message: {{chat.message}}<br>
+        Received: {{chat.dateTimeStamp | date: 'medium'}}<br>
+
+        <button *ngIf="chat.sender != activeUser && chat" class="badge btn-primary btn-dark-sm"
+          (click)="setReplyChat(chat)">⏎</button>
+        <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>
+        <button *ngIf="chat.sender == activeUser" class="badge btn-light btn-sm"
+          (click)="deleteChat(chat.id)">❌</button>
+      </div>
+      <br>
+      <div *ngIf="chatReply" style="text-align: center" class="form-control">
+        <form>
+          <br>
+          <label for="reply.subject">Subject</label>
+          <br>
+          <input type="text" name="reply.subject" placeholder="{{chatReply.subject}}" [(ngModel)]="reply.subject" />
+          <br>
+          <label for="reply.message">Message</label>
+          <br>
+          <input type="text" name="reply.message" [(ngModel)]="reply.message" />
+          <br>
+          <br>
+          <button class="btn btn-success btn-outline-light btn-sm" (click)="createReply(chatReply.id)">
+            Send
+          </button>
+          <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm"
+            (click)="chatReply = null">Cancel</button>
+        </form>
+      </div>
+
+
+
+      <div *ngIf="editChat" style="text-align: center" class="form-control">
+        <form>
+          <br>
+          <label for="selected.subject">Subject</label>
+          <br>
+          <input type="text" name="selected.subject" [(ngModel)]="editChat.subject" />
+          <br>
+          <label for="selected.message">Message</label>
+          <br>
+          <input type="text" name="selected.subject" [(ngModel)]="editChat.message" />
+          <br>
+          <br>
+          <button class="btn btn-success btn-outline-light btn-sm" (click)="updateChat(editChat)">
+            Save
+          </button>
+          <button style="margin-left: 10px" class="btn btn-secondary btn-outline-light btn-sm"
+            (click)="editChat = null">Cancel</button>
+        </form>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

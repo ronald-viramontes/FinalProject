@@ -1,0 +1,39 @@
+<!-- <app-chat></app-chat> -->
+<!-- {{openForm(content)}} -->
+<ng-template #content let-modal id="newChatOutside">
+  <div id="newChatOutside">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"
+        style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
+        <strong>Chat Message</strong>
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="cancel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="sendChat">
+        <label class="form-label" for="receiverUsername">Recipient:</label>
+        <input class="form-control" type="text" placeholder="Username" name="receiverUsername"
+          [(ngModel)]="receiverUsername" />
+        <label class="form-label" for="subject">Subject:</label>
+        <input class="form-control" type="text" placeholder="Subject" name="subject" [(ngModel)]="newChat.subject" />
+        <label class="form-label" for="message">Message:</label>
+        <textarea class="form-control" type="text" placeholder="Message" cols="41" rows="5" name="message"
+          [(ngModel)]="newChat.message"></textarea>
+        <div style="text-align: center">
+          <button type="button" class="btn btn-success btn-outline-light" (click)="create(newChat, receiverUsername)"
+            (click)="modal.close('Save click')">
+            Send
+          </button>
+          <button type="button" class="btn btn-warning btn-outline-light" (click)="cancel()"
+            (click)="modal.dismiss('Cancel Button')">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+</ng-template>

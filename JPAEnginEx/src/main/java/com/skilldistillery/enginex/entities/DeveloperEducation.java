@@ -98,7 +98,7 @@ public class DeveloperEducation {
 	public String toString() {
 		return "DeveloperEducation [id=" + id + ", educationType=" + educationType + ", institutionName="
 				+ institutionName + ", degreeCertificateName=" + degreeCertificateName + ", completeDate="
-				+ completeDate + "]";
+				+ completeDate + ", user=" + user + "]";
 	}
 
 	@Override

@@ -13,6 +13,8 @@ public interface JobPostService {
 	
 	public JobPost create(JobPost jobPost);
 	
+	public JobPost createPost(String username, JobPost jobPost);
+	
 	public JobPost update(int id, JobPost jobPost);
 	
 	public void destroy(int id);

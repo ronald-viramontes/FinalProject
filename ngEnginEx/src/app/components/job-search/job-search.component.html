@@ -25,7 +25,7 @@
               <td>{{post.startDate}}</td>
               <td>{{post.completionDate}}</td>
               <td>{{post.datePosted}}</td>
-              <td>{{post.status.name}}</td>
+              <td *ngIf="post.status">{{post.status.name}}</td>
             </tr>
           </tbody>
         </table>

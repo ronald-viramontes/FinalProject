@@ -4,18 +4,16 @@ import { JobPost } from '../models/job-post';
 import { User } from '../models/user';
 
 @Pipe({
-  name: 'userJob'
+  name: 'userJob',
 })
 export class UserJobPipe implements PipeTransform {
-
-  transform(value: JobPost[], user:User): JobPost[] {
+  transform(value: JobPost[], user: User): JobPost[] {
     let results: JobPost[] = [];
     value.forEach((post) => {
-      if(post.user.id === user.id){
+      if (post.user && post.user.id === user.id) {
         results.push(post);
       }
     });
     return results;
   }
-
 }

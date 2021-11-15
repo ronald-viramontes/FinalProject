@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  baseUrl: '/EnginEx/'
+  production: false,
+  baseUrl: '/EnginEx/',
 };

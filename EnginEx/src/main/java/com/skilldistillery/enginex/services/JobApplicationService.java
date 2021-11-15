@@ -3,7 +3,6 @@ package com.skilldistillery.enginex.services;
 import java.util.List;
 
 import com.skilldistillery.enginex.entities.JobApplication;
-import com.skilldistillery.enginex.entities.User;
 
 public interface JobApplicationService {
 	

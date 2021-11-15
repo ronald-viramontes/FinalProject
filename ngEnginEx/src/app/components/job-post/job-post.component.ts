@@ -17,11 +17,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./job-post.component.css'],
 })
 export class JobPostComponent implements OnInit {
-  jobPosts: JobPost[] = [];
+  @Input() jobPosts: JobPost[] = [];
+  @Input() activeUser: User | null = null;
   jobStatuses: JobStatus[] = [];
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
   isOwner: boolean = false;
+  newPost: JobPost = new JobPost();
   newJob: JobPost = new JobPost(
     0,
     '',
@@ -39,7 +41,7 @@ export class JobPostComponent implements OnInit {
   editJob: JobPost | null = null;
   apps: JobApplication[] | null = null;
   editApp: JobApplication | null = null;
-  activeUser: User = new User();
+  // activeUser: User = new User();
   currentDate: Date = new Date();
   newJobApp: JobApplication = new JobApplication();
   appDetail: boolean = false;
@@ -76,7 +78,7 @@ export class JobPostComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.loggedIn()) {
-      this.getActiveUser();
+      // this.getActiveUser();
     }
     this.jobService.indexStatus().subscribe(
       (statusList) => {
@@ -108,23 +110,23 @@ export class JobPostComponent implements OnInit {
     );
   }
 
-  getActiveUser() {
-    let creds = this.authService.getCredentials();
-    if (creds != null) {
-      creds = atob(creds);
-      let unArr = creds.split(':');
-      let username = unArr[0];
-      this.userService.show(username).subscribe(
-        (data) => {
-          console.log(data);
-          this.activeUser = data;
-        },
-        (err) => {
-          console.error(err);
-        }
-      );
-    }
-  }
+  // getActiveUser() {
+  //   let creds = this.authService.getCredentials();
+  //   if (creds != null) {
+  //     creds = atob(creds);
+  //     let unArr = creds.split(':');
+  //     let username = unArr[0];
+  //     this.userService.show(username).subscribe(
+  //       (data) => {
+  //         console.log(data);
+  //         this.activeUser = data;
+  //       },
+  //       (err) => {
+  //         console.error(err);
+  //       }
+  //     );
+  //   }
+  // }
 
   setEditJob(job: JobPost) {
     this.editJob = job;
@@ -149,8 +151,8 @@ export class JobPostComponent implements OnInit {
   displayJob(job: JobPost) {
     this.selected = job;
     this.apps = this.selected.applications;
-    if (this.activeUser) {
-      if (job.user.id != this.activeUser.id) {
+    if (this.activeUser && this.selected.user) {
+      if (this.selected.user.id != this.activeUser.id) {
         this.isOwner = true;
       }
     }
@@ -226,6 +228,21 @@ export class JobPostComponent implements OnInit {
       }
     );
   }
+  createJobPost(newPost: JobPost) {
+    // console.log(jobPost);
+    if (this.activeUser)
+      this.jobService.createPost(newPost, this.activeUser.id).subscribe(
+        (created) => {
+          console.log('Job Post Created');
+          this.reloadJobs();
+          this.newPost = new JobPost();
+        },
+        (failed) => {
+          console.error('Error creating Job Post');
+        }
+      );
+  }
+
   createApplication(jobPost: JobPost) {
     if (this.activeUser) {
       this.newJobApp.user = this.activeUser;
@@ -235,17 +252,19 @@ export class JobPostComponent implements OnInit {
     if (this.newJobApp.user) this.newJobApp.user.posts = [];
     this.newJobApp.detail = null;
     console.log(this.newJobApp);
-
-    this.jobService.createApplication(jobPost.id, this.activeUser.id).subscribe(
-      (created) => {
-        console.log('Job App created successfully');
-        this.selected = null;
-        this.reloadJobs();
-      },
-      (failed) => {
-        console.error('Error creation Job App');
-      }
-    );
+    if (this.activeUser)
+      this.jobService
+        .createApplication(jobPost.id, this.activeUser.id)
+        .subscribe(
+          (created) => {
+            console.log('Job App created successfully');
+            this.selected = null;
+            this.reloadJobs();
+          },
+          (failed) => {
+            console.error('Error creation Job App');
+          }
+        );
     console.log('Done');
     //this.
   }

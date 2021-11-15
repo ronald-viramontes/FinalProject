@@ -97,7 +97,7 @@ public class WorkExperience {
 	@Override
 	public String toString() {
 		return "WorkExperience [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", startDate="
-				+ startDate + ", endDate=" + endDate + "]";
+				+ startDate + ", endDate=" + endDate + ", user=" + user + "]";
 	}
 
 	@Override

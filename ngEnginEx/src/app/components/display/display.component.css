@@ -4,14 +4,14 @@
 }
 .mat-card {
   background-color: rgb(33, 34, 35);
-  width: 75%;
+  /* width: 75%; */
   margin: 0 auto;
 }
 
 .personal-dashboard {
   background-color: rgb(20, 60, 100);
   margin: 0 auto;
-  min-width: 75%;
+  /* min-width: 75%; */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: white;
   font-weight: bold;
@@ -75,4 +75,9 @@
   font-weight: bold;
   font-style: italic;
   text-align: center;
+}
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 }

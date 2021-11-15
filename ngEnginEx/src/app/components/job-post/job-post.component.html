@@ -41,7 +41,7 @@
 <div *ngIf="!showNewJob" style="text-align: center;">
   <!-- <button (click)="showNewJob = true; createNewPost()" class="badge btn-primary btn-outline-dark"
     *ngIf="loggedIn()">Post Job</button> -->
-  <button *ngIf="!showButton" class="btn btn-secondary btn-outline-warning" (click)="formHide()">Display Button</button>
+  <!-- <button *ngIf="!showButton" class="btn btn-secondary btn-outline-warning" (click)="formHide()">Display Button</button> -->
   <br>
   <br>
 
@@ -50,7 +50,7 @@
 
 
 
-<div *ngIf="!selected && !showNewJob && !editJob " style="text-align: center">
+<!-- <div *ngIf="!selected && !showNewJob && !editJob " style="text-align: center">
   <mat-card *ngIf="showButton" style="min-width: 75%">
     <mat-card-title>Job Postings</mat-card-title>
     <div *ngIf="showButton"
@@ -99,10 +99,10 @@
       </div>
     </mat-card-content>
   </mat-card>
-</div>
+</div> -->
 <div>
 
-  <div *ngIf="!showButton"
+  <div
     style="text-align: center; border: 3px solid white; border-radius: 8px; margin-left: auto; margin-right: auto; border-color: white; background-color:  rgb(33, 34, 35); padding-right: 5px; padding-left: 5px; padding-top: 15px; padding-bottom: 15px; max-width: 55%">
     <div *ngIf="!getRoute()" style="text-align: center; margin-left: auto; margin-right: auto;">
 
@@ -152,12 +152,13 @@
                       <td>{{job.startDate}}</td>
                       <td>{{job.completionDate}}</td>
                       <td>{{job.datePosted}}</td>
-                      <td>{{job.status.name}}</td>
+                      <td *ngIf="job.status">{{job.status.name}}</td>
                       <td><button (click)="displayJob(job)" class="badge btn-primary btn-sm">View Job</button></td>
-                      <td *ngIf="loggedIn() && job.user.id == activeUser.id"><button (click)="setEditJob(job)"
-                          class="badge btn-warning btn-sm">Edit Job</button></td>
-                      <td *ngIf="loggedIn() && job.user.id != activeUser.id"><button (click)="setEditJob(job)"
-                          disabled="disabled" class="badge btn-warning btn-sm">Edit Job</button></td>
+                      <td *ngIf="loggedIn() && job.user && activeUser && job.user.id == activeUser.id"><button
+                          (click)="setEditJob(job)" class="badge btn-warning btn-sm">Edit Job</button></td>
+                      <td *ngIf="loggedIn() && job.user && activeUser && job.user.id != activeUser.id"><button
+                          (click)="setEditJob(job)" disabled="disabled" class="badge btn-warning btn-sm">Edit
+                          Job</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -191,8 +192,6 @@
               </ul>
             </option>
           </select>
-
-
 
         </button>
 
@@ -257,8 +256,8 @@
                 <li>Start Date: {{selected.startDate}}</li>
                 <li>Completion Date: {{selected.completionDate}}</li>
                 <li>Date Posted: {{selected.datePosted}}</li>
-                <li>Status: {{selected.status.name}}</li>
-                <li>Job Type: {{selected.type.name}}</li>
+                <li *ngIf="selected.status">Status: {{selected.status.name}}</li>
+                <li *ngIf="selected.type">Job Type: {{selected.type.name}}</li>
               </ul>
             </ng-template>
           </ngb-panel>
@@ -269,8 +268,8 @@
           <ngb-panel title="Client Info">
             <ng-template ngbPanelContent>
               <ul>
-                <li>First Name: {{selected.user.firstName}}</li>
-                <li>Last Name: {{selected.user.lastName}}</li>
+                <li *ngIf="selected.user">First Name: {{selected.user.firstName}}</li>
+                <li *ngIf="selected.user">Last Name: {{selected.user.lastName}}</li>
               </ul>
             </ng-template>
           </ngb-panel>
@@ -341,7 +340,8 @@
         </ngb-accordion>
       </div>
       <div *ngIf="isOwner && loggedIn()">
-        <button (click)="createApplication(selected)" class="btn btn-primary" *ngIf="selected.status.id == 1">Apply For
+        <button (click)="createApplication(selected)" class="btn btn-primary"
+          *ngIf="selected.status && selected.status.id == 1">Apply For
           Job!</button>
       </div>
       <button (click)="returnToList()" class="btn btn-primary">Back</button>

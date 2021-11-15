@@ -14,6 +14,22 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ChatComponent implements OnInit {
   closeResult = '';
+  @Input() activeUser: User | null = null;
+  receivedChats: Chat[] = [];
+  sentChats: Chat[] = [];
+  receiverUsername: string = '';
+  senderUsername: string = '';
+  newChat: Chat = new Chat();
+  selected: Chat | null = null;
+  chatReply: Chat | null = null;
+  reply: Chat = new Chat();
+  editChat: Chat | null = null;
+  chat: Chat | null = null;
+  chatDetail: Chat | null = null;
+  receiver: User | null = null;
+  sender: User | null = null;
+  addButton: boolean = false;
+
   constructor(
     private chatService: ChatService,
     private router: Router,
@@ -23,8 +39,9 @@ export class ChatComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.activeUser && this.sentChats) {
+    if (this.activeUser) {
       this.loadSentChats(this.activeUser.id);
+      this.loadReceivedChats(this.activeUser.id);
     }
   }
   open(content: any) {
@@ -51,20 +68,16 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  @Input() activeUser: User | null = null;
-  @Input() receivedChats: Chat[] = [];
-  @Input() sentChats: Chat[] = [];
-
-  chats: Chat[] = [];
-  selected: Chat | null = null;
-  chatReply: Chat | null = null;
-  newChat: Chat = new Chat();
-  reply: Chat = new Chat();
-  editChat: Chat | null = null;
-  chat: Chat | null = null;
-  chatDetail: Chat | null = null;
-  receiverUsername: string | null = null;
-  addButton: boolean = false;
+  // chats: Chat[] = [];
+  // selected: Chat | null = null;
+  // chatReply: Chat | null = null;
+  // newChat: Chat = new Chat();
+  // reply: Chat = new Chat();
+  // editChat: Chat | null = null;
+  // chat: Chat | null = null;
+  // chatDetail: Chat | null = null;
+  // receiverUsername: string | null = null;
+  // addButton: boolean = false;
 
   create(newChat: Chat) {
     if (this.activeUser && this.receiverUsername)
@@ -76,9 +89,9 @@ export class ChatComponent implements OnInit {
             console.log(created);
             this.newChat = new Chat();
             this.addButton = false;
-            this.receiverUsername = null;
+            this.receiverUsername = '';
             if (this.activeUser) this.loadSentChats(this.activeUser.id);
-            if (this.activeUser) this.loadReceivedChats();
+            if (this.activeUser) this.loadReceivedChats(this.activeUser.id);
           },
           (fail) => {
             console.error('Something went wrong during chat creation', fail);
@@ -97,7 +110,7 @@ export class ChatComponent implements OnInit {
             this.chatReply = null;
             this.addButton = false;
             if (this.activeUser) this.loadSentChats(this.activeUser.id);
-            if (this.activeUser) this.loadReceivedChats();
+            if (this.activeUser) this.loadReceivedChats(this.activeUser.id);
           },
           (fail) => {
             console.error('Something went wrong during chat creation', fail);
@@ -114,7 +127,7 @@ export class ChatComponent implements OnInit {
             console.log('User Chat has updated successfully');
             this.editChat = null;
             if (this.activeUser) this.loadSentChats(this.activeUser.id);
-            if (this.activeUser) this.loadReceivedChats();
+            if (this.activeUser) this.loadReceivedChats(this.activeUser.id);
           },
           (fail) => {
             console.error('Something went wrong with updating chat', fail);
@@ -122,22 +135,20 @@ export class ChatComponent implements OnInit {
         );
   }
 
-  loadReceivedChats() {
+  loadReceivedChats(userId: number) {
     this.addButton = false;
     if (this.activeUser)
-      this.chatService
-        .receiverIndex(this.activeUser.id, this.activeUser.id)
-        .subscribe(
-          (data) => {
-            this.receivedChats = data;
-            // this.editExp = null;
-            // this.chatDetail = null;
-          },
-          (err) => {
-            console.error('Error retrieving skill list', err);
-            console.error(err);
-          }
-        );
+      this.chatService.receiverIndex(userId, userId).subscribe(
+        (data) => {
+          this.receivedChats = data;
+          // this.editExp = null;
+          // this.chatDetail = null;
+        },
+        (err) => {
+          console.error('Error retrieving skill list', err);
+          console.error(err);
+        }
+      );
   }
   loadSentChats(userId: number) {
     this.addButton = false;
@@ -160,7 +171,7 @@ export class ChatComponent implements OnInit {
         (success) => {
           this.chat = null;
           if (this.activeUser) this.loadSentChats(this.activeUser.id);
-          if (this.activeUser) this.loadReceivedChats();
+          if (this.activeUser) this.loadReceivedChats(this.activeUser.id);
           console.log('Successfully removed chat', success);
         },
         (fail) => {
@@ -182,5 +193,11 @@ export class ChatComponent implements OnInit {
   }
   setAddButton() {
     this.addButton = true;
+  }
+  findUsernames() {
+    if (this.receiver && this.sender) {
+      this.receiverUsername = this.receiver.username;
+      this.senderUsername = this.sender.username;
+    }
   }
 }

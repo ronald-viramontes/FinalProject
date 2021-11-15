@@ -35,18 +35,32 @@ export class JobPostService {
     return this.http.post(this.jobsUrl, jobPost).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('JPS.create(): creating a Job Post was not successful.');
+        return throwError(
+          'JPS.create(): creating a Job Post was not successful.'
+        );
+      })
+    );
+  }
+
+  createPost(jobPost: JobPost, userId: number) {
+    return this.http.post(`${this.jobsUrl}/${userId}`, jobPost).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          'JPS.createPost(): creating a Job Post was not successful.'
+        );
       })
     );
   }
   createApplication(postId: number, userId: number) {
-     return this.http
-      .post(`${this.appUrl}/${postId}/${userId}`, this.getHttpOptions()
-      )
+    return this.http
+      .post(`${this.appUrl}/${postId}/${userId}`, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('JPS.createApplication(): Failure creating Job Application');
+          return throwError(
+            'JPS.createApplication(): Failure creating Job Application'
+          );
         })
       );
   }
@@ -130,18 +144,21 @@ export class JobPostService {
     return this.http.get<JobPost[]>(`${this.jobsUrl}/search/${keyword}`).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('JobPostService.indexByKeyword(): error retrieving job posts');
-
+        return throwError(
+          'JobPostService.indexByKeyword(): error retrieving job posts'
+        );
       })
     );
   }
 
-  delete(post: JobPost){
-    return this.http.delete(`${this.jobsUrl}/${post.id}`, this.getHttpOptions()).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('JobPostService.delete(): error deleting jobPost');
-      })
-    );
+  delete(post: JobPost) {
+    return this.http
+      .delete(`${this.jobsUrl}/${post.id}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('JobPostService.delete(): error deleting jobPost');
+        })
+      );
   }
 }
