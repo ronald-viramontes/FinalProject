@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -50,11 +50,13 @@ public class JobApplication {
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
 
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	
 	@OneToMany(mappedBy = "application")
 	private List<JobApplicationComment> comments;
 
@@ -155,7 +157,7 @@ public class JobApplication {
 	@Override
 	public String toString() {
 		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
-				+ ", decisionDate=" + decisionDate + ", user=" + user + ", detail=" + detail + "]";
+				+ ", decisionDate=" + decisionDate + ", detail=" + detail + "]";
 	}
 
 	

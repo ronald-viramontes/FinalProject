@@ -17,9 +17,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./job-post.component.css'],
 })
 export class JobPostComponent implements OnInit {
-  @Input() jobPosts: JobPost[] = [];
-  @Input() activeUser: User | null = null;
-  jobStatuses: JobStatus[] = [];
+  jobPosts: JobPost[] = [];
+  activeUser: User = new User();
+  jobStatuses: JobStatus[] | null = null;
   jobTypes: JobType[] = [];
   showNewJob: boolean = false;
   isOwner: boolean = false;
@@ -78,7 +78,7 @@ export class JobPostComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.loggedIn()) {
-      // this.getActiveUser();
+      this.getActiveUser();
     }
     this.jobService.indexStatus().subscribe(
       (statusList) => {
@@ -110,23 +110,23 @@ export class JobPostComponent implements OnInit {
     );
   }
 
-  // getActiveUser() {
-  //   let creds = this.authService.getCredentials();
-  //   if (creds != null) {
-  //     creds = atob(creds);
-  //     let unArr = creds.split(':');
-  //     let username = unArr[0];
-  //     this.userService.show(username).subscribe(
-  //       (data) => {
-  //         console.log(data);
-  //         this.activeUser = data;
-  //       },
-  //       (err) => {
-  //         console.error(err);
-  //       }
-  //     );
-  //   }
-  // }
+  getActiveUser() {
+    let creds = this.authService.getCredentials();
+    if (creds != null) {
+      creds = atob(creds);
+      let unArr = creds.split(':');
+      let username = unArr[0];
+      this.userService.show(username).subscribe(
+        (data) => {
+          console.log(data);
+          this.activeUser = data;
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
+  }
 
   setEditJob(job: JobPost) {
     this.editJob = job;

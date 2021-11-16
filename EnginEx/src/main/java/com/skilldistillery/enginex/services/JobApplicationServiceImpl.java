@@ -83,4 +83,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		}
 		return null;
 	}
+
+
+	@Override
+	public JobApplication findByAppId(int appId) {
+		Optional <JobApplication> jobApp = appRepo.findById(appId);
+		return jobApp.get();
+	}
 }

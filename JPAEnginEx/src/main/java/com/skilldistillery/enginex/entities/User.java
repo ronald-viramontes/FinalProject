@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -56,6 +55,7 @@ public class User {
 	@JoinColumn(name="company_id")
 	private Company company;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<DeveloperEducation> educations;
 	
@@ -63,13 +63,16 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<DeveloperSkill> skills;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<WorkExperience> experiences;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<JobApplication> applications;
-	
-	@JsonIgnoreProperties({"user"})
+		
+//	@JsonIgnoreProperties({"user"})
+	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
 	

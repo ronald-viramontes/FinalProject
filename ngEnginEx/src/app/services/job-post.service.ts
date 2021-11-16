@@ -41,6 +41,16 @@ export class JobPostService {
       })
     );
   }
+  appById(appId: number) {
+    return this.http.get(`${this.appUrl}/app/${appId}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          'JPS.create(): creating a Job Post was not successful.'
+        );
+      })
+    );
+  }
 
   createPost(jobPost: JobPost, userId: number) {
     return this.http.post(`${this.jobsUrl}/${userId}`, jobPost).pipe(
@@ -109,12 +119,12 @@ export class JobPostService {
     );
   }
 
-  showByClient(clientId: number) {
-    return this.http.get<JobPost[]>(`${this.jobsUrl}/client/${clientId}`).pipe(
+  postsByUser(userId: number) {
+    return this.http.get<JobPost[]>(`${this.jobsUrl}/${userId}`).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          'jobPostService.showByClient(): error retrieving job Posts'
+          'jobPostService.postsByUser(): error retrieving job Posts'
         );
       })
     );

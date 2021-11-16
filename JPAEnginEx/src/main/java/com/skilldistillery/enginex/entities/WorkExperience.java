@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="work_experience")
@@ -34,7 +34,8 @@ public class WorkExperience {
 	@Column(name="end_date")
 	private LocalDate endDate;
 	
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
@@ -97,7 +98,7 @@ public class WorkExperience {
 	@Override
 	public String toString() {
 		return "WorkExperience [id=" + id + ", jobTitle=" + jobTitle + ", companyName=" + companyName + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", user=" + user + "]";
+				+ startDate + ", endDate=" + endDate + "]";
 	}
 
 	@Override

@@ -50,7 +50,7 @@
 
 
 
-<!-- <div *ngIf="!selected && !showNewJob && !editJob " style="text-align: center">
+<div *ngIf="!selected && !showNewJob && !editJob " style="text-align: center">
   <mat-card *ngIf="showButton" style="min-width: 75%">
     <mat-card-title>Job Postings</mat-card-title>
     <div *ngIf="showButton"
@@ -85,7 +85,7 @@
               <td>{{job.datePosted}}</td>
               <td>{{job.startDate}}</td>
               <td>{{job.completionDate}}</td>
-              <td>{{job.status.name}}</td>
+              <td>{{job?.status?.name}}</td>
               <td><button (click)="displayJob(job)" class="badge btn-secondary btn-outline-dark">
                   View
                   <span [ngClass]="appStyleBadge(job)">
@@ -99,7 +99,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-</div> -->
+</div>
 <div>
 
   <div
@@ -154,9 +154,9 @@
                       <td>{{job.datePosted}}</td>
                       <td *ngIf="job.status">{{job.status.name}}</td>
                       <td><button (click)="displayJob(job)" class="badge btn-primary btn-sm">View Job</button></td>
-                      <td *ngIf="loggedIn() && job.user && activeUser && job.user.id == activeUser.id"><button
+                      <td *ngIf="loggedIn() && activeUser && job.user && job.user.id == activeUser.id"><button
                           (click)="setEditJob(job)" class="badge btn-warning btn-sm">Edit Job</button></td>
-                      <td *ngIf="loggedIn() && job.user && activeUser && job.user.id != activeUser.id"><button
+                      <td *ngIf="loggedIn() && activeUser && job.user && job.user.id != activeUser.id"><button
                           (click)="setEditJob(job)" disabled="disabled" class="badge btn-warning btn-sm">Edit
                           Job</button></td>
                     </tr>
@@ -268,8 +268,8 @@
           <ngb-panel title="Client Info">
             <ng-template ngbPanelContent>
               <ul>
-                <li *ngIf="selected.user">First Name: {{selected.user.firstName}}</li>
-                <li *ngIf="selected.user">Last Name: {{selected.user.lastName}}</li>
+                <li>First Name: {{selected.user?.firstName}}</li>
+                <li>Last Name: {{selected.user?.lastName}}</li>
               </ul>
             </ng-template>
           </ngb-panel>

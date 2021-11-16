@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -50,15 +50,19 @@ public class JobPost {
 	@Column(name = "date_closed")
 	private LocalDate dateClosed;
 
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
 
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
@@ -175,8 +179,7 @@ public class JobPost {
 	public String toString() {
 		return "JobPost [id=" + id + ", jobRequirements=" + jobRequirements + ", startDate=" + startDate
 				+ ", completionDate=" + completionDate + ", developersNeeded=" + developersNeeded + ", jobActive="
-				+ jobActive + ", datePosted=" + datePosted + ", dateClosed=" + dateClosed + ", type=" + type + ", user="
-				+ user + ", status=" + status + "]";
+				+ jobActive + ", datePosted=" + datePosted + ", dateClosed=" + dateClosed + ", type=" + type + ", status=" + status + "]";
 	}
 
 	@Override

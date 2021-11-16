@@ -94,11 +94,12 @@
       </mat-card>
       <br>
       <br> -->
-      <div *ngIf="loggedIn()">
+      <div *ngIf="activeUser && loggedIn() && loggedInClass()">
         <mat-card>
           <mat-card-title>My Jobs</mat-card-title>
           <mat-card-actions align="start">
-            <app-my-job-posts [activeUser]="activeUser" [jobPosts]="jobPosts"></app-my-job-posts>
+            <app-my-job-posts>
+            </app-my-job-posts>
           </mat-card-actions>
         </mat-card>
 

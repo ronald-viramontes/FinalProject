@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="developer_skill")
@@ -28,7 +28,8 @@ public class DeveloperSkill {
 	@Column(name="skill_level")
 	private String skillLevel;
 	
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
@@ -74,8 +75,7 @@ public class DeveloperSkill {
 
 	@Override
 	public String toString() {
-		return "DeveloperSkill [id=" + id + ", skillTitle=" + skillTitle + ", skillLevel=" + skillLevel + ", user="
-				+ user + "]";
+		return "DeveloperSkill [id=" + id + ", skillTitle=" + skillTitle + ", skillLevel=" + skillLevel + "]";
 	}
 
 	@Override
