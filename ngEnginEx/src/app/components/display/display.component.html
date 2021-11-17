@@ -98,7 +98,8 @@
         <mat-card>
           <mat-card-title>My Jobs</mat-card-title>
           <mat-card-actions align="start">
-            <app-my-job-posts>
+            <app-my-job-posts [active]="active" [userPosts]="userPosts" [sentMsg]="sentMsg" [recMsg]="recMsg"
+              [userSkills]="userSkills" [userEdu]="userEdu" [userApps]="userApps" [userExps]="userExps">
             </app-my-job-posts>
           </mat-card-actions>
         </mat-card>

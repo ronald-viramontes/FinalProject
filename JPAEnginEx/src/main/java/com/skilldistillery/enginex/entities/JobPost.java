@@ -14,16 +14,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "job_post")
-//@JsonIdentityInfo(
-//		scope=JobPost.class,
-//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-//		  property = "id")
+@JsonIdentityInfo(
+		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class JobPost {
+	
+	public JobPost() {
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,34 +54,29 @@ public class JobPost {
 
 	@Column(name = "date_closed")
 	private LocalDate dateClosed;
-
 	
-	
+	@JsonIgnoreProperties({"jobPosts", "applications", "status"})
 	@ManyToOne
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
 
-//	@JsonIgnore
-	@JsonBackReference
+
+	@JsonIgnoreProperties({"company", "educations", "skills", "experiences", "applications", "posts",  
+		"sentMessages", "jobPosts", "receivedMessages", "type"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	
+	@JsonIgnoreProperties({"jobPosts", "applications"})
 	@ManyToOne
 	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
-
-	@JsonIgnoreProperties({"jobPost"})
+	
+//	@JsonManagedReference
 	@OneToMany(mappedBy = "jobPost")
 	private List<JobApplication> applications;
 
-	// Methods
-
-	public JobPost() {
-		super();
-	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -172,16 +172,7 @@ public class JobPost {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 	
-
-	@Override
-	public String toString() {
-		return "JobPost [id=" + id + ", jobRequirements=" + jobRequirements + ", startDate=" + startDate
-				+ ", completionDate=" + completionDate + ", developersNeeded=" + developersNeeded + ", jobActive="
-				+ jobActive + ", datePosted=" + datePosted + ", dateClosed=" + dateClosed + ", type=" + type + ", status=" + status + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -198,4 +189,12 @@ public class JobPost {
 		JobPost other = (JobPost) obj;
 		return id == other.id;
 	}
+	
+	@Override
+	public String toString() {
+		return "JobPost [id=" + id + ", jobRequirements=" + jobRequirements + ", startDate=" + startDate
+				+ ", completionDate=" + completionDate + ", developersNeeded=" + developersNeeded + ", jobActive="
+				+ jobActive + ", datePosted=" + datePosted + ", dateClosed=" + dateClosed + ", type=" + type + ", status=" + status + "]";
+	}
+
 }

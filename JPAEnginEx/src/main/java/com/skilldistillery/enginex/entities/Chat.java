@@ -30,17 +30,20 @@ public class Chat {
 	
 	private String message;
 	
-//	@Column(name="read")
-//	private Boolean reading;
 		
 	@Column(name="send_timestamp")
 	private LocalDateTime dateTimeStamp;
+	
+//	@JsonIgnoreProperties({ "applications","company", "educations", 
+//		"skills", "experiences", "posts" })
 	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User sender;
 	
+//	@JsonIgnoreProperties({ "applications","company", "educations", 
+//		"skills", "experiences", "posts" })
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="reply_user_id")
@@ -79,14 +82,6 @@ public class Chat {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-//	public Boolean getReading() {
-//		return reading;
-//	}
-//
-//	public void setReading(Boolean reading) {
-//		this.reading = reading;
-//	}
 
 	public LocalDateTime getDateTimeStamp() {
 		return dateTimeStamp;
@@ -149,19 +144,5 @@ public class Chat {
 	public String toString() {
 		return "Chat [id=" + id + ", subject=" + subject + ", message=" + message + ", dateTimeStamp=" + dateTimeStamp + ", sender=" + sender + ", receiver=" + receiver + "]";
 	}
-
-//	@Override
-//	public String toString() {
-//		return "Chat [id=" + id + ", subject=" + subject + ", message=" + message + ", read=" + read
-//				+ ", dateTimeStamp=" + dateTimeStamp + ", sender=" + sender + ", receiver=" + receiver + ", reply="
-//				+ reply + "]";
-//	}
-
-	
-
-	
-	
-	
-	
 	
 }

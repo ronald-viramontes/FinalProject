@@ -14,12 +14,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="job_application_comment")
 public class JobApplicationComment {
 	
+	public JobApplicationComment() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,7 +34,7 @@ public class JobApplicationComment {
 	@Column(name="comment_date")
 	private LocalDate date;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;
@@ -42,7 +47,6 @@ public class JobApplicationComment {
 	@OneToMany(mappedBy="baseComment")
 	private List<JobApplicationComment> replies;
 	
-	//Methods
 
 	public int getId() {
 		return id;
@@ -92,15 +96,6 @@ public class JobApplicationComment {
 		this.replies = replies;
 	}
 
-	public JobApplicationComment() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "JobApplicationComment [id=" + id + ", comment=" + comment + ", date=" + date + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -118,5 +113,9 @@ public class JobApplicationComment {
 		return id == other.id;
 	}
 	
+	@Override
+	public String toString() {
+		return "JobApplicationComment [id=" + id + ", comment=" + comment + ", date=" + date + "]";
+	}
 	
 }

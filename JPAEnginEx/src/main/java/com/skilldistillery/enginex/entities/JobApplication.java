@@ -16,16 +16,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "job_application")
-//@JsonIdentityInfo(
-//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-//		  property = "id")
+@JsonIdentityInfo(
+		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class JobApplication {
 
 	public JobApplication() {
+		
 		super();
 	}
 
@@ -45,30 +48,29 @@ public class JobApplication {
 	@Column(name = "decision_date")
 	private LocalDate decisionDate;
 
-	@JsonIgnoreProperties({ "applications" })
+	
+
+//	@JsonIgnoreProperties({"jobPost"})
+//	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
 
-//	@JsonIgnore
-	@JsonBackReference
+
+	
+	@JsonIgnoreProperties({ "posts", "sentMessages", "receivedMessages", "applications", "company" })
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "application")
 	private List<JobApplicationComment> comments;
 
+	@JsonBackReference
 	@OneToOne(mappedBy="application")
 	private JobDetail detail;
 
-	// Methods
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
 
 	public int getId() {
 		return id;
@@ -119,6 +121,7 @@ public class JobApplication {
 	}
 
 	public User getUser() {
+		
 		return user;
 	}
 
@@ -143,6 +146,11 @@ public class JobApplication {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -159,10 +167,5 @@ public class JobApplication {
 		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
 				+ ", decisionDate=" + decisionDate + ", detail=" + detail + "]";
 	}
-
-	
-
-	
-
 
 }

@@ -23,14 +23,31 @@ export class DisplayComponent implements OnInit {
   ) {}
 
   receivedChats: Chat[] = [];
+  recMsg: Chat[] = [];
+
   sentChats: Chat[] = [];
+  sentMsg: Chat[] = [];
+
   experiences: Experience[] = [];
+  userExps: Experience[] = [];
+
   skills: Skill[] = [];
+  userSkills: Skill[] = [];
+
   educations: Education[] = [];
+  userEdu: Education[] = [];
+
   applications: JobApplication[] = [];
+  userApps: JobApplication[] = [];
+
   jobPosts: JobPost[] = [];
+  userPosts: JobPost[] = [];
+
   selected: User | null = null;
+
   activeUser: User | null = null;
+
+  active: User | null = null;
   loaded: boolean = false;
 
   ngOnInit(): void {
@@ -49,6 +66,7 @@ export class DisplayComponent implements OnInit {
         this.jobPosts = data.posts;
         this.receivedChats = data.receivedMessages;
         this.sentChats = data.sentMessages;
+
         this.loaded = true;
       },
       (err) => {
@@ -66,6 +84,14 @@ export class DisplayComponent implements OnInit {
       this.userService.show(username).subscribe(
         (data) => {
           this.activeUser = data;
+          this.active = data;
+          this.sentMsg = data.sentMessages;
+          this.recMsg = data.receivedMessages;
+          this.userApps = data.applications;
+          this.userEdu = data.educations;
+          this.userExps = data.experiences;
+          this.userPosts = data.posts;
+          this.userSkills = data.skills;
           this.loadProfileInfo(this.activeUser.username);
         },
         (err) => {

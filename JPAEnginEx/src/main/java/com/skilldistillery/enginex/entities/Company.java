@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Company {
@@ -26,7 +26,8 @@ public class Company {
 	@Column(name="company_name")
 	private String companyName;
 		
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonManagedReference
 	@OneToMany(mappedBy="company")
 	List<User> users;
 	
@@ -75,13 +76,5 @@ public class Company {
 	public String toString() {
 		return "Company [id=" + id + ", companyName=" + companyName + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

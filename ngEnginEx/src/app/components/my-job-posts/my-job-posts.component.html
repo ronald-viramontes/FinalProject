@@ -27,7 +27,7 @@
           <label class="form-label" for="developersNeeded">Developers Needed</label>
           <input class="form-control" required placeholder="Start Date" type="number" name="developersNeeded"
             [(ngModel)]="newPost.developersNeeded" />
-
+          <br>
           <div class="dropdown">
             <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false" name="type">
@@ -60,7 +60,7 @@
   </ng-template>
 </div>
 
-<div *ngIf="activeUser">
+<div *ngIf="active">
   <mat-card>
     <div style="text-align: center; ">
       <button *ngIf="selected || editJob" class="btn btn-secondary btn-outline-light" style="margin-right: 10px;"
@@ -82,14 +82,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor='let job of jobPosts'>
+            <tr *ngFor='let job of jobs'>
               <td>{{job.jobRequirements}}</td>
               <td>{{job.datePosted}}</td>
               <td>{{job.startDate}}</td>
               <td>{{job.completionDate}}</td>
               <td>{{job.status?.name}}</td>
 
-              <td><button (click)="displayJob(job)" class="badge btn-secondary btn-outline-dark">View</button></td>
+              <td><button (click)="selectJob(job)" class="badge btn-secondary btn-outline-dark">View</button></td>
               <td><button (click)="setEditJob(job)" (click)="open(content)"
                   class="badge btn-warning btn-outline-dark">Edit</button>
               </td>
@@ -192,8 +192,10 @@
     <ngb-panel title="Client Info">
       <ng-template ngbPanelContent>
         <ul>
+
           <li>First Name: {{selected.user?.firstName}}</li>
           <li>Last Name: {{selected.user?.lastName}}</li>
+          <li>Last Name: {{selected.user?.id}}</li>
 
         </ul>
       </ng-template>

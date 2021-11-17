@@ -10,23 +10,26 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="job_status")
 public class JobStatus {
 	
+	public JobStatus() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String name;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({ "user", "applications" })
 	@OneToMany(mappedBy="status")
 	private List<JobPost> jobPosts;
 	
-	//Methods
 
 	public int getId() {
 		return id;
@@ -52,15 +55,6 @@ public class JobStatus {
 		this.jobPosts = jobPosts;
 	}
 
-	public JobStatus() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "JobStatus [id=" + id + ", name=" + name + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -78,5 +72,9 @@ public class JobStatus {
 		return id == other.id;
 	}
 
+	@Override
+	public String toString() {
+		return "JobStatus [id=" + id + ", name=" + name + "]";
+	}
 	
 }

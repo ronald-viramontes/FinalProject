@@ -12,11 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="developer_skill")
 public class DeveloperSkill {
+
+	public DeveloperSkill() {
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +33,9 @@ public class DeveloperSkill {
 	private String skillLevel;
 	
 //	@JsonIgnore
-	@JsonBackReference
+//	@JsonBackReference
+	@JsonIgnoreProperties({ "applications","company", "educations", 
+		"skills", "experiences", "posts", "sentMessages", "receivedMessages" })
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
@@ -58,24 +64,12 @@ public class DeveloperSkill {
 		this.skillLevel = skillLevel;
 	}
 
-
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public DeveloperSkill() {
-		super();
-	}
-
-	
-
-	@Override
-	public String toString() {
-		return "DeveloperSkill [id=" + id + ", skillTitle=" + skillTitle + ", skillLevel=" + skillLevel + "]";
 	}
 
 	@Override
@@ -95,6 +89,10 @@ public class DeveloperSkill {
 		return id == other.id;
 	}
 	
+	@Override
+	public String toString() {
+		return "DeveloperSkill [id=" + id + ", skillTitle=" + skillTitle + ", skillLevel=" + skillLevel + "]";
+	}
 	
 }
 

@@ -1,10 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Chat } from 'src/app/models/chat';
+import { JobApplication } from 'src/app/models/job-application';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { ChatComponent } from '../chat/chat.component';
+import { JobApplicationComponent } from '../job-application/job-application.component';
+import { JobPostComponent } from '../job-post/job-post.component';
 
 @Component({
   selector: 'app-user',
@@ -13,6 +16,8 @@ import { ChatComponent } from '../chat/chat.component';
 })
 export class UserComponent implements OnInit {
   closeResult = '';
+  // @ViewChild(JobApplicationComponent)
+  // application: JobApplicationComponent;
 
   constructor(
     private chatService: ChatService,

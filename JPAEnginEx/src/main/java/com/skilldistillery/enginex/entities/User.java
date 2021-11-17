@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -51,11 +53,16 @@ public class User {
 	@Column(name="image_url")
 	private String imageUrl;
 	
+
+	
+	@OneToMany(mappedBy="user")
+	private List<JobApplication> applications;
+
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="company_id")
 	private Company company;
 
-	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<DeveloperEducation> educations;
 	
@@ -63,22 +70,21 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<DeveloperSkill> skills;
 	
-	@JsonManagedReference
+//	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<WorkExperience> experiences;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy="user")
-	private List<JobApplication> applications;
 		
-//	@JsonIgnoreProperties({"user"})
-	@JsonManagedReference
+//	@JsonManagedReference
+	@JsonIgnoreProperties({ "posts" })
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
 	
+//	@JsonManagedReference
 	@OneToMany(mappedBy="sender")
 	private List<Chat> sentMessages;
 	
+//	@JsonManagedReference
 	@OneToMany(mappedBy="receiver")
 	private List<Chat> receivedMessages;
 

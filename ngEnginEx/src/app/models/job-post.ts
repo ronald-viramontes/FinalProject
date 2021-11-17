@@ -13,9 +13,9 @@ export class JobPost {
   datePosted: string;
   dateClosed: string;
   type: JobType | null;
-  user: User | null;
+  user: User;
   status: JobStatus | null;
-  applications: JobApplication[] = [];
+  applications: JobApplication[];
 
   constructor(
     id: number = 0,

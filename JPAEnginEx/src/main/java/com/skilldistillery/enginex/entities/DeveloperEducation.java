@@ -12,11 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="developer_education")
 public class DeveloperEducation {
+
+	public DeveloperEducation() {
+		super();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,12 +39,14 @@ public class DeveloperEducation {
 	private LocalDate completeDate;
 	
 //	@JsonIgnore
-	@JsonBackReference
+//	@JsonBackReference
+
+	@JsonIgnoreProperties({ "applications","company", "educations", 
+		"skills", "experiences", "posts", "sentMessages", "receivedMessages" })
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	//Methods
 
 	public int getId() {
 		return id;
@@ -82,24 +88,12 @@ public class DeveloperEducation {
 		this.completeDate = completeDate;
 	}
 
-
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public DeveloperEducation() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "DeveloperEducation [id=" + id + ", educationType=" + educationType + ", institutionName="
-				+ institutionName + ", degreeCertificateName=" + degreeCertificateName + ", completeDate="
-				+ completeDate + "]";
 	}
 
 	@Override
@@ -119,5 +113,11 @@ public class DeveloperEducation {
 		return id == other.id;
 	}
 	
+	@Override
+	public String toString() {
+		return "DeveloperEducation [id=" + id + ", educationType=" + educationType + ", institutionName="
+				+ institutionName + ", degreeCertificateName=" + degreeCertificateName + ", completeDate="
+				+ completeDate + "]";
+	}
 	
 }

@@ -10,11 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="job_type")
 public class JobType {
+
+	public JobType() {
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +27,13 @@ public class JobType {
 	private String name;
 	
 	private String description;
+		
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({ "user", "applications" })
 	@OneToMany(mappedBy="type")
 	private List<JobPost> jobPosts;
 	
-	//Methods
-
+	
 	public int getId() {
 		return id;
 	}
@@ -62,15 +66,6 @@ public class JobType {
 		this.jobPosts = jobPosts;
 	}
 
-	public JobType() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "JobType [id=" + id + ", name=" + name + ", description=" + description + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -88,5 +83,9 @@ public class JobType {
 		return id == other.id;
 	}
 	
+	@Override
+	public String toString() {
+		return "JobType [id=" + id + ", name=" + name + ", description=" + description + "]";
+	}
 	
 }

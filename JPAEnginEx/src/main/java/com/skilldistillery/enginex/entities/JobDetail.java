@@ -12,11 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="job_detail")
 public class JobDetail {
+	
+	public JobDetail() {
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +39,13 @@ public class JobDetail {
 	@Column(name="job_rating_comment")
 	private String comment;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"jobPost"})
+	@JsonManagedReference
 	@OneToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;
 
+	
 	public int getId() {
 		return id;
 	}
@@ -109,10 +116,5 @@ public class JobDetail {
 		return "JobDetail [id=" + id + ", startDate=" + startDate + ", finishDate=" + finishDate + ", rating=" + rating
 				+ ", comment=" + comment + ", application=" + application + "]";
 	}
-	
-	//Methods
-
-
-	
-	
+		
 }
