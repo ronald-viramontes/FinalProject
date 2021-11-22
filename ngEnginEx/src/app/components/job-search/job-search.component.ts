@@ -19,7 +19,7 @@ export class JobSearchComponent implements OnInit {
   jobPosts: JobPost[] = [];
   keyword: string = '';
   searchResults: JobPost[] = [];
-  returnNum: number = 5;
+  returnNum: number = 10;
 
   ngOnInit(): void {
     this.loadPosts();

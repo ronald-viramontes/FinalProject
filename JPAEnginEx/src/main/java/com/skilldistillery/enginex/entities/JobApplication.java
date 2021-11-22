@@ -47,27 +47,21 @@ public class JobApplication {
 
 	@Column(name = "decision_date")
 	private LocalDate decisionDate;
-
 	
-
-//	@JsonIgnoreProperties({"jobPost"})
-//	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
 
-
-	
 	@JsonIgnoreProperties({ "posts", "sentMessages", "receivedMessages", "applications", "company" })
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@JsonManagedReference
+	@JsonManagedReference(value = "application")
 	@OneToMany(mappedBy = "application")
 	private List<JobApplicationComment> comments;
 
-	@JsonBackReference
+	@JsonBackReference(value = "application")
 	@OneToOne(mappedBy="application")
 	private JobDetail detail;
 
@@ -113,6 +107,7 @@ public class JobApplication {
 	}
 
 	public JobPost getJobPost() {
+		
 		return jobPost;
 	}
 
@@ -128,7 +123,8 @@ public class JobApplication {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
+		
 	public List<JobApplicationComment> getComments() {
 		return comments;
 	}

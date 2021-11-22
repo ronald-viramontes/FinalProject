@@ -1,7 +1,7 @@
 <div class="container-fluid">
-  <mat-card style="min-height: 400px;">
+  <mat-card style="min-height: 400px; max-width: 65%;">
     <mat-card-actions>
-      <div class="input-group" style="margin-left: auto; margin-right: auto; width: 96%">
+      <div class="input-group" style="margin-left: auto; margin-right: auto; width: 300px">
         <input type="search" class="form-control rounded" placeholder="Job Keyword Search" aria-label="Search"
           aria-describedby="search-addon" name="keyword" [(ngModel)]="keyword" />
         <button type="button" class="btn btn-outline-primary" (click)="search(keyword)">Search</button>
@@ -32,4 +32,7 @@
       </div>
     </mat-card-content>
   </mat-card>
+</div>
+<div>
+  <p style="padding-top: 25px; padding-bottom: 25px">123</p>
 </div>

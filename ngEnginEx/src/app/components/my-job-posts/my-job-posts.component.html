@@ -1,37 +1,41 @@
-<div style="text-align: center" class="scrollable">
-  <button (click)="open(newJobContent)" class="btn btn-success btn-outline-light" *ngIf="loggedIn()">Post
+<div style="text-align: center" class="scrollable" *ngIf="active">
+  <button (click)="open(newPostContent)" (click)="deselectNewJob(newPost)" class="btn btn-success btn-outline-light"
+    *ngIf="loggedIn()">Post
     Job</button>
 
-  <ng-template #newJobContent let-modal id="newChatOutside" style="text-align: center">
-    <div id="newChatOutside">
+  <ng-template #newPostContent let-modal id="newPost" style="text-align: center">
+    <div id="newJobOutside">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title"
           style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
           <strong>New Job Post</strong>
         </h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+          (click)="refreshJob = null">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="newJobPost">
+        <!-- action="{{createAPost(newPost)}}" method="post" -->
+
+        <form id="newPostForm">
           <label class="form-label" for="jobRequirements">Job Description</label>
           <textarea ross="3" cols="40" class="form-control" placeholder="Job Description" type="text"
             name="jobRequirements" required [(ngModel)]="newPost.jobRequirements"></textarea>
-          <label class="form-label" for="jobStartDate">Start Date</label>
-          <input class="form-control" required placeholder="Start Date" type="date" name="jobStartDate"
+          <label class="form-label" for="startDate">Start Date</label>
+          <input class="form-control" required placeholder="Start Date" type="date" name="startDate"
             [(ngModel)]="newPost.startDate" />
           <label class="form-label" for="completionDate">Completion Date</label>
           <input class="form-control" required placeholder="completionDate" type="date" name="completionDate"
             [(ngModel)]="newPost.completionDate" />
           <label class="form-label" for="developersNeeded">Developers Needed</label>
-          <input class="form-control" required placeholder="Start Date" type="number" name="developersNeeded"
+          <input class="form-control" required placeholder="1" type="number" name="developersNeeded"
             [(ngModel)]="newPost.developersNeeded" />
           <br>
           <div class="dropdown">
             <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false" name="type">
-              Job Type &nbsp;&nbsp;
+              <strong> Job Type &nbsp;&nbsp;</strong>
               <select name="type" [(ngModel)]="newPost.type">
                 <option *ngFor="let type of jobTypes" [ngValue]="type">
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -43,12 +47,28 @@
             </button>
           </div>
           <br>
+          <div class="dropdown">
+            <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" name="status">
+              <strong>Job Status &nbsp;&nbsp;</strong>
+              <select name="status" [(ngModel)]="newPost.status">
+                <option *ngFor="let status of jobStatuses" [ngValue]="status">
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li class="dropdown-item">{{status.name}}</li>
+                  </ul>
+
+                </option>
+              </select>
+            </button>
+          </div>
+          <br>
           <br>
           <div style="text-align: center">
             <div class="form-inline" style="text-align: center; margin-top: 4px">
-              <button (click)="createJobPost(newPost)" class="badge btn btn-success">Create Post</button>
-              <button class="badge btn btn-warning" style="margin-left: 10px;"
-                (click)="modal.dismiss('Cross click')">Cancel</button>
+              <button (click)="createAPost(newPost)" [(ngModel)]="newPost" (click)="modal.close('Save click')"
+                class="badge btn btn-success">Create Post</button>
+              <button class="badge btn btn-warning" style="margin-left: 10px;" (click)="modal.dismiss('Cross click')"
+                (click)="refreshJob = null">Cancel</button>
 
             </div>
           </div>
@@ -60,7 +80,7 @@
   </ng-template>
 </div>
 
-<div *ngIf="active">
+<div *ngIf="active && !refreshJob">
   <mat-card>
     <div style="text-align: center; ">
       <button *ngIf="selected || editJob" class="btn btn-secondary btn-outline-light" style="margin-right: 10px;"
@@ -78,7 +98,8 @@
               <th>Complete</th>
               <th>Status</th>
               <th>Details</th>
-              <th>Edit Job</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -87,11 +108,13 @@
               <td>{{job.datePosted}}</td>
               <td>{{job.startDate}}</td>
               <td>{{job.completionDate}}</td>
-              <td>{{job.status?.name}}</td>
+              <td>{{job.status.name}}</td>
 
               <td><button (click)="selectJob(job)" class="badge btn-secondary btn-outline-dark">View</button></td>
-              <td><button (click)="setEditJob(job)" (click)="open(content)"
+              <td><button (click)="setEditJob(job)" (click)="open(editJobContent)"
                   class="badge btn-warning btn-outline-dark">Edit</button>
+              </td>
+              <td><button (click)="deleteMyPost(job)" class="badge btn-danger btn-outline-dark">&nbsp;X&nbsp;</button>
               </td>
             </tr>
           </tbody>
@@ -100,8 +123,8 @@
     </mat-card-content>
   </mat-card>
 
-  <ng-template #content let-modal id="newChatOutside" style="text-align: center">
-    <div id="newChatOutside" *ngIf="editJob">
+  <ng-template #editJobContent let-modal id="editJobForm" style="text-align: center">
+    <div id="editJobOutside" *ngIf="editJob">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title"
           style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
@@ -113,34 +136,21 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="editJobPost">
+        <form id="editJobForm">
           <label class="form-label" for="jobRequirements">Job Description</label>
-          <textarea ross="3" cols="40" class="form-control" placeholder="Job Description" type="text"
-            name="jobRequirements" [(ngModel)]="editJob.jobRequirements"></textarea>
-          <label class="form-label" for="jobStartDate">Start Date</label>
-          <input class="form-control" placeholder="Start Date" type="date" name="jobStartDate"
-            [(ngModel)]="editJob.startDate" />
-          <label class="form-label" for="jobCompletionDate">Complete Date</label>
-          <input class="form-control" placeholder="Completion Date" type="date" name="jobCompletionDate"
-            [(ngModel)]="editJob.completionDate" />
+          <textarea ross="3" cols="40" class="form-control" type="text" name="jobRequirements"
+            [(ngModel)]="editJob.jobRequirements"></textarea>
+          <label class="form-label" for="startDate">Start Date</label>
+          <input class="form-control" type="date" name="startDate" [(ngModel)]="editJob.startDate" />
+          <label class="form-label" for="completionDate">Complete Date</label>
+          <input class="form-control" type="date" name="completionDate" [(ngModel)]="editJob.completionDate" />
+          <label class="form-label" for="developersNeeded">Developers Needed</label>
+          <input class="form-control" required type="number" name="developersNeeded"
+            [(ngModel)]="editJob.developersNeeded" />
+          <label class="form-label" for="jobActive">Job Active</label>
+          <input class="form-control" required type="boolean" name="jobActive" [(ngModel)]="editJob.jobActive" />
           <br>
           <div class="dropdown">
-            <button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              Job Status &nbsp;&nbsp;
-              <select name="status" [(ngModel)]="editJob.status">
-                <option *ngFor="let status of jobStatuses" [ngValue]="status">
-                  <ul class="dropdown-menu">
-                    <li>{{status.name}}</li>
-                  </ul>
-                </option>
-              </select>
-            </button>
-            <br>
-          </div>
-          <br>
-          <div class="dropdown">
-
             <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false" name="type">
               Job Type &nbsp;&nbsp;
@@ -155,11 +165,29 @@
             </button>
           </div>
           <br>
+          <br>
+          <div class="dropdown">
+            <button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false" name="status">
+              Job Status &nbsp;&nbsp;
+              <select name="status" [(ngModel)]="editJob.status">
+                <option *ngFor="let status of jobStatuses" [ngValue]="status">
+                  <ul class="dropdown-menu">
+                    <li>{{status.name}}</li>
+                  </ul>
+                </option>
+              </select>
+            </button>
+            <br>
+          </div>
+          <br>
+          <br>
           <div style="text-align: center">
             <div class="form-inline" style="text-align: center; margin-top: 4px">
-              <button (click)="update(editJob)" class="badge btn btn-success">Update</button>
+              <button (click)="updateMyPost(editJob)" [(ngModel)]="editJob"
+                class="badge btn btn-success">Update</button>
               <button (click)="editJob = null" class="badge btn btn-warning" style="margin-left: 10px;">Cancel</button>
-              <button (click)="deletePost(editJob)" class="badge btn btn-danger"
+              <button (click)="deleteMyPost(editJob)" class="badge btn btn-danger"
                 style="margin-left: 10px;">Delete</button>
             </div>
           </div>
@@ -262,11 +290,12 @@
                   </ul>
                 </mat-tab>
               </mat-tab-group>
-              <div *ngIf="app.status == 'Open'">
-                <button (click)="approveApplication(app)" class="btn sm btn-primary">Approve
-                  Application</button>
-                <button (click)="declineApplication(app)" class="btn sm btn-primary">Decline
-                  Application</button>
+              <div *ngIf="app.status == 'Pending'">
+                <br>
+                <button (click)="approveApp(app)" class="btn sm btn-success btn-outline-light">Approve
+                </button>
+                <button (click)="denyApp(app)" style="margin-left: 10px;"
+                  class="btn sm btn-danger btn-outline-light">Decline</button>
               </div>
             </div>
 

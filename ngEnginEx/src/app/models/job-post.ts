@@ -12,9 +12,9 @@ export class JobPost {
   jobActive: boolean;
   datePosted: string;
   dateClosed: string;
-  type: JobType | null;
+  type: JobType;
   user: User;
-  status: JobStatus | null;
+  status: JobStatus;
   applications: JobApplication[];
 
   constructor(

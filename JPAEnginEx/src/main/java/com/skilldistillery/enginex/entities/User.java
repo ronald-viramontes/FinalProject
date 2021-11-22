@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 //@JsonIdentityInfo(
@@ -66,7 +64,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<DeveloperEducation> educations;
 	
-	@JsonManagedReference(value="devToSkill")
+//	@JsonManagedReference(value="devToSkill")
 	@OneToMany(mappedBy="user")
 	private List<DeveloperSkill> skills;
 	
@@ -76,7 +74,7 @@ public class User {
 	
 		
 //	@JsonManagedReference
-	@JsonIgnoreProperties({ "posts" })
+//	@JsonIgnoreProperties({ "posts" })
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
 	

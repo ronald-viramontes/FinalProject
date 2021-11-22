@@ -10,18 +10,28 @@
 
 .personal-dashboard {
   background-color: rgb(20, 60, 100);
-  margin: 0 auto;
+
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
   /* min-width: 75%; */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: white;
   font-weight: bold;
 }
 
-.personal-header > child:after {
+.personal-header {
   /* background-color: rgb(41, 97, 152); */
   text-align: center;
+  flex-direction: row;
+  justify-content: center;
   color: white;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  flex-wrap: wrap;
+}
+.personal-dashboard-header-image {
+  height: 150px;
+  object-fit: contain;
 }
 
 #welcomeHeading {

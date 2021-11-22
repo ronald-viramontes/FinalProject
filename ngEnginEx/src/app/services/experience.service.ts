@@ -6,13 +6,12 @@ import { Experience } from '../models/experience';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ExperienceService {
-  // private baseUrl = 'http://localhost:8091/';
   private baseUrl = environment.baseUrl;
+  // private baseUrl = '/EnginEx/';
   private url = this.baseUrl + 'api/experiences';
   constructor(private http: HttpClient, private authService: AuthService) {}
 

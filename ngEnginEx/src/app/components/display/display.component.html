@@ -1,8 +1,6 @@
-<div class="scrolling-wrapper">
+<div *ngIf="loggedIn()" class="scrolling-wrapper">
   <div class="row" style="column-gap: 50px;">
-
-
-    <div class="col-3" *ngIf="loggedIn()">
+    <div class="col-3">
       <div name="developerDetails">
         <!-- <h2 style="text-align: center">Your Profile</h2> -->
 
@@ -43,9 +41,12 @@
     <div class="col-3" *ngIf="activeUser && loggedIn() && loggedInClass()">
       <mat-card class="personal-dashboard">
         <mat-card-header class="personal-header">
-          <div mat-card-avatar class="personal-dashboard-header-image"></div>
+          <!-- <div mat-card-avatar class="personal-dashboard-header-image"></div> -->
           <mat-card-title>User Dashboard</mat-card-title>
-          <mat-card-subtitle>{{activeUser.firstName}} {{activeUser.lastName}}'s Profile</mat-card-subtitle>
+          <mat-card-subtitle>{{activeUser.firstName}} {{activeUser.lastName}}'s</mat-card-subtitle>
+          <mat-card-subtitle>
+            Profile
+          </mat-card-subtitle>
 
         </mat-card-header>
         <img mat-card-image class="personal-dashboard-header-image" src="{{activeUser.imageUrl}}">
@@ -110,4 +111,13 @@
     </div>
 
   </div>
+</div>
+<div *ngIf="!loggedIn()" style="max-width: 1000px; margin-right: auto; margin-left: auto">
+  <mat-card>
+    <mat-card-title>Active Jobs</mat-card-title>
+    <mat-card-actions align="start">
+      <app-job-search></app-job-search>
+    </mat-card-actions>
+  </mat-card>
+
 </div>

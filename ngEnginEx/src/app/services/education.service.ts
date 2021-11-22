@@ -6,40 +6,40 @@ import { Education } from '../models/education';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EducationService {
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
-
-  // private baseUrl = 'http://localhost:8091/'
   private baseUrl = environment.baseUrl;
-  private EdUrl = this.baseUrl+'api/educations'
+  // private baseUrl = '/EnginEx/';
+  private edUrl = this.baseUrl + 'api/educations';
 
   getHttpOptions() {
     let credentials = this.authService.getCredentials();
     let options = {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Authorization': `Basic ${credentials}`
-      }
+        Authorization: `Basic ${credentials}`,
+      },
     };
     return options;
   }
 
   index(): Observable<Education[]> {
-    return this.http.get<Education[]>(this.EdUrl).pipe(
+    return this.http.get<Education[]>(this.edUrl).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('EducationService.index(): error retrieving educations');
+        return throwError(
+          'EducationService.index(): error retrieving educations'
+        );
       })
     );
   }
 
   show(userId: number) {
-    return this.http.get<Education[]>(`${this.EdUrl}/${userId}`).pipe(
+    return this.http.get<Education[]>(`${this.edUrl}/${userId}`).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('EducationService.show: error retrieving educations');
@@ -48,29 +48,43 @@ export class EducationService {
   }
 
   edit(education: Education, edId: number, devId: number) {
-    return this.http.put<Education>(`${this.EdUrl}/${devId}/${edId}`, education, this.getHttpOptions()).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('EducationService.edit(): error editing education')
-      })
-    );
+    return this.http
+      .put<Education>(
+        `${this.edUrl}/${devId}/${edId}`,
+        education,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('EducationService.edit(): error editing education');
+        })
+      );
   }
 
   delete(edId: number, userId: number) {
-    return this.http.delete(`${this.EdUrl}/${userId}/${edId}`, this.getHttpOptions()).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('EducationService,delete(): error deleting education')
-      })
-    );
+    return this.http
+      .delete(`${this.edUrl}/${userId}/${edId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'EducationService,delete(): error deleting education'
+          );
+        })
+      );
   }
 
-  create(education: Education, userId: number){
-    return this.http.post(`${this.EdUrl}/${userId}`, education, this.getHttpOptions()).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('EducationService.create(): error creating education');
-      })
-    );
+  create(education: Education, userId: number) {
+    return this.http
+      .post(`${this.edUrl}/${userId}`, education, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'EducationService.create(): error creating education'
+          );
+        })
+      );
   }
 }

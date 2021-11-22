@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -62,7 +61,7 @@ public class JobPost {
 
 
 	@JsonIgnoreProperties({"company", "educations", "skills", "experiences", "applications", "posts",  
-		"sentMessages", "jobPosts", "receivedMessages", "type"})
+		"sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -72,11 +71,11 @@ public class JobPost {
 	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
 	
-//	@JsonManagedReference
+	
 	@OneToMany(mappedBy = "jobPost")
 	private List<JobApplication> applications;
 
-	
+		
 	public int getId() {
 		return id;
 	}
@@ -162,9 +161,19 @@ public class JobPost {
 	}
 
 	public void setApplications(List<JobApplication> applications) {
+		
 		this.applications = applications;
 	}
-
+	
+//	public void setApplication(JobApplication application) {
+//		for(JobApplication jobApp: this.applications) {
+//			if(application.getId() == jobApp.getId()) {
+//				jobApp = application;
+//			}
+//			
+//		} setApplications(this.applications);
+//	}
+	
 	public User getUser() {
 		return user;
 	}

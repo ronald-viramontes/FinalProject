@@ -49,15 +49,15 @@ class JobApplicationTest {
 	@Test
 	void test() {
 		assertNotNull(app);
-		assertEquals(9, app.getDecisionDate().getDayOfMonth());
+		assertEquals(30, app.getDecisionDate().getDayOfMonth());
 	}
 
 	@Test
 	@DisplayName("test relationship mappings on JobApplication")
 	void test2() {
 		assertNotNull(app);
-		assertEquals("Ron", app.getUser().getFirstName());
-		assertEquals("Excellent work!", app.getDetail().getComment());
+		assertEquals("Ronald", app.getUser().getFirstName());
+		assertEquals("awesome work", app.getDetail().getComment());
 	}
 
 }

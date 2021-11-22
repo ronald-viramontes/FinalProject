@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -19,126 +19,45 @@ export class JobPostService {
   private statusUrl = this.baseUrl + 'api/jobstatus';
   private typeUrl = this.baseUrl + 'api/jobtypes';
   private appUrl = this.baseUrl + 'api/apps';
+  private userUrl = this.baseUrl + 'api';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   index(): Observable<JobPost[]> {
     console.log('In call to DB.');
-    return this.http.get<JobPost[]>(this.jobsUrl).pipe(
+    return this.http.get<JobPost[]>(this.jobsUrl, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('JPS.update(): error retrieving JobPosts');
       })
     );
   }
-  create(jobPost: JobPost) {
-    return this.http.post(this.jobsUrl, jobPost).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(
-          'JPS.create(): creating a Job Post was not successful.'
-        );
-      })
-    );
-  }
-  appById(appId: number) {
-    return this.http.get(`${this.appUrl}/app/${appId}`).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(
-          'JPS.create(): creating a Job Post was not successful.'
-        );
-      })
-    );
-  }
 
-  createPost(jobPost: JobPost, userId: number) {
-    return this.http.post(`${this.jobsUrl}/${userId}`, jobPost).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(
-          'JPS.createPost(): creating a Job Post was not successful.'
-        );
-      })
-    );
-  }
-  createApplication(postId: number, userId: number) {
+  appById(appId: number) {
     return this.http
-      .post(`${this.appUrl}/${postId}/${userId}`, this.getHttpOptions())
+      .get(`${this.appUrl}/app/${appId}`, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
           return throwError(
-            'JPS.createApplication(): Failure creating Job Application'
+            'JPS.create(): creating a Job Post was not successful.'
           );
         })
       );
   }
-  approveApplication(jobApplication: JobApplication, status: number) {
+  postById(postId: JobPost): Observable<JobPost> {
     return this.http
-      .put<JobApplication>(
-        `${this.appUrl}/${jobApplication.id}/${status}`,
-        jobApplication,
-        this.getHttpOptions()
-      )
+      .get<JobPost>(`${this.jobsUrl}/${postId}`, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError('Job Application approval failed');
+          return throwError(
+            'JPS.postById: the user Job Post was not successful.'
+          );
         })
       );
   }
 
-  update(jobPost: JobPost) {
-    return this.http
-      .put<JobPost>(`${this.jobsUrl}/${jobPost.id}`, jobPost)
-      .pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError('JPS.update(): Job Post update unsuccessful');
-        })
-      );
-  }
-  indexStatus(): Observable<JobStatus[]> {
-    console.log('in call to type DB');
-    return this.http.get<JobStatus[]>(this.statusUrl).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('Bad Type Request');
-      })
-    );
-  }
-
-  indexType(): Observable<JobType[]> {
-    console.log('in call to type DB');
-    return this.http.get<JobType[]>(this.typeUrl).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('Bad Type Request');
-      })
-    );
-  }
-
-  postsByUser(userId: number) {
-    return this.http.get<JobPost[]>(`${this.jobsUrl}/${userId}`).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(
-          'jobPostService.postsByUser(): error retrieving job Posts'
-        );
-      })
-    );
-  }
-  getHttpOptions() {
-    let credentials = this.authService.getCredentials();
-    let options = {
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        Authorization: `Basic ${credentials}`,
-      },
-    };
-    return options;
-  }
   indexByStatus(status: string) {
     return this.http.get<JobPost[]>(`${this.jobsUrl}/status/${status}`).pipe(
       catchError((err: any) => {
@@ -160,6 +79,92 @@ export class JobPostService {
       })
     );
   }
+  indexType(): Observable<JobType[]> {
+    console.log('in call to type DB');
+    return this.http.get<JobType[]>(this.typeUrl, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Bad Type Request');
+      })
+    );
+  }
+
+  postsByUser(userId: number) {
+    return this.http
+      .get<JobPost[]>(`${this.jobsUrl}/user/${userId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'jobPostService.postsByUser(): error retrieving job Posts'
+          );
+        })
+      );
+  }
+
+  indexStatus(): Observable<JobStatus[]> {
+    console.log('in call to type DB');
+    return this.http.get<JobStatus[]>(this.statusUrl).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Bad Type Request');
+      })
+    );
+  }
+
+  create(jobPost: JobPost) {
+    return this.http.post(this.jobsUrl, jobPost, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          'JPS.create(): creating a Job Post was not successful.'
+        );
+      })
+    );
+  }
+
+  createApplication(postId: number, userId: number) {
+    return this.http
+      .post(`${this.appUrl}/${postId}/${userId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Failure creating Job Application');
+        })
+      );
+  }
+
+  approveApplication(jobApp: JobApplication, approval: number) {
+    const httpOptions = {};
+    return this.http
+      .put<JobApplication>(
+        `${this.appUrl}/${jobApp.id}/${approval}`,
+        jobApp,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Job Application approval failed');
+        })
+      );
+  }
+
+  update(jobPost: JobPost) {
+    const httpOptions = {};
+    return this.http
+      .put<JobPost>(
+        `${this.jobsUrl}/${jobPost.id}`,
+        jobPost,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('JPS.update(): Job Post update unsuccessful');
+        })
+      );
+  }
 
   delete(post: JobPost) {
     return this.http
@@ -170,5 +175,104 @@ export class JobPostService {
           return throwError('JobPostService.delete(): error deleting jobPost');
         })
       );
+  }
+  //my methods
+  createPost(jobPost: JobPost) {
+    const httpOptions = {
+      ResponseHeader: 'application/json',
+    };
+    return this.http
+      .post<JobPost>(`${this.userUrl}/userjobs`, jobPost, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'JPS.createPost(): creating a Job Post was not successful.'
+          );
+        })
+      );
+  }
+
+  editPost(jobPost: JobPost) {
+    const httpOptions = {};
+    return this.http
+      .put<JobPost>(
+        `${this.userUrl}/userjobs/${jobPost.id}`,
+        jobPost,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('JPS.update(): Job Post update unsuccessful');
+        })
+      );
+  }
+
+  deletePost(jobPost: JobPost) {
+    const httpOptions = {};
+    return this.http
+      .delete(`${this.userUrl}/userjobs/${jobPost.id}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('JobPostService.delete(): error deleting jobPost');
+        })
+      );
+  }
+
+  createApp(newApp: JobApplication) {
+    const httpOptions = {};
+    return this.http
+      .post(`${this.userUrl}/userapps`, newApp, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'JPS.createApplication(): Failure creating Job Application'
+          );
+        })
+      );
+  }
+
+  appDecision(jobApp: JobApplication, postId: JobPost) {
+    const httpOptions = {};
+    return this.http
+      .put<JobApplication>(
+        `${this.userUrl}/appdecision/${postId}`,
+        jobApp,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Job Application approval failed');
+        })
+      );
+  }
+
+  deleteApp(appId: number) {
+    const httpOptions = {};
+    return this.http
+      .post(`${this.userUrl}/userapps/${appId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'JPS.createApplication(): Failure creating Job Application'
+          );
+        })
+      );
+  }
+
+  getHttpOptions() {
+    let credentials = this.authService.getCredentials();
+    let options = {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Basic ${credentials}`,
+      },
+    };
+    return options;
   }
 }

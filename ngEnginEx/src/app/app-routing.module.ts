@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DisplayComponent } from './components/display/display.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { EducationComponent } from './components/education/education.component';
+import { ExperienceComponent } from './components/experience/experience.component';
+import { JobApplicationComponent } from './components/job-application/job-application.component';
 import { JobPostComponent } from './components/job-post/job-post.component';
 import { LoginComponent } from './components/login/login.component';
+import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SendChatComponent } from './components/send-chat/send-chat.component';
+import { SkillComponent } from './components/skill/skill.component';
 import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
@@ -13,6 +18,11 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: DisplayComponent },
+  { path: 'myjobs', component: MyJobPostsComponent },
+  { path: 'applications', component: JobApplicationComponent },
+  { path: 'educations', component: EducationComponent },
+  { path: 'experiences', component: ExperienceComponent },
+  { path: 'skills', component: SkillComponent },
   { path: 'jobs', component: JobPostComponent },
   { path: 'editprofile', component: EditProfileComponent },
   { path: 'sendchat', component: SendChatComponent },

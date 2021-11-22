@@ -26,20 +26,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+
+    	http
         .csrf().disable()
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // For CORS, the preflight request
         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()     // will hit the OPTIONS on the route
         .antMatchers(HttpMethod.GET, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
-        .antMatchers(HttpMethod.POST, "/api/jobs").permitAll() // Requests for our REST API must be authorized.
-        .antMatchers(HttpMethod.DELETE, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
-        .antMatchers(HttpMethod.PUT, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/jobstatus/**").permitAll() // Requests for our REST API must be authorized.
-        .antMatchers(HttpMethod.GET, "/api/comments/**").permitAll() // Requests for our REST API must be authorized.
-        
-        
-        .antMatchers(HttpMethod.POST, "/api/comments/**").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.GET, "/api/comments/**").permitAll() // Requests for our REST API must be authorized.       
         .antMatchers(HttpMethod.GET, "/api/jobtypes/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/jobdetails/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/skills/**").permitAll() // Requests for our REST API must be authorized.
@@ -47,9 +42,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET, "/api/users").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.GET, "/api/educations/**").permitAll() // Requests for our REST API must be authorized.
+       
+        .antMatchers(HttpMethod.GET, "/api/userapps").permitAll() // Requests for our REST API must be authorized.
+//      .antMatchers(HttpMethod.PUT, "/api/appdecision/**").permitAll() // Requests for our REST API must be authorized.
+//      .antMatchers(HttpMethod.DELETE, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
+
+//        .antMatchers(HttpMethod.POST, "/api/userjobs/**").permitAll() // Requests for our REST API must be authorized.
+//        .antMatchers(HttpMethod.PUT, "/api/userjobs/**").permitAll() // Requests for our REST API must be authorized.
+//        .antMatchers(HttpMethod.DELETE, "/api/userjobs/**").permitAll() // Requests for our REST API must be authorized.
+
+        .antMatchers(HttpMethod.POST, "/api/jobs").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.PUT, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.DELETE, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
+        
+        .antMatchers(HttpMethod.POST, "/api/apps/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.PUT, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.DELETE, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
-        .antMatchers(HttpMethod.POST, "/api/apps/**").permitAll() // Requests for our REST API must be authorized.
+        
+        .antMatchers(HttpMethod.POST, "/api/comments/**").permitAll() // Requests for our REST API must be authorized.
+        
+        
         
         .antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.
         .anyRequest().permitAll()               // All other requests are allowed without authorization.

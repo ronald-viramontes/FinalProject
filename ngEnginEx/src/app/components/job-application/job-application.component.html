@@ -28,10 +28,10 @@
     <ngb-panel *ngFor="let app of applications">
       <ng-template ngbPanelTitle>
         <span
-          style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20ch;">{{app.jobPost.jobRequirements}}</span>
+          style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20ch;">{{app.jobPost?.jobRequirements}}</span>
       </ng-template>
       <ng-template ngbPanelContent>
-        <strong>{{app.jobPost.jobRequirements}}</strong><br>
+        <strong>{{app.jobPost?.jobRequirements}}</strong><br>
         App Date: {{app.date}} <br>
         Status: {{app.status}} <br>
         <strong>Application Comments</strong>

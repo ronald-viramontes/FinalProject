@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JobApplication } from 'src/app/models/job-application';
 import { JobPost } from 'src/app/models/job-post';
 import { JobStatus } from 'src/app/models/job-status';
@@ -17,6 +18,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./job-post.component.css'],
 })
 export class JobPostComponent implements OnInit {
+  closeResult: string = '';
   jobPosts: JobPost[] = [];
   activeUser: User = new User();
   jobStatuses: JobStatus[] | null = null;
@@ -67,6 +69,7 @@ export class JobPostComponent implements OnInit {
   }
 
   constructor(
+    private modService: NgbModal,
     private jobService: JobPostService,
     private route: ActivatedRoute,
     private router: Router,
@@ -231,7 +234,7 @@ export class JobPostComponent implements OnInit {
   createJobPost(newPost: JobPost) {
     // console.log(jobPost);
     if (this.activeUser)
-      this.jobService.createPost(newPost, this.activeUser.id).subscribe(
+      this.jobService.createPost(newPost).subscribe(
         (created) => {
           console.log('Job Post Created');
           this.reloadJobs();
@@ -362,5 +365,28 @@ export class JobPostComponent implements OnInit {
   }
   formHide() {
     this.showButton = true;
+  }
+
+  opens(content: any) {
+    this.modService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReasons(reason)}`;
+        }
+      );
+  }
+
+  private getDismissReasons(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }

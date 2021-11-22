@@ -22,8 +22,8 @@ import com.skilldistillery.enginex.entities.JobPost;
 import com.skilldistillery.enginex.services.JobPostService;
 
 @RestController
-@RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost:4300" })
+@RequestMapping("api")
 public class JobPostController {
 
 	@Autowired
@@ -36,44 +36,18 @@ public class JobPostController {
 		return jobPostServ.index();
 	}
 
-	@GetMapping(path = "jobs/{id}")
-	public JobPost show(@PathVariable int id, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		return jobPostServ.show(id);
-	}
-
-	@PostMapping(path = "jobs")
-	public JobPost create(@RequestBody JobPost jobPost) {
-		jobPost.setDatePosted(LocalDate.now());
-		return jobPostServ.create(jobPost);
-	}
-	
-	@PostMapping(path="jobs/{userId}")
-	public JobPost createPost(@RequestBody JobPost jobPost, 
-							  HttpServletRequest req, HttpServletResponse res, 
-							  Principal principal) {
+	@GetMapping(path = "jobs/{postId}")
+	public JobPost show(@PathVariable Integer postId, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		
-		jobPost = jobPostServ.createPost(principal.getName(), jobPost);
-		if(jobPost != null) {
-			res.setStatus(200);
-			return jobPost;
-		} else {
+		JobPost jobPost = jobPostServ.show(postId);
+		
+		if(jobPost == null) {
 			res.setStatus(400);
 			return null;
-		}
-			
-	}
-	
-	
-	@DeleteMapping(path = "jobs/{id}")
-	public void delete(@PathVariable int id, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		jobPostServ.destroy(id);
-	}
-
-	@PutMapping(path = "jobs/{id}")
-	public JobPost update(@PathVariable int id, @RequestBody JobPost jobPost, HttpServletRequest req,
-			HttpServletResponse res, Principal principal) {
-		jobPost = jobPostServ.update(id, jobPost);
-		return jobPost;
+		} else {
+			res.setStatus(200);
+			return jobPost;
+		}		
 	}
 	
 	@GetMapping("jobs/user/{userId}")
@@ -89,6 +63,74 @@ public class JobPostController {
 	@GetMapping("jobs/search/{keyword}")
 	public List<JobPost> findByKeyword (HttpServletRequest req, HttpServletResponse res, @PathVariable String keyword){
 		return jobPostServ.findByKeyword(keyword);
+	}
+
+	@PostMapping("jobs")
+	public JobPost create(@RequestBody JobPost jobPost) {
+		
+		jobPost.setDatePosted(LocalDate.now());
+		
+		return jobPost = jobPostServ.create(jobPost);
+		
+	}
+		
+	@PutMapping("jobs/{id}")
+	public JobPost update(@PathVariable int id, @RequestBody JobPost jobPost, HttpServletRequest req,
+			HttpServletResponse res, Principal principal) {
+		jobPost = jobPostServ.update(id, jobPost);
+		return jobPost;
+	}
+
+	@DeleteMapping(path = "jobs/{id}")
+	public void delete(@PathVariable int id, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		jobPostServ.destroy(id);
+	}
+	
+	@PostMapping("userjobs")
+	public JobPost createAPost(@RequestBody JobPost jobPost, HttpServletRequest req, 
+							   HttpServletResponse res, Principal principal) {
+			
+			
+			jobPost = jobPostServ.createPost(principal.getName(), jobPost);
+			
+			if(jobPost == null) {
+				res.setStatus(400);
+				return null;
+			} else {
+				res.setStatus(200);
+				return jobPost;
+			}		
+	}
+	
+	@PutMapping("userjobs/{postId}")
+	public JobPost updateMyPost(@RequestBody JobPost jobPost, @PathVariable Integer postId, 
+								HttpServletRequest req, HttpServletResponse res, Principal principal) {
+				
+		jobPost = jobPostServ.updatePost(principal.getName(), jobPost, postId);
+		
+		if(jobPost == null) {
+			res.setStatus(400);
+			return null;
+		} else {
+			res.setStatus(200);
+			return jobPost;
+		}
+	}
+
+	@DeleteMapping("userjobs/{postId}")
+	public void deleteMyPost(@PathVariable Integer postId, HttpServletRequest req, 
+							 HttpServletResponse res, Principal principal) {
+		
+		boolean result = jobPostServ.destroyMyPost(principal.getName(), postId);
+		
+		if(result == false) {
+			res.setStatus(404);
+			
+		} else {
+			res.setStatus(200);
+			
+		}
+		
 	}
 
 }

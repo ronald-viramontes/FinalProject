@@ -25,7 +25,7 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `job_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
-  `description` TEXT NULL,
+  `description` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS `job_status` ;
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `job_status` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
+  `name` VARCHAR(55) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `job_post` (
     REFERENCES `job_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_job_post_status1`
+  CONSTRAINT `fk_job_post_job_status1`
     FOREIGN KEY (`job_status_id`)
     REFERENCES `job_status` (`id`)
     ON DELETE NO ACTION
@@ -130,7 +130,7 @@ SHOW WARNINGS;
 CREATE INDEX `fk_job_post_job_type1_idx` ON `job_post` (`job_type_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_job_post_status1_idx` ON `job_post` (`job_status_id` ASC);
+CREATE INDEX `fk_job_post_job_status1_idx` ON `job_post` (`job_status_id` ASC);
 
 SHOW WARNINGS;
 CREATE INDEX `fk_job_post_user1_idx` ON `job_post` (`user_id` ASC);
@@ -222,13 +222,13 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `job_application` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `application_approval` TINYINT NULL,
-  `application_status` VARCHAR(45) NULL DEFAULT NULL,
+  `application_status` VARCHAR(45) NULL DEFAULT 'Pending',
   `application_date` DATE NULL,
   `job_post_id` INT NOT NULL,
   `decision_date` DATE NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_job_application_status_job_post1`
+  CONSTRAINT `fk_job_application_job_post1`
     FOREIGN KEY (`job_post_id`)
     REFERENCES `job_post` (`id`)
     ON DELETE NO ACTION
@@ -241,10 +241,10 @@ CREATE TABLE IF NOT EXISTS `job_application` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_job_application_status_job_post1_idx` ON `job_application` (`job_post_id` ASC);
+CREATE INDEX `fk_job_application_user1_idx` ON `job_application` (`user_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `fk_job_application_user1_idx` ON `job_application` (`user_id` ASC);
+CREATE INDEX `fk_job_application_job_post1_idx` ON `job_application` (`job_post_id` ASC);
 
 SHOW WARNINGS;
 
@@ -367,26 +367,26 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (1, 'Analyst Programmer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (2, 'Product Engineer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (3, 'Backend Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (4, 'Database Administrator', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (5, 'Frontend Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (6, 'Mobile Application Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (7, 'Systems Administrator I', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (8, 'Web Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (9, 'Desktop Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (10, 'Full Stack Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (11, 'Graphics Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (12, 'UI/UX', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (13, 'Business Analysis', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (14, 'Game Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (15, 'Data Scientist', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (16, 'DevOps Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (17, 'CRM Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (18, 'Security Developer', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (19, 'QA', '');
-INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (20, 'Software Integration Engineer', '');
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (1, 'Analyst Programmer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (2, 'Product Engineer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (3, 'Backend Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (4, 'Database Administrator', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (5, 'Frontend Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (6, 'Mobile Application Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (7, 'Systems Administrator I', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (8, 'Web Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (9, 'Desktop Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (10, 'Full Stack Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (11, 'Graphics Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (12, 'UI/UX', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (13, 'Business Analysis', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (14, 'Game Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (15, 'Data Scientist', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (16, 'DevOps Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (17, 'CRM Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (18, 'Security Developer', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (19, 'QA', NULL);
+INSERT INTO `job_type` (`id`, `name`, `description`) VALUES (20, 'Software Integration Engineer', NULL);
 
 COMMIT;
 
@@ -472,12 +472,12 @@ INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date
 INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (2, 'C#', '2021-11-04', '2021-11-28', 1, 1, '2021-10-27', NULL, 9, 1, 2);
 INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (3, 'Arduino', '2021-11-04', '2021-11-09', 1, 1, '2021-10-21', NULL, 19, 1, 3);
 INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (4, 'UI/UX', '2021-11-04', '2021-11-19', 1, 1, '2021-10-12', NULL, 5, 1, 1);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (5, 'Spring REST', '2021-11-04', '2021-11-21', 3, 1, '2021-10-27', NULL, 10, 1, 3);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (6, 'C++', '2021-11-04', '2021-11-30', 1, 1, '2021-10-20', NULL, 16, 1, 1);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (7, 'Spring REST', '2021-11-04', '2021-11-28', 1, 1, '2021-10-26', NULL, 2, 1, 1);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (8, 'Graphics Developer', '2021-11-04', '2021-11-09', 4, 1, '2021-10-22', NULL, 16, 1, 2);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (9, 'Desktop Developer', '2021-11-04', '2021-11-10', 4, 1, '2021-10-21', NULL, 10, 1, 2);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (10, 'SQL', '2021-11-04', '2021-11-11', 2, 1, '2021-10-20', NULL, 12, 1, 3);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (5, 'Spring REST', '2021-11-04', '2021-11-21', 3, 1, '2021-10-27', NULL, 10, 1, 2);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (6, 'C++', '2021-11-04', '2021-11-30', 1, 1, '2021-10-20', NULL, 16, 1, 3);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (7, 'Spring REST', '2021-11-04', '2021-11-28', 1, 1, '2021-10-26', NULL, 2, 1, 2);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (8, 'Graphics Developer', '2021-11-04', '2021-11-09', 4, 1, '2021-10-22', NULL, 16, 1, 1);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (9, 'Desktop Developer', '2021-11-04', '2021-11-10', 4, 1, '2021-10-21', NULL, 10, 1, 1);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (10, 'SQL', '2021-11-04', '2021-11-11', 2, 1, '2021-10-20', NULL, 12, 1, 2);
 INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (11, 'Graphics Developer', '2021-11-04', '2021-11-30', 4, 1, '2021-10-13', NULL, 18, 1, 1);
 INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (12, 'C++', '2021-11-04', '2021-11-28', 1, 1, '2021-10-27', NULL, 7, 1, 3);
 INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (13, 'Arduino', '2021-11-04', '2021-11-09', 3, 1, '2021-10-12', NULL, 9, 1, 2);
@@ -640,7 +640,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (1, 0, 'Pending', '2021-11-01', 1, '2021-11-30', 1);
+INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (1, 1, 'Pending', '2021-11-01', 1, '2021-11-30', 1);
 INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (2, 0, 'Pending', '2021-11-02', 2, '2021-11-28', 1);
 INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (3, 0, 'Pending', '2021-11-03', 3, '2021-11-09', 1);
 INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (4, 0, 'Pending', '2021-11-03', 4, '2021-11-19', 3);
@@ -650,6 +650,16 @@ INSERT INTO `job_application` (`id`, `application_approval`, `application_status
 INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (8, 0, 'Pending', '2021-11-03', 8, '2021-11-09', 2);
 INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (9, 0, 'Pending', '2021-11-03', 9, '2021-11-10', 2);
 INSERT INTO `job_application` (`id`, `application_approval`, `application_status`, `application_date`, `job_post_id`, `decision_date`, `user_id`) VALUES (10, 0, 'Pending', '2021-11-04', 10, '2021-11-11', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `job_detail`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `enginexdb`;
+INSERT INTO `job_detail` (`id`, `start_date`, `finish_date`, `job_rating`, `job_rating_comment`, `job_application_id`) VALUES (1, '2021-11-10', '2021-11-20', 5, 'awesome work', 3);
 
 COMMIT;
 
