@@ -16,15 +16,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "job_application")
-@JsonIdentityInfo(
-		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(
+//		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class JobApplication {
 
 	public JobApplication() {
@@ -48,6 +46,8 @@ public class JobApplication {
 	@Column(name = "decision_date")
 	private LocalDate decisionDate;
 	
+//	@JsonBackReference(value="job")
+	@JsonIgnoreProperties({"status", "type"})
 	@ManyToOne
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
@@ -57,11 +57,11 @@ public class JobApplication {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@JsonManagedReference(value = "application")
+	@JsonManagedReference(value="comment")
 	@OneToMany(mappedBy = "application")
 	private List<JobApplicationComment> comments;
 
-	@JsonBackReference(value = "application")
+	@JsonBackReference(value="detail")
 	@OneToOne(mappedBy="application")
 	private JobDetail detail;
 

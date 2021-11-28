@@ -48,9 +48,8 @@ public class JobStatusServiceImpl implements JobStatusService{
 	public JobStatus create(JobStatus jobStatus, String username, int jobPostId) {
 		User user = userRepo.findByUsername(username);
 		
-		Optional<JobPost> opt = jobPostRepo.findById(jobPostId);
-		if(opt.isPresent() && opt.get().getId() == user.getId()) {
-			JobPost jobPost = opt.get();
+		JobPost jobPost = jobPostRepo.findById(jobPostId);
+		if(jobPost != null && jobPost.getUser().getId() == user.getId()) {
 			jobStatus = jobStatusRepo.saveAndFlush(jobStatus);
 			jobPost.setStatus(jobStatus);
 			
@@ -67,17 +66,15 @@ public class JobStatusServiceImpl implements JobStatusService{
 	@Override
 	public JobStatus update(JobStatus jobStatus, String username, int jobStatusId, int jobPostId) {
 		User user = userRepo.findByUsername(username);
-		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
+		JobPost jobPost = jobPostRepo.findById(jobPostId);
 		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
-		if (optJobPost.isPresent()) {
-			JobPost jobPost = optJobPost.get();
-			if(opt.isPresent() && opt.get().getId() == jobPost.getStatus().getId()) {
+		if (jobPost != null) {
+			
 			JobStatus dbJobStatus = opt.get();
 			dbJobStatus.setName(jobStatus.getName());
 			jobStatusRepo.saveAndFlush(dbJobStatus);
 		
 			return dbJobStatus;
-		}
 			
 		} 
 		return null;
@@ -89,20 +86,17 @@ public class JobStatusServiceImpl implements JobStatusService{
 		
 		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
 		
-		Optional<JobPost> optJobPost = jobPostRepo.findById(jobPostId);
-		if(optJobPost.isPresent() && optJobPost.get().getId() == user.getId()) {
+		JobPost jobPost = jobPostRepo.findById(jobPostId);
+		if(jobPost != null && jobPost.getUser().getId() == user.getId()) {
 			
-			JobPost jobPost = optJobPost.get();
 			jobPost.setStatus(null);
 			jobPostRepo.save(jobPost);
 			
-			if(opt.isPresent()) {
 				JobStatus jobStatus = opt.get();
 				jobStatusRepo.delete(jobStatus);
 				return true;
 			} 
-	
-		} return false;
+		return false;
 		
 		
 	}

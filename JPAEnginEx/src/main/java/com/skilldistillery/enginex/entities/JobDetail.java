@@ -12,8 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="job_detail")
@@ -39,8 +38,8 @@ public class JobDetail {
 	@Column(name="job_rating_comment")
 	private String comment;
 	
-	@JsonIgnoreProperties({"jobPost"})
-	@JsonManagedReference
+//	@JsonIgnoreProperties({"jobPost"})
+	@JsonBackReference(value="detail")
 	@OneToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;

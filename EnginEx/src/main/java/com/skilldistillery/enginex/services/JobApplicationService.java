@@ -16,9 +16,9 @@ public interface JobApplicationService {
 	boolean delete(int appId, int userId);
 	JobApplication edit(int statusId, int appId, int userId);
 	JobApplication findByAppId(int appId);
-	JobApplication jobAppById(String username, int appId);
 	
-	JobApplication appDecision(String username, JobApplication app, int postId);
+	
+	JobApplication appDecision(String username, JobApplication app);
 	JobApplication submitApplication(String username, JobApplication app);
 	boolean destroyApp(String username, int appId);
 

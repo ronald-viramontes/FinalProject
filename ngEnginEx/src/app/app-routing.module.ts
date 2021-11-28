@@ -5,6 +5,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { EducationComponent } from './components/education/education.component';
 import { ExperienceComponent } from './components/experience/experience.component';
 import { JobApplicationComponent } from './components/job-application/job-application.component';
+import { JobListingComponent } from './components/job-listing/job-listing.component';
 import { JobPostComponent } from './components/job-post/job-post.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'jobs', component: JobPostComponent },
   { path: 'editprofile', component: EditProfileComponent },
   { path: 'sendchat', component: SendChatComponent },
+  { path: 'listjob', component: JobListingComponent },
 ];
 
 @NgModule({

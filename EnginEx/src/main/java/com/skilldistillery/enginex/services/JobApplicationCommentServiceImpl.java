@@ -2,7 +2,6 @@ package com.skilldistillery.enginex.services;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,12 +67,12 @@ public class JobApplicationCommentServiceImpl implements JobApplicationCommentSe
 		User user = userRepo.findByUsername(username);
 		LocalDate localDate = LocalDate.now();
 		
-		Optional<JobApplication> opt = appRepo.findById(appId);
-		JobApplication app = null;
-		if(user.getId() == userId && opt.isPresent() && opt.get().getId() == appId) {
-			app = opt.get();
+		JobApplication opt = appRepo.findById(appId);
+		
+		if(user.getId() == userId && opt != null) {
+			
 			JobApplicationComment dbComment = new JobApplicationComment();
-			dbComment.setApplication(app);
+			dbComment.setApplication(opt);
 			dbComment.setComment(comment.getComment());
 			dbComment.setDate(localDate);
 			dbComment = commentRepo.saveAndFlush(dbComment);
@@ -88,12 +87,11 @@ public class JobApplicationCommentServiceImpl implements JobApplicationCommentSe
 		LocalDate localDate = LocalDate.now();
 		JobApplicationComment replyToComment = commentRepo.findById(commentId); 
 		
-		Optional<JobApplication> opt = appRepo.findById(appId);
-		JobApplication app = null;
-		if(user.getId() == userId && opt.isPresent() && opt.get().getId() == appId) {
-			app = opt.get();
+		JobApplication opt = appRepo.findById(appId);
+		
+		if(user.getId() == userId && opt != null) {
 			JobApplicationComment dbComment = new JobApplicationComment();
-			dbComment.setApplication(app);
+			dbComment.setApplication(opt);
 			dbComment.setComment(comment.getComment());
 			dbComment.setBaseComment(replyToComment);
 			dbComment.setDate(localDate);

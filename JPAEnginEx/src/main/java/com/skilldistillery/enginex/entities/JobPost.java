@@ -14,15 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "job_post")
-@JsonIdentityInfo(
-		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(
+//		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class JobPost {
 	
 	public JobPost() {
@@ -50,11 +49,12 @@ public class JobPost {
 
 	@Column(name = "date_posted")
 	private LocalDate datePosted;
-
+	
+	@JsonIgnore
 	@Column(name = "date_closed")
 	private LocalDate dateClosed;
 	
-	@JsonIgnoreProperties({"jobPosts", "applications", "status"})
+	@JsonIgnoreProperties({ "applications", "jobPosts"})
 	@ManyToOne
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
@@ -66,12 +66,13 @@ public class JobPost {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@JsonIgnoreProperties({"jobPosts", "applications"})
+	@JsonIgnoreProperties({"applications", "jobPosts"})
 	@ManyToOne
 	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
 	
-	
+//	@JsonManagedReference(value="job")
+	@JsonIgnoreProperties(value = {"comments", "detail", "jobPost", "applications"}, allowSetters = true)
 	@OneToMany(mappedBy = "jobPost")
 	private List<JobApplication> applications;
 
@@ -101,7 +102,7 @@ public class JobPost {
 	}
 
 	public LocalDate getCompletionDate() {
-		return completionDate;
+		return this.completionDate;
 	}
 
 	public void setCompletionDate(LocalDate completionDate) {
@@ -164,15 +165,7 @@ public class JobPost {
 		
 		this.applications = applications;
 	}
-	
-//	public void setApplication(JobApplication application) {
-//		for(JobApplication jobApp: this.applications) {
-//			if(application.getId() == jobApp.getId()) {
-//				jobApp = application;
-//			}
-//			
-//		} setApplications(this.applications);
-//	}
+
 	
 	public User getUser() {
 		return user;

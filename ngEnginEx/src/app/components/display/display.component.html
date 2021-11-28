@@ -27,14 +27,6 @@
           </mat-card-actions>
         </mat-card>
         <br>
-        <mat-card>
-          <mat-card-title>Applications</mat-card-title>
-          <mat-card-actions align="start">
-            <app-job-application [applications]="applications" [activeUser]="activeUser"></app-job-application>
-
-          </mat-card-actions>
-        </mat-card>
-
       </div>
     </div>
 
@@ -74,7 +66,14 @@
 
         </mat-card-actions>
       </mat-card>
+      <br>
+      <mat-card>
+        <mat-card-title>Applications</mat-card-title>
+        <mat-card-actions align="start">
+          <app-job-application [applications]="applications" [activeUser]="activeUser"></app-job-application>
 
+        </mat-card-actions>
+      </mat-card>
       <br>
     </div>
 
@@ -114,10 +113,11 @@
 </div>
 <div *ngIf="!loggedIn()" style="max-width: 1000px; margin-right: auto; margin-left: auto">
   <mat-card>
-    <mat-card-title>Active Jobs</mat-card-title>
+    <mat-card-title>Job Search</mat-card-title>
     <mat-card-actions align="start">
       <app-job-search></app-job-search>
     </mat-card-actions>
+    <app-job-post></app-job-post>
   </mat-card>
 
 </div>

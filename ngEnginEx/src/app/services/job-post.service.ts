@@ -68,6 +68,16 @@ export class JobPostService {
       })
     );
   }
+  status() {
+    return this.http.get<JobPost[]>(`${this.jobsUrl}/status/`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          'jobPostService.indexByStatus(): error retrieving job posts'
+        );
+      })
+    );
+  }
 
   indexByKeyword(keyword: string) {
     return this.http.get<JobPost[]>(`${this.jobsUrl}/search/${keyword}`).pipe(
@@ -80,6 +90,15 @@ export class JobPostService {
     );
   }
   indexType(): Observable<JobType[]> {
+    console.log('in call to type DB');
+    return this.http.get<JobType[]>(this.typeUrl, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Bad Type Request');
+      })
+    );
+  }
+  type(): Observable<JobType[]> {
     console.log('in call to type DB');
     return this.http.get<JobType[]>(this.typeUrl, this.getHttpOptions()).pipe(
       catchError((err: any) => {
@@ -211,38 +230,30 @@ export class JobPostService {
 
   deletePost(jobPost: JobPost) {
     const httpOptions = {};
-    return this.http
-      .delete(`${this.userUrl}/userjobs/${jobPost.id}`, this.getHttpOptions())
-      .pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError('JobPostService.delete(): error deleting jobPost');
-        })
-      );
+    return this.http.delete(`${this.userUrl}/userjobs/${jobPost.id}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('JobPostService.delete(): error deleting jobPost');
+      })
+    );
   }
 
   createApp(newApp: JobApplication) {
     const httpOptions = {};
-    return this.http
-      .post(`${this.userUrl}/userapps`, newApp, this.getHttpOptions())
-      .pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError(
-            'JPS.createApplication(): Failure creating Job Application'
-          );
-        })
-      );
+    return this.http.post(`${this.userUrl}/userapps`, newApp).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          'JPS.createApplication(): Failure creating Job Application'
+        );
+      })
+    );
   }
 
   appDecision(jobApp: JobApplication, postId: JobPost) {
     const httpOptions = {};
     return this.http
-      .put<JobApplication>(
-        `${this.userUrl}/appdecision/${postId}`,
-        jobApp,
-        this.getHttpOptions()
-      )
+      .put<JobApplication>(`${this.userUrl}/appdecision/${postId}`, jobApp)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -253,16 +264,14 @@ export class JobPostService {
 
   deleteApp(appId: number) {
     const httpOptions = {};
-    return this.http
-      .post(`${this.userUrl}/userapps/${appId}`, this.getHttpOptions())
-      .pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError(
-            'JPS.createApplication(): Failure creating Job Application'
-          );
-        })
-      );
+    return this.http.delete(`${this.userUrl}/userapps/${appId}`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          'JPS.createApplication(): Failure creating Job Application'
+        );
+      })
+    );
   }
 
   getHttpOptions() {

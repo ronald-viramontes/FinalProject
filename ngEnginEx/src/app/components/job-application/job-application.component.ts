@@ -4,6 +4,7 @@ import { JobApplication } from 'src/app/models/job-application';
 import { JobApplicationComment } from 'src/app/models/job-application-comment';
 import { User } from 'src/app/models/user';
 import { JobApplicationCommentService } from 'src/app/services/job-application-comment.service';
+import { JobApplicationService } from 'src/app/services/job-application.service';
 import { JobApplicationCommentComponent } from '../job-application-comment/job-application-comment.component';
 
 @Component({
@@ -14,11 +15,13 @@ import { JobApplicationCommentComponent } from '../job-application-comment/job-a
 export class JobApplicationComponent implements OnInit {
   constructor(
     private router: Router,
-    private commentService: JobApplicationCommentService
+    private commentService: JobApplicationCommentService,
+    private appService: JobApplicationService
   ) {}
 
   @Input() applications: JobApplication[] = [];
   @Input() activeUser: User | null = null;
+  jobApps: JobApplication[] = [];
   replyForm: boolean = false;
   newComment: JobApplicationComment = new JobApplicationComment();
   editComment: JobApplicationComment | null = null;
@@ -29,10 +32,22 @@ export class JobApplicationComponent implements OnInit {
   replyApp: JobApplication | null = null;
   addButton: boolean = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.reloadApps();
+  }
 
   goToJobs() {
     this.router.navigateByUrl('jobs');
+  }
+
+  reloadApps() {
+    if (this.activeUser)
+      this.appService.userAppsIndex(this.activeUser.id).subscribe(
+        (data) => {
+          this.jobApps = data;
+        },
+        (fail) => {}
+      );
   }
 
   create(newComment: JobApplicationComment, app: JobApplication) {
@@ -41,18 +56,13 @@ export class JobApplicationComponent implements OnInit {
         .create(newComment, this.activeUser.id, app.id)
         .subscribe(
           (created) => {
+            this.reloadApps();
             console.log('JobApplicationComment created');
-            console.log(created);
             this.replyForm = false;
             this.newComment = new JobApplicationComment();
             this.addButton = false;
           },
-          (fail) => {
-            console.error(
-              'Something went wrong during jobDetail creation',
-              fail
-            );
-          }
+          (fail) => {}
         );
   }
   createReply(replyComment: JobApplicationComment, app: JobApplication) {
@@ -61,8 +71,8 @@ export class JobApplicationComponent implements OnInit {
         .createReply(replyComment, this.activeUser.id, app.id)
         .subscribe(
           (created) => {
+            this.reloadApps();
             console.log('JobApplicationComment created');
-            console.log(created);
             this.replyComment = new JobApplicationComment();
             this.addButton = false;
           },

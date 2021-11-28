@@ -6,25 +6,23 @@ import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   private baseUrl = environment.baseUrl;
   // private baseUrl = '/EnginEx/';
-  private userUrl = this.baseUrl+'api/users'
+  private userUrl = this.baseUrl + 'api/users';
 
-  getHttpOptions(){
+  getHttpOptions() {
     let credentials = this.authService.getCredentials();
     let options = {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Authorization': `Basic ${credentials}`
-      }
+        Authorization: `Basic ${credentials}`,
+      },
     };
     return options;
   }
@@ -38,25 +36,29 @@ export class UserService {
   //   );
   // }
 
-  show(username: string): Observable<User>{
-    return this.http.get<User>(`${this.baseUrl}api/user/${username}`, this.getHttpOptions()).pipe(
-      catchError((err:any) => {
-        console.log(err);
-        return throwError('UserService.show(): error retrieving user')
-      })
-    );
+  show(username: string): Observable<User> {
+    return this.http
+      .get<User>(`${this.baseUrl}api/user/${username}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('UserService.show(): error retrieving user');
+        })
+      );
   }
 
-  edit(userId: number, user: User){
-    return this.http.put<User>(`${this.userUrl}/${userId}`, user, this.getHttpOptions()).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('UserService.edit(): error editing user');
-      })
-    );
+  edit(userId: number, user: User) {
+    return this.http
+      .put<User>(`${this.userUrl}/${userId}`, user, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('UserService.edit(): error editing user');
+        })
+      );
   }
 
-  indexBySkill(keyword: string){
+  indexBySkill(keyword: string) {
     return this.http.get<User[]>(`${this.userUrl}/skills/${keyword}`).pipe(
       catchError((err: any) => {
         console.log(err);

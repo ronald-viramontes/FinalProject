@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ModalDismissReasons,
+  NgbModal,
+  NgbModalConfig,
+} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -15,10 +19,14 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'ngEnginEx';
   closeResult: string | null = null;
+  modalRefeference: any;
   constructor(
     private authService: AuthService,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    config: NgbModalConfig
+  ) {
+    config.backdrop = 'static';
+  }
 
   open(content: any) {
     this.modalService

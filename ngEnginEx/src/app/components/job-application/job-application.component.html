@@ -12,6 +12,10 @@
     transition: 0.4s;
   }
 
+  .ng-template {
+    white-space: normal;
+  }
+
   .active,
   .accordion:hover {
     background-color: #ccc;
@@ -22,47 +26,61 @@
     display: none;
     background-color: white;
   }
+
+  .myTemplate {
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+  }
 </style>
 <div>
   <ngb-accordion [closeOthers]="true">
-    <ngb-panel *ngFor="let app of applications">
+    <ngb-panel *ngFor="let app of jobApps" class="myTemplate">
       <ng-template ngbPanelTitle>
         <span
-          style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20ch;">{{app.jobPost?.jobRequirements}}</span>
+          style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20ch;">{{app.jobPost.jobRequirements}}</span>
       </ng-template>
       <ng-template ngbPanelContent>
-        <strong>{{app.jobPost?.jobRequirements}}</strong><br>
+        <strong>{{app.jobPost.jobRequirements}}</strong><br>
         App Date: {{app.date}} <br>
         Status: {{app.status}} <br>
-        <strong>Application Comments</strong>
-        <button class=badge btn-primary btn-light-sm (click)="addButton=true">New Comment</button>
-        <ul *ngFor="let c of app.comments">
-          <li><b>Date: </b>{{c.date}}</li>
-          <li><b>Comment: </b>{{c.comment}}</li>
-          <li style="color: red" *ngFor="let rep of c.replies"><b>Reply: </b>{{rep.comment}}</li>
-          <button class=badge btn-primary btn-light-sm (click)="replyForm = true">Reply</button>
-        </ul>
-
-        <form *ngIf="addButton">
-          <label for="comment">Comment</label>
+        <hr>
+        <div style="text-align: center">
+          <strong>Application Comments</strong>
           <br>
-          <input type="text" name="newComment.comment" [(ngModel)]="newComment.comment">
+          <button style="margin-top: 5px;" class="badge btn-success btn-outline-dark btn-sm"
+            (click)="addButton=true">New Comment</button>
 
-          <button class=badge btn-primary btn-dark-sm (click)="create(newComment, app)">Post</button>
-        </form>
+        </div>
+        <hr>
+        <div style="white-space: normal;">
+          <ul *ngFor="let c of app.comments">
+            <li><b>Date: </b>{{c.date}}</li>
 
-        <form *ngIf="replyForm">
-          <label for="comment">Comment</label>
-          <br>
-          <input type="text" name="newComment.comment" [(ngModel)]="newComment.comment">
-
-          <button class=badge btn-primary btn-dark-sm (click)="create(newComment, app)">Reply</button>
-        </form>
-
-
-
+            <li><b>Comment: </b>{{c.comment}}</li>
+            <li style="color: red" *ngFor="let rep of c.replies"><b>Reply: </b>{{rep.comment}}</li>
+            <button class="badge btn-warning btn-outline-dark btn-sm" (click)="replyForm = true">Reply</button>
+          </ul>
 
 
+
+
+          <form *ngIf="addButton">
+            <label for="comment">Comment</label>
+            <br>
+            <input type="text" name="newComment.comment" [(ngModel)]="newComment.comment">
+
+            <button class="btn btn-warning btn-outline-dark btn-sm" (click)="create(newComment, app)">Post</button>
+          </form>
+
+          <form *ngIf="replyForm">
+            <label for="comment">Comment</label>
+            <br>
+            <input type="text" name="newComment.comment" [(ngModel)]="newComment.comment">
+
+            <button class="badge btn-warning btn-outline-dark btn-sm" (click)="create(newComment, app)">Reply</button>
+          </form>
+        </div>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

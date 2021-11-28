@@ -11,4 +11,5 @@ public interface JobPostRepository extends JpaRepository<JobPost, Integer> {
 	List<JobPost> findByUserId(int userId);
 	List<JobPost> findByStatusNameLike(String status);
 	List<JobPost> findByJobRequirementsContaining(String keyword);
+	JobPost findById(int postId);
 }

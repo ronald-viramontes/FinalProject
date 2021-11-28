@@ -35,6 +35,10 @@ public class JobPostController {
 		System.out.println("in controller");
 		return jobPostServ.index();
 	}
+	@GetMapping("posts")
+	public List<JobPost> idx() {
+		return jobPostServ.index();
+	}
 
 	@GetMapping(path = "jobs/{postId}")
 	public JobPost show(@PathVariable Integer postId, HttpServletRequest req, HttpServletResponse res, Principal principal) {

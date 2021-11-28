@@ -77,7 +77,7 @@ public class JobApplicationController {
 	public JobApplication applicationById(HttpServletRequest req, HttpServletResponse res, 
 										   @PathVariable int appId,	Principal principal) {
 		
-		JobApplication app = appSvc.jobAppById(principal.getName(), appId);
+		JobApplication app = appSvc.findByAppId(appId);
 		if(app == null) {
 			res.setStatus(400);
 			return null;
@@ -94,7 +94,7 @@ public class JobApplicationController {
 		
 		List<JobApplication> apps = appSvc.findAppsByUser(principal.getName() , userId);
 		
-		if(apps.size() > 0) {
+		if(apps.size() < 0) {
 			res.setStatus(400);
 			return null;
 		} else {
@@ -139,19 +139,19 @@ public class JobApplicationController {
 	}
 	
 
-	@PutMapping("userapps/{postId}/denied/{appId}")
-	public JobApplication appDeclined(HttpServletRequest req, HttpServletResponse res,
-									   @PathVariable Integer postId, @PathVariable Integer appId,
+	@PutMapping("userapps/denied/{appId}")
+	public JobApplication appDeclined(@RequestBody JobApplication app,  HttpServletRequest req, HttpServletResponse res,
+									   @PathVariable Integer appId,
 									   Principal principal) {
+		app = appSvc.findByAppId(appId);
 		
-		JobApplication app = appSvc.jobAppById(principal.getName(), appId);
 		if (app != null) {
 					
 			app.setDecisionDate(LocalDate.now());
 			app.setApproved(false);
 			app.setStatus("Application Closed");
-			app = appSvc.appDecision(principal.getName(), app, postId);
-		
+			app = appSvc.appDecision(principal.getName(), app);
+		}
 			if(app == null) {
 				res.setStatus(400);
 				return null;
@@ -159,24 +159,24 @@ public class JobApplicationController {
 				res.setStatus(200);
 				return app;
 			}
-		} return null;
+		
 		
 		
 	}
 
-	@PutMapping("userapps/{postId}/approved/{appId}")
-	public JobApplication appApproved(HttpServletRequest req, HttpServletResponse res,
-									  @PathVariable Integer postId, @PathVariable Integer appId, 
+	@PutMapping("userapps/approved/{appId}")
+	public JobApplication appApproved(@RequestBody JobApplication app, HttpServletRequest req, HttpServletResponse res,
+									 @PathVariable Integer appId, 
 									  Principal principal) {
+		app = appSvc.findByAppId(appId);
 		
-		JobApplication app = appSvc.jobAppById(principal.getName(), appId);
 		if (app != null) {
 					
 			app.setDecisionDate(LocalDate.now());
 			app.setApproved(true);
 			app.setStatus("Application Approved");
-			app = appSvc.appDecision(principal.getName(), app, postId);
-		
+			app = appSvc.appDecision(principal.getName(), app);
+		}
 			if(app == null) {
 				res.setStatus(400);
 				return null;
@@ -184,7 +184,7 @@ public class JobApplicationController {
 				res.setStatus(200);
 				return app;
 			}
-		} return null;
+		
 		
 	}
 

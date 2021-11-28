@@ -58,8 +58,8 @@ export class MyJobPostsComponent implements OnInit {
   newApp: JobApplication = new JobApplication();
   newComments: JobApplicationComment[] = [];
 
-  approvedApp: JobApplication = new JobApplication(0, false, 'Approved', '');
-  deniedApp: JobApplication = new JobApplication(0, true, 'Approved', '');
+  // approvedApp: JobApplication = new JobApplication(0, false, 'Approved', '');
+  // deniedApp: JobApplication = new JobApplication(0, true, 'Approved', '');
 
   editApp: JobApplication | null = null;
   editJob: JobPost | null = null;
@@ -73,7 +73,7 @@ export class MyJobPostsComponent implements OnInit {
   refreshJob: JobPost | null = null;
 
   tempJob: JobPost | null = null;
-
+  openForm: boolean = false;
   ngOnInit(): void {
     this.loadStatusAndTypes();
     this.reloadMyJobs();
@@ -86,12 +86,20 @@ export class MyJobPostsComponent implements OnInit {
       this.apps = [];
     }
     this.selected = job;
+
     this.apps = this.selected.applications;
   }
-
-  deselectNewJob(job: JobPost) {
-    this.refreshJob = job;
+  formOpen() {
+    this.openForm = true;
   }
+
+  formClose() {
+    this.openForm = false;
+  }
+
+  // deselectNewJob(job: JobPost) {
+  //   this.refreshJob = job;
+  // }
 
   selectJobs() {
     this.jobs = this.posts;
@@ -224,7 +232,10 @@ export class MyJobPostsComponent implements OnInit {
   approveApp(app: JobApplication) {
     this.postId = app.jobPost;
 
-    this.appService.approveApp(app.id, this.postId).subscribe(
+    console.log('This is jobpostID', this.postId);
+    console.log('This is jobpostID', app.jobPost);
+    console.log('This is in approveApp', app);
+    this.appService.approveApp(app.id, app).subscribe(
       (updated) => {
         console.log('Application has been approved');
         console.log(updated);
@@ -243,7 +254,7 @@ export class MyJobPostsComponent implements OnInit {
   denyApp(app: JobApplication) {
     this.postId = app.jobPost;
 
-    this.appService.deniedApp(app.id, this.postId).subscribe(
+    this.appService.deniedApp(app.id, app).subscribe(
       (updated) => {
         console.log('Application has been denied');
         this.editApp = null;
@@ -257,7 +268,7 @@ export class MyJobPostsComponent implements OnInit {
     );
   }
 
-  open(content: any) {
+  open(content: any, _openForm = true) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(
@@ -272,7 +283,7 @@ export class MyJobPostsComponent implements OnInit {
       );
   }
 
-  private getDismissReason(reason: any): string {
+  private getDismissReason(reason: any, _openForm = false): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

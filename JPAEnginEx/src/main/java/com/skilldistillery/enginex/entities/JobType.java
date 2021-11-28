@@ -29,7 +29,7 @@ public class JobType {
 	private String description;
 		
 	
-	@JsonIgnoreProperties({ "user", "applications" })
+	@JsonIgnoreProperties({ "user", "applications", "jobPosts"})
 	@OneToMany(mappedBy="type")
 	private List<JobPost> jobPosts;
 	

@@ -4,18 +4,18 @@ import { JobType } from './job-type';
 import { User } from './user';
 
 export class JobPost {
-  id: number;
+  id!: number;
   jobRequirements: string;
   startDate: string;
   completionDate: string;
   developersNeeded: number;
   jobActive: boolean;
   datePosted: string;
-  dateClosed: string;
+  dateClosed!: string;
   type: JobType;
-  user: User;
+  user!: User;
   status: JobStatus;
-  applications: JobApplication[];
+  applications!: JobApplication[];
 
   constructor(
     id: number = 0,

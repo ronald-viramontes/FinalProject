@@ -36,7 +36,41 @@ td {
 th {
   font-size: small;
 }
+.accordion {
+  background-color: rgb(82, 82, 82);
+  color: #444;
+  cursor: pointer;
+  width: 55%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
 
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+}
+
+.appWaiting {
+  font-weight: bold;
+  background-color: rgb(210, 180, 180);
+}
+
+.appWaitingBadge {
+  visibility: hidden;
+}
+
+.mat-card {
+  max-width: 85%;
+}
 /* .flex {
   flex: auto;
   height: fit-content;
@@ -56,9 +90,28 @@ th {
   height: 100%;
   min-height: 250px;
 } */
-.scrollable {
+/* .scrollable {
   overflow: auto;
 
   width: 100%;
   height: 100%;
+} */
+.scrollable {
+  overflow-y: auto;
+
+  width: 100%;
+  height: 50%;
+}
+#editJobOutside {
+  vertical-align: middle;
+  width: 500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid white;
+  border-radius: 8px;
+  color: white;
+  background-color: rgb(33, 34, 35);
+  padding: 1em 3em 3em 3em;
+  text-shadow: 1px 1px 2px white;
 }

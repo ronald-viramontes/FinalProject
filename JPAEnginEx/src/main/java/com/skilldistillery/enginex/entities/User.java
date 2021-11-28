@@ -56,7 +56,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<JobApplication> applications;
 
-	@JsonBackReference
+	@JsonBackReference(value = "company")
 	@ManyToOne
 	@JoinColumn(name="company_id")
 	private Company company;

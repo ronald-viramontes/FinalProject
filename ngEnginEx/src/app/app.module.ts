@@ -14,7 +14,11 @@ import { JobApplicationComponent } from './components/job-application/job-applic
 import { JobApplicationCommentComponent } from './components/job-application-comment/job-application-comment.component';
 import { UserComponent } from './components/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionModule,
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { JobApplicationService } from './services/job-application.service';
 import { JobPostService } from './services/job-post.service';
@@ -114,6 +118,7 @@ import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.comp
     SkillService,
     UserService,
     UserJobPipe,
+    NgbModal,
   ],
   bootstrap: [AppComponent],
 })

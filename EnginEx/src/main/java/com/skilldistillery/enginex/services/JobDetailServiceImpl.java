@@ -43,13 +43,13 @@ public class JobDetailServiceImpl implements JobDetailService {
 	public JobDetail create(String username, JobDetail jobDetail, int jobAppId) {
 		User user = userRepo.findByUsername(username);
 
-		Optional<JobApplication> ja = jobAppRepo.findById(jobAppId);
+		JobApplication ja = jobAppRepo.findById(jobAppId);
 
-		if (ja.isPresent() && ja.get().getJobPost().getUser().getId() == user.getId()) {
-			JobApplication jobApplication = ja.get();
+		if (ja != null && ja.getJobPost().getUser().getId() == user.getId()) {
+			
 			jobDetail = jobDetailRepo.saveAndFlush(jobDetail);
-			jobApplication.setDetail(jobDetail);
-			jobAppRepo.saveAndFlush(jobApplication);
+			ja.setDetail(jobDetail);
+			jobAppRepo.saveAndFlush(ja);
 			return jobDetail;
 		}
 		return null;

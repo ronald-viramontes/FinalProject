@@ -27,7 +27,7 @@ public class Company {
 	private String companyName;
 		
 //	@JsonIgnore
-	@JsonManagedReference
+	@JsonManagedReference(value = "company")
 	@OneToMany(mappedBy="company")
 	List<User> users;
 	

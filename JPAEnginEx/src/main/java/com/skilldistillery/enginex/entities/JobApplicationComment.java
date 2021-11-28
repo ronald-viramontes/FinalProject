@@ -34,7 +34,7 @@ public class JobApplicationComment {
 	@Column(name="comment_date")
 	private LocalDate date;
 	
-	@JsonBackReference
+	@JsonBackReference(value="comment")
 	@ManyToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;
@@ -43,6 +43,7 @@ public class JobApplicationComment {
 	@ManyToOne
 	@JoinColumn(name="in_reply_to_comment_id")
 	private JobApplicationComment baseComment;
+	
 	
 	@OneToMany(mappedBy="baseComment")
 	private List<JobApplicationComment> replies;

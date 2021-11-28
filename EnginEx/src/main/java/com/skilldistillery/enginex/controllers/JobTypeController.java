@@ -23,4 +23,8 @@ public class JobTypeController {
 	private List<JobType> index() {
 		return jobTypeServ.getall();
 	}
+	@GetMapping("types")
+	private List<JobType> idx() {
+		return jobTypeServ.getall();
+	}
 }

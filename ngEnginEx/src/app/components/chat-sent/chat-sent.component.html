@@ -2,7 +2,7 @@
   <ngb-accordion [closeOthers]="true">
     <ngb-panel title={{chat.subject}} *ngFor="let chat of sentChats">
       <ng-template ngbPanelContent>
-        <div style="color: black">
+        <div style="color: black; white-space: normal;">
           <strong>Subject: </strong> {{chat.subject}}<br>
           <b> Message: </b>{{chat.message}} <br>
           <b> Sent: </b>{{chat.dateTimeStamp | date: 'medium'}}<br>
@@ -10,7 +10,7 @@
           <button class="badge btn-light btn-sm" (click)="deleteChat(chat.id)">❌</button>
         </div>
         <br>
-        <div *ngFor="let reply of chat.replies" style="color: blue">
+        <div *ngFor="let reply of chat.replies" style="color: blue; white-space: normal;">
           <b *ngIf="reply.sender"> Sender: {{reply.sender.username}} </b><br>
           <b> Subject: </b>{{reply.subject}}<br>
           <b> Message: </b>{{reply.message}}<br>
@@ -24,7 +24,7 @@
             (click)="deleteChat(chat.id)">❌</button>
         </div>
         <br>
-        <div *ngFor="let chat of reply.replies" style="color: black">
+        <div *ngFor="let chat of reply.replies" style="color: black; white-space: normal;">
           <b> Subject: </b> {{chat.subject}}<br>
           <b> Message: </b> {{chat.message}}<br>
           <b> Sent: </b> {{chat.dateTimeStamp | date: 'medium'}}<br>

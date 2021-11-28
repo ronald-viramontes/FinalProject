@@ -21,7 +21,9 @@
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
           <a class="nav-link" href="#/sendchat">Send Chat</a>
-
+        </li>
+        <li class="nav-item" *ngIf="loggedIn()">
+          <a class="nav-link" href="#/listjob">Create Job Post</a>
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
           <a class="nav-link" href="#/home" (click)="logOut()">Logout</a>
@@ -40,6 +42,7 @@
       <button *ngIf="!loggedIn()" class="btn btn-secondary btn-outline-dark my-2 my-sm-0" (click)="register()"
         style="margin-left: 3px;">Register</button>
     </div>
+
   </nav>
 </div>
 

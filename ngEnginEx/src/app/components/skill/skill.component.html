@@ -4,8 +4,10 @@
 <ngb-accordion [closeOthers]="true">
   <ngb-panel title={{skill.skillTitle}} *ngFor="let skill of skills">
     <ng-template ngbPanelContent>
-      <strong>{{skill.skillTitle}}</strong><br>
-      Skill Level: {{skill.skillLevel}} <br>
+      <div style="white-space: normal;">
+        <strong>{{skill.skillTitle}}</strong><br>
+        Skill Level: {{skill.skillLevel}} <br>
+      </div>
       <br>
       <button *ngIf="!editSkill" class="badge btn-light btn-sm" (click)="setEditSkill(skill)">✏️</button>
       <button *ngIf="!editSkill" class="badge btn-light btn-sm" (click)="delete(skill.id)">❌</button>

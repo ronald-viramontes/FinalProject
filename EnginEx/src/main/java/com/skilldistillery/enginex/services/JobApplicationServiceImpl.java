@@ -2,7 +2,6 @@ package com.skilldistillery.enginex.services;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,30 +48,16 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	
 	@Override
 	public JobApplication findByAppId(int appId) {
-		Optional <JobApplication> jobApp = appRepo.findById(appId);
-		return jobApp.get();
+		JobApplication jobApp = appRepo.findById(appId);
+		return jobApp;
 	}
 	
-	@Override
-	public JobApplication jobAppById(String username, int appId) {
-		User user = userRepo.findByUsername(username);
-		Optional<JobApplication> opt = appRepo.findById(appId);
-		if(opt.isPresent()) {
-		
-			JobApplication app = opt.get();
-			
-			if(app.getUser().getId() == user.getId() || app.getJobPost().getUser().getId() == user.getId()) {
 
-				return app;
-			}
-		}
-			return null;
-	}
 	
 	@Override
 	public JobApplication create(int userId, int postId) {
 		User user = userRepo.findById(userId).get();
-		JobPost post = postRepo.findById(postId).get();
+		JobPost post = postRepo.findById(postId);
 		JobApplication app = new JobApplication();
 		app.setUser(user);
 		app.setJobPost(post);
@@ -84,9 +69,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public JobApplication edit(int statusId, int appId, int userId) {
-		Optional<JobApplication> opt = appRepo.findById(appId);
-		if(opt.isPresent() && opt.get().getJobPost().getUser().getId() == userId) {
-			JobApplication app = appRepo.findById(appId).get();
+		JobApplication opt = appRepo.findById(appId);
+		if( opt.getJobPost().getUser().getId() == userId) {
+			JobApplication app = appRepo.findById(appId);
 			if(statusId == 1) {
 				app.setApproved(true);
 				app.setStatus("Approved");
@@ -103,8 +88,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public boolean delete(int appId, int userId) {
-		if(appRepo.findById(appId).isPresent()) {
-			JobApplication app = appRepo.findById(appId).get();
+		if(appRepo.findById(appId) != null) {
+			JobApplication app = appRepo.findById(appId);
 			if(app.getUser().getId() == userId) {
 				appRepo.delete(app);
 				return true;
@@ -123,29 +108,24 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	}
 
 	@Override
-	public JobApplication appDecision(String username, JobApplication app, int postId) {
+	public JobApplication appDecision(String username, JobApplication app) {
 		User poster = userRepo.findByUsername(username);
-		Optional <JobPost> opt = postRepo.findById(postId);
-		
-		if(opt.isPresent()) {
-			JobPost post = opt.get();
-			if(poster.getId() == post.getUser().getId()) {
-				
-				app = appRepo.saveAndFlush(app);
-							
-			}
+		if(app.getJobPost().getUser().getId() == poster.getId() ) {
 			
+			return app = appRepo.saveAndFlush(app);
+						
 		} return null;
+
 		
 	}
 
 	@Override
 	public boolean destroyApp(String username, int appId) {
 		User user = userRepo.findByUsername(username);
-		Optional <JobApplication> opt = appRepo.findById(appId);
-		if(opt.isPresent() && opt.get().getUser().getId() == user.getId()) {
+		JobApplication opt = appRepo.findById(appId);
+		if( opt.getUser().getId() == user.getId()) {
 			
-			appRepo.delete(opt.get());
+			appRepo.delete(opt);
 			return true;
 		}		
 		return false;
@@ -156,15 +136,14 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	public JobApplication newApplication(String username, int postId) {
 		JobApplication app = new JobApplication();
 		User user = userRepo.findByUsername(username);
-		Optional <JobPost> opt = postRepo.findById(postId);
-		if(opt.isPresent()) {
+		JobPost jobPost = postRepo.findById(postId);
+		
 			app.setApproved(false);
 			app.setStatus("Pending Review");
 			app.setDate(LocalDate.now());
-			app.setJobPost(opt.get());
+			app.setJobPost(jobPost);
 			app.setUser(user);
 			return appRepo.saveAndFlush(app);
-		}
-		return null;
+		
 	}
 }

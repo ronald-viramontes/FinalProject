@@ -1,10 +1,12 @@
 <ngb-accordion [closeOthers]="true">
   <ngb-panel title={{edu.institutionName}} *ngFor="let edu of educations">
     <ng-template ngbPanelContent>
-      <strong>{{edu.institutionName}}</strong><br>
-      Institution Type: {{edu.educationType}} <br>
-      Certificate Received: {{edu.degreeCertificateName}} <br>
-      Graduated: {{edu.completeDate}} <br>
+      <div style="white-space: normal;">
+        <strong>{{edu.institutionName}}</strong><br>
+        Institution Type: {{edu.educationType}} <br>
+        Certificate Received: {{edu.degreeCertificateName}} <br>
+        Graduated: {{edu.completeDate}} <br>
+      </div>
       <br>
       <button class="badge btn-light btn-sm" *ngIf="!editEducation" (click)="setEdit(edu)">✏️</button>
       <button class="badge btn-light btn-sm" *ngIf="!editEducation" (click)="delete(edu.id)">❌</button>

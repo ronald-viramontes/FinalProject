@@ -4,11 +4,13 @@
 <ngb-accordion [closeOthers]="true">
   <ngb-panel title={{exp.companyName}} *ngFor="let exp of experiences">
     <ng-template ngbPanelContent>
-      <strong>{{exp.companyName}}</strong><br>
-      Job Title: {{exp.jobTitle}} <br>
-      Started: {{exp.startDate}}
-      <div *ngIf="exp.endDate">
-        Ended: {{exp.endDate}}
+      <div style="white-space: normal;">
+        <strong>{{exp.companyName}}</strong><br>
+        Job Title: {{exp.jobTitle}} <br>
+        Started: {{exp.startDate}}
+        <div *ngIf="exp.endDate">
+          Ended: {{exp.endDate}}
+        </div>
       </div>
       <br>
       <button *ngIf="!editExp" class="badge btn-light btn-sm" (click)="setEditExp(exp)">✏️</button>

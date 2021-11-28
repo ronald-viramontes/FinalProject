@@ -33,7 +33,7 @@ export class JobApplicationService {
     const httpOptions = {};
     return this.http
       .get<JobApplication[]>(
-        `${this.userappUrl}/user/${userId}`,
+        `${this.userappUrl}/${userId}`,
         this.getHttpOptions()
       )
       .pipe(
@@ -71,11 +71,12 @@ export class JobApplicationService {
       );
   }
 
-  approveApp(appId: number, postId: JobPost) {
+  approveApp(appId: number, app: JobApplication) {
     const httpOptions = {};
     return this.http
       .put<JobApplication>(
-        `${this.userappUrl}/${postId}/approved/${appId}`,
+        `${this.userappUrl}/approved/${appId}`,
+        app,
         this.getHttpOptions()
       )
       .pipe(
@@ -86,11 +87,12 @@ export class JobApplicationService {
       );
   }
 
-  deniedApp(appId: number, postId: JobPost) {
+  deniedApp(appId: number, app: JobApplication) {
     const httpOptions = {};
     return this.http
       .put<JobApplication>(
-        `${this.userappUrl}/${postId}/denied/${appId}`,
+        `${this.userappUrl}/denied/${appId}`,
+        app,
         this.getHttpOptions()
       )
       .pipe(

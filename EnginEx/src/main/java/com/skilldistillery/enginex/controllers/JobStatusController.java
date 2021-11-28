@@ -32,6 +32,10 @@ public class JobStatusController {
 	public List<JobStatus> index(){
 		return jobStatusSvc.getAll();
 	}
+	@GetMapping("stats")
+	public List<JobStatus> idx(){
+		return jobStatusSvc.getAll();
+	}
 	
 	@GetMapping("jobstatus/{jobStatusId}")
 	public JobStatus getJobStatusById(@PathVariable Integer jobStatusId,

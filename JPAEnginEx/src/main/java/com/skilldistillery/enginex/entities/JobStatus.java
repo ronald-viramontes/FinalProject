@@ -26,7 +26,7 @@ public class JobStatus {
 	
 	private String name;
 	
-	@JsonIgnoreProperties({ "user", "applications" })
+	@JsonIgnoreProperties({ "user", "applications"})
 	@OneToMany(mappedBy="status")
 	private List<JobPost> jobPosts;
 	
