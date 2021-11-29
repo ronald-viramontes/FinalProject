@@ -1,0 +1,23 @@
+.sidenav-container {
+  position: fixed;
+  top: 70px;
+  bottom: 1010px;
+  left: 0;
+}
+
+.sidenav {
+  width: 125px;
+  background: rgba(255, 0, 0, 0.847);
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

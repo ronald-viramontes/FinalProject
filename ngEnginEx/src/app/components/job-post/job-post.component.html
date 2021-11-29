@@ -34,8 +34,8 @@
           <input class="form-control" required type="boolean" name="jobActive" [(ngModel)]="editJob.jobActive" />
           <br>
           <div class="dropdown">
-            <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" name="type">
+            <button class="btn btn-primary btn-outline-light" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="type">
               <strong> Job Type &nbsp;&nbsp;</strong>
               <select name="type" [(ngModel)]="editJob.type">
                 <option *ngFor="let type of jobTypes" [ngValue]="type">
@@ -46,9 +46,11 @@
               </select>
             </button>
           </div>
+          <br>
+          <br>
           <div class="dropdown">
-            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" name="status">
+            <button class="btn btn-primary btn-outline-light" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="status">
               Job Status &nbsp;&nbsp;
               <select name="status" [(ngModel)]="editJob.status">
                 <option *ngFor="let status of jobStatuses" [ngValue]="status">
@@ -61,14 +63,14 @@
             <br>
           </div>
           <br>
-          <br>
+
           <div style="text-align: center">
             <div class="form-inline" style="text-align: center; margin-top: 4px">
               <button (click)="updateMyPost(editJob)" (click)="modal.close('Save click')"
-                class="badge btn btn-success">Update</button>
+                class="btn btn-outline-light btn-success">Update</button>
               <button (click)="editJob = null" (click)="modal.dismiss('Cross click')" (click)="cancel()"
-                class="badge btn btn-warning" style="margin-left: 10px;">Cancel</button>
-              <button (click)="deletePost(editJob)" class="badge btn btn-danger"
+                class="btn btn-outline-light btn-warning" style="margin-left: 10px;">Cancel</button>
+              <button (click)="deletePost(editJob)" class="btn btn-outline-light btn-danger"
                 style="margin-left: 10px;">Delete</button>
             </div>
           </div>
@@ -178,7 +180,7 @@
     </ngb-panel>
   </ngb-accordion>
 
-  <ngb-accordion>
+  <ngb-accordion *ngIf="activeUser.id == selected.user.id">
     <ngb-panel *ngIf="apps.length > 0"
       title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
       <ng-template ngbPanelContent>

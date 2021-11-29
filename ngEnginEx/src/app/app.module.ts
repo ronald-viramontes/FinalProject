@@ -55,6 +55,16 @@ import { ChatReceivedComponent } from './components/chat-received/chat-received.
 import { SendChatComponent } from './components/send-chat/send-chat.component';
 import { ChatSentComponent } from './components/chat-sent/chat-sent.component';
 import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -89,6 +99,8 @@ import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.comp
     UserJobPipe,
     UserSearchComponent,
     MyJobPostsComponent,
+    SidenavComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +113,14 @@ import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.comp
     MatSliderModule,
     MatCardModule,
     MatTabsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatGridListModule,
+    MatMenuModule,
   ],
   providers: [
     AuthService,
