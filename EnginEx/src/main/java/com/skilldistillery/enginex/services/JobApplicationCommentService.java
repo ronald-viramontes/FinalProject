@@ -14,6 +14,8 @@ public interface JobApplicationCommentService {
 	JobApplicationComment createReply(String username, JobApplicationComment comment, int userId, int appId, int commentId);
 	
 	void delete(String username, int commentId, int appId, int userId);
+	void deleteAppCommentsForJob(String username, int appId);
+	
 	JobApplicationComment edit(String username, JobApplicationComment comment, int commentId, int appId, int userId);
 
 }

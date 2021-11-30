@@ -2,6 +2,7 @@ package com.skilldistillery.enginex.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class JobPostServiceImpl implements JobPostService {
 	@Autowired
 	private JobStatusRepository statusRepo;
 	
+	
 	@Override
 	public List<JobPost> index() {
 		return jobPostRepo.findAll();
@@ -34,9 +36,9 @@ public class JobPostServiceImpl implements JobPostService {
 
 	@Override
 	public JobPost show(int postId) {
-		JobPost receivedJob = jobPostRepo.findById(postId);
-		if(receivedJob != null) {
-			return receivedJob;			
+		Optional<JobPost> receivedJob = jobPostRepo.findById(postId);
+		if(receivedJob.isPresent()) {
+			return receivedJob.get();			
 		} 
 		return null;
 	}
@@ -44,7 +46,8 @@ public class JobPostServiceImpl implements JobPostService {
 	@Override
 	public JobPost update(int id, JobPost jobPost) {
 		
-		JobPost existingJobPost = jobPostRepo.findById(id);
+		Optional<JobPost> opt = jobPostRepo.findById(id);
+		JobPost existingJobPost = opt.get();
 		if(existingJobPost != null) {
 			existingJobPost.setJobRequirements(jobPost.getJobRequirements());
 			existingJobPost.setStartDate(jobPost.getStartDate());
@@ -62,11 +65,14 @@ public class JobPostServiceImpl implements JobPostService {
 
 	@Override
 	public void destroy(int postId) {
-		JobPost delJob = jobPostRepo.findById(postId);
-		for (JobApplication app : delJob.getApplications()) {
-			jobAppRepo.delete(app);
+		Optional<JobPost> opt = jobPostRepo.findById(postId);
+		JobPost delJob = opt.get();
+		if(delJob != null) {
+			for (JobApplication app : delJob.getApplications()) {
+				jobAppRepo.delete(app);
+			}
+			jobPostRepo.delete(delJob);
 		}
-		jobPostRepo.delete(delJob);
 
 	}
 
@@ -109,7 +115,8 @@ public class JobPostServiceImpl implements JobPostService {
 	@Override
 	public JobPost updatePost(String username, JobPost jobPost, int postId) {
 		User user = userRepo.findByUsername(username);
-		JobPost dbJob = jobPostRepo.findById(postId);
+		Optional<JobPost> opt = jobPostRepo.findById(postId);
+		JobPost dbJob = opt.get();
 		
 		if(dbJob != null && user.getId() == dbJob.getUser().getId()) {
 			if (jobPost.getDateClosed() != null) {
@@ -133,21 +140,18 @@ public class JobPostServiceImpl implements JobPostService {
 	}
 	
 	@Override
-	public boolean destroyMyPost(String username, int postId) {
-		User user = userRepo.findByUsername(username);
-		
-		JobPost dbJob = jobPostRepo.findById(postId);
-		
-		if(dbJob != null && user.getId() == dbJob.getUser().getId()) {
-			
-			for (JobApplication app : dbJob.getApplications()) {
+	public void destroyMyPost(String username, int postId) {
+		Optional<JobPost> opt = jobPostRepo.findById(postId);
+		JobPost job = opt.get();
+		if(job != null) {
+			for (JobApplication app : job.getApplications()) {
+				
 				jobAppRepo.delete(app);
 			}
-			jobPostRepo.delete(dbJob);
-			return true;
+
+			jobPostRepo.delete(job);
 			
-		} return false;
-		
+		}
 	} 
 
 }

@@ -59,7 +59,6 @@ public class JobPost {
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
 
-
 	@JsonIgnoreProperties({"company", "educations", "skills", "experiences", "applications", "posts",  
 		"sentMessages", "receivedMessages"})
 	@ManyToOne
@@ -71,7 +70,6 @@ public class JobPost {
 	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
 	
-//	@JsonManagedReference(value="job")
 	@JsonIgnoreProperties(value = {"comments", "detail", "jobPost", "applications"}, allowSetters = true)
 	@OneToMany(mappedBy = "jobPost")
 	private List<JobApplication> applications;

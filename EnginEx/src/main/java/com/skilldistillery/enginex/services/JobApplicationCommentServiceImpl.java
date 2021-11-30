@@ -52,6 +52,9 @@ public class JobApplicationCommentServiceImpl implements JobApplicationCommentSe
 		}
 		return null;
 	}
+	
+	
+	
 	@Override
 	public JobApplicationComment findByCommentId(String username, int userId, int commentId){
 		User user = userRepo.findByUsername(username);
@@ -115,6 +118,18 @@ public class JobApplicationCommentServiceImpl implements JobApplicationCommentSe
 	}
 
 	@Override
+	public void deleteAppCommentsForJob(String username, int appId) {
+//		User user = userRepo.findByUsername(username);	
+		List<JobApplicationComment> jobComments = commentRepo.findByApplication_Id(appId);
+		for(JobApplicationComment comment: jobComments) {
+			commentRepo.delete(comment);
+		}
+		
+	}
+
+	
+	
+	@Override
 	public JobApplicationComment edit(String username, JobApplicationComment comment, int commentId, int appId, int userId) {
 		User user = userRepo.findByUsername(username);
 		LocalDate localDate = LocalDate.now();
@@ -129,5 +144,6 @@ public class JobApplicationCommentServiceImpl implements JobApplicationCommentSe
 		}
 		return null;
 	}
+
 
 }

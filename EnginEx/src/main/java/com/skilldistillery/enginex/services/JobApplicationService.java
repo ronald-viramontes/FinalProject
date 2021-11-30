@@ -10,7 +10,9 @@ public interface JobApplicationService {
 	List<JobApplication> findByDevId(int userId);
 
 	JobApplication create(int userId, int postId);
-	JobApplication newApplication(String username, int postId);
+	JobApplication createApp(String username, int postId);
+	
+	JobApplication newApplication(String username, JobApplication app, int postId);
 	
 	List<JobApplication> findAppsByUser(String username, int userId);
 	boolean delete(int appId, int userId);

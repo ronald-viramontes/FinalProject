@@ -2,6 +2,7 @@ package com.skilldistillery.enginex.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,10 +58,10 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	@Override
 	public JobApplication create(int userId, int postId) {
 		User user = userRepo.findById(userId).get();
-		JobPost post = postRepo.findById(postId);
+		Optional<JobPost> opt = postRepo.findById(postId);
 		JobApplication app = new JobApplication();
 		app.setUser(user);
-		app.setJobPost(post);
+		app.setJobPost(opt.get());
 		app.setStatus("Open");
 		app.setDate(LocalDate.now());
 		System.out.println(app);
@@ -133,17 +134,38 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 
 	@Override
-	public JobApplication newApplication(String username, int postId) {
-		JobApplication app = new JobApplication();
+	public JobApplication newApplication(String username, JobApplication app, int postId) {
 		User user = userRepo.findByUsername(username);
-		JobPost jobPost = postRepo.findById(postId);
 		
-			app.setApproved(false);
-			app.setStatus("Pending Review");
-			app.setDate(LocalDate.now());
-			app.setJobPost(jobPost);
-			app.setUser(user);
-			return appRepo.saveAndFlush(app);
+		Optional<JobPost> opt = postRepo.findById(postId);	
 		
+		if(opt.isPresent()) {
+		app.setApproved(false);
+		app.setStatus("Pending");
+		app.setDate(LocalDate.now());
+		app.setJobPost(opt.get());
+		app.setUser(user);
+		
+		return appRepo.saveAndFlush(app);
+		}
+		return null;
+	}
+
+
+	@Override
+	public JobApplication createApp(String username, int postId) {
+		User user = userRepo.findByUsername(username);
+		Optional<JobPost> opt = postRepo.findById(postId);
+		if(opt.isPresent()) {
+			JobApplication jobApp = new JobApplication();
+			jobApp.setUser(user);
+			jobApp.setJobPost(opt.get());
+			jobApp.setApproved(false);
+			jobApp.setStatus("Pending");
+			jobApp.setDate(LocalDate.now());
+			
+			return appRepo.saveAndFlush(jobApp);
+		}
+		return null;
 	}
 }

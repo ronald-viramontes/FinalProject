@@ -125,16 +125,8 @@ public class JobPostController {
 	public void deleteMyPost(@PathVariable Integer postId, HttpServletRequest req, 
 							 HttpServletResponse res, Principal principal) {
 		
-		boolean result = jobPostServ.destroyMyPost(principal.getName(), postId);
-		
-		if(result == false) {
-			res.setStatus(404);
-			
-		} else {
-			res.setStatus(200);
-			
-		}
-		
+		jobPostServ.destroyMyPost(principal.getName(), postId);
+				
 	}
 
 }

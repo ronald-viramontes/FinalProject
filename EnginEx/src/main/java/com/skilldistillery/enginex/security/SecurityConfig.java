@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -53,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         
         
         .antMatchers(HttpMethod.GET, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
+        .antMatchers(HttpMethod.POST, "/api/userapps/new/**").permitAll() // Requests for our REST API must be authorized.
       .antMatchers(HttpMethod.POST, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
       .antMatchers(HttpMethod.PUT, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
         .antMatchers(HttpMethod.DELETE, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
@@ -96,6 +98,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .usersByUsernameQuery(userQuery)
         .authoritiesByUsernameQuery(authQuery)
         .passwordEncoder(encoder);
+    }
+    
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+    	
+    	
+    	web.ignoring().antMatchers(HttpMethod.GET, "/api/posts");
+    	web.ignoring().antMatchers(HttpMethod.GET, "/api/stats");
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/types");
     }
     
   

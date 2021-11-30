@@ -48,7 +48,9 @@ public class JobStatusServiceImpl implements JobStatusService{
 	public JobStatus create(JobStatus jobStatus, String username, int jobPostId) {
 		User user = userRepo.findByUsername(username);
 		
-		JobPost jobPost = jobPostRepo.findById(jobPostId);
+		Optional<JobPost> opt= jobPostRepo.findById(jobPostId);
+		JobPost jobPost = opt.get();
+		
 		if(jobPost != null && jobPost.getUser().getId() == user.getId()) {
 			jobStatus = jobStatusRepo.saveAndFlush(jobStatus);
 			jobPost.setStatus(jobStatus);
@@ -65,12 +67,14 @@ public class JobStatusServiceImpl implements JobStatusService{
 
 	@Override
 	public JobStatus update(JobStatus jobStatus, String username, int jobStatusId, int jobPostId) {
-		User user = userRepo.findByUsername(username);
-		JobPost jobPost = jobPostRepo.findById(jobPostId);
-		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
+//		User user = userRepo.findByUsername(username);
+		
+		Optional<JobPost> opt= jobPostRepo.findById(jobPostId);
+		JobPost jobPost = opt.get();
+		Optional<JobStatus> optStat = jobStatusRepo.findById(jobStatusId);
 		if (jobPost != null) {
 			
-			JobStatus dbJobStatus = opt.get();
+			JobStatus dbJobStatus = optStat.get();
 			dbJobStatus.setName(jobStatus.getName());
 			jobStatusRepo.saveAndFlush(dbJobStatus);
 		
@@ -84,15 +88,16 @@ public class JobStatusServiceImpl implements JobStatusService{
 	public boolean destroy(String username, int jobStatusId, int jobPostId) {
 		User user = userRepo.findByUsername(username);
 		
-		Optional<JobStatus> opt = jobStatusRepo.findById(jobStatusId);
+		Optional<JobStatus> optStat = jobStatusRepo.findById(jobStatusId);
+		Optional<JobPost> opt= jobPostRepo.findById(jobPostId);
+		JobPost jobPost = opt.get();
 		
-		JobPost jobPost = jobPostRepo.findById(jobPostId);
 		if(jobPost != null && jobPost.getUser().getId() == user.getId()) {
 			
 			jobPost.setStatus(null);
 			jobPostRepo.save(jobPost);
 			
-				JobStatus jobStatus = opt.get();
+				JobStatus jobStatus = optStat.get();
 				jobStatusRepo.delete(jobStatus);
 				return true;
 			} 

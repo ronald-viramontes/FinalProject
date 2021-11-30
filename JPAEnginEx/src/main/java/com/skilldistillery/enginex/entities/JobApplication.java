@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -40,9 +42,11 @@ public class JobApplication {
 	@Column(name = "application_status")
 	private String status;
 
+	@JsonInclude(Include.NON_NULL)
 	@Column(name = "application_date")
 	private LocalDate date;
-
+	
+	@JsonInclude(Include.NON_NULL)
 	@Column(name = "decision_date")
 	private LocalDate decisionDate;
 	

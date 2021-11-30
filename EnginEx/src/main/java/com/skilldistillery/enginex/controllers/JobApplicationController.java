@@ -32,6 +32,7 @@ public class JobApplicationController {
 	@Autowired
 	private UserRepository userRepo;
 	
+	
 	@GetMapping("apps")
 	public List<JobApplication> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		return appSvc.findAll();
@@ -105,11 +106,11 @@ public class JobApplicationController {
 	
 	
 	
-	@PostMapping("userapps/{postId}")
+	@PostMapping("userapps/new/{postId}")
 	public JobApplication createNewApplication(HttpServletRequest req, HttpServletResponse res,
-											   @PathVariable int postId, Principal principal ) {
+											   @PathVariable Integer postId, Principal principal ) {
 		
-		JobApplication app = appSvc.newApplication(principal.getName(), postId);
+		JobApplication app = appSvc.createApp(principal.getName(), postId);
 		
 		if(app == null) {
 			res.setStatus(400);

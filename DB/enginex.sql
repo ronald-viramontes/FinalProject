@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `job_application` (
   CONSTRAINT `fk_job_application_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -284,18 +284,18 @@ CREATE TABLE IF NOT EXISTS `job_application_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `comment` TEXT NULL DEFAULT NULL,
   `comment_date` DATE NULL,
-  `job_application_id` INT NOT NULL,
+  `job_application_id` INT NULL,
   `in_reply_to_comment_id` INT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_job_application_comment_job_application1`
     FOREIGN KEY (`job_application_id`)
     REFERENCES `job_application` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_job_application_comment_job_application_comment1`
     FOREIGN KEY (`in_reply_to_comment_id`)
     REFERENCES `job_application_comment` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

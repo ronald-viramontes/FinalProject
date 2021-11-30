@@ -18,6 +18,6 @@ public interface JobPostService {
 	
 	public JobPost createPost(String username, JobPost jobPost);
 	public JobPost updatePost(String username, JobPost jobPost, int postId);
-	public boolean destroyMyPost(String username, int postId);
+	public void destroyMyPost(String username, int postId);
 	
 }
