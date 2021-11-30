@@ -28,9 +28,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class JobPostComponent implements OnInit {
   ngOnInit(): void {
-    if (this.loggedIn()) {
-      this.getActiveUser();
-    }
+    this.getActiveUser();
     this.loadStatusAndTypes();
     this.loadJobs();
   }
@@ -68,7 +66,8 @@ export class JobPostComponent implements OnInit {
     private appService: JobApplicationService
   ) {}
 
-  activeUser: User = new User();
+  @Input()
+  activeUser: User | null = null;
   isOwner: boolean = false;
 
   selected: JobPost | null = null;
@@ -163,6 +162,22 @@ export class JobPostComponent implements OnInit {
         }
       );
     }
+  }
+
+  applyForJob(job: JobPost) {
+    if (this.activeUser)
+      if (this.selected)
+        this.appService.newJobApplication(this.selected).subscribe(
+          (updated) => {
+            console.log('Application has been submitted', updated);
+
+            this.selected = null;
+            this.loadJobs();
+          },
+          (fail) => {
+            console.error('Application approval submission failed', fail);
+          }
+        );
   }
 
   approveApp(app: JobApplication) {

@@ -94,7 +94,7 @@ export class JobListingComponent implements OnInit {
       (created) => {
         console.log('Job Post Created');
         this.newPost = new JobPost();
-        alert('Profile Updated');
+        alert('Job Posted');
         this.router.navigateByUrl('/home');
       },
       (failed) => {

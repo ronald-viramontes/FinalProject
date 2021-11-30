@@ -98,6 +98,7 @@ export class JobPostService {
       })
     );
   }
+
   type(): Observable<JobType[]> {
     console.log('in call to type DB');
     return this.http.get<JobType[]>(this.typeUrl, this.getHttpOptions()).pipe(
@@ -130,6 +131,34 @@ export class JobPostService {
       })
     );
   }
+  //VISITOR GET MAPPINGS --->
+  visitorStatus(): Observable<JobStatus[]> {
+    return this.http.get<JobStatus[]>(`${this.userUrl}/stats`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Bad Type Request');
+      })
+    );
+  }
+  visitorTypes(): Observable<JobType[]> {
+    return this.http.get<JobType[]>(`${this.userUrl}/types`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Bad Type Request');
+      })
+    );
+  }
+
+  visitorIndex(): Observable<JobPost[]> {
+    console.log('In call to DB.');
+    return this.http.get<JobPost[]>(`${this.userUrl}/posts`).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('JPS.update(): error retrieving JobPosts');
+      })
+    );
+  }
+  //<--- VISITOR GET MAPPINGS
 
   create(jobPost: JobPost) {
     return this.http.post(this.jobsUrl, jobPost, this.getHttpOptions()).pipe(
@@ -230,12 +259,14 @@ export class JobPostService {
 
   deletePost(jobPost: JobPost) {
     const httpOptions = {};
-    return this.http.delete(`${this.userUrl}/userjobs/${jobPost.id}`).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('JobPostService.delete(): error deleting jobPost');
-      })
-    );
+    return this.http
+      .delete(`${this.userUrl}/userjobs/${jobPost.id}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('JobPostService.delete(): error deleting jobPost');
+        })
+      );
   }
 
   createApp(newApp: JobApplication) {

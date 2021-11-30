@@ -59,10 +59,13 @@ export class JobApplicationService {
       );
   }
 
-  newJobApplication(postId: number) {
+  newJobApplication(jobPost: JobPost): Observable<JobApplication> {
     const httpOptions = {};
     return this.http
-      .post(`${this.userappUrl}/${postId}`, this.getHttpOptions())
+      .post<JobApplication>(
+        `${this.userappUrl}/new/${jobPost.id}`,
+        this.getHttpOptions()
+      )
       .pipe(
         catchError((err: any) => {
           console.log(err);

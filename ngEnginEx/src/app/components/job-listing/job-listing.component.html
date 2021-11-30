@@ -35,7 +35,7 @@
             <select name="type" [(ngModel)]="newPost.type">
               <option *ngFor="let type of jobTypes" [ngValue]="type">
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li class="dropdown-item">{{type.name}}</li>
+                  <li class="dropdown-item" required>{{type.name}}</li>
                 </ul>
               </option>
             </select>
@@ -49,19 +49,19 @@
             <select name="status" [(ngModel)]="newPost.status">
               <option *ngFor="let status of jobStatuses" [ngValue]="status">
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li class="dropdown-item">{{status.name}}</li>
+                  <li class="dropdown-item" required>{{status.name}}</li>
                 </ul>
 
               </option>
             </select>
           </button>
-        </div> -->
-
+        </div>
+        <br>
         <div style="text-align: center">
           <div class="form-inline" style="text-align: center; margin-top: 4px">
             <button (click)="createAPost(newPost)" (click)="modal.close('Save click')"
-              class="badge btn btn-success">Create Post</button>
-            <button class="badge btn btn-warning" style="margin-left: 10px;" (click)="modal.dismiss('Cross click')"
+              class="button btn btn-success">Create</button>
+            <button class="button btn btn-warning" style="margin-left: 20px;" (click)="modal.dismiss('Cross click')"
               (click)="cancel()">Cancel</button>
 
           </div>

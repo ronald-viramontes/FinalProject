@@ -65,6 +65,7 @@ import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { VisitorHomeComponent } from './components/visitor-home/visitor-home.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MyJobPostsComponent,
     SidenavComponent,
     DashboardComponent,
+    VisitorHomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.comp
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SendChatComponent } from './components/send-chat/send-chat.component';
 import { SkillComponent } from './components/skill/skill.component';
+import { VisitorHomeComponent } from './components/visitor-home/visitor-home.component';
 import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'editprofile', component: EditProfileComponent },
   { path: 'sendchat', component: SendChatComponent },
   { path: 'listjob', component: JobListingComponent },
+  { path: 'visitor-home', component: VisitorHomeComponent },
 ];
 
 @NgModule({

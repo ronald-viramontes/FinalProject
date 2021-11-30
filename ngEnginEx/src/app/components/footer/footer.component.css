@@ -1,7 +1,7 @@
 .page-container {
   /* position: absolute; */
   max-height: 110vh;
-  /* width: 100%; */
+  width: 100%;
 }
 
 .content-wrap {
@@ -24,7 +24,7 @@
   /* position: fixed; */
   bottom: 0;
   /* padding: 10px 10px 0px 10px; */
-  width: 100%;
-
-  /* min-width: max-content; */
+  /* min-width: 100%;
+  margin-right: 0px;
+  margin-left: auto; */
 }

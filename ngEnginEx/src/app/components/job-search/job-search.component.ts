@@ -19,14 +19,12 @@ export class JobSearchComponent implements OnInit {
   jobPosts: JobPost[] = [];
   keyword: string = '';
   searchResults: JobPost[] = [];
-  returnNum: number = 10;
+  // returnNum: number = 10;
 
-  ngOnInit(): void {
-    this.loadPosts();
-  }
+  ngOnInit(): void {}
 
   loadPosts() {
-    this.postService.index().subscribe((data) => {
+    this.postService.visitorIndex().subscribe((data) => {
       this.jobPosts = data;
     });
   }
@@ -44,6 +42,6 @@ export class JobSearchComponent implements OnInit {
   }
 
   goToJob(selected: JobPost) {
-    this.router.navigateByUrl('/jobs', { state: selected });
+    this.router.navigateByUrl('/visitor-home', { state: selected });
   }
 }

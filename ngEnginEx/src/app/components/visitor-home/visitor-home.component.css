@@ -1,0 +1,14 @@
+.mat-card-title {
+  text-align: center;
+  color: white;
+}
+.mat-card {
+  background-color: rgb(33, 34, 35);
+  /* width: 75%; */
+  margin: 0 auto;
+}
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}

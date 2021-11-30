@@ -1,18 +1,21 @@
 .sidenav-container {
   position: fixed;
-  top: 70px;
-  bottom: 1010px;
+  top: 235px;
+
   left: 0;
 }
 
 .sidenav {
-  width: 125px;
+  width: 150px;
   background: rgba(255, 0, 0, 0.847);
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  border-radius: 8px;
+  color: black;
+  justify-content: left;
+  font-size: large;
 }
 
-.sidenav .mat-toolbar {
+.mat-sidenav-content .mat-toolbar {
   background: inherit;
 }
 

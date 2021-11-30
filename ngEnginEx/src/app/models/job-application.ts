@@ -12,8 +12,8 @@ export class JobApplication {
   user: User;
   decisionDate: string;
   detail: JobDetail | null = null;
-
   comments: JobApplicationComment[] = [];
+
   constructor(
     id: number = 0,
     approved: boolean = false,

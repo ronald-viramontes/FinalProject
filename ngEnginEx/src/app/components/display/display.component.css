@@ -86,8 +86,8 @@
   font-style: italic;
   text-align: center;
 }
-.scrolling-wrapper {
-  overflow-x: scroll;
+/* .scrolling-wrapper {
+  overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
-}
+} */

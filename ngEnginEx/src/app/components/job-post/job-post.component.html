@@ -134,7 +134,7 @@
                     <td>{{job.status.name}}</td>
                     <td><button (click)="displayJob(job)" class="badge btn-primary btn-sm">View Job</button></td>
 
-                    <td *ngIf="activeUser.id == job.user.id">
+                    <td *ngIf="activeUser?.id == job.user.id">
                       <button (click)="setEditJob(job)" class="badge btn-warning btn-sm">Edit
                         Job</button>
                     </td>
@@ -164,6 +164,15 @@
           <li>Status: {{selected.status?.name}}</li>
           <li>Job Type: {{selected.type?.name}}</li>
         </ul>
+
+        <div *ngIf="activeUser?.id != selected.user.id">
+          <br>
+          <button (click)="applyForJob(selected)" class="btn sm btn-success btn-outline-light">Submit
+            Application
+          </button>
+          <button (click)="returnToList()" style="margin-left: 10px;"
+            class="btn sm btn-danger btn-outline-light">Return</button>
+        </div>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
@@ -180,7 +189,7 @@
     </ngb-panel>
   </ngb-accordion>
 
-  <ngb-accordion *ngIf="activeUser.id == selected.user.id">
+  <ngb-accordion *ngIf="activeUser?.id == selected.user.id">
     <ngb-panel *ngIf="apps.length > 0"
       title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
       <ng-template ngbPanelContent>
@@ -224,13 +233,19 @@
                   </ul>
                 </mat-tab>
               </mat-tab-group>
-              <div *ngIf="app.status == 'Pending'">
+              <div *ngIf="activeUser?.id == app.user.id">
                 <br>
                 <button (click)="approveApp(app)" class="btn sm btn-success btn-outline-light">Approve
                 </button>
                 <button (click)="denyApp(app)" style="margin-left: 10px;"
                   class="btn sm btn-danger btn-outline-light">Decline</button>
               </div>
+              <div>
+                <button (click)="returnToList()" style="margin-left: 10px;"
+                  class="btn sm btn-danger btn-outline-light">Return</button>
+
+              </div>
+
             </div>
           </ul>
         </div>
