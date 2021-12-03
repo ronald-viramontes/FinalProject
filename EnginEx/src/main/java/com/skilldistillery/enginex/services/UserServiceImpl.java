@@ -13,6 +13,23 @@ import com.skilldistillery.enginex.repositories.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+//	private JobPostRepository jobRepo;
+//	@Autowired
+//	private SkillRepository sRepo;
+//	@Autowired
+//	private ExperienceRepository expRepo;
+//	@Autowired
+//	private ChatRepository chatRepo;
+//	@Autowired
+//	private EducationRepository eduRepo;
+//	@Autowired
+//	private JobApplicationRepository appRepo;
+//	@Autowired
+//	private JobDetailRepository detailRepo;
+//	@Autowired
+//	private JobApplicationCommentRepository appCommentRepo;
+	
 
 	@Override
 	public List<User> index() {
@@ -59,6 +76,8 @@ public class UserServiceImpl implements UserService {
 		}
 		return null;
 	}
+	
+	
 
 	@Override
 	public User showUsername(String username) {
@@ -71,4 +90,64 @@ public class UserServiceImpl implements UserService {
 		return userRepo.findBySkills_skillTitleLike(skill);
 	}
 
+	@Override
+	public User disableAccount(String username, int userId) {
+		User disabledUser = userRepo.findByUsername(username);
+						
+		disabledUser.setEnabled(false);
+
+		return userRepo.saveAndFlush(disabledUser);
+	}
+
+	@Override
+	public boolean removeUserAccount(String sysadmin, String username, int userId) {
+		User systemAdmin = userRepo.findByUsername(sysadmin);
+		User removeUser = userRepo.findByUsername(username);
+		User emptyUser = new User();
+		
+		if (systemAdmin.getRole() == "ADMIN") {
+			if(removeUser.getId() == userId) {
+				removeUser.setApplications(emptyUser.getApplications());
+				removeUser.setCompany(emptyUser.getCompany());
+				removeUser.setEducations(emptyUser.getEducations());
+				removeUser.setEmail("");				
+				removeUser.setExperiences(emptyUser.getExperiences());
+				removeUser.setFirstName("");
+				removeUser.setLastName("");
+				removeUser.setImageUrl("");
+				removeUser.setPassword("");
+				removeUser.setPhoneNumber("");
+				removeUser.setPosts(emptyUser.getPosts());
+				removeUser.setReceivedMessages(emptyUser.getReceivedMessages());
+				removeUser.setRole("");
+				removeUser.setSentMessages(emptyUser.getSentMessages());
+				removeUser.setSkills(emptyUser.getSkills());
+				removeUser.setUsername("");
+				removeUser.setEnabled(false);
+				userRepo.delete(removeUser);
+				
+				User checkDelete = userRepo.findByUsername(username);
+				if(checkDelete == null) {
+					return true;
+				} 
+				
+			}
+		} return false;
+		
+		
+		
+	}
+
+	@Override
+	public User enableOrDisableAccount(String username, int userId, User user) {
+//		User admin = userRepo.findByUsername(username);
+		User dbUser = userRepo.findByUsername(user.getUsername());
+		if (dbUser != null) {
+			dbUser.setEnabled(!user.isEnabled());
+			dbUser = userRepo.saveAndFlush(dbUser);
+			return dbUser;
+		}
+		
+		return null;
+	}
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { DisplayComponent } from './components/display/display.component';
 import { EditJobComponent } from './components/edit-job/edit-job.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'listjob', component: JobListingComponent },
   { path: 'visitor-home', component: VisitorHomeComponent },
   { path: 'editjobform', component: EditJobComponent },
+  { path: 'adminDash', component: AdminDashboardComponent },
 ];
 
 @NgModule({

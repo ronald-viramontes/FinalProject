@@ -1,0 +1,48 @@
+<div class="horizontalScrollbar">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <div *ngIf="users.length > 0" style="text-align: center;">
+        <mat-card>
+          <mat-card-title>ADMINISTRATIVE DASHBOARD</mat-card-title>
+          <mat-card-content>
+            <div class="scrollable">
+              <table class="table table-striped table-hover table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Account Enabled</th>
+                    <th>Role</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>View Account</th>
+                    <th>Disable User</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let user of users'>
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.enabled}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.email}}</td>
+
+                    <td><button (click)="selectUser(user)" class="badge btn-secondary btn-outline-dark">View</button>
+                    </td>
+                    <td><button (click)="disableUser(user)" class="badge btn-danger btn-outline-dark">Disable</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

@@ -10,26 +10,34 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="!loggedIn()">
+          <a class="nav-link" href="#/visitor-home"><strong>Visitor Home</strong></a>
+        </li>
         <li class="nav-item active">
           <button *ngIf="!loggedIn()" class="btn btn-success btn-outline-dark btn-lg" (click)="register()"
-            style="margin-left: 50px;">Register</button>
+            style="margin-left: 50px;"><strong>Register</strong></button>
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" href="#/jobs">Job Posts</a>
+          <a class="nav-link" href="#/jobs"><strong>Job Posts</strong></a>
         </li>
 
         <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" href="#/editprofile">Edit Profile</a>
+          <a class="nav-link" href="#/sendchat"><strong>Send Chat</strong></a>
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" href="#/sendchat">Send Chat</a>
+          <a class="nav-link" href="#/listjob"><strong>Create Job Post</strong></a>
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" href="#/listjob">Create Job Post</a>
+          <a class="nav-link" href="#/editprofile"><strong style="color: yellow">Edit Profile</strong></a>
         </li>
         <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" href="#/home" (click)="logOut()">Logout</a>
+          <a class="nav-link" href="#/home" (click)="logOut()"><strong style="color: blue">Logout</strong></a>
         </li>
+        <li class="nav-item" *ngIf="loggedIn() && adminRights">
+          <a class="nav-link" href="#/adminDash"> <strong style="margin-left: 350px; color: red;">ADMIN
+              DASH</strong></a>
+        </li>
+
       </ul>
       <div id="userLoginInline" style="margin-left: auto; margin-right: 0px;">
         <form class="form-inline-lg" *ngIf="!loggedIn()">

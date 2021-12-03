@@ -74,4 +74,18 @@ public class UserController {
 		return userServ.findBySkill(keyword);
 	}
 	
+	@PutMapping("/users/disabled/{username}/{userId}")
+	public User disableAcct(@PathVariable int userId, @PathVariable String username, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		
+		return userServ.disableAccount(username, userId);
+//		if (user != null) {
+//			res.setStatus(200);
+//			return user;
+//		} else {
+//			res.setStatus(404);
+//			return null;
+//		}
+	}
+	
+	
 }

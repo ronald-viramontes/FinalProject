@@ -208,7 +208,7 @@
 
 
 <div *ngIf="selected">
-  <ngb-accordion>
+  <ngb-accordion style="text-align: center; margin-top: 4px">
     <ngb-panel title="Job Info">
       <ng-template ngbPanelContent>
         <ul>
@@ -300,7 +300,7 @@
                   </ul>
                 </mat-tab>
               </mat-tab-group>
-              <div *ngIf="app.status == 'Pending'">
+              <div *ngIf="app.status == 'Pending Review'">
                 <br>
                 <button (click)="approveApp(app)" class="btn sm btn-success btn-outline-light">Approve
                 </button>

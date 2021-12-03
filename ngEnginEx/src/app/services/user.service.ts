@@ -36,6 +36,15 @@ export class UserService {
   //   );
   // }
 
+  userIndex() {
+    return this.http.get<User[]>(this.userUrl, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('UserService.userIndex(): error retrieving users');
+      })
+    );
+  }
+
   show(username: string): Observable<User> {
     return this.http
       .get<User>(`${this.baseUrl}api/user/${username}`, this.getHttpOptions())
@@ -50,6 +59,20 @@ export class UserService {
   edit(userId: number, user: User) {
     return this.http
       .put<User>(`${this.userUrl}/${userId}`, user, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('UserService.edit(): error editing user');
+        })
+      );
+  }
+
+  disableUserAcct(userId: number, username: string) {
+    return this.http
+      .put<User>(
+        `${this.userUrl}/disabled/${username}/${userId}`,
+        this.getHttpOptions()
+      )
       .pipe(
         catchError((err: any) => {
           console.log(err);

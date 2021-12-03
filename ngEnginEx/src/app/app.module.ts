@@ -67,6 +67,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { VisitorHomeComponent } from './components/visitor-home/visitor-home.component';
 import { EditJobComponent } from './components/edit-job/edit-job.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +107,7 @@ import { EditJobComponent } from './components/edit-job/edit-job.component';
     DashboardComponent,
     VisitorHomeComponent,
     EditJobComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,6 +128,7 @@ import { EditJobComponent } from './components/edit-job/edit-job.component';
     MatListModule,
     MatGridListModule,
     MatMenuModule,
+    MatPaginatorModule,
   ],
   providers: [
     AuthService,

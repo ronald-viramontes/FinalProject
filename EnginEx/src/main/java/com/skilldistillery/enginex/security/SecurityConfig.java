@@ -57,8 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	.dataSource(dataSource)
     	.usersByUsernameQuery(userQuery)
     	.authoritiesByUsernameQuery(authQuery)
-    	.passwordEncoder(encoder)
-    	.rolePrefix("ROLE_");
+    	.passwordEncoder(encoder);
+    	
     }
 
     
@@ -68,46 +68,61 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	CorsConfiguration configCors = new CorsConfiguration();
     	configCors.applyPermitDefaultValues();
 //    	configCors.setAllowCredentials(true);
-    	
-    	
-    		
+    	    		
     	http
+    		.httpBasic().and()
+    		.authorizeRequests()
+    			.antMatchers(HttpMethod.POST, "/api/admin").hasRole("ADMIN")
+    			.antMatchers(HttpMethod.PUT, "/api/admin/**/**").hasRole("ADMIN")
+    			.antMatchers(HttpMethod.PUT, "/api/admin/eord/**/**").hasRole("ADMIN")
+    			.antMatchers(HttpMethod.DELETE, "/api/admin/**").hasRole("ADMIN")
+    			.and()
+    			.csrf().disable();
     	 
-        
-    	.csrf().disable()
+    	http
+    		.csrf().disable()
     		.authorizeRequests()
     			.antMatchers(HttpMethod.OPTIONS, "/api/**", "/**")
 		        	.permitAll() 
 		        	
 		        .antMatchers(HttpMethod.OPTIONS, "/**")
 		        	.permitAll()
-		        .antMatchers(HttpMethod.GET, "/admin")
-		        	.hasRole("ADMIN")
-		        	.antMatchers(HttpMethod.POST, "/admin")
-		        	.hasRole("ADMIN")
-		        	.antMatchers(HttpMethod.PUT, "/admin")
-		        	.hasRole("ADMIN")
-		        	.antMatchers(HttpMethod.DELETE, "/admin")
-		        	.hasRole("ADMIN")
+		        	
+//		        .antMatchers(HttpMethod.OPTIONS, "/api/users/**/**")
+//		        	.hasAnyRole("ADMIN")	
+		      
+//		        .antMatchers(HttpMethod.GET, "/api/users", "/api/users/**")
+//		        	.hasAnyRole("ADMIN")
+		        
+//		        .antMatchers(HttpMethod.POST, "/api/users/**")
+//		        	.hasAnyRole("ADMIN")
+		       
+//		        .antMatchers(HttpMethod.PUT, "/api/users/disabled/**")
+//		        .hasAnyAuthority("ROLE_ADMIN")
+//		       
+//		       	.antMatchers(HttpMethod.DELETE, "/api/users/**")
+//		        	.hasAnyAuthority("ROLE_ADMIN")
+		        	
 		       	
 		        .antMatchers(HttpMethod.GET, "/api/jobs", "/api/jobs/**", "/api/jobstatus/**", 
 		        		"/api/comments/**", "/api/jobtypes/**", "/api/jobdetails/**",
-		        		"/api/skills/**", "/api/apps/**", "/api/users", "/api/educations/**", 
-		        		"/api/userapps", "/api/userjobs/**", "/api/userapps/**")
+		        		"/api/skills/**", "/api/apps/**", "/api/users", "/api/educations/**", "/api/users/skills/**",
+		        		"/api/userapps", "/api/userjobs/**", "/api/userapps/**", "/api/userapps/app/**")
 		        	.permitAll()
 		        	
 		        	
 		        .antMatchers(HttpMethod.POST, "/api/jobs",  "/api/jobs/**", "/api/jobstatus/**", 
 	        			"/api/comments/**", "/api/jobtypes/**", "/api/jobdetails/**",
 	        			"/api/skills/**", "/api/apps/**", "/api/users", "/api/educations/**", 
-	        			"/api/userapps", "/api/userjobs/**", "/api/userapps/**", "/api/userapps/new/**", 
+	        			"/api/userapps", "/api/userjobs", "/api/userjobs/**", "/api/userapps/**", "/api/userapps/new/**", 
 	        			"/api/userapps/new", "/api/userapps/new/")
 		        	.permitAll()
 		        			        	   	
 	        	.antMatchers(HttpMethod.PUT, "/api/jobs",  "/api/jobs/**", "/api/jobstatus/**", 
 	        			"/api/comments/**", "/api/jobtypes/**", "/api/jobdetails/**",
-	        			"/api/skills/**", "/api/apps/**", "/api/users", "/api/educations/**", 
-	        			"/api/userapps", "/api/userjobs/**", "/api/userapps/**")
+	        			"/api/skills/**", "/api/apps/**", "/api/users", "/api/users/**", "/api/educations/**", 
+	        			"/api/userapps", "/api/userjobs/**", "/api/userapps/approved/**", "/api/userapps/denied/**",
+	        			"/api/users/disabled/**")
 	        		.permitAll() 
 	        		
 	        	.antMatchers(HttpMethod.DELETE, "/api/jobs",  "/api/jobs/**", "/api/jobstatus/**", 
@@ -124,6 +139,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                http
 	                .sessionManagement()
 	                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	               
 
 	                
 	             

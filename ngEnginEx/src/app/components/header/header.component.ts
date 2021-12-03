@@ -3,6 +3,7 @@ import { Navigation, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { JobPostService } from 'src/app/services/job-post.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -26,12 +27,18 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private postService: JobPostService
+    private postService: JobPostService,
+    private userService: UserService
   ) {}
 
-  user: User = new User();
+  adminRights: boolean = false;
 
-  ngOnInit(): void {}
+  user: User = new User();
+  activeUser: User = new User();
+
+  ngOnInit(): void {
+    this.checkAdminRole();
+  }
 
   loggedIn() {
     return this.authService.checkLogin();
@@ -57,5 +64,25 @@ export class HeaderComponent implements OnInit {
 
   register() {
     this.router.navigateByUrl('/register');
+  }
+
+  checkAdminRole() {
+    let creds = this.authService.getCredentials();
+    if (creds != null) {
+      creds = atob(creds);
+      let unArr = creds.split(':');
+      let username = unArr[0];
+      this.userService.show(username).subscribe(
+        (data) => {
+          this.activeUser = data;
+          if (this.activeUser.role == 'ADMIN') {
+            this.adminRights = true;
+          }
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
   }
 }

@@ -1,0 +1,43 @@
+.mat-card-title {
+  text-align: center;
+  color: white;
+  word-wrap: normal;
+}
+.mat-card {
+  background-color: rgb(33, 34, 35);
+
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 40px;
+  padding-top: 40px;
+  word-wrap: normal;
+}
+table {
+  background-color: white;
+  word-wrap: normal;
+}
+
+td {
+  width: 1px;
+  font-size: small;
+  word-break: break-all;
+}
+th {
+  font-size: small;
+}
+table thead th:first-child {
+  width: 5%;
+}
+.scrollable {
+  overflow: auto;
+
+  width: 100%;
+  height: 50%;
+}
+.horizontalScrollbar {
+  overflow-x: auto;
+
+  width: 100%;
+  height: 50%;
+}
