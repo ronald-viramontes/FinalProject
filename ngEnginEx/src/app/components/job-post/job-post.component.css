@@ -18,7 +18,6 @@
 }
 .mat-card {
   background-color: rgb(33, 34, 35);
-  /* min-width: 55%; */
 
   margin: 0 auto;
 }
@@ -36,11 +35,11 @@ td {
 th {
   font-size: small;
 }
-.accordion {
-  background-color: rgb(82, 82, 82);
-  color: #444;
+.ngb-accordion {
+  /* background-color: rgb(82, 82, 82);
+  color: #444; */
   cursor: pointer;
-  width: 55%;
+  width: 300px;
   border: none;
   text-align: left;
   outline: none;
@@ -69,7 +68,8 @@ th {
 }
 
 .mat-card {
-  max-width: 85%;
+  max-width: 800px;
+  max-height: 800px;
 }
 /* .flex {
   flex: auto;
@@ -100,7 +100,7 @@ th {
   overflow-y: auto;
 
   width: 100%;
-  height: 50%;
+  height: 500px;
 }
 #editJobOutside {
   vertical-align: middle;

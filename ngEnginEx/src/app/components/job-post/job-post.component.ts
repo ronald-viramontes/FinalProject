@@ -1,13 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { JobApplication } from 'src/app/models/job-application';
 import { JobPost } from 'src/app/models/job-post';
 import { JobStatus } from 'src/app/models/job-status';
@@ -24,7 +15,6 @@ import { UserService } from 'src/app/services/user.service';
   selector: 'app-job-post',
   templateUrl: './job-post.component.html',
   styleUrls: ['./job-post.component.css'],
-  template: `<ng-template #content let-modal id="editMyJob"></ng-template>`,
 })
 export class JobPostComponent implements OnInit {
   ngOnInit(): void {
@@ -32,9 +22,6 @@ export class JobPostComponent implements OnInit {
     this.loadStatusAndTypes();
     this.loadJobs();
   }
-
-  @ViewChild('content', { static: true })
-  content!: TemplateRef<any>;
 
   // appStyleBadge(jobPost: JobPost): string {
   //   let count = 0;
@@ -55,23 +42,18 @@ export class JobPostComponent implements OnInit {
   // }
 
   constructor(
-    private modalService: NgbModal,
     private jobService: JobPostService,
-    private route: ActivatedRoute,
-    private router: Router,
     private authService: AuthService,
     private userService: UserService,
-    private jobPipe: UserJobPipe,
-    private openJob: OpenJobPipe,
     private appService: JobApplicationService
   ) {}
 
   @Input()
   activeUser: User | null = null;
+
   isOwner: boolean = false;
 
   selected: JobPost | null = null;
-  editJob: JobPost | null = null;
 
   jobPosts: JobPost[] = [];
   jobStatuses: JobStatus[] = [];
@@ -83,8 +65,9 @@ export class JobPostComponent implements OnInit {
   apps: JobApplication[] = [];
   editApp: JobApplication | null = null;
 
+  openForm: boolean = false;
+
   newAppCount: number = 0;
-  // showButton: boolean = false;
 
   statusId: number = 1;
 
@@ -95,21 +78,9 @@ export class JobPostComponent implements OnInit {
     if (this.activeUser == this.selected.user) this.isOwner = true;
   }
 
-  setEditJob(job: JobPost) {
-    this.editJob = job;
-    if (this.activeUser) this.modalService.open(this.content);
-  }
-
   returnToList() {
     this.selected = null;
-    this.isOwner = false;
-    this.editJob = null;
     this.loadJobs();
-  }
-
-  cancel() {
-    this.editJob = null;
-    this.router.navigateByUrl('/jobs');
   }
 
   loadStatusAndTypes() {
@@ -117,7 +88,7 @@ export class JobPostComponent implements OnInit {
       (statusList) => {
         this.jobStatuses = statusList;
       },
-      (fail) => {
+      () => {
         console.error('Job Status load failed');
       }
     );
@@ -125,60 +96,44 @@ export class JobPostComponent implements OnInit {
       (typeList) => {
         this.jobTypes = typeList;
       },
-      (fail) => {
+      () => {
         console.error('Job Type load failed');
       }
     );
   }
 
-  updateMyPost(editJob: JobPost) {
-    this.jobService.editPost(editJob).subscribe(
-      (updated) => {
-        this.editJob = null;
-        this.loadJobs();
-      },
-      (err) => {
-        console.error(
-          'Something went wrong during update in updateMyPost',
-          err
-        );
-      }
-    );
-  }
-
-  // getRoute() {
-  //   return this.router.url === '/home';
-  // }
-
-  deletePost(post: JobPost) {
-    if (confirm('Are you sure you want to delete this Job Posting?')) {
-      this.jobService.delete(post).subscribe(
-        (data) => {
-          this.editJob = null;
-          this.loadJobs();
-        },
-        (err) => {
-          console.error(err);
-        }
-      );
-    }
-  }
-
-  applyForJob(job: JobPost) {
+  applyForJob() {
     if (this.activeUser)
       if (this.selected)
-        this.appService.newJobApplication(this.selected).subscribe(
-          (updated) => {
-            console.log('Application has been submitted', updated);
+        this.jobService
+          .createApplication(this.selected.id, this.activeUser.id)
+          .subscribe(
+            (updated) => {
+              console.log('Application has been submitted', updated);
 
-            this.selected = null;
-            this.loadJobs();
-          },
-          (fail) => {
-            console.error('Application approval submission failed', fail);
-          }
-        );
+              this.selected = null;
+              this.loadJobs();
+            },
+            (fail) => {
+              console.error('Application approval submission failed', fail);
+            }
+          );
   }
+  // applyForJob(job: JobPost) {
+  //   if (this.activeUser)
+  //     if (this.selected)
+  //       this.appService.newJobApplication(this.selected).subscribe(
+  //         (updated) => {
+  //           console.log('Application has been submitted', updated);
+
+  //           this.selected = null;
+  //           this.loadJobs();
+  //         },
+  //         (fail) => {
+  //           console.error('Application approval submission failed', fail);
+  //         }
+  //       );
+  // }
 
   approveApp(app: JobApplication) {
     this.appService.approveApp(app.id, app).subscribe(
@@ -190,7 +145,7 @@ export class JobPostComponent implements OnInit {
         this.selected = null;
         this.loadJobs();
       },
-      (fail) => {
+      () => {
         console.error('Application approval failed');
       }
     );
@@ -198,13 +153,13 @@ export class JobPostComponent implements OnInit {
 
   denyApp(app: JobApplication) {
     this.appService.deniedApp(app.id, app).subscribe(
-      (updated) => {
+      () => {
         console.log('Application has been denied');
         this.editApp = null;
         this.selected = null;
         this.loadJobs();
       },
-      (fail) => {
+      () => {
         console.log('Failed during application rejection.');
       }
     );
@@ -216,35 +171,10 @@ export class JobPostComponent implements OnInit {
         this.selected = null;
         this.jobPosts = jobList;
       },
-      (fail) => {
+      () => {
         console.error('Job posts load failed');
       }
     );
-  }
-
-  open(content: any) {
-    this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-    this.editJob = null;
-    this.loadJobs();
-  }
-
-  getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
   }
 
   getActiveUser() {

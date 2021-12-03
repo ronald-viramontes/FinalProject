@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DisplayComponent } from './components/display/display.component';
+import { EditJobComponent } from './components/edit-job/edit-job.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { EducationComponent } from './components/education/education.component';
 import { ExperienceComponent } from './components/experience/experience.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'sendchat', component: SendChatComponent },
   { path: 'listjob', component: JobListingComponent },
   { path: 'visitor-home', component: VisitorHomeComponent },
+  { path: 'editjobform', component: EditJobComponent },
 ];
 
 @NgModule({

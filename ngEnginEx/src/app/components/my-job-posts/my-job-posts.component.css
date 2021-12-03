@@ -33,19 +33,25 @@
 .mat-card {
   max-width: 55%;
 } */
+
+/* .ngb-accordion {
+  word-wrap: normal;
+}
+
 .mat-card-title {
+  word-wrap: normal;
   text-align: center;
   color: white;
 }
 .mat-card {
   background-color: rgb(33, 34, 35);
   margin: 0 auto;
-}
+  word-wrap: normal;
+} */
 
 table {
   background-color: white;
-
-  padding: 0.2rem, 0.2rem;
+  word-wrap: normal;
 }
 
 td {

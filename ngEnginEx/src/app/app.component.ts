@@ -9,7 +9,7 @@ import { AuthService } from './services/auth.service';
   template: ` <app-header></app-header>
 
     <router-outlet></router-outlet>
-    <app-sidenav></app-sidenav>
+
     <footer></footer>`,
 })
 export class AppComponent {

@@ -66,6 +66,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { VisitorHomeComponent } from './components/visitor-home/visitor-home.component';
+import { EditJobComponent } from './components/edit-job/edit-job.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { VisitorHomeComponent } from './components/visitor-home/visitor-home.com
     SidenavComponent,
     DashboardComponent,
     VisitorHomeComponent,
+    EditJobComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +143,7 @@ import { VisitorHomeComponent } from './components/visitor-home/visitor-home.com
     UserService,
     UserJobPipe,
     NgbModal,
+    JobPostComponent,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,11 +1,16 @@
 .mat-card-title {
   text-align: center;
   color: white;
+  word-wrap: normal;
 }
 .mat-card {
   background-color: rgb(33, 34, 35);
   /* width: 75%; */
   margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 40px;
+  word-wrap: normal;
 }
 
 .personal-dashboard {
@@ -18,6 +23,7 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: white;
   font-weight: bold;
+  word-wrap: normal;
 }
 
 .personal-header {
@@ -91,3 +97,6 @@
   overflow-y: hidden;
   white-space: nowrap;
 } */
+.ngb-accordion {
+  word-wrap: normal;
+}

@@ -1,0 +1,80 @@
+<!-- <ng-template #updateJob let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"
+      style="text-align:center; margin-bottom: auto; margin-top: 10px; color: white">
+      <strong>Edit Job</strong>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form  #editJob="ngForm">
+      <label class="form-label" for="jobRequirements">Job Description</label>
+      <textarea rows="2" cols="40" class="form-control" type="text" name="jobRequirements"
+        [(ngModel)]="editJob.jobRequirements"></textarea>
+
+      <label class="form-label" for="startDate">Start Date</label>
+      <input class="form-control" type="date" name="startDate" [(ngModel)]="editJob.startDate" />
+
+      <label class="form-label" for="completionDate">Complete Date</label>
+      <input class="form-control" type="date" name="completionDate" [(ngModel)]="editJob.completionDate" />
+
+      <label class="form-label" for="developersNeeded">Developers Needed</label>
+      <input class="form-control" required type="number" name="developersNeeded"
+        [(ngModel)]="editJob.developersNeeded" />
+
+      <label class="form-label" for="dateClosed">Date Closed</label>
+      <input class="form-control" type="date" name="dateClosed" [(ngModel)]="editJob.dateClosed" />
+
+
+      <label class="form-label" for="jobActive">Job Active</label>
+      <input class="form-control" required type="boolean" name="jobActive" [(ngModel)]="editJob.jobActive" />
+
+      <br>
+      <div class="dropdown">
+        <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" name="type">
+          Job Type &nbsp;&nbsp;
+          <select name="type" [(ngModel)]="editJob.type">
+            <option *ngFor="let type of jobTypes" [ngValue]="type">
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li class="dropdown-item">{{type.name}}</li>
+              </ul>
+
+            </option>
+          </select>
+        </button>
+      </div>
+      <br>
+      <br>
+      <div class="dropdown">
+        <button (ngSubmit)="onUpdateMyPost(editJob)" class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" name="status">
+          Job Status &nbsp;&nbsp;
+          <select name="status" [(ngModel)]="editJob.status">
+            <option *ngFor="let status of jobStatuses" [ngValue]="status">
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li class="dropdown-item">{{status.name}}</li>
+              </ul>
+            </option>
+          </select>
+        </button>
+        <br>
+      </div>
+      <br>
+      <br>
+      <div style="text-align: center">
+        <div class="form-inline" style="text-align: center; margin-top: 4px">
+          <button type="submit" class="badge btn btn-success">Update</button>
+          <button (click)="cancel()" (click)="modal.dismiss('Cross click')" class="badge btn btn-warning"
+            style="margin-left: 10px;">Cancel</button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+
+  </div>
+</ng-template> -->

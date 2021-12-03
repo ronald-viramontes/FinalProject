@@ -22,9 +22,9 @@ import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.repositories.UserRepository;
 import com.skilldistillery.enginex.services.JobApplicationService;
 
+@CrossOrigin({ "*", "http://localhost:4300" })
 @RestController
 @RequestMapping("api")
-@CrossOrigin({ "*", "http://localhost:4300" })
 public class JobApplicationController {
 
 	@Autowired
@@ -33,12 +33,12 @@ public class JobApplicationController {
 	private UserRepository userRepo;
 	
 	
-	@GetMapping("apps")
+	@GetMapping(path = "apps")
 	public List<JobApplication> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		return appSvc.findAll();
 	}
 
-	@GetMapping("apps/{userId}")
+	@GetMapping(path = "apps/{userId}")
 	public List<JobApplication> getByDevId(HttpServletRequest req, HttpServletResponse res, 
 										   @PathVariable int userId, Principal principal) {
 		return appSvc.findByDevId(userId);
@@ -46,35 +46,35 @@ public class JobApplicationController {
 
 	
 	
-	@GetMapping("apps/app/{appId}")
+	@GetMapping(path = "apps/app/{appId}")
 	public JobApplication getByAppId(HttpServletRequest req, HttpServletResponse res, @PathVariable int appId,
 			Principal principal) {
 		return appSvc.findByAppId(appId);
 	}
 
-	@PostMapping("apps/{postId}/{userId}")
+	@PostMapping(path = "apps/{postId}/{userId}")
 	public JobApplication create(HttpServletRequest req, HttpServletResponse res,
-			@PathVariable int postId, @PathVariable int userId) {
+								 @PathVariable int postId, @PathVariable int userId) {
 		return appSvc.create(userId, postId);
 
 	}
 
 	
-	@PutMapping("apps/{appId}/{statusId}")
+	@PutMapping(path = "apps/{appId}/{statusId}")
 	public JobApplication edit(@RequestBody JobApplication app, HttpServletRequest req, HttpServletResponse res,
 			@PathVariable int appId, @PathVariable int statusId, Principal principal) {
 		int userId = userRepo.findByUsername(principal.getName()).getId();
 		return app = appSvc.edit(statusId, appId, userId );
 	}
 	
-	@DeleteMapping("apps/{appId}")
+	@DeleteMapping(path = "apps/{appId}")
 	public boolean delete(HttpServletRequest req, HttpServletResponse res,
 			@PathVariable int appId, Principal principal) {
 		int userId = userRepo.findByUsername(principal.getName()).getId();
 		return appSvc.delete(appId, userId);
 	}
 
-	@GetMapping("userapps/app/{appId}")
+	@GetMapping(path = "userapps/app/{appId}")
 	public JobApplication applicationById(HttpServletRequest req, HttpServletResponse res, 
 										   @PathVariable int appId,	Principal principal) {
 		
@@ -89,7 +89,7 @@ public class JobApplicationController {
 		
 	}
 
-	@GetMapping("userapps/{userId}")
+	@GetMapping(path = "userapps/{userId}")
 	public List<JobApplication> userApps(HttpServletRequest req, HttpServletResponse res, 
 										 @PathVariable int userId, Principal principal) {
 		
@@ -106,41 +106,35 @@ public class JobApplicationController {
 	
 	
 	
-	@PostMapping("userapps/new/{postId}")
+	@PostMapping(path = "userapps/new/{postId}")
 	public JobApplication createNewApplication(HttpServletRequest req, HttpServletResponse res,
 											   @PathVariable Integer postId, Principal principal ) {
 		
 		JobApplication app = appSvc.createApp(principal.getName(), postId);
 		
-		if(app == null) {
-			res.setStatus(400);
-			return null;
-		} else {
-			res.setStatus(200);
-			return app;
-		}
+		return app;
 		
 	}
 
 
-	@PostMapping("userapps")
-	public JobApplication createApp(@RequestBody JobApplication app, HttpServletRequest req, 
-									HttpServletResponse res, Principal principal) {
-		
-		app.setDate(LocalDate.now());
-		app = appSvc.submitApplication(principal.getName(), app);
-		
-		if(app == null) {
-			res.setStatus(400);
-			return null;
-		} else {
-			res.setStatus(200);
-			return app;
-		}
-	}
-	
+//	@PostMapping("userapps")
+//	public JobApplication createApp(@RequestBody JobApplication app, HttpServletRequest req, 
+//									HttpServletResponse res, Principal principal) {
+//		
+//		app.setDate(LocalDate.now());
+//		app = appSvc.submitApplication(principal.getName(), app);
+//		
+//		if(app == null) {
+//			res.setStatus(400);
+//			return null;
+//		} else {
+//			res.setStatus(200);
+//			return app;
+//		}
+//	}
+//	
 
-	@PutMapping("userapps/denied/{appId}")
+	@PutMapping(path = "userapps/denied/{appId}")
 	public JobApplication appDeclined(@RequestBody JobApplication app,  HttpServletRequest req, HttpServletResponse res,
 									   @PathVariable Integer appId,
 									   Principal principal) {
@@ -165,7 +159,7 @@ public class JobApplicationController {
 		
 	}
 
-	@PutMapping("userapps/approved/{appId}")
+	@PutMapping(path = "userapps/approved/{appId}")
 	public JobApplication appApproved(@RequestBody JobApplication app, HttpServletRequest req, HttpServletResponse res,
 									 @PathVariable Integer appId, 
 									  Principal principal) {
@@ -189,7 +183,7 @@ public class JobApplicationController {
 		
 	}
 
-	@DeleteMapping("userapps/{appId}")
+	@DeleteMapping(path = "userapps/{appId}")
 	public void deleteApplication(HttpServletRequest req, HttpServletResponse res,
 								  @PathVariable Integer appId, Principal principal) {
 		

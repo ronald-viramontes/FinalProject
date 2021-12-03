@@ -1,5 +1,6 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedTopGap=300 fixedBottomGap=600 fixedInViewport>
+<mat-sidenav-container class="sidenav-container" hasBackdrop=false>
+  <mat-sidenav #drawer class="sidenavi" mode="over" fixedTopGap=285 fixedBottomGap=638 fixedInViewport=true
+    role="navigation">
     <br>
     <mat-nav-list>
       <a mat-list-item href="#home"><strong>Home</strong></a>
@@ -20,7 +21,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" role="main">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu_open</mat-icon>
       </button>

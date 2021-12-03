@@ -1,4 +1,4 @@
-<div style="text-align: center" class="scrollable" *ngIf="active">
+<!-- <div style="text-align: center" class="scrollable" *ngIf="active">
   <button (click)="open(newPostContent)" class="btn btn-success btn-outline-light" *ngIf="loggedIn()">Post
     Job</button>
 
@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <!-- action="{{createAPost(newPost)}}" method="post" -->
+        action="{{createAPost(newPost)}}" method="post"
 
         <form id="newPostForm">
 
@@ -44,7 +44,7 @@
             </button>
           </div>
           <br>
-          <!-- <div class="dropdown">
+          <div class="dropdown">
             <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false" name="status">
               <strong>Job Status &nbsp;&nbsp;</strong>
@@ -57,7 +57,7 @@
                 </option>
               </select>
             </button>
-          </div> -->
+          </div>
 
           <div style="text-align: center">
             <div class="form-inline" style="text-align: center; margin-top: 4px">
@@ -74,13 +74,14 @@
       </div>
     </div>
   </ng-template>
-</div>
+</div> -->
 
 <div *ngIf="active && [!openForm]">
   <mat-card>
-    <div style="text-align: center; ">
-      <button *ngIf="selected || editJob" class="btn btn-secondary btn-outline-light" style="margin-right: 10px;"
+    <div *ngIf="selected || editJob" style="text-align: center;">
+      <button class="btn btn-secondary btn-outline-light" style="margin-right: 10px;"
         (click)='selected = null && editJob = null'>Return</button>
+      <br>
       <br>
     </div>
     <mat-card-content>
@@ -224,7 +225,7 @@
     </ngb-panel>
   </ngb-accordion>
 
-  <ngb-accordion>
+  <!-- <ngb-accordion>
     <ngb-panel title="Client Info">
       <ng-template ngbPanelContent>
         <ul>
@@ -236,9 +237,9 @@
         </ul>
       </ng-template>
     </ngb-panel>
-  </ngb-accordion>
+  </ngb-accordion> -->
 
-  <ngb-accordion>
+  <!-- <ngb-accordion>
     <ngb-panel *ngIf="apps.length > 0"
       title="{{apps.length}} Applications Submitted for {{selected.developersNeeded}} Positions">
       <ng-template ngbPanelContent>
@@ -251,7 +252,7 @@
         </ul>
       </ng-template>
     </ngb-panel>
-  </ngb-accordion>
+  </ngb-accordion> -->
 
   <ngb-accordion>
     <ngb-panel *ngIf="apps.length > 0"

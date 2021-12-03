@@ -7,11 +7,14 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent implements OnInit {
-
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   activeUser: User = new User();
   editUser: User = new User();
@@ -24,13 +27,13 @@ export class EditProfileComponent implements OnInit {
     if (creds != null) {
       creds = atob(creds);
       let unArr = creds.split(':');
-      let username = unArr[0]
+      let username = unArr[0];
       this.userService.show(username).subscribe(
-        data => {
+        (data) => {
           this.activeUser = data;
           this.setEdit();
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
@@ -46,40 +49,38 @@ export class EditProfileComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/home');
   }
 
-  edit(editUser: User){
+  edit(editUser: User) {
     editUser.applications = [];
     editUser.posts = [];
     // console.log(editUser);
     this.userService.edit(editUser.id, editUser).subscribe(
-      data => {
+      (data) => {
         alert('Profile Updated');
         this.router.navigateByUrl('/home');
       },
-      err => {
+      (err) => {
         console.error(err);
       }
     );
   }
 
-
-disableProfile(){
-  if(confirm("Are you sure you want to deactivate your account?")){
-    this.activeUser.enabled = false;
-    this.activeUser.applications = [];
-    this.activeUser.posts = [];
-    this.userService.edit(this.activeUser.id, this.activeUser).subscribe(
-      data => {
-        this.authService.logout();
-        this.router.navigateByUrl('/home');
-      },
-      err => {
-        console.error(err);
-      }
-    );
+  disableProfile() {
+    if (confirm('Are you sure you want to deactivate your account?')) {
+      this.activeUser.enabled = false;
+      this.activeUser.applications = [];
+      this.activeUser.posts = [];
+      this.userService.edit(this.activeUser.id, this.activeUser).subscribe(
+        (data) => {
+          this.authService.logout();
+          this.router.navigateByUrl('/home');
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
   }
-}
-
 }

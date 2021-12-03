@@ -34,17 +34,24 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public List<JobApplication> findByDevId(int userId) {
-		return appRepo.findByUserId(userId);
+		Optional<User> opt = userRepo.findById(userId);
+		if(opt.isPresent()) {
+			return opt.get().getApplications();
+		}
+		return null;
+	
 	}
 
 	@Override
 	public List<JobApplication> findAppsByUser(String username, int userId) {
 		User user = userRepo.findByUsername(username);
-		if(user.getId() == userId) {
-			return appRepo.findByUserId(userId);
-			
-		}
-			return null;
+		
+			return user.getApplications();
+//		if(user.getId() == userId) {
+//			return appRepo.findByUserId(userId);
+//			
+//		}
+//			return null;
 	}
 	
 	@Override
@@ -62,7 +69,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		JobApplication app = new JobApplication();
 		app.setUser(user);
 		app.setJobPost(opt.get());
-		app.setStatus("Open");
+		app.setStatus("Pending Review");
 		app.setDate(LocalDate.now());
 		System.out.println(app);
 		return appRepo.saveAndFlush(app);
@@ -140,13 +147,12 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		Optional<JobPost> opt = postRepo.findById(postId);	
 		
 		if(opt.isPresent()) {
-		app.setApproved(false);
-		app.setStatus("Pending");
-		app.setDate(LocalDate.now());
-		app.setJobPost(opt.get());
-		app.setUser(user);
+			app.setUser(user);
+			app.setJobPost(opt.get());
+			app.setStatus("Pending Review");
+			app.setDate(LocalDate.now());
 		
-		return appRepo.saveAndFlush(app);
+			return appRepo.saveAndFlush(app);
 		}
 		return null;
 	}
@@ -160,8 +166,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 			JobApplication jobApp = new JobApplication();
 			jobApp.setUser(user);
 			jobApp.setJobPost(opt.get());
-			jobApp.setApproved(false);
-			jobApp.setStatus("Pending");
+			jobApp.setStatus("Pending Review");
 			jobApp.setDate(LocalDate.now());
 			
 			return appRepo.saveAndFlush(jobApp);
