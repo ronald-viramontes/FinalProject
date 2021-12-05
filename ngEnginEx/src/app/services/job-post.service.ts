@@ -241,11 +241,11 @@ export class JobPostService {
       );
   }
 
-  editPost(jobPost: JobPost) {
+  editPost(jobPost: JobPost, postId: number) {
     const httpOptions = {};
     return this.http
       .put<JobPost>(
-        `${this.userUrl}/userjobs/${jobPost.id}`,
+        `${this.userUrl}/userjobs/${postId}`,
         jobPost,
         this.getHttpOptions()
       )

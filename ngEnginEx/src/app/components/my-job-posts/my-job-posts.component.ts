@@ -58,9 +58,6 @@ export class MyJobPostsComponent implements OnInit {
   newApp: JobApplication = new JobApplication();
   newComments: JobApplicationComment[] = [];
 
-  // approvedApp: JobApplication = new JobApplication(0, false, 'Approved', '');
-  // deniedApp: JobApplication = new JobApplication(0, true, 'Approved', '');
-
   editApp: JobApplication | null = null;
   editJob: JobPost | null = null;
 
@@ -189,7 +186,8 @@ export class MyJobPostsComponent implements OnInit {
   }
 
   updateMyPost(editJob: JobPost) {
-    this.jobSvc.editPost(editJob).subscribe(
+    let postId = editJob.id;
+    this.jobSvc.editPost(editJob, postId).subscribe(
       (updated) => {
         this.editJob = null;
         this.reloadMyJobs();
@@ -230,19 +228,15 @@ export class MyJobPostsComponent implements OnInit {
     );
   }
   approveApp(app: JobApplication) {
-    this.postId = app.jobPost;
+    let appId: number = app.id;
 
-    console.log('This is jobpostID', this.postId);
-    console.log('This is jobpostID', app.jobPost);
-    console.log('This is in approveApp', app);
-    this.appService.approveApp(app.id, app).subscribe(
+    this.appService.approveApp(appId, app).subscribe(
       (updated) => {
         console.log('Application has been approved');
         console.log(updated);
 
         this.editApp = null;
         this.selected = null;
-        this.postId = new JobPost();
         this.reloadMyJobs();
       },
       (fail) => {
@@ -252,14 +246,12 @@ export class MyJobPostsComponent implements OnInit {
   }
 
   denyApp(app: JobApplication) {
-    this.postId = app.jobPost;
-
-    this.appService.deniedApp(app.id, app).subscribe(
+    let appId: number = app.id;
+    this.appService.deniedApp(appId, app).subscribe(
       (updated) => {
         console.log('Application has been denied');
         this.editApp = null;
         this.selected = null;
-        this.postId = new JobPost();
         this.reloadMyJobs();
       },
       (fail) => {

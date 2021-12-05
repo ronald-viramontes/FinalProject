@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 //@JsonIdentityInfo(
@@ -33,7 +35,7 @@ public class User {
 
 	private String password;
 
-	private boolean enabled;
+	private Boolean enabled;
 
 	private String role;
 	
@@ -52,7 +54,7 @@ public class User {
 	private String imageUrl;
 	
 
-	
+	@JsonIgnoreProperties({"comments"})
 	@OneToMany(mappedBy="user")
 	private List<JobApplication> applications;
 
@@ -61,28 +63,26 @@ public class User {
 	@JoinColumn(name="company_id")
 	private Company company;
 
+
 	@OneToMany(mappedBy="user")
 	private List<DeveloperEducation> educations;
 	
-//	@JsonManagedReference(value="devToSkill")
 	@OneToMany(mappedBy="user")
 	private List<DeveloperSkill> skills;
 	
-//	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<WorkExperience> experiences;
 	
-		
-//	@JsonManagedReference
-//	@JsonIgnoreProperties({ "posts" })
+
+	@JsonIgnoreProperties({"applications", "type", "status"})
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
 	
-//	@JsonManagedReference
+	@JsonManagedReference(value="userSender")
 	@OneToMany(mappedBy="sender")
 	private List<Chat> sentMessages;
 	
-//	@JsonManagedReference
+	@JsonManagedReference(value="userReceiver")
 	@OneToMany(mappedBy="receiver")
 	private List<Chat> receivedMessages;
 
@@ -110,11 +110,11 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
+	public Boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 

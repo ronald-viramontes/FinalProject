@@ -76,7 +76,7 @@ export class EditJobComponent implements OnInit {
   }
 
   onUpdateMyPost(editJob: JobPost) {
-    this.jobService.editPost(editJob).subscribe(
+    this.jobService.update(editJob).subscribe(
       (updated) => {
         this.router.navigateByUrl('/home');
         this.editJob = new JobPost();

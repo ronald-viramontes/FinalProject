@@ -35,13 +35,12 @@ public class WorkExperience {
 	@Column(name="start_date")
 	private LocalDate startDate;
 	
+	
 	@Column(name="end_date")
 	private LocalDate endDate;
 	
-//	@JsonIgnore
-//	@JsonBackReference
-	@JsonIgnoreProperties({ "applications","company", "educations", 
-		"skills", "experiences", "posts", "sentMessages", "receivedMessages" })
+	@JsonIgnoreProperties({ "applications", "company", "experiences", "posts", 
+					"skills", "educations", "sentMessages", "receivedMessages" })
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;

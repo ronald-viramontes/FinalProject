@@ -24,5 +24,6 @@ public class EnginExApplication extends SpringBootServletInitializer{
 	public PasswordEncoder configurePasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 
 }

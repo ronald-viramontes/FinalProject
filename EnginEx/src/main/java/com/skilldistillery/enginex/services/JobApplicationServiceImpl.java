@@ -56,8 +56,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	
 	@Override
 	public JobApplication findByAppId(int appId) {
-		JobApplication jobApp = appRepo.findById(appId);
-		return jobApp;
+		Optional<JobApplication> jobApp = appRepo.findById(appId);
+				JobApplication job = jobApp.get();
+				return job;
 	}
 	
 
@@ -77,9 +78,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public JobApplication edit(int statusId, int appId, int userId) {
-		JobApplication opt = appRepo.findById(appId);
-		if( opt.getJobPost().getUser().getId() == userId) {
-			JobApplication app = appRepo.findById(appId);
+		Optional<JobApplication> opt = appRepo.findById(appId);
+		if( opt.isPresent() && opt.get().getJobPost().getUser().getId() == userId) {
+			JobApplication app = opt.get();
 			if(statusId == 1) {
 				app.setApproved(true);
 				app.setStatus("Approved");
@@ -97,9 +98,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	@Override
 	public boolean delete(int appId, int userId) {
 		if(appRepo.findById(appId) != null) {
-			JobApplication app = appRepo.findById(appId);
-			if(app.getUser().getId() == userId) {
-				appRepo.delete(app);
+			Optional<JobApplication> app = appRepo.findById(appId);
+			if(app.get().getUser().getId() == userId) {
+				appRepo.delete(app.get());
 				return true;
 			}
 		}
@@ -118,11 +119,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	@Override
 	public JobApplication appDecision(String username, JobApplication app) {
 		User poster = userRepo.findByUsername(username);
-		if(app.getJobPost().getUser().getId() == poster.getId() ) {
+		
 			
 			return app = appRepo.saveAndFlush(app);
 						
-		} return null;
+		
 
 		
 	}
@@ -130,10 +131,10 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	@Override
 	public boolean destroyApp(String username, int appId) {
 		User user = userRepo.findByUsername(username);
-		JobApplication opt = appRepo.findById(appId);
-		if( opt.getUser().getId() == user.getId()) {
+		Optional<JobApplication> opt = appRepo.findById(appId);
+		if( opt.get().getUser().getId() == user.getId()) {
 			
-			appRepo.delete(opt);
+			appRepo.delete(opt.get());
 			return true;
 		}		
 		return false;

@@ -56,36 +56,39 @@ export class AdminDashboardComponent implements OnInit {
       );
     }
   }
-
+  deleted: User | null = null;
   loggedIn() {
     return this.authService.checkLogin();
   }
 
-  disableUser(user: User) {
-    this.selected = user;
-    if (this.selected) {
-      // this.selected.applications = [];
-      // this.selected.posts = [];
-      // this.selected.educations = [];
-      // this.selected.experiences = [];
-      // this.selected.applications = [];
-      // this.selected.posts = [];
-      // this.selected.jobStatuses;
-      // this.selected.skills = [];
-      // this.selected.sentMessages = [];
-      // this.selected.receivedMessages = [];
+  removeUser(user: User) {
+    this.deleted = user;
+    let userId: number = this.deleted.id;
+    this.userService.deleteUser(userId).subscribe(
+      (data) => {
+        this.users = [];
+        this.getAllUsers();
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
 
-      this.userService
-        .disableUserAcct(this.selected.id, this.selected.username)
-        .subscribe(
-          (data) => {
-            this.users = [];
-            this.getAllUsers();
-          },
-          (err) => {
-            console.error(err);
-          }
-        );
-    }
+  disableUser(user: User) {
+    user.enabled = !user.enabled;
+    this.selected = user;
+
+    this.userService
+      .disableUserAcct(this.selected.username, this.selected)
+      .subscribe(
+        (data) => {
+          this.users = [];
+          this.getAllUsers();
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
   }
 }

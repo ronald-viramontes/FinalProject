@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class UserService {
   private baseUrl = environment.baseUrl;
   // private baseUrl = '/EnginEx/';
   private userUrl = this.baseUrl + 'api/users';
+  private adminUrl = this.baseUrl + 'api/admin';
 
   getHttpOptions() {
     let credentials = this.authService.getCredentials();
@@ -67,10 +68,11 @@ export class UserService {
       );
   }
 
-  disableUserAcct(userId: number, username: string) {
+  disableUserAcct(username: string, user: User) {
     return this.http
       .put<User>(
-        `${this.userUrl}/disabled/${username}/${userId}`,
+        `${this.adminUrl}/eord/${username}`,
+        user,
         this.getHttpOptions()
       )
       .pipe(
@@ -80,7 +82,16 @@ export class UserService {
         })
       );
   }
-
+  deleteUser(userId: number) {
+    return this.http
+      .delete<User>(`${this.adminUrl}/delete/${userId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('UserService.deleteUser(): error deleting user');
+        })
+      );
+  }
   indexBySkill(keyword: string) {
     return this.http.get<User[]>(`${this.userUrl}/skills/${keyword}`).pipe(
       catchError((err: any) => {

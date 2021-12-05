@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,7 +50,7 @@ public class AdminController {
 		}
 	}
 	
-	@GetMapping("/admin/username/{userId}")
+	@GetMapping("/admin/username/{username}")
 	public User showUsername(@PathVariable String username, HttpServletRequest req, 
 							 HttpServletResponse res, Principal principal) {
 		
@@ -63,38 +64,28 @@ public class AdminController {
 			}
 	}
 	
-	
-	
-	@PutMapping("/admin/{username}/{userId}")
-	public boolean destroyAcct(@PathVariable int userId, @PathVariable String username, 
-							HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		
-		User user = userSvc.disableAccount(username, userId);
-		
-		if (user == null) {
-			res.setStatus(200);
-			return true;
-		} else {
-			res.setStatus(404);
-			return false;
-		}
-	}
+	@PutMapping("/admin/eord/{username}")
+	public User enableOrDisableAcct(@RequestBody User user, @PathVariable String username, 
+									HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		try {
+			user = userSvc.enableOrDisableAccount(username, user);
+			
+		} catch (Exception e) {
 
-	@PutMapping("/admin/eord/{username}/{userId}")
-	public User enableOrDisableAcct(@RequestBody User user, @PathVariable int userId, 
-									   @PathVariable String username, HttpServletRequest req, 
-									   HttpServletResponse res, Principal principal) {
+		System.out.println("Something went wrong" + ": " + e);
 		
-		user = userSvc.enableOrDisableAccount(principal.getName(), userId, user);
 		
+		} 
 		if (user == null) {
 			res.setStatus(400);
 			return null;
-			
 		} else {
 			res.setStatus(200);
 			return user;
+			
 		}
+	
+		
 	}
 	
 	@GetMapping("/retrieve")
@@ -102,5 +93,15 @@ public class AdminController {
 		return authSvc.getUser(principal.getName());
 	}
 	
+	@DeleteMapping("/admin/delete/{userId}")
+	public void removeUser(@PathVariable int userId, HttpServletRequest req,
+										HttpServletResponse res, Principal principal) {
+		userSvc.destroy(principal.getName(), userId);
+
+		
+		
+		
+		
+	}
 	
 }

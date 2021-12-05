@@ -67,7 +67,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { VisitorHomeComponent } from './components/visitor-home/visitor-home.component';
 import { EditJobComponent } from './components/edit-job/edit-job.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
@@ -128,7 +127,6 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     MatListModule,
     MatGridListModule,
     MatMenuModule,
-    MatPaginatorModule,
   ],
   providers: [
     AuthService,

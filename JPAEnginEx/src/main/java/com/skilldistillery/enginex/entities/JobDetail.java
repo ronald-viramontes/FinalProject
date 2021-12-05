@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="job_detail")
@@ -39,7 +39,8 @@ public class JobDetail {
 	private String comment;
 	
 //	@JsonIgnoreProperties({"jobPost", "user", "comments"})
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;

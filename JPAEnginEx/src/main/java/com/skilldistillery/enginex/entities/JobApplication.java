@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -34,7 +36,7 @@ public class JobApplication {
 	private int id;
 
 	@Column(name = "application_approval")
-	private boolean approved;
+	private Boolean approved;
 
 	@Column(name = "application_status")
 	private String status;
@@ -42,16 +44,18 @@ public class JobApplication {
 	@Column(name = "application_date")
 	private LocalDate date;
 	
+	@JsonIgnore
 	@Column(name = "decision_date")
 	private LocalDate decisionDate;
 	
-//	@JsonBackReference(value="job")
+
 	@JsonIgnoreProperties({"status", "type"})
 	@ManyToOne
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
 
-	@JsonIgnoreProperties({ "posts", "sentMessages", "receivedMessages", "applications", "company" })
+	@JsonIgnoreProperties({ "sentMessages", "receivedMessages", 
+								"company", "applications", "posts"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -60,7 +64,7 @@ public class JobApplication {
 	@OneToMany(mappedBy = "application")
 	private List<JobApplicationComment> comments;
 
-//	@JsonBackReference(value="detail")
+	@JsonBackReference(value="detail")
 	@OneToOne(mappedBy="application")
 	private JobDetail detail;
 
@@ -73,11 +77,11 @@ public class JobApplication {
 		this.id = id;
 	}
 
-	public boolean isApproved() {
+	public Boolean isApproved() {
 		return approved;
 	}
 
-	public void setApproved(boolean approved) {
+	public void setApproved(Boolean approved) {
 		this.approved = approved;
 	}
 

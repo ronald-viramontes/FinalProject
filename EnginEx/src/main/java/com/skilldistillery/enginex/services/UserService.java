@@ -20,7 +20,7 @@ public interface UserService {
 	
 	public User disableAccount(String username, int userId);
 	
-	public boolean removeUserAccount(String sysadmin, String username, int userId);
+	public void removeUserAccount(String sysadmin, String username);
 	
-	public User enableOrDisableAccount(String username, int userId, User user);
+	public User enableOrDisableAccount(String username, User user);
 }

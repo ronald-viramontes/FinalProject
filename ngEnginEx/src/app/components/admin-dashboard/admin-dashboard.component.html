@@ -17,8 +17,8 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>View Account</th>
-                    <th>Disable User</th>
+                    <th>Enable | Disable</th>
+                    <th>Delete Account</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -30,11 +30,14 @@
                     <td>{{user.firstName}}</td>
                     <td>{{user.lastName}}</td>
                     <td>{{user.email}}</td>
+                    <td><button *ngIf="user.enabled" (click)="disableUser(user)"
+                        class="badge btn-warning btn-outline-dark">DISABLE</button>
+                      <button *ngIf="!user.enabled" (click)="disableUser(user)"
+                        class="badge btn-success btn-outline-dark">ENABLE</button>
+                    </td>
+                    <td><button (click)="removeUser(user)" class="badge btn-danger btn-outline-dark">DELETE</button>
+                    </td>
 
-                    <td><button (click)="selectUser(user)" class="badge btn-secondary btn-outline-dark">View</button>
-                    </td>
-                    <td><button (click)="disableUser(user)" class="badge btn-danger btn-outline-dark">Disable</button>
-                    </td>
                   </tr>
                 </tbody>
               </table>

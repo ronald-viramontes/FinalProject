@@ -133,52 +133,35 @@ public class JobApplicationController {
 //		}
 //	}
 //	
-
-	@PutMapping(path = "userapps/denied/{appId}")
-	public JobApplication appDeclined(@RequestBody JobApplication app,  HttpServletRequest req, HttpServletResponse res,
-									   @PathVariable Integer appId,
+	@CrossOrigin({ "*", "http://localhost:4300" })
+	@PutMapping(path = "/userapps/denied/{appId}")
+	public JobApplication appDeclined(HttpServletRequest req, HttpServletResponse res,
+									   @PathVariable int appId,
 									   Principal principal) {
-		app = appSvc.findByAppId(appId);
 		
-		if (app != null) {
-					
+	JobApplication	app = appSvc.findByAppId(appId);
+		
 			app.setDecisionDate(LocalDate.now());
 			app.setApproved(false);
 			app.setStatus("Application Closed");
 			app = appSvc.appDecision(principal.getName(), app);
-		}
-			if(app == null) {
-				res.setStatus(400);
-				return null;
-			} else {
-				res.setStatus(200);
-				return app;
-			}
 		
-		
-		
+			return app;
 	}
 
-	@PutMapping(path = "userapps/approved/{appId}")
-	public JobApplication appApproved(@RequestBody JobApplication app, HttpServletRequest req, HttpServletResponse res,
-									 @PathVariable Integer appId, 
+	@PutMapping(path = "/userapps/approved/{appId}")
+	public JobApplication appApproved(HttpServletRequest req, HttpServletResponse res,
+									 @PathVariable int appId, 
 									  Principal principal) {
-		app = appSvc.findByAppId(appId);
+		JobApplication app = appSvc.findByAppId(appId);
 		
-		if (app != null) {
+		
 					
 			app.setDecisionDate(LocalDate.now());
 			app.setApproved(true);
 			app.setStatus("Application Approved");
 			app = appSvc.appDecision(principal.getName(), app);
-		}
-			if(app == null) {
-				res.setStatus(400);
-				return null;
-			} else {
-				res.setStatus(200);
-				return app;
-			}
+			return app;
 		
 		
 	}

@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -25,12 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // this bean is created in the application starter class if you're looking for it
     @Autowired
     private PasswordEncoder encoder;
-  
     
-    
-    
-   
-      
     @Override
     public void configure(WebSecurity web) throws Exception {
     	web
@@ -61,48 +55,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	
     }
 
+   
+    
+    
     
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	CorsConfiguration configCors = new CorsConfiguration();
-    	configCors.applyPermitDefaultValues();
-//    	configCors.setAllowCredentials(true);
-    	    		
-    	http
-    		.httpBasic().and()
-    		.authorizeRequests()
-    			.antMatchers(HttpMethod.POST, "/api/admin").hasRole("ADMIN")
-    			.antMatchers(HttpMethod.PUT, "/api/admin/**/**").hasRole("ADMIN")
-    			.antMatchers(HttpMethod.PUT, "/api/admin/eord/**/**").hasRole("ADMIN")
-    			.antMatchers(HttpMethod.DELETE, "/api/admin/**").hasRole("ADMIN")
-    			.and()
-    			.csrf().disable();
-    	 
+    	
+//    	http
+//    		.csrf().disable()
+//    			.httpBasic()
+//    			.and()
+//    				.cors()
+//    			.and()
+//    			.authorizeRequests().
+//    			.antMatchers(HttpMethod.PUT, "/api/userapps/**")
+//    			.permitAll()
+//    			.antMatchers(HttpMethod.PUT, "/api/userjobs/**")
+//    			.permitAll()
+//    			;
+    			
+    	    	 
     	http
     		.csrf().disable()
     		.authorizeRequests()
-    			.antMatchers(HttpMethod.OPTIONS, "/api/**", "/**")
+    			
+    		.antMatchers(HttpMethod.OPTIONS, "/api/**", "/**")
 		        	.permitAll() 
 		        	
 		        .antMatchers(HttpMethod.OPTIONS, "/**")
-		        	.permitAll()
-		        	
-//		        .antMatchers(HttpMethod.OPTIONS, "/api/users/**/**")
-//		        	.hasAnyRole("ADMIN")	
-		      
-//		        .antMatchers(HttpMethod.GET, "/api/users", "/api/users/**")
-//		        	.hasAnyRole("ADMIN")
-		        
-//		        .antMatchers(HttpMethod.POST, "/api/users/**")
-//		        	.hasAnyRole("ADMIN")
-		       
-//		        .antMatchers(HttpMethod.PUT, "/api/users/disabled/**")
-//		        .hasAnyAuthority("ROLE_ADMIN")
-//		       
-//		       	.antMatchers(HttpMethod.DELETE, "/api/users/**")
-//		        	.hasAnyAuthority("ROLE_ADMIN")
-		        	
+		        	.permitAll()       	
 		       	
 		        .antMatchers(HttpMethod.GET, "/api/jobs", "/api/jobs/**", "/api/jobstatus/**", 
 		        		"/api/comments/**", "/api/jobtypes/**", "/api/jobdetails/**",
@@ -118,17 +101,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        			"/api/userapps/new", "/api/userapps/new/")
 		        	.permitAll()
 		        			        	   	
+		        
 	        	.antMatchers(HttpMethod.PUT, "/api/jobs",  "/api/jobs/**", "/api/jobstatus/**", 
 	        			"/api/comments/**", "/api/jobtypes/**", "/api/jobdetails/**",
 	        			"/api/skills/**", "/api/apps/**", "/api/users", "/api/users/**", "/api/educations/**", 
-	        			"/api/userapps", "/api/userjobs/**", "/api/userapps/approved/**", "/api/userapps/denied/**",
-	        			"/api/users/disabled/**")
+	        			"/api/userapps", "/api/userjobs/**", "/api/userapps/**",
+	        			"/api/admin/eord/**/", "/api/admin/**")
 	        		.permitAll() 
-	        		
+
 	        	.antMatchers(HttpMethod.DELETE, "/api/jobs",  "/api/jobs/**", "/api/jobstatus/**", 
 	        			"/api/comments/**", "/api/jobtypes/**", "/api/jobdetails/**",
 	        			"/api/skills/**", "/api/apps/**", "/api/users", "/api/educations/**", 
-	        			"/api/userapps", "/api/userjobs/**", "/api/userapps/**")
+	        			"/api/userapps", "/api/userjobs/**/", "/api/userapps/**", "/api/admin/delete/**")
 	        		.permitAll() 
 
 	        	    .antMatchers("/api/**").authenticated() 

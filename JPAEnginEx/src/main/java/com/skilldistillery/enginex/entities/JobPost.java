@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "job_post")
-//@JsonIdentityInfo(
-//		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class JobPost {
 	
 	public JobPost() {
@@ -45,7 +43,7 @@ public class JobPost {
 	private int developersNeeded;
 
 	@Column(name = "job_active")
-	private boolean jobActive;
+	private Boolean jobActive;
 
 	@Column(name = "date_posted")
 	private LocalDate datePosted;
@@ -59,7 +57,7 @@ public class JobPost {
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
 
-	@JsonIgnoreProperties({"company", "skills", "experiences", "applications", "posts",  
+	@JsonIgnoreProperties({"company", "skills", "experiences", "educations", "applications", "posts", 
 		"sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -115,11 +113,11 @@ public class JobPost {
 		this.developersNeeded = developersNeeded;
 	}
 
-	public boolean isJobActive() {
+	public Boolean isJobActive() {
 		return jobActive;
 	}
 
-	public void setJobActive(boolean jobActive) {
+	public void setJobActive(Boolean jobActive) {
 		this.jobActive = jobActive;
 	}
 

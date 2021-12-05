@@ -79,8 +79,7 @@ public class JobPostController {
 	}
 		
 	@PutMapping("jobs/{id}")
-	public JobPost update(@PathVariable int id, @RequestBody JobPost jobPost, HttpServletRequest req,
-			HttpServletResponse res, Principal principal) {
+	public JobPost update(@PathVariable int id, @RequestBody JobPost jobPost) {
 		jobPost = jobPostServ.update(id, jobPost);
 		return jobPost;
 	}
@@ -107,7 +106,7 @@ public class JobPostController {
 	}
 	
 	@PutMapping("userjobs/{postId}")
-	public JobPost updateMyPost(@RequestBody JobPost jobPost, @PathVariable Integer postId, 
+	public JobPost updateMyPost(@RequestBody JobPost jobPost, @PathVariable int postId, 
 								HttpServletRequest req, HttpServletResponse res, Principal principal) {
 				
 		jobPost = jobPostServ.updatePost(principal.getName(), jobPost, postId);

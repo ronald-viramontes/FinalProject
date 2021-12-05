@@ -44,14 +44,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void destroy(String username, int id) {
+//		User admin = userRepo.findByUsername(username);
 		Optional<User> u = userRepo.findById(id);
 		User delUser = u.get();
-//		userRepo.delete(delUser);
-		delUser.setEnabled(false);
-		if (delUser.getUsername().equals(username)) {
+				
 			userRepo.delete(delUser);
-		}
-
+		
 	}
 
 	@Override
@@ -100,54 +98,48 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean removeUserAccount(String sysadmin, String username, int userId) {
+	public void removeUserAccount(String sysadmin, String username) {
 		User systemAdmin = userRepo.findByUsername(sysadmin);
 		User removeUser = userRepo.findByUsername(username);
-		User emptyUser = new User();
+		User newUser = new User();
 		
 		if (systemAdmin.getRole() == "ADMIN") {
-			if(removeUser.getId() == userId) {
-				removeUser.setApplications(emptyUser.getApplications());
-				removeUser.setCompany(emptyUser.getCompany());
-				removeUser.setEducations(emptyUser.getEducations());
-				removeUser.setEmail("");				
-				removeUser.setExperiences(emptyUser.getExperiences());
-				removeUser.setFirstName("");
-				removeUser.setLastName("");
-				removeUser.setImageUrl("");
-				removeUser.setPassword("");
-				removeUser.setPhoneNumber("");
-				removeUser.setPosts(emptyUser.getPosts());
-				removeUser.setReceivedMessages(emptyUser.getReceivedMessages());
-				removeUser.setRole("");
-				removeUser.setSentMessages(emptyUser.getSentMessages());
-				removeUser.setSkills(emptyUser.getSkills());
-				removeUser.setUsername("");
-				removeUser.setEnabled(false);
+				removeUser = newUser;
+//				removeUser.setApplications(emptyUser.getApplications());
+//				removeUser.setCompany(emptyUser.getCompany());
+//				removeUser.setEducations(emptyUser.getEducations());
+//				removeUser.setEmail("");				
+//				removeUser.setExperiences(emptyUser.getExperiences());
+//				removeUser.setFirstName("");
+//				removeUser.setLastName("");
+//				removeUser.setImageUrl("");
+//				removeUser.setPassword("");
+//				removeUser.setPhoneNumber("");
+//				removeUser.setPosts(emptyUser.getPosts());
+//				removeUser.setReceivedMessages(emptyUser.getReceivedMessages());
+//				removeUser.setRole("");
+//				removeUser.setSentMessages(emptyUser.getSentMessages());
+//				removeUser.setSkills(emptyUser.getSkills());
+//				removeUser.setUsername("");
+//				removeUser.setEnabled(false);
+				userRepo.saveAndFlush(removeUser);
+			
 				userRepo.delete(removeUser);
+		}
 				
-				User checkDelete = userRepo.findByUsername(username);
-				if(checkDelete == null) {
-					return true;
-				} 
-				
-			}
-		} return false;
-		
-		
-		
+					
 	}
 
 	@Override
-	public User enableOrDisableAccount(String username, int userId, User user) {
-//		User admin = userRepo.findByUsername(username);
-		User dbUser = userRepo.findByUsername(user.getUsername());
-		if (dbUser != null) {
-			dbUser.setEnabled(!user.isEnabled());
-			dbUser = userRepo.saveAndFlush(dbUser);
-			return dbUser;
-		}
+	public User enableOrDisableAccount(String username, User user) {
+//		User dbUser = userRepo.findByUsername(user.getUsername());
+//		if (dbUser != null) {
+//			dbUser.setEnabled(user.isEnabled());
+//			dbUser = userRepo.saveAndFlush(dbUser);
+//			return dbUser;
+//		}
+		user = userRepo.saveAndFlush(user);
 		
-		return null;
+		return user;
 	}
 }

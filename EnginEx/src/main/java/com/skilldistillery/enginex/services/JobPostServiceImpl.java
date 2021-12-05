@@ -114,29 +114,34 @@ public class JobPostServiceImpl implements JobPostService {
 	
 	@Override
 	public JobPost updatePost(String username, JobPost jobPost, int postId) {
+		JobStatus status = statusRepo.getById(4);
+		
 		User user = userRepo.findByUsername(username);
 		Optional<JobPost> opt = jobPostRepo.findById(postId);
-		JobPost dbJob = opt.get();
-		
-		if(dbJob != null && user.getId() == dbJob.getUser().getId()) {
-			if (jobPost.getDateClosed() != null) {
-				dbJob.setDateClosed(jobPost.getDateClosed());
-				
-			}
+		if(opt.isPresent()) {
+			JobPost dbJob = opt.get();
 			
 			dbJob.setJobRequirements(jobPost.getJobRequirements());
 			dbJob.setStartDate(jobPost.getStartDate());
 			dbJob.setCompletionDate(jobPost.getCompletionDate());
 			dbJob.setDevelopersNeeded(jobPost.getDevelopersNeeded());
-			dbJob.setJobActive(jobPost.isJobActive());
 			dbJob.setType(jobPost.getType());
-			dbJob.setStatus(jobPost.getStatus());
-						
-			dbJob = jobPostRepo.saveAndFlush(dbJob);
-			return dbJob;
+			
+			if(jobPost.getDateClosed() != null) {
+				dbJob.setDateClosed(jobPost.getDateClosed());
+				dbJob.setJobActive(false);						
+				dbJob.setStatus(status);
+			} else {
+				
+				dbJob.setJobActive(jobPost.isJobActive());						
+				dbJob.setStatus(jobPost.getStatus());
+			}
+			
+			jobPost = jobPostRepo.saveAndFlush(jobPost);
+			return jobPost;
 			
 		}
-		return null;
+			return null;
 	}
 	
 	@Override

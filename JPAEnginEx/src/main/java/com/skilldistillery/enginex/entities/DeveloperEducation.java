@@ -38,11 +38,8 @@ public class DeveloperEducation {
 	@Column(name="complete_date")
 	private LocalDate completeDate;
 	
-//	@JsonIgnore
-//	@JsonBackReference
-
-	@JsonIgnoreProperties({ "applications","company", "educations", 
-		"skills", "experiences", "posts", "sentMessages", "receivedMessages" })
+	@JsonIgnoreProperties({"company", "sentMessages", "receivedMessages", 
+		"educations", "skills", "experiences" , "posts", "applications"})
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;

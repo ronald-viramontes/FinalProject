@@ -88,7 +88,6 @@ export class JobApplicationService {
   }
 
   deniedApp(appId: number, app: JobApplication) {
-    const httpOptions = {};
     return this.http
       .put<JobApplication>(
         `${this.userappUrl}/denied/${appId}`,
