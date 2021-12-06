@@ -8,7 +8,6 @@
     </provider>
 
 		<class>com.skilldistillery.enginex.entities.Chat</class>
-		<class>com.skilldistillery.enginex.entities.Company</class>
 		<class>com.skilldistillery.enginex.entities.DeveloperEducation</class>
 		<class>com.skilldistillery.enginex.entities.DeveloperSkill</class>
 		<class>com.skilldistillery.enginex.entities.JobApplication</class>
@@ -18,6 +17,7 @@
 		<class>com.skilldistillery.enginex.entities.JobStatus</class>
 		<class>com.skilldistillery.enginex.entities.JobType</class>
 		<class>com.skilldistillery.enginex.entities.User</class>
+		<class>com.skilldistillery.enginex.entities.AppStatus</class>
 		<class>com.skilldistillery.enginex.entities.WorkExperience</class>
 		
 

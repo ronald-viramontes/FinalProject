@@ -13,7 +13,7 @@ export class JobPost {
   datePosted: string;
   dateClosed!: string;
   type: JobType;
-  user!: User;
+  user: User;
   status: JobStatus;
   applications!: JobApplication[];
 

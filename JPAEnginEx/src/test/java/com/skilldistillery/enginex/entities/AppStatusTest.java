@@ -14,10 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class JobApplicationCommentTest {
+class AppStatusTest {
 	public static EntityManagerFactory emf;
 	private EntityManager em;
-	private JobApplicationComment appComment;
+	private AppStatus appStatus;
+	private User user;
 	
 	
 	@BeforeAll
@@ -35,30 +36,31 @@ class JobApplicationCommentTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		appComment = em.find(JobApplicationComment.class, 1);
+		appStatus = em.find(AppStatus.class, 1);
+		user = em.find(User.class, 1);
 		
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		appComment = null;
+		appStatus = null;
+		user = null;
 		
 	}
 
 	@Test
 	void test() {
-		assertNotNull(appComment);
-		assertEquals("Talented developer!", appComment.getComment());
+		assertNotNull(appStatus);
+		assertEquals("Pending Review", appStatus.getName());
 	}
 
 	@Test
-	@DisplayName("test relationship mappings on jobApplicationComment")
+	@DisplayName("test relationship mappings on AppStatus")
 	void test2() {
-		assertNotNull(appComment);
-		assertEquals("Approved", appComment.getApplication().getAppStatus());
-		assertEquals("Thank you for your comment!", appComment.getReplies().get(0).getComment());
 		
+		assertNotNull(appStatus);
+		assertEquals(user, appStatus.getApplication().getUser());
 	}
 
 }

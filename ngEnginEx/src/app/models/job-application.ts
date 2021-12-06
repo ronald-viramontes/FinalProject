@@ -1,3 +1,4 @@
+import { AppStatus } from './app-status';
 import { JobApplicationComment } from './job-application-comment';
 import { JobDetail } from './job-detail';
 import { JobPost } from './job-post';
@@ -5,8 +6,7 @@ import { User } from './user';
 
 export class JobApplication {
   id: number;
-  approved: boolean;
-  status: string;
+  appStatus: AppStatus;
   date: string;
   jobPost: JobPost;
   user: User;
@@ -16,8 +16,7 @@ export class JobApplication {
 
   constructor(
     id: number = 0,
-    approved: boolean = false,
-    status: string = '',
+    appStatus = new AppStatus(),
     date: string = '',
     jobPost: JobPost = new JobPost(),
     user: User = new User(),
@@ -26,8 +25,7 @@ export class JobApplication {
     comments: JobApplicationComment[] = []
   ) {
     this.id = id;
-    this.approved = approved;
-    this.status = status;
+    this.appStatus = appStatus;
     this.date = date;
     this.jobPost = jobPost;
     this.user = user;

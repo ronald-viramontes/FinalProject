@@ -6,6 +6,7 @@ import { JobApplication } from '../models/job-application';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 import { JobPost } from '../models/job-post';
+import { AppStatus } from '../models/app-status';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,8 +16,31 @@ export class JobApplicationService {
 
   private userappUrl = this.baseUrl + 'api/userapps';
   private appUrl = this.baseUrl + 'api/apps';
+  private appStatUrl = this.baseUrl + 'api/appstats';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
+
+  appStatusIndex(): Observable<AppStatus[]> {
+    return this.http
+      .get<AppStatus[]>(`${this.appStatUrl}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Something went wrong finding skills list');
+        })
+      );
+  }
+
+  appStatusById(statusId: number) {
+    return this.http
+      .get<AppStatus>(`${this.appStatUrl}/${statusId}`, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Something went wrong finding skills list');
+        })
+      );
+  }
 
   allAppsIndex(): Observable<JobApplication[]> {
     return this.http

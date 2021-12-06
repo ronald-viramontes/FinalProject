@@ -245,7 +245,7 @@ export class JobPostService {
     const httpOptions = {};
     return this.http
       .put<JobPost>(
-        `${this.userUrl}/userjobs/${postId}`,
+        `${this.jobsUrl}/${jobPost.id}`,
         jobPost,
         this.getHttpOptions()
       )

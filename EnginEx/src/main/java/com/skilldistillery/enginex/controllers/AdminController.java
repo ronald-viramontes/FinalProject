@@ -67,23 +67,27 @@ public class AdminController {
 	@PutMapping("/admin/eord/{username}")
 	public User enableOrDisableAcct(@RequestBody User user, @PathVariable String username, 
 									HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		
 		try {
-			user = userSvc.enableOrDisableAccount(username, user);
+			User admin = userSvc.showUsername(principal.getName());
+			if(admin.getRole().equals("ADMIN")) {
+				user = userSvc.enableOrDisableAccount(username, user);
+				
+			}
 			
 		} catch (Exception e) {
 
-		System.out.println("Something went wrong" + ": " + e);
+			System.out.println("Something went wrong" + ": " + e);
 		
-		
-		} 
-		if (user == null) {
-			res.setStatus(400);
-			return null;
-		} else {
-			res.setStatus(200);
-			return user;
+			} 
+					if (user == null) {
+						res.setStatus(400);
+						return null;
+					} else {
+						res.setStatus(200);
+						return user;
 			
-		}
+					}
 	
 		
 	}
@@ -96,12 +100,14 @@ public class AdminController {
 	@DeleteMapping("/admin/delete/{userId}")
 	public void removeUser(@PathVariable int userId, HttpServletRequest req,
 										HttpServletResponse res, Principal principal) {
-		userSvc.destroy(principal.getName(), userId);
+		User admin = userSvc.showUsername(principal.getName());
+		System.out.println(admin.getRole());
 
+		if(admin.getRole().equals("ADMIN")) {
+				userSvc.destroy(principal.getName(), userId);
+				
+			}
+		}
 		
-		
-		
-		
-	}
 	
 }

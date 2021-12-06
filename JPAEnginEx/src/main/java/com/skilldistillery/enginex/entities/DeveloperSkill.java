@@ -31,10 +31,8 @@ public class DeveloperSkill {
 
 	@Column(name="skill_level")
 	private String skillLevel;
-	
 
-	@JsonIgnoreProperties({ "applications","company", 
-		"skills", "experiences", "educations", "posts", "sentMessages", "receivedMessages" })
+	@JsonIgnoreProperties({ "applications", "skills", "experiences", "educations", "posts", "sentMessages", "receivedMessages" })
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;

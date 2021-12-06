@@ -39,7 +39,7 @@ public class WorkExperience {
 	@Column(name="end_date")
 	private LocalDate endDate;
 	
-	@JsonIgnoreProperties({ "applications", "company", "experiences", "posts", 
+	@JsonIgnoreProperties({ "applications", "experiences", "posts", 
 					"skills", "educations", "sentMessages", "receivedMessages" })
 	@ManyToOne
 	@JoinColumn(name="user_id")

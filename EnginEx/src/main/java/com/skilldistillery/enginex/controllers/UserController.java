@@ -32,6 +32,11 @@ public class UserController {
 		return userServ.index();
 	}
 
+	@GetMapping("/users/skills/{keyword}")
+	public List<User> findBySkill(HttpServletResponse res, HttpServletRequest req, @PathVariable String keyword){
+		return userServ.findBySkill(keyword);
+	}
+
 	@GetMapping(path = "users/{id}")
 	private User show(@PathVariable int id, HttpServletRequest req, HttpServletResponse res) {
 		User user = userServ.show(id);
@@ -57,34 +62,36 @@ public class UserController {
 
 	@DeleteMapping(path = "/users/{id}")
 	public void delete(@PathVariable int id, HttpServletRequest req, HttpServletResponse res,
-			Principal principal) {
+																			Principal principal, HttpServletRequest hsr) {
 		userServ.destroy(principal.getName(), id);
+		if(userServ.show(id) == null) {
+			hsr.getSession(false).invalidate();
+			
+		}
+		
 	}
+	
 
 	@PutMapping(path = "/users/{id}")
 	public User update(@PathVariable int id, @RequestBody User user, HttpServletRequest req
-			, HttpServletResponse res, Principal principal) {
-		System.out.println("-------------------------------------------------------------------------------------"+user);
-		user = userServ.update(principal.getName(), id, user);
+												, HttpServletResponse res, Principal principal) {
+	
+		user = userServ.updateMyAccount(principal.getName(), id, user);
 		return user;
 	}
 	
-	@GetMapping("/users/skills/{keyword}")
-	public List<User> findBySkill(HttpServletResponse res, HttpServletRequest req, @PathVariable String keyword){
-		return userServ.findBySkill(keyword);
-	}
 	
 	@PutMapping("/users/disabled/{username}/{userId}")
-	public User disableAcct(@PathVariable int userId, @PathVariable String username, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+	public void disableAcct(@PathVariable int userId, @PathVariable String username, HttpServletRequest req, 
+																HttpServletResponse res, Principal principal) {
 		
-		return userServ.disableAccount(username, userId);
-//		if (user != null) {
-//			res.setStatus(200);
-//			return user;
-//		} else {
-//			res.setStatus(404);
-//			return null;
-//		}
+		 User disabled = userServ.disableMyAccount(principal.getName(), userId);
+		if (disabled.isEnabled()) {
+			res.setStatus(200);
+			
+		} else {
+			res.setStatus(404);
+			}
 	}
 	
 	

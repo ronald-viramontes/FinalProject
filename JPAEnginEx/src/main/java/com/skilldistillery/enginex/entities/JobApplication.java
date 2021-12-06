@@ -22,8 +22,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "job_application")
-//@JsonIdentityInfo(
-//		   generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class JobApplication {
 
 	public JobApplication() {
@@ -34,12 +32,6 @@ public class JobApplication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	@Column(name = "application_approval")
-	private Boolean approved;
-
-	@Column(name = "application_status")
-	private String status;
 
 	@Column(name = "application_date")
 	private LocalDate date;
@@ -55,7 +47,7 @@ public class JobApplication {
 	private JobPost jobPost;
 
 	@JsonIgnoreProperties({ "sentMessages", "receivedMessages", 
-								"company", "applications", "posts"})
+							"applications", "posts"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -68,7 +60,15 @@ public class JobApplication {
 	@OneToOne(mappedBy="application")
 	private JobDetail detail;
 
+	@JsonIgnoreProperties({"applications"})
+	@ManyToOne
+	@JoinColumn(name="app_status_id")
+	private AppStatus appStatus;
+	
+	
 
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -77,22 +77,7 @@ public class JobApplication {
 		this.id = id;
 	}
 
-	public Boolean isApproved() {
-		return approved;
-	}
-
-	public void setApproved(Boolean approved) {
-		this.approved = approved;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
+	
 	public LocalDate getDate() {
 		return date;
 	}
@@ -110,7 +95,6 @@ public class JobApplication {
 	}
 
 	public JobPost getJobPost() {
-		
 		return jobPost;
 	}
 
@@ -119,15 +103,13 @@ public class JobApplication {
 	}
 
 	public User getUser() {
-		
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-		
+
 	public List<JobApplicationComment> getComments() {
 		return comments;
 	}
@@ -144,11 +126,19 @@ public class JobApplication {
 		this.detail = detail;
 	}
 
+	public AppStatus getAppStatus() {
+		return appStatus;
+	}
+
+	public void setAppStatus(AppStatus appStatus) {
+		this.appStatus = appStatus;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -160,11 +150,11 @@ public class JobApplication {
 		JobApplication other = (JobApplication) obj;
 		return id == other.id;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "JobApplication [id=" + id + ", approved=" + approved + ", status=" + status + ", date=" + date
-				+ ", decisionDate=" + decisionDate + ", detail=" + detail + "]";
+		return "JobApplication [id=" + id + ", date=" + date + ", decisionDate=" + decisionDate
+				+ ", detail=" + detail + ", appStatus=" + appStatus + "]";
 	}
 
 }

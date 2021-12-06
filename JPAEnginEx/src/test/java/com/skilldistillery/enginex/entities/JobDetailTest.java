@@ -56,7 +56,7 @@ class JobDetailTest {
 	@DisplayName("test relationship mappings on JobDetail")
 	void test2() {
 		assertNotNull(detail);
-		assertEquals("Approved", detail.getApplication().getStatus());
+		assertEquals("Approved", detail.getApplication().getAppStatus());
 	}
 
 }

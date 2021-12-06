@@ -33,7 +33,7 @@ public class JobDetail {
 	private LocalDate finishDate;
 	
 	@Column(name="job_rating")
-	private int rating;
+	private Integer rating;
 	
 	@Column(name="job_rating_comment")
 	private String comment;

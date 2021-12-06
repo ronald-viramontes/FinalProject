@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { SkillComponent } from './components/skill/skill.component';
 import { ExperienceComponent } from './components/experience/experience.component';
 import { EducationComponent } from './components/education/education.component';
-import { CompanyComponent } from './components/company/company.component';
 import { JobPostComponent } from './components/job-post/job-post.component';
 import { JobStatusComponent } from './components/job-status/job-status.component';
 import { JobDetailComponent } from './components/job-detail/job-detail.component';
@@ -75,7 +74,6 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     ChatComponent,
     ChatReceivedComponent,
     ChatSentComponent,
-    CompanyComponent,
     DateSortPipe,
     DisplayComponent,
     EditProfileComponent,

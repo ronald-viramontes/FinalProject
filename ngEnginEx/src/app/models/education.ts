@@ -1,15 +1,21 @@
-import { User } from "./user";
+import { User } from './user';
 
 export class Education {
-
   id: number;
   educationType: string;
   institutionName: string;
   degreeCertificateName: string;
   completeDate: string;
-  user: User | null;
+  user!: User;
 
-  constructor(id: number = 0, educationType: string ='', institutionName: string = '', degreeCertificateName: string = '', completeDate: string = '', user: User = new User()){
+  constructor(
+    id: number = 0,
+    educationType: string = '',
+    institutionName: string = '',
+    degreeCertificateName: string = '',
+    completeDate: string = '',
+    user: User = new User()
+  ) {
     this.id = id;
     this.educationType = educationType;
     this.institutionName = institutionName;

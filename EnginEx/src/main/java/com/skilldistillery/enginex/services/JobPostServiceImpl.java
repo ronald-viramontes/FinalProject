@@ -116,7 +116,7 @@ public class JobPostServiceImpl implements JobPostService {
 	public JobPost updatePost(String username, JobPost jobPost, int postId) {
 		JobStatus status = statusRepo.getById(4);
 		
-		User user = userRepo.findByUsername(username);
+//		User user = userRepo.findByUsername(username);
 		Optional<JobPost> opt = jobPostRepo.findById(postId);
 		if(opt.isPresent()) {
 			JobPost dbJob = opt.get();

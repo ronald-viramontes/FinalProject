@@ -8,19 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
-//@JsonIdentityInfo(
-//		  scope = User.class,
-//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-//		  property = "id")
 public class User {
 
 	public User() {
@@ -39,6 +29,7 @@ public class User {
 
 	private String role;
 	
+	
 	@Column(name="first_name")
 	private String firstName;
 	
@@ -52,18 +43,13 @@ public class User {
 	
 	@Column(name="image_url")
 	private String imageUrl;
-	
 
-	@JsonIgnoreProperties({"comments"})
+	private String employer;
+
 	@OneToMany(mappedBy="user")
 	private List<JobApplication> applications;
 
-	@JsonBackReference(value = "company")
-	@ManyToOne
-	@JoinColumn(name="company_id")
-	private Company company;
-
-
+	
 	@OneToMany(mappedBy="user")
 	private List<DeveloperEducation> educations;
 	
@@ -72,17 +58,13 @@ public class User {
 	
 	@OneToMany(mappedBy="user")
 	private List<WorkExperience> experiences;
-	
 
-	@JsonIgnoreProperties({"applications", "type", "status"})
 	@OneToMany(mappedBy="user")
 	private List<JobPost> posts;
 	
-	@JsonManagedReference(value="userSender")
 	@OneToMany(mappedBy="sender")
 	private List<Chat> sentMessages;
 	
-	@JsonManagedReference(value="userReceiver")
 	@OneToMany(mappedBy="receiver")
 	private List<Chat> receivedMessages;
 
@@ -166,12 +148,20 @@ public class User {
 		this.imageUrl = imageUrl;
 	}
 
-	public Company getCompany() {
-		return company;
+	public String getEmployer() {
+		return employer;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setEmployer(String employer) {
+		this.employer = employer;
+	}
+
+	public List<JobApplication> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<JobApplication> applications) {
+		this.applications = applications;
 	}
 
 	public List<DeveloperEducation> getEducations() {
@@ -196,14 +186,6 @@ public class User {
 
 	public void setExperiences(List<WorkExperience> experiences) {
 		this.experiences = experiences;
-	}
-
-	public List<JobApplication> getApplications() {
-		return applications;
-	}
-
-	public void setApplications(List<JobApplication> applications) {
-		this.applications = applications;
 	}
 
 	public List<JobPost> getPosts() {
@@ -251,8 +233,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", role=" + role + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", phoneNumber=" + phoneNumber + ", imageUrl=" + imageUrl + ", company=" + company + "]";
+				+ ", phoneNumber=" + phoneNumber + ", imageUrl=" + imageUrl + ", employer=" + employer + "]";
 	}
- 	
-	
+
+		
 }

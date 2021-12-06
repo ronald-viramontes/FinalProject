@@ -38,8 +38,8 @@ public class DeveloperEducation {
 	@Column(name="complete_date")
 	private LocalDate completeDate;
 	
-	@JsonIgnoreProperties({"company", "sentMessages", "receivedMessages", 
-		"educations", "skills", "experiences" , "posts", "applications"})
+	@JsonIgnoreProperties({"sentMessages", "receivedMessages", 
+		"skills", "experiences", "posts", "educations", "applications"})
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;

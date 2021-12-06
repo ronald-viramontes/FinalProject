@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -35,19 +34,17 @@ public class Chat {
 	@Column(name="send_timestamp")
 	private LocalDateTime dateTimeStamp;
 	
-//	@JsonIgnoreProperties({ "applications","company", "educations", 
+//	@JsonIgnoreProperties({ "applications", "educations", 
 //		"skills", "experiences", "posts" })
 	
-//	@JsonIgnore
-	@JsonBackReference(value="userSender")
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User sender;
 	
-//	@JsonIgnoreProperties({ "applications","company", "educations", 
+//	@JsonIgnoreProperties({ "applications", "educations", 
 //		"skills", "experiences", "posts" })
-//	@JsonIgnore
-	@JsonBackReference(value="userReceiver")
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="reply_user_id")
 	private User receiver;

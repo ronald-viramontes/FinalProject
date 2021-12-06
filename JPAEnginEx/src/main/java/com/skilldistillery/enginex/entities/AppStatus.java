@@ -1,21 +1,23 @@
 package com.skilldistillery.enginex.entities;
 
+
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Company {
-
-	public Company() {
+@Table(name="app_status")
+public class AppStatus {
+	
+	public AppStatus() {
 		super();
 	}
 
@@ -23,42 +25,48 @@ public class Company {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="company_name")
-	private String companyName;
-		
-//	@JsonIgnore
-	@JsonManagedReference(value = "company")
-	@OneToMany(mappedBy="company")
-	List<User> users;
+	private String name;
 	
+	@JsonIgnoreProperties({"user", "posts", "jobPosts"})
+	@OneToMany(mappedBy="appStatus")
+	private List<JobApplication> applications;
+
+
 	public int getId() {
 		return id;
 	}
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public List<User> getUsers() {
-		return users;
+
+	public List<JobApplication> getApplications() {
+		return applications;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+
+	public void setApplication(List<JobApplication> applications) {
+		this.applications = applications;
 	}
+
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -68,13 +76,16 @@ public class Company {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Company other = (Company) obj;
+		AppStatus other = (AppStatus) obj;
 		return id == other.id;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Company [id=" + id + ", companyName=" + companyName + "]";
+		return "AppStatus [id=" + id + ", name=" + name + "]";
 	}
+	
 
+	
 }

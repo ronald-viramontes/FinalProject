@@ -1,5 +1,4 @@
 import { Chat } from './chat';
-import { Company } from './company';
 import { Education } from './education';
 import { Experience } from './experience';
 import { JobApplication } from './job-application';
@@ -20,7 +19,7 @@ export class User {
   email: string;
   phoneNumber: string;
   imageUrl: string;
-  company: Company | null;
+  employer: string;
   educations: Education[];
   experiences: Experience[];
   applications: JobApplication[];
@@ -41,7 +40,7 @@ export class User {
     email: string = '',
     phoneNumber: string = '',
     imageUrl: string = '',
-    company: Company = new Company(),
+    employer: string = '',
     educations: Education[] = [],
     experiences: Experience[] = [],
     applications: JobApplication[] = [],
@@ -61,7 +60,7 @@ export class User {
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.imageUrl = imageUrl;
-    this.company = company;
+    this.employer = employer;
     this.educations = educations;
     this.experiences = experiences;
     this.applications = applications;

@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
 @Table(name = "job_post")
 public class JobPost {
@@ -57,7 +56,7 @@ public class JobPost {
 	@JoinColumn(name = "job_type_id")
 	private JobType type;
 
-	@JsonIgnoreProperties({"company", "skills", "experiences", "educations", "applications", "posts", 
+	@JsonIgnoreProperties({"skills", "experiences", "educations", "applications", "posts", 
 		"sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -105,11 +104,11 @@ public class JobPost {
 		this.completionDate = completionDate;
 	}
 
-	public int getDevelopersNeeded() {
+	public Integer getDevelopersNeeded() {
 		return developersNeeded;
 	}
 
-	public void setDevelopersNeeded(int developersNeeded) {
+	public void setDevelopersNeeded(Integer developersNeeded) {
 		this.developersNeeded = developersNeeded;
 	}
 
@@ -128,7 +127,8 @@ public class JobPost {
 	public void setDatePosted(LocalDate datePosted) {
 		this.datePosted = datePosted;
 	}
-
+	
+	@JsonIgnore
 	public LocalDate getDateClosed() {
 		return dateClosed;
 	}

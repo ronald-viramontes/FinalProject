@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.enginex.entities.AppStatus;
 import com.skilldistillery.enginex.entities.JobApplication;
 import com.skilldistillery.enginex.entities.JobPost;
 import com.skilldistillery.enginex.entities.User;
+import com.skilldistillery.enginex.repositories.AppStatusRepository;
 import com.skilldistillery.enginex.repositories.JobApplicationRepository;
 import com.skilldistillery.enginex.repositories.JobPostRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
@@ -24,6 +26,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Autowired
 	private JobPostRepository postRepo;
+	@Autowired
+	private AppStatusRepository appStatRepo;
 	
 	
 	@Override
@@ -65,12 +69,15 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	
 	@Override
 	public JobApplication create(int userId, int postId) {
+		AppStatus appStatus = appStatRepo.findById(1);
+		
+		
 		User user = userRepo.findById(userId).get();
 		Optional<JobPost> opt = postRepo.findById(postId);
 		JobApplication app = new JobApplication();
 		app.setUser(user);
 		app.setJobPost(opt.get());
-		app.setStatus("Pending Review");
+		app.setAppStatus(appStatus);
 		app.setDate(LocalDate.now());
 		System.out.println(app);
 		return appRepo.saveAndFlush(app);
@@ -78,16 +85,16 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public JobApplication edit(int statusId, int appId, int userId) {
+		AppStatus statusApproved = appStatRepo.findById(1);
+		AppStatus statusDeclined = appStatRepo.findById(4);
 		Optional<JobApplication> opt = appRepo.findById(appId);
 		if( opt.isPresent() && opt.get().getJobPost().getUser().getId() == userId) {
 			JobApplication app = opt.get();
 			if(statusId == 1) {
-				app.setApproved(true);
-				app.setStatus("Approved");
+				app.setAppStatus(statusApproved);
 				
 			}else {
-				app.setApproved(false);
-				app.setStatus("Declined");
+				app.setAppStatus(statusDeclined);
 				
 			}
 			return appRepo.saveAndFlush(app);
@@ -118,7 +125,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public JobApplication appDecision(String username, JobApplication app) {
-		User poster = userRepo.findByUsername(username);
+//		User poster = userRepo.findByUsername(username);
 		
 			
 			return app = appRepo.saveAndFlush(app);
@@ -143,6 +150,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public JobApplication newApplication(String username, JobApplication app, int postId) {
+		AppStatus status = appStatRepo.findById(1);
 		User user = userRepo.findByUsername(username);
 		
 		Optional<JobPost> opt = postRepo.findById(postId);	
@@ -150,7 +158,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		if(opt.isPresent()) {
 			app.setUser(user);
 			app.setJobPost(opt.get());
-			app.setStatus("Pending Review");
+			app.setAppStatus(status);
 			app.setDate(LocalDate.now());
 		
 			return appRepo.saveAndFlush(app);
@@ -161,13 +169,14 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public JobApplication createApp(String username, int postId) {
+		AppStatus status = appStatRepo.findById(1);
 		User user = userRepo.findByUsername(username);
 		Optional<JobPost> opt = postRepo.findById(postId);
 		if(opt.isPresent()) {
 			JobApplication jobApp = new JobApplication();
 			jobApp.setUser(user);
 			jobApp.setJobPost(opt.get());
-			jobApp.setStatus("Pending Review");
+			jobApp.setAppStatus(status);
 			jobApp.setDate(LocalDate.now());
 			
 			return appRepo.saveAndFlush(jobApp);

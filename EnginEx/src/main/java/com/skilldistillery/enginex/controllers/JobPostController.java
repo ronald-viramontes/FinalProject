@@ -108,11 +108,19 @@ public class JobPostController {
 	@PutMapping("userjobs/{postId}")
 	public JobPost updateMyPost(@RequestBody JobPost jobPost, @PathVariable int postId, 
 								HttpServletRequest req, HttpServletResponse res, Principal principal) {
-				
-		jobPost = jobPostServ.updatePost(principal.getName(), jobPost, postId);
+		try {
+			
+			jobPost = jobPostServ.updatePost(principal.getName(), jobPost, postId);		
+			
+		} catch (Exception e) {
+			System.out.println("Something went wrong with update!" + ": " + e);
+			
+			
+		}
 		
+	
 		if(jobPost == null) {
-			res.setStatus(400);
+			res.setStatus(404);
 			return null;
 		} else {
 			res.setStatus(200);

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppStatus } from 'src/app/models/app-status';
 import { Chat } from 'src/app/models/chat';
 import { Education } from 'src/app/models/education';
 import { Experience } from 'src/app/models/experience';
@@ -43,6 +44,7 @@ export class MyJobPostsComponent implements OnInit {
   @Input() userPosts: JobPost[] = [];
   @Input() active: User | null = null;
 
+  job: JobPost = new JobPost();
   posts: JobPost[] = [];
   closeResult: string = '';
   userJobs: JobPost[] = [];
@@ -57,7 +59,8 @@ export class MyJobPostsComponent implements OnInit {
   newPost: JobPost = new JobPost();
   newApp: JobApplication = new JobApplication();
   newComments: JobApplicationComment[] = [];
-
+  appStatuses: AppStatus[] = [];
+  appStatus: AppStatus = new AppStatus();
   editApp: JobApplication | null = null;
   editJob: JobPost | null = null;
 
@@ -75,6 +78,7 @@ export class MyJobPostsComponent implements OnInit {
     this.loadStatusAndTypes();
     this.reloadMyJobs();
     this.selectJobs();
+    this.appStatusList();
   }
 
   selectJob(job: JobPost) {
@@ -154,8 +158,7 @@ export class MyJobPostsComponent implements OnInit {
 
   submitApplication(jobPost: JobPost) {
     this.newApp.id = 0;
-    this.newApp.approved = false;
-    this.newApp.status = 'Awaiting Decision';
+    this.newApp.appStatus = new AppStatus(1);
     this.newApp.date = '';
     this.newApp.jobPost = jobPost;
     if (this.active) this.newApp.user = this.active;
@@ -186,7 +189,11 @@ export class MyJobPostsComponent implements OnInit {
   }
 
   updateMyPost(editJob: JobPost) {
-    let postId = editJob.id;
+    let postId: number = editJob.id;
+
+    this.job.user = editJob.user;
+    if (this.active) editJob.applications = [];
+
     this.jobSvc.editPost(editJob, postId).subscribe(
       (updated) => {
         this.editJob = null;
@@ -227,6 +234,19 @@ export class MyJobPostsComponent implements OnInit {
       }
     );
   }
+
+  appStatusList() {
+    this.appService.appStatusIndex().subscribe(
+      (stats) => {
+        this.appStatuses = stats;
+        console.log('AppStatus : ', this.appStatus);
+      },
+      (fail) => {
+        console.error('Something went wrong getting the appStatus list.', fail);
+      }
+    );
+  }
+
   approveApp(app: JobApplication) {
     let appId: number = app.id;
 

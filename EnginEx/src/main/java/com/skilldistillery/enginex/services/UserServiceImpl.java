@@ -13,22 +13,6 @@ import com.skilldistillery.enginex.repositories.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
-	@Autowired
-//	private JobPostRepository jobRepo;
-//	@Autowired
-//	private SkillRepository sRepo;
-//	@Autowired
-//	private ExperienceRepository expRepo;
-//	@Autowired
-//	private ChatRepository chatRepo;
-//	@Autowired
-//	private EducationRepository eduRepo;
-//	@Autowired
-//	private JobApplicationRepository appRepo;
-//	@Autowired
-//	private JobDetailRepository detailRepo;
-//	@Autowired
-//	private JobApplicationCommentRepository appCommentRepo;
 	
 
 	@Override
@@ -43,17 +27,38 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void destroy(String username, int id) {
-//		User admin = userRepo.findByUsername(username);
-		Optional<User> u = userRepo.findById(id);
-		User delUser = u.get();
-				
-			userRepo.delete(delUser);
-		
+	public User showUsername(String username) {
+		return userRepo.findByUsername(username);
 	}
 
 	@Override
-	public User update(String username, int id, User user) {
+	public List<User> findBySkill(String skill) {
+		skill = "%"+skill+"%";
+		return userRepo.findBySkills_skillTitleLike(skill);
+	}
+	
+	@Override
+	public User disableMyAccount(String username, int userId) {
+		User disabledUser = userRepo.findByUsername(username);
+		
+		disabledUser.setEnabled(false);
+		
+		return userRepo.saveAndFlush(disabledUser);
+	}
+	
+	@Override
+	public void destroyMyAccount(String principal, int userId) {
+		User user = userRepo.findByUsername(principal);
+		Optional<User> comp = userRepo.findById(userId);
+		
+		if (comp.isPresent() && comp.get().getId() == user.getId()) {
+			User removeMe = comp.get(); 			
+			userRepo.delete(removeMe);
+		}
+	}
+
+	@Override
+	public User updateMyAccount(String username, int id, User user) {
 		Optional<User> u = userRepo.findById(id);
 		User existingUser = u.get();
 		User subUser = userRepo.findByUsername(username);
@@ -76,68 +81,21 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-
+	//ADMIN METHODS//
+	
 	@Override
-	public User showUsername(String username) {
-		return userRepo.findByUsername(username);
-	}
-
-	@Override
-	public List<User> findBySkill(String skill) {
-		skill = "%"+skill+"%";
-		return userRepo.findBySkills_skillTitleLike(skill);
-	}
-
-	@Override
-	public User disableAccount(String username, int userId) {
-		User disabledUser = userRepo.findByUsername(username);
-						
-		disabledUser.setEnabled(false);
-
-		return userRepo.saveAndFlush(disabledUser);
-	}
-
-	@Override
-	public void removeUserAccount(String sysadmin, String username) {
-		User systemAdmin = userRepo.findByUsername(sysadmin);
-		User removeUser = userRepo.findByUsername(username);
-		User newUser = new User();
-		
-		if (systemAdmin.getRole() == "ADMIN") {
-				removeUser = newUser;
-//				removeUser.setApplications(emptyUser.getApplications());
-//				removeUser.setCompany(emptyUser.getCompany());
-//				removeUser.setEducations(emptyUser.getEducations());
-//				removeUser.setEmail("");				
-//				removeUser.setExperiences(emptyUser.getExperiences());
-//				removeUser.setFirstName("");
-//				removeUser.setLastName("");
-//				removeUser.setImageUrl("");
-//				removeUser.setPassword("");
-//				removeUser.setPhoneNumber("");
-//				removeUser.setPosts(emptyUser.getPosts());
-//				removeUser.setReceivedMessages(emptyUser.getReceivedMessages());
-//				removeUser.setRole("");
-//				removeUser.setSentMessages(emptyUser.getSentMessages());
-//				removeUser.setSkills(emptyUser.getSkills());
-//				removeUser.setUsername("");
-//				removeUser.setEnabled(false);
-				userRepo.saveAndFlush(removeUser);
-			
-				userRepo.delete(removeUser);
-		}
-				
-					
+	public void destroy(String username, int id) {
+		User admin = userRepo.findByUsername(username);
+		if(admin.getRole().equals("ADMIN")) {
+			Optional<User> u = userRepo.findById(id);
+			User delUser = u.get();
+			userRepo.delete(delUser);
+		}	
 	}
 
 	@Override
 	public User enableOrDisableAccount(String username, User user) {
-//		User dbUser = userRepo.findByUsername(user.getUsername());
-//		if (dbUser != null) {
-//			dbUser.setEnabled(user.isEnabled());
-//			dbUser = userRepo.saveAndFlush(dbUser);
-//			return dbUser;
-//		}
+
 		user = userRepo.saveAndFlush(user);
 		
 		return user;

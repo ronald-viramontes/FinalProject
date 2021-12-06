@@ -7,11 +7,13 @@ import { EducationService } from 'src/app/services/education.service';
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css']
+  styleUrls: ['./education.component.css'],
 })
 export class EducationComponent implements OnInit {
-
-  constructor(private educationService: EducationService, private authService: AuthService) { }
+  constructor(
+    private educationService: EducationService,
+    private authService: AuthService
+  ) {}
 
   @Input() educations: Education[] = [];
   @Input() activeUser: User | null = null;
@@ -25,10 +27,10 @@ export class EducationComponent implements OnInit {
 
   loadEducations() {
     this.educationService.index().subscribe(
-      data => {
+      (data) => {
         this.educations = data;
       },
-      err => {
+      (err) => {
         console.error(err);
       }
     );
@@ -36,42 +38,40 @@ export class EducationComponent implements OnInit {
 
   loadEducationsByDevId(userId: number) {
     this.educationService.show(userId).subscribe(
-      data => {
+      (data) => {
         this.educations = data;
       },
-      err => {
+      (err) => {
         console.error(err);
       }
     );
   }
 
   edit(education: Education, edId: number) {
-    if(this.activeUser)
-    this.educationService.edit(education, edId, this.activeUser.id).subscribe(
-      data => {
-        console.log('Update Successful');
-        if(this.activeUser)
-        this.loadEducationsByDevId(this.activeUser.id);
-      },
-      err => {
-        console.error(err);
-        console.error('Error updating education');
-      }
-    );
+    if (this.activeUser)
+      this.educationService.edit(education, edId, this.activeUser.id).subscribe(
+        (data) => {
+          console.log('Update Successful');
+          if (this.activeUser) this.loadEducationsByDevId(this.activeUser.id);
+        },
+        (err) => {
+          console.error(err);
+          console.error('Error updating education');
+        }
+      );
   }
 
   delete(edId: number) {
-    if(this.activeUser)
-    this.educationService.delete(edId, this.activeUser.id).subscribe(
-      data => {
-        if(this.activeUser)
-          this.loadEducationsByDevId(this.activeUser.id);
-        console.log('education deleted successfully');
-      },
-      err => {
-        console.error(err);
-      }
-    );
+    if (this.activeUser)
+      this.educationService.delete(edId, this.activeUser.id).subscribe(
+        (data) => {
+          if (this.activeUser) this.loadEducationsByDevId(this.activeUser.id);
+          console.log('education deleted successfully');
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
   }
 
   selectEducation(edu: Education) {
@@ -85,23 +85,21 @@ export class EducationComponent implements OnInit {
 
   create(newEd: Education) {
     if (this.activeUser) {
-      newEd.user = null;
       this.educationService.create(newEd, this.activeUser.id).subscribe(
-        data => {
-          if(this.activeUser)
-          this.loadEducationsByDevId(this.activeUser.id);
+        (data) => {
+          if (this.activeUser) this.loadEducationsByDevId(this.activeUser.id);
           return data;
         },
-        err => {
+        (err) => {
           console.error(err);
         }
       );
     }
   }
 
-  setEdit(edu: Education){
+  setEdit(edu: Education) {
     this.editEducation = new Education();
-    this.editEducation.institutionName =  edu.institutionName;
+    this.editEducation.institutionName = edu.institutionName;
     this.editEducation.educationType = edu.educationType;
     this.editEducation.degreeCertificateName = edu.degreeCertificateName;
     this.editEducation.completeDate = edu.completeDate;

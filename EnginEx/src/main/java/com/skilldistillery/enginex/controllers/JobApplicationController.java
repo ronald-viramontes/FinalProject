@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.enginex.entities.AppStatus;
 import com.skilldistillery.enginex.entities.JobApplication;
+import com.skilldistillery.enginex.repositories.AppStatusRepository;
 import com.skilldistillery.enginex.repositories.UserRepository;
 import com.skilldistillery.enginex.services.JobApplicationService;
 
@@ -31,7 +33,8 @@ public class JobApplicationController {
 	private JobApplicationService appSvc;
 	@Autowired
 	private UserRepository userRepo;
-	
+	@Autowired
+	private AppStatusRepository appStatRepo;
 	
 	@GetMapping(path = "apps")
 	public List<JobApplication> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
@@ -140,12 +143,10 @@ public class JobApplicationController {
 									   Principal principal) {
 		
 	JobApplication	app = appSvc.findByAppId(appId);
-		
+		AppStatus appStatus = appStatRepo.findById(4);
 			app.setDecisionDate(LocalDate.now());
-			app.setApproved(false);
-			app.setStatus("Application Closed");
+			app.setAppStatus(appStatus);
 			app = appSvc.appDecision(principal.getName(), app);
-		
 			return app;
 	}
 
@@ -154,12 +155,9 @@ public class JobApplicationController {
 									 @PathVariable int appId, 
 									  Principal principal) {
 		JobApplication app = appSvc.findByAppId(appId);
-		
-		
-					
+		AppStatus appStatus = appStatRepo.findById(3);
 			app.setDecisionDate(LocalDate.now());
-			app.setApproved(true);
-			app.setStatus("Application Approved");
+			app.setAppStatus(appStatus);
 			app = appSvc.appDecision(principal.getName(), app);
 			return app;
 		

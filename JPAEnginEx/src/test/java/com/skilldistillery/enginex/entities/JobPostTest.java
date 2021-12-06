@@ -61,7 +61,7 @@ class JobPostTest {
 		assertEquals("Full Stack Developer", post.getType().getName());
 		assertEquals("Ron", post.getUser().getFirstName());
 		assertEquals("Complete", post.getStatus().getName());
-		assertEquals("Approved", post.getApplications().get(0).getStatus());
+		assertEquals("Approved", post.getApplications().get(0).getAppStatus());
 	}
 
 }

@@ -108,10 +108,13 @@
             <ul *ngFor='let app of apps'>
               <div>
                 <h3>{{app.user.firstName}} {{app.user.lastName}}</h3>
-                <li>Application Status: {{app.status}}</li>
+                <li>Application Status: {{app.appStatus.name}}</li>
                 <li>Application Date: {{app.date}}</li>
-                <li *ngIf="app.approved == true" style="color: green;">Application Approved: {{app.approved}}</li>
-                <li *ngIf="app.approved == false" style="color: red;">Application Approved: {{app.approved}}</li>
+                <li *ngIf="app.appStatus.id == 3" style="color: green;">Application Status: {{app.appStatus.name}}</li>
+                <li *ngIf="app.appStatus.id == 2 " style="color: yellow;">Application Status: {{app.appStatus.name}}
+                </li>
+                <li *ngIf="app.appStatus.id == 4 " style="color: red;">Application Status: {{app.appStatus.name}}</li>
+
               </div>
               <div>
                 <mat-tab-group class="remove-border-bottom">
