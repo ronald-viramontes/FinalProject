@@ -4,7 +4,7 @@
   <div id="newChatOutside">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title"
-        style="text-align:center; margin-bottom: auto; margin-top: 10px; color: black">
+        style="text-align:center; margin-bottom: auto; margin-top: 10px; color: white">
         <strong>Chat Message</strong>
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="cancel()">
@@ -22,11 +22,12 @@
         <textarea class="form-control" type="text" placeholder="Message" cols="41" rows="5" name="message"
           [(ngModel)]="newChat.message"></textarea>
         <div style="text-align: center">
+          <br>
           <button type="button" class="btn btn-success btn-outline-light" (click)="create(newChat, receiverUsername)"
             (click)="modal.close('Save click')">
             Send
           </button>
-          <button type="button" class="btn btn-warning btn-outline-light" (click)="cancel()"
+          <button type="button" style="margin-left: 10px;" class="btn btn-warning btn-outline-light" (click)="cancel()"
             (click)="modal.dismiss('Cancel Button')">
             Cancel
           </button>

@@ -1,51 +1,68 @@
-<div class="horizontalScrollbar">
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-      <div *ngIf="users.length > 0" style="text-align: center;">
-        <mat-card>
-          <mat-card-title>ADMINISTRATIVE DASHBOARD</mat-card-title>
-          <mat-card-content>
-            <div class="scrollable">
-              <table class="table table-striped table-hover table-bordered">
-                <thead class="table-dark">
-                  <tr>
-                    <th>User ID</th>
-                    <th>Username</th>
-                    <th>Account Enabled</th>
-                    <th>Role</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Enable | Disable</th>
-                    <th>Delete Account</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor='let user of users'>
-                    <td>{{user.id}}</td>
-                    <td>{{user.username}}</td>
-                    <td>{{user.enabled}}</td>
-                    <td>{{user.role}}</td>
-                    <td>{{user.firstName}}</td>
-                    <td>{{user.lastName}}</td>
-                    <td>{{user.email}}</td>
-                    <td><button *ngIf="user.enabled" (click)="disableUser(user)"
-                        class="badge btn-warning btn-outline-dark">DISABLE</button>
-                      <button *ngIf="!user.enabled" (click)="disableUser(user)"
-                        class="badge btn-success btn-outline-dark">ENABLE</button>
-                    </td>
-                    <td><button (click)="removeUser(user)" class="badge btn-danger btn-outline-dark">DELETE</button>
-                    </td>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <div *ngIf="users.length > 0" style="text-align: center;">
+      <div
+        style="text-align: center;  border-radius: 8px; margin-left: auto; margin-right: auto;  background-color:  rgb(33, 34, 35); padding-right: 5px; padding-left: 5px; padding-top: 15px; padding-bottom: 15px; max-width: fit-content; max-height:fit-content">
+        <div style="text-align: center; margin-left: auto; margin-right: auto;">
 
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </mat-card-content>
-        </mat-card>
+          <div>
+            <mat-card>
+              <mat-card-title>
+
+
+                ADMINISTRATIVE DASHBOARD
+
+              </mat-card-title>
+              <div
+                style="text-align: center; margin-left: auto; margin-right: auto; background-color: white; padding-right: 15px; padding-left: 15px; max-width: 100%">
+
+                <br>
+                <mat-card-content>
+                  <div class="scrollable">
+                    <table class="table table-striped table-hover table-bordered">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>User ID</th>
+                          <th>Username</th>
+                          <th>Account Enabled</th>
+                          <th>Role</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>Enable / Disable</th>
+                          <th>Delete Account</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor='let user of users'>
+                          <td>{{user.id}}</td>
+                          <td>{{user.username}}</td>
+                          <td>{{user.enabled}}</td>
+                          <td>{{user.role}}</td>
+                          <td>{{user.firstName}}</td>
+                          <td>{{user.lastName}}</td>
+                          <td><a href="{{user.email}}">{{user.email}}</a></td>
+                          <td><button *ngIf="user.enabled" (click)="disableUser(user)"
+                              class="badge btn-warning btn-outline-dark">DISABLE</button>
+                            <button *ngIf="!user.enabled" (click)="disableUser(user)"
+                              class="badge btn-success btn-outline-dark">ENABLE</button>
+                          </td>
+                          <td><button (click)="removeUser(user)"
+                              class="badge btn-danger btn-outline-dark">DELETE</button>
+                          </td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </mat-card-content>
+              </div>
+            </mat-card>
+          </div>
+
+        </div>
       </div>
+      <div class="col-2"></div>
     </div>
-    <div class="col-2"></div>
   </div>
-</div>

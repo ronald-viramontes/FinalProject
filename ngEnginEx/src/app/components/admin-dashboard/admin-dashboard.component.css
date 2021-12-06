@@ -21,7 +21,7 @@ table {
 td {
   width: 1px;
   font-size: small;
-  word-break: break-all;
+  word-break: normal;
 }
 th {
   font-size: small;

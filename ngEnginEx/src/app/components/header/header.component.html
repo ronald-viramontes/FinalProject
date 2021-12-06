@@ -9,32 +9,35 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto" style="text-shadow: -2px -2px 0 black;">
         <li class="nav-item" *ngIf="!loggedIn()">
           <a class="nav-link" href="#/visitor-home"><strong>Visitor Home</strong></a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" style="text-shadow: -2px -2px 0 black;">
           <button *ngIf="!loggedIn()" class="btn btn-success btn-outline-dark btn-lg" (click)="register()"
             style="margin-left: 50px;"><strong>Register</strong></button>
         </li>
-        <li class="nav-item" *ngIf="loggedIn()">
+        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
           <a class="nav-link" href="#/jobs"><strong>Job Posts</strong></a>
         </li>
 
-        <li class="nav-item" *ngIf="loggedIn()">
+        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
           <a class="nav-link" href="#/sendchat"><strong>Send Chat</strong></a>
         </li>
-        <li class="nav-item" *ngIf="loggedIn()">
+        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
           <a class="nav-link" href="#/listjob"><strong>Create Job Post</strong></a>
         </li>
-        <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" href="#/editprofile"><strong style="color: yellow">Edit Profile</strong></a>
+        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
+          <a class="nav-link" href="#/editprofile">
+            <strong>Edit Profile</strong>
+          </a>
         </li>
-        <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" href="#/home" (click)="logOut()"><strong style="color: blue">Logout</strong></a>
+        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
+          <a class="nav-link" href="#/home" (click)="logOut()"><strong>Logout</strong></a>
         </li>
         <li class="nav-item" *ngIf="loggedIn() && adminRights">
-          <a class="nav-link" href="#/adminDash"> <strong style="margin-left: 350px; color: red;">ADMIN
+          <a class="nav-link" href="#/adminDash"> <strong
+              style="text-align: right; margin-left: 600px; color: red; font-weight:800; text-decoration: underline; text-decoration-color: white; text-decoration-thickness: thin; text-shadow: -1px -1px 0 white;">ADMIN
               DASH</strong></a>
         </li>
 
@@ -65,4 +68,5 @@
     <br>
   </div>
 </div>
+
 <hr>

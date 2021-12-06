@@ -62,12 +62,15 @@ body {
   color: white;
   background-color: rgb(33, 34, 35);
   padding: 1em 3em 3em 3em;
-  text-shadow: 1px 1px 2px white;
+
+  /* text-shadow: 1px 1px 2px white; */
+  font-weight: bold;
 }
 #sendChat {
   text-align: left;
   color: white;
-  text-shadow: 1px 1px 4px red;
+  font-weight: bold;
+  /* text-shadow: 1px 1px 4px white; */
 }
 
 #enginExIntro,
