@@ -13,10 +13,10 @@
         <li class="nav-item" *ngIf="!loggedIn()">
           <a class="nav-link" href="#/visitor-home"><strong>Visitor Home</strong></a>
         </li>
-        <li class="nav-item active" style="text-shadow: -2px -2px 0 black;">
-          <button *ngIf="!loggedIn()" class="btn btn-success btn-outline-dark btn-lg" (click)="register()"
+        <!-- <li class="nav-item active">
+          <button *ngIf="!loggedIn()" class="btn btn-success btn-outline-dark btn-sm" (click)="register()"
             style="margin-left: 50px;"><strong>Register</strong></button>
-        </li>
+        </li> -->
         <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
           <a class="nav-link" href="#/jobs"><strong>Job Posts</strong></a>
         </li>
@@ -43,16 +43,20 @@
 
       </ul>
       <div id="userLoginInline" style="margin-left: auto; margin-right: 0px;">
-        <form class="form-inline-lg" *ngIf="!loggedIn()">
-          <input class="form-control-lg" name="username" type="text" placeholder="Username" aria-label="Username"
+        <form class="form-inline-md" *ngIf="!loggedIn()">
+          <input class="form-control-md" name="username" type="text" placeholder="Username" aria-label="Username"
             [(ngModel)]="user.username">
-          <input class="form-control-lg" name="password" type="password" placeholder="Password" aria-label="Password"
+          <input class="form-control-md" name="password" type="password" placeholder="Password" aria-label="Password"
             [(ngModel)]="user.password">
         </form>
       </div>
 
       <button *ngIf="!loggedIn()" style="margin-left: 3px; margin-right: 5px; margin-top: auto; margin-bottom: auto;"
-        class="btn btn-dark btn-outline-light btn-lg" (click)="login(user)">Login</button>
+        class="btn btn-dark btn-outline-light btn-sm" (click)="login(user)">Login</button>
+      <button *ngIf="!loggedIn()" class="btn btn-success btn-outline-dark btn-sm" (click)="register()"
+        style="margin-left: 15px; margin-right: 5px;"><strong>Register</strong></button>
+
+
 
     </div>
 
@@ -68,5 +72,6 @@
     <br>
   </div>
 </div>
+
 
 <hr>
