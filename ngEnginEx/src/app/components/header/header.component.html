@@ -9,59 +9,98 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto" style="text-shadow: -2px -2px 0 black;">
-        <li class="nav-item" *ngIf="!loggedIn()">
-          <a class="nav-link" href="#/visitor-home"><strong>Visitor Home</strong></a>
-        </li>
-        <!-- <li class="nav-item active">
-          <button *ngIf="!loggedIn()" class="btn btn-success btn-outline-dark btn-sm" (click)="register()"
-            style="margin-left: 50px;"><strong>Register</strong></button>
-        </li> -->
-        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
-          <a class="nav-link" href="#/jobs"><strong>Job Posts</strong></a>
-        </li>
 
-        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
-          <a class="nav-link" href="#/sendchat"><strong>Send Chat</strong></a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
-          <a class="nav-link" href="#/listjob"><strong>Create Job Post</strong></a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
-          <a class="nav-link" href="#/editprofile">
-            <strong>Edit Profile</strong>
-          </a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn()" style="text-shadow: -2px -2px 0 black;">
-          <a class="nav-link" href="#/home" (click)="logOut()"><strong>Logout</strong></a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn() && adminRights">
-          <a class="nav-link" href="#/adminDash"> <strong
-              style="text-align: right; margin-left: 600px; color: red; font-weight:800; text-decoration: underline; text-decoration-color: white; text-decoration-thickness: thin; text-shadow: -1px -1px 0 white;">ADMIN
-              DASH</strong></a>
-        </li>
-
-      </ul>
-      <div id="userLoginInline" style="margin-left: auto; margin-right: 0px;">
-        <form class="form-inline-md" *ngIf="!loggedIn()">
-          <input class="form-control-md" name="username" type="text" placeholder="Username" aria-label="Username"
-            [(ngModel)]="user.username">
-          <input class="form-control-md" name="password" type="password" placeholder="Password" aria-label="Password"
-            [(ngModel)]="user.password">
-        </form>
+      <div class="btn-group" *ngIf="!loggedIn()" style="margin-left: auto; margin-right: auto;">
+        <a id="visitorButton" class="btn btn-md" href="#/visitor-home"><strong>Visitor Home</strong></a>
+        <a id="registerButton" class="btn btn-md" (click)="register()"><strong>Register</strong></a>
       </div>
 
-      <button *ngIf="!loggedIn()" style="margin-left: 3px; margin-right: 5px; margin-top: auto; margin-bottom: auto;"
-        class="btn btn-dark btn-outline-light btn-sm" (click)="login(user)">Login</button>
-      <button *ngIf="!loggedIn()" class="btn btn-success btn-outline-dark btn-sm" (click)="register()"
-        style="margin-left: 15px; margin-right: 5px;"><strong>Register</strong></button>
+      <div class="input-group" style="margin-left: auto; margin-right: auto; width: 350px;">
+        <span class="input-group-text">🔎</span>
+        <input type="search" class="form-control" placeholder="Skill Keyword Search" aria-label="Search"
+          aria-describedby="search-addon" name="keyword" [(ngModel)]="keyword" />
+        <button id="skillSearchButton" class="btn btn-md" (click)="open(content)"
+          (click)="search(keyword)"><strong>Search</strong></button>
+      </div>
+
+      <div class="btn-group" *ngIf="loggedIn()" style="margin-left: 50px; margin-right: auto;">
+        <a href="#/jobs" class="btn btn-light btn-md">💻</a>
+        <a id="jobsButton" class="btn btn-md" href="#/jobs"><strong>Job Posts</strong></a>
+        <a href="#/sendchat" class="btn btn-light btn-md">💬</a>
+        <a id="sendChatButton" class="btn btn-md" (click)="sendChat()"><strong>Send Chat</strong></a>
+        <a href="#/listjob" class="btn btn-light btn-md">📰</a>
+        <a id="listJobButton" class="btn btn-md" href="#/listjob"><strong>Create Job
+            Post</strong></a>
+      </div>
+
+      <div class="btn-group" *ngIf="loggedIn()" style="margin-left: auto; margin-right: 0px;">
+
+        <a href="#/adminDash" class="btn btn-light btn-md">🧰️ </a>
+        <a id="adminDashboardButton" *ngIf="adminRights" class="btn btn-md" href="#/adminDash"><strong>Admin
+            Dash</strong></a>
+        <a href="#/editprofile" class="btn btn-light btn-md">👤</a>
+        <a id="editProfileButton" class="btn btn-md" href="#/editprofile"><strong>Edit
+            Profile</strong></a>
+        <a id="imOut" class="btn btn-light btn-md" href="#/home" (click)="logOut()">➲</a>
+        <a id="logoutButton" class="btn btn-md" href="#/home" (click)="logOut()"><strong>Logout</strong></a>
+      </div>
+
+      <div id="userLoginInline" style="margin-left: auto; margin-right: 10px;">
+        <form class="form-inline-md" *ngIf="!loggedIn()">
+          <div class="input-group mt-auto mb-auto mr-0 ml-0">
+            <label class="visually-hidden" for="usernameSizing">Username</label>
+            <span id="usernameIcon" class="input-group-text">👤</span>
+            <input class="form-control" id="usernameSizing" name="username" type="text" placeholder="Username"
+              aria-label="Username" [(ngModel)]="user.username">
 
 
-
+            <label class="visually-hidden" for="passwordSizing">Password</label>
+            <span class="input-group-text">🔒</span>
+            <input class="form-control" name="password" type="password" placeholder="Password" aria-label="Password"
+              [(ngModel)]="user.password">
+            <span id="loginUserClick" *ngIf="user.password && user.username" class="input-group-text"
+              (click)="login(user)">⮕</span>
+          </div>
+        </form>
+      </div>
     </div>
-
   </nav>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Developer Search By Skill</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="fluid-container scrollable" *ngIf="searchResults.length > 0">
+      <div *ngFor="let user of searchResults; index as i" [ngClass]="loggedInClass()">
+        <div class="row">
+          <div class="col-auto">
+            <div class="card" *ngIf="i < 6">
+              <div class="card-body">
+                <img src="{{user.imageUrl}}" width="50%">
+                <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Skills</h6>
+                <div *ngFor="let skill of user.skills">
+                  <span class="card-text" *ngIf="checkKeyword(skill.skillTitle)"><strong>{{skill.skillTitle}}</strong>:
+                    {{skill.skillLevel}}</span>
+                </div><br>
+                <a href="mailto:{{user.email}}?subject=Email from {{activeUser.firstName}} {{activeUser.lastName}} on Engineer Exchange
+            &body=I saw your profile on Engineer Exchange and thought your skills might be perfect for my project.  I'd like to discuss a collaboration!"
+                  *ngIf="loggedIn()" style="text-decoration: none; position: absolute; bottom: 0;">Contact Engineer</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
 
 <div class="jumbotron jumbotron-fluid" style="text-align: center">
   <div class="container">

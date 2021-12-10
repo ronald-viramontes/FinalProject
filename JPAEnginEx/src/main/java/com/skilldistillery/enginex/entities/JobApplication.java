@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -41,7 +40,7 @@ public class JobApplication {
 	private LocalDate decisionDate;
 	
 
-	@JsonIgnoreProperties({"status", "type"})
+	@JsonIgnoreProperties({"status", "type", "jobPostFeedback"})
 	@ManyToOne
 	@JoinColumn(name = "job_post_id")
 	private JobPost jobPost;
@@ -56,7 +55,8 @@ public class JobApplication {
 	@OneToMany(mappedBy = "application")
 	private List<JobApplicationComment> comments;
 
-	@JsonBackReference(value="detail")
+//	@JsonIgnore
+	@JsonIgnoreProperties(value={"application", "jobPost"})
 	@OneToOne(mappedBy="application")
 	private JobDetail detail;
 
@@ -64,11 +64,7 @@ public class JobApplication {
 	@ManyToOne
 	@JoinColumn(name="app_status_id")
 	private AppStatus appStatus;
-	
-	
 
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -77,7 +73,6 @@ public class JobApplication {
 		this.id = id;
 	}
 
-	
 	public LocalDate getDate() {
 		return date;
 	}
@@ -138,7 +133,7 @@ public class JobApplication {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -150,11 +145,12 @@ public class JobApplication {
 		JobApplication other = (JobApplication) obj;
 		return id == other.id;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "JobApplication [id=" + id + ", date=" + date + ", decisionDate=" + decisionDate
-				+ ", detail=" + detail + ", appStatus=" + appStatus + "]";
+		return "JobApplication [id=" + id + ", date=" + date + ", decisionDate=" + decisionDate + "]";
 	}
+	
+	
 
 }

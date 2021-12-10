@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="job_detail")
@@ -38,14 +38,11 @@ public class JobDetail {
 	@Column(name="job_rating_comment")
 	private String comment;
 	
-//	@JsonIgnoreProperties({"jobPost", "user", "comments"})
-//	@JsonIgnore
-	@JsonBackReference
+	@JsonIgnoreProperties({"jobPost", "user", "comments", "detail"})
 	@OneToOne
 	@JoinColumn(name="job_application_id")
 	private JobApplication application;
 
-	
 	public int getId() {
 		return id;
 	}
@@ -70,11 +67,11 @@ public class JobDetail {
 		this.finishDate = finishDate;
 	}
 
-	public int getRating() {
+	public Integer getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
 
@@ -114,7 +111,13 @@ public class JobDetail {
 	@Override
 	public String toString() {
 		return "JobDetail [id=" + id + ", startDate=" + startDate + ", finishDate=" + finishDate + ", rating=" + rating
-				+ ", comment=" + comment + ", application=" + application + "]";
+				+ ", comment=" + comment + "]";
 	}
-		
+	
+	
+	
+
+	
+	
+	
 }

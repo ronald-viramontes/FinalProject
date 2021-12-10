@@ -27,8 +27,10 @@
 
 
 <div id="editProfileOutside">
-  <h4 style="text-align:center; margin-bottom: auto; margin-top: 10px; color: white">Update User Profile</h4>
+  <h4 style="text-align:center; margin-bottom: auto; margin-top: 10px; color: white">Update Profile</h4>
+  <div id="innerOuter">
 
+  </div>
   <div id="updateUser">
     <form name="editProfile" id="editProfileForm">
 
@@ -36,36 +38,56 @@
         <label for="firstName" class="form-label">First Name</label>
         <input type="text" class="form-control" required name="firstName" [(ngModel)]="editUser.firstName" />
       </div>
-
       <div class="form-group">
         <label for="lastName" class="form-label">Last Name</label>
-        <input type="text" class="form-control" required name="lastName" [(ngModel)]="editUser.lastName" />
+        <input type="text" class="form-control" required name="lastName" [(ngModel)]="editUser.lastName"
+          aria-label="lastName" aria-describedby="firsrNamepInput" />
       </div>
-
       <div class="form-group">
         <label for="email" class="form-label">Email</label>
-        <input type="text" class="form-control" required name="email" [(ngModel)]="editUser.email" />
+        <div class="input-group">
+          <br>
+          <span class="input-group-text" id="emailInput">📧</span>
+          <input type="text" class="form-control" required name="email" [(ngModel)]="editUser.email" aria-label="email"
+            aria-describedby="emailInput" />
+        </div>
       </div>
-
       <div class="form-group">
         <label for="phoneNumber" class="form-label">Phone Number</label>
-        <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="editUser.phoneNumber" />
+        <div class="input-group">
+          <br>
+          <span class="input-group-text">☎</span>
+          <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="editUser.phoneNumber"
+            aria-label="phoneNumber" aria-describedby="phoneNumberInput" />
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="imageUrl" class="form-label">Profile Image URL</label>
-        <input type="text" class="form-control" name="imageUrl" [(ngModel)]="editUser.imageUrl" />
+        <label for="imageUrl" class="form-label">Image URL</label>
+        <div class="input-group">
+          <br>
+          <span class="input-group-text" id="addonImageUrl">📷</span>
+          <input type="text" class="form-control" name="imageUrl" [(ngModel)]="editUser.imageUrl" aria-label="imageUrl"
+            aria-describedby="addonImageUrl" />
+          <!-- </div> -->
+        </div>
       </div>
       <br>
-      <div style=" text-align: center; margin-left: auto; margin-right: auto;">
+      <div class="btn-group" style="margin-left: 75px;">
+        <a id="editInput" class="btn btn-md" (click)="edit(editUser)">Save</a>
+        <a id="cancelInput" class="btn btn-md" value="Cancel" (click)="cancel()">Cancel</a>
+        <a id="disableInput" class="btn btn-md" (click)="disableProfile()">Disable</a>
+      </div>
+
+      <!-- <div style=" text-align: center; margin-left: auto; margin-right: auto;">
         <button class="btn btn-success" (click)="edit(editUser)">Save</button>
         <button class="btn btn-warning" style="margin-left: 10px;" value="Cancel" (click)="cancel()">Cancel</button>
         <button class="btn btn-danger" style="margin-left: 10px;" (click)="disableProfile()">Disable</button>
-      </div>
+      </div> -->
     </form>
   </div>
 </div>
 
-<div id="padded">
+<!-- <div id="padded">
 
-</div>
+</div> -->

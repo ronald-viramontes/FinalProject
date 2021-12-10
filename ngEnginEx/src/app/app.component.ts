@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ModalDismissReasons,
+  NgbModal,
+  NgbModalConfig,
+} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -13,12 +17,20 @@ import { AuthService } from './services/auth.service';
     <footer></footer>`,
 })
 export class AppComponent {
-  title = 'ngEnginEx';
-  closeResult: string | null = null;
+  // @Input() modalContent: string = '';
   constructor(
     private authService: AuthService,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    private config: NgbModalConfig
+  ) // private activeModal: NgbActiveModal
+  {
+    config.animation = true;
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
+
+  title = 'ngEnginEx';
+  closeResult: string = '';
 
   open(content: any) {
     this.modalService
@@ -32,6 +44,11 @@ export class AppComponent {
         }
       );
   }
+
+  // openContent() {
+  //   const modalRef = this.modalService.open(this.modalContent);
+  //   modalRef.componentInstance.name = this.modalContent;
+  // }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

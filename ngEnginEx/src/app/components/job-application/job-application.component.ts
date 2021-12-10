@@ -31,6 +31,41 @@ export class JobApplicationComponent implements OnInit {
   replyComment: JobApplicationComment = new JobApplicationComment();
   replyApp: JobApplication | null = null;
   addButton: boolean = false;
+  starClosed: string = '⭑';
+  starOpen: string = '⭒';
+  star1: string = '⭒';
+  star2: string = '⭒';
+  star3: string = '⭒';
+  star4: string = '⭒';
+  star5: string = '⭒';
+  star6: string = '⭒';
+  star7: string = '⭒';
+  star8: string = '⭒';
+  star9: string = '⭒';
+  star10: string = '⭒';
+  stars: string[] = [
+    this.star1,
+    this.star2,
+    this.star3,
+    this.star4,
+    this.star5,
+    this.star6,
+    this.star7,
+    this.star8,
+    this.star9,
+    this.star10,
+  ];
+  starRatingHallow: string = '⭒⭒⭒⭒⭒⭒⭒⭒⭒⭒';
+  starRatingSolid: string = '⭑⭑⭑⭑⭑⭑⭑⭑⭑⭑';
+  howManyStars(rating: number) {
+    let total = 10 - rating;
+    let hallow: string = '';
+    let solid: string = '';
+    hallow = this.starRatingHallow.slice(0, total);
+    solid = this.starRatingSolid.slice(0, rating);
+    let newStarRating = solid.concat(hallow);
+    return newStarRating;
+  }
 
   ngOnInit(): void {
     this.reloadApps();

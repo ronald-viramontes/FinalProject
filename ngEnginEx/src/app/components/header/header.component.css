@@ -27,6 +27,108 @@
   color: black;
 }
 
+#usernameIcon {
+  border-radius: 3px 0px 0px 3px;
+}
+
+#loginUserClick {
+  /* background-color: rgb(134, 215, 255); */
+  background-color: rgb(7, 66, 125);
+  color: white;
+}
+
+#loginUserClick:hover {
+  background-color: white;
+  color: rgb(7, 66, 125);
+  border-color: white;
+}
+
+#jobsButton,
+#sendChatButton,
+#listJobButton {
+  color: white;
+  background-color: rgb(7, 66, 125);
+  border-color: black;
+  text-shadow: -2px -2px 0 black;
+}
+#jobsButton:hover,
+#sendChatButton:hover,
+#listJobButton:hover,
+#editProfileButton:hover,
+#adminDashboardButton:hover,
+#logoutButton:hover {
+  color: white;
+  border-color: white;
+  /* border-color: black; */
+}
+
+#editProfileButton {
+  color: white;
+  /* background-color: rgb(173, 131, 32); */
+  background-color: rgb(7, 66, 125);
+  /* border-color: white; */
+  border-color: black;
+  text-shadow: -2px -2px 0 black;
+  /* font-weight: 400; */
+}
+
+#adminDashboardButton {
+  color: white;
+  background-color: rgb(152, 10, 10);
+  /* border-color: white; */
+  border-color: black;
+  text-shadow: -2px -2px 0 black;
+  /* font-weight: 400; */
+}
+
+#logoutButton {
+  color: white;
+  /* background-color: rgb(0, 71, 13); */
+  background-color: rgb(7, 66, 125);
+  /* border-color: white; */
+  border-color: black;
+
+  text-shadow: -2px -2px 0 black;
+  /* font-weight: 400; */
+}
+
+#signinButton {
+  background-color: rgb(7, 66, 125);
+  color: white;
+  border-color: white;
+}
+/* #signinButton:hover {
+  background-color: rgb(128, 144, 159);
+  color: black;
+  border-color: white; */
+/* } */
+
+#registerButton,
+#visitorButton {
+  /* background-color: rgb(166, 64, 12); */
+  background-color: rgb(7, 66, 125);
+  color: white;
+  border-color: white;
+}
+#registerButton:hover,
+#visitorButton:hover {
+  background-color: rgb(190, 212, 234);
+  color: black;
+  border-color: black;
+}
+
+#skillSearchButton {
+  background-color: rgb(7, 66, 125);
+  color: white;
+  border-color: white;
+  text-shadow: -2px -2px 0 black;
+}
+#skillSearchButton:hover {
+  background-color: rgb(190, 212, 234);
+  color: black;
+  border-color: black;
+}
+
 #outsideBorder {
   vertical-align: middle;
   /* margin-top: 250px; */
@@ -36,24 +138,9 @@
   margin-right: auto;
   border: 3px solid white;
   border-radius: 8px;
-  background-color: rgb(33, 34, 35);
+  background-color: rgb(53, 91, 129);
   /* padding: 1em 1em 1em 1em; */
   /* padding: 2em 2em 2em 2em; */
-}
-
-#editProfileOutside {
-  vertical-align: middle;
-  /* margin-top: 250px; */
-  width: 500px;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  border: 3px solid white;
-  border-radius: 8px;
-  color: white;
-  background-color: rgb(33, 34, 35);
-  /* padding: 1em 1em 1em 1em; */
-  padding: 1em 3em 3em 3em;
 }
 
 /* #enginExLogo {
@@ -65,7 +152,7 @@
 
 #enginExIntro,
 #enginExP {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Marker Felt, fantasy;
   font-weight: bold;
   font-style: italic;
   text-align: center;

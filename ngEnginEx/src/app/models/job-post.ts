@@ -1,4 +1,5 @@
 import { JobApplication } from './job-application';
+import { JobDetail } from './job-detail';
 import { JobStatus } from './job-status';
 import { JobType } from './job-type';
 import { User } from './user';
@@ -16,6 +17,7 @@ export class JobPost {
   user: User;
   status: JobStatus;
   applications!: JobApplication[];
+  // jobPostEvaluations!: JobDetail[];
 
   constructor(
     id: number = 0,
@@ -30,6 +32,7 @@ export class JobPost {
     user: User = new User(),
     status: JobStatus = new JobStatus(),
     applications: JobApplication[] = []
+    // jobPostEvaluations: JobDetail[]
   ) {
     this.id = id;
     this.jobRequirements = jobRequirements;
@@ -43,5 +46,6 @@ export class JobPost {
     this.user = user;
     this.status = status;
     this.applications = applications;
+    // this.jobPostEvaluations = jobPostEvaluations;
   }
 }

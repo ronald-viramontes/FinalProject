@@ -24,7 +24,7 @@ export class User {
   experiences: Experience[];
   applications: JobApplication[];
   posts: JobPost[];
-  jobStatuses: JobStatus[];
+  // jobStatuses: JobStatus[];
   skills: Skill[];
   sentMessages: Chat[];
   receivedMessages: Chat[];
@@ -45,7 +45,7 @@ export class User {
     experiences: Experience[] = [],
     applications: JobApplication[] = [],
     posts: JobPost[] = [],
-    jobStatuses: JobStatus[] = [],
+    // jobStatuses: JobStatus[] = [],
     skills: Skill[] = [],
     sentMessages: Chat[] = [],
     receivedMessages: Chat[] = []
@@ -65,7 +65,7 @@ export class User {
     this.experiences = experiences;
     this.applications = applications;
     this.posts = posts;
-    this.jobStatuses = jobStatuses;
+    // this.jobStatuses = jobStatuses;
     this.skills = skills;
     this.sentMessages = sentMessages;
     this.receivedMessages = receivedMessages;

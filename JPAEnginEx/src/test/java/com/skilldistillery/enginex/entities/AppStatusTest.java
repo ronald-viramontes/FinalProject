@@ -2,6 +2,7 @@ package com.skilldistillery.enginex.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +19,6 @@ class AppStatusTest {
 	public static EntityManagerFactory emf;
 	private EntityManager em;
 	private AppStatus appStatus;
-	private User user;
 	
 	
 	@BeforeAll
@@ -37,7 +37,7 @@ class AppStatusTest {
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
 		appStatus = em.find(AppStatus.class, 1);
-		user = em.find(User.class, 1);
+	
 		
 	}
 
@@ -45,7 +45,7 @@ class AppStatusTest {
 	void tearDown() throws Exception {
 		em.close();
 		appStatus = null;
-		user = null;
+	
 		
 	}
 
@@ -60,7 +60,7 @@ class AppStatusTest {
 	void test2() {
 		
 		assertNotNull(appStatus);
-		assertEquals(user, appStatus.getApplication().getUser());
+		assertTrue(appStatus.getApplications().size() > 0);
 	}
 
 }

@@ -62,16 +62,15 @@ public class JobPost {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@JsonIgnoreProperties({"applications", "jobPosts"})
+	@JsonIgnoreProperties({"applications", "jobPosts", "jobPostEvaluations"})
 	@ManyToOne
 	@JoinColumn(name = "job_status_id")
 	private JobStatus status;
 	
-	@JsonIgnoreProperties(value = {"comments", "detail", "jobPost", "applications"}, allowSetters = true)
+	@JsonIgnoreProperties(value = {"comments", "detail", "jobPost", "applications", "detail"}, allowSetters = true)
 	@OneToMany(mappedBy = "jobPost")
 	private List<JobApplication> applications;
 
-		
 	public int getId() {
 		return id;
 	}
@@ -97,18 +96,18 @@ public class JobPost {
 	}
 
 	public LocalDate getCompletionDate() {
-		return this.completionDate;
+		return completionDate;
 	}
 
 	public void setCompletionDate(LocalDate completionDate) {
 		this.completionDate = completionDate;
 	}
 
-	public Integer getDevelopersNeeded() {
+	public int getDevelopersNeeded() {
 		return developersNeeded;
 	}
 
-	public void setDevelopersNeeded(Integer developersNeeded) {
+	public void setDevelopersNeeded(int developersNeeded) {
 		this.developersNeeded = developersNeeded;
 	}
 
@@ -127,8 +126,7 @@ public class JobPost {
 	public void setDatePosted(LocalDate datePosted) {
 		this.datePosted = datePosted;
 	}
-	
-	@JsonIgnore
+
 	public LocalDate getDateClosed() {
 		return dateClosed;
 	}
@@ -145,6 +143,14 @@ public class JobPost {
 		this.type = type;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public JobStatus getStatus() {
 		return status;
 	}
@@ -158,19 +164,9 @@ public class JobPost {
 	}
 
 	public void setApplications(List<JobApplication> applications) {
-		
 		this.applications = applications;
 	}
 
-	
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -187,12 +183,17 @@ public class JobPost {
 		JobPost other = (JobPost) obj;
 		return id == other.id;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "JobPost [id=" + id + ", jobRequirements=" + jobRequirements + ", startDate=" + startDate
 				+ ", completionDate=" + completionDate + ", developersNeeded=" + developersNeeded + ", jobActive="
-				+ jobActive + ", datePosted=" + datePosted + ", dateClosed=" + dateClosed + ", type=" + type + ", status=" + status + "]";
+				+ jobActive + ", datePosted=" + datePosted + ", dateClosed=" + dateClosed + "]";
 	}
+	
+	
+	
+	
+
 
 }

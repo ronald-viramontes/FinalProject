@@ -50,18 +50,19 @@ class JobPostTest {
 	@DisplayName("test entity mappings on JobPost")
 	void test() {
 		assertNotNull(post);
-		assertEquals("Full stack application to manage orders restaurant orders for my small business", post.getJobRequirements());
-		assertEquals(8, post.getStartDate().getDayOfMonth());
+		assertEquals("Simple profile HTML page", post.getJobRequirements());
+		assertEquals(5, post.getStartDate().getDayOfMonth());
 	}
 	
 	@Test
 	@DisplayName("test relationship mappings on JobPost")
 	void test2() {
 		assertNotNull(post);
-		assertEquals("Full Stack Developer", post.getType().getName());
-		assertEquals("Ron", post.getUser().getFirstName());
+		assertEquals("Web Developer", post.getType().getName());
+		assertEquals("Ronald", post.getUser().getFirstName());
 		assertEquals("Complete", post.getStatus().getName());
-		assertEquals("Approved", post.getApplications().get(0).getAppStatus());
+		assertEquals("Approved", post.getApplications().get(0).getAppStatus().getName());
+		assertEquals(10, post.getApplications().get(0).getDetail().getRating());
 	}
 
 }

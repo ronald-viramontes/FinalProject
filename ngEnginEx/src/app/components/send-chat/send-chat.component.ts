@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Chat } from 'src/app/models/chat';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -35,6 +35,8 @@ export class SendChatComponent implements OnInit {
   ) {}
   @Input() senderUsername: string = '';
 
+  users: User[] = [];
+
   activeUser: User = new User();
   // receiverUsername: string = '';
   newChat: Chat = new Chat();
@@ -48,22 +50,8 @@ export class SendChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveUser();
+    this.scrollUsernames();
     if (this.activeUser) this.modalService.open(this.content);
-  }
-
-  open(content: any) {
-    this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {
-          this.router.navigateByUrl('/home');
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.router.navigateByUrl('/home');
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
   }
 
   getActiveUser() {
@@ -83,6 +71,33 @@ export class SendChatComponent implements OnInit {
     }
   }
 
+  scrollUsernames() {
+    this.userService.userIndex().subscribe(
+      (userList) => {
+        console.log('List obtained');
+        this.users = userList;
+      },
+      (fail) => {
+        console.error('Something went wrong', fail);
+      }
+    );
+  }
+
+  open(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+          this.router.navigateByUrl('/home');
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.newChat = new Chat();
+        }
+      );
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -93,27 +108,24 @@ export class SendChatComponent implements OnInit {
     }
   }
 
-  // openForm(content: any) {
-  //   this.open(content);
-  // }
-
-  create(msg: Chat, receiverUsername: string) {
+  username: string = '';
+  rec: User = new User();
+  create(msg: Chat, receiver: User) {
     msg = this.newChat;
+    this.username = receiver.username;
+    console.log('Username', this.username);
     if (this.activeUser)
-      this.chatService
-        .create(msg, this.activeUser.id, receiverUsername)
-        .subscribe(
-          (created) => {
-            console.log('Chat created');
-            console.log(created);
-            this.newChat = new Chat();
-            this.receiverUsername = '';
-          },
-          (fail) => {
-            console.error('Something went wrong during chat creation', fail);
-          }
-        );
-    this.router.navigateByUrl('/home');
+      this.chatService.create(msg, this.activeUser.id, this.username).subscribe(
+        (created) => {
+          console.log('Chat created');
+          this.newChat = new Chat();
+          this.receiverUsername = '';
+          this.router.navigateByUrl('/home');
+        },
+        (fail) => {
+          console.error('Something went wrong during chat creation', fail);
+        }
+      );
   }
   cancel() {
     this.newChat = new Chat();

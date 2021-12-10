@@ -14,6 +14,7 @@ import { MyJobPostsComponent } from './components/my-job-posts/my-job-posts.comp
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SendChatComponent } from './components/send-chat/send-chat.component';
 import { SkillComponent } from './components/skill/skill.component';
+import { UserSearchComponent } from './components/user-search/user-search.component';
 import { VisitorHomeComponent } from './components/visitor-home/visitor-home.component';
 import { AuthService } from './services/auth.service';
 
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'visitor-home', component: VisitorHomeComponent },
   { path: 'editjobform', component: EditJobComponent },
   { path: 'adminDash', component: AdminDashboardComponent },
+  { path: 'userSearch', component: UserSearchComponent },
 ];
 
 @NgModule({

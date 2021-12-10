@@ -11,7 +11,7 @@ export class JobApplication {
   jobPost: JobPost;
   user: User;
   decisionDate: string;
-  detail: JobDetail | null = null;
+  detail: JobDetail | null;
   comments: JobApplicationComment[] = [];
 
   constructor(

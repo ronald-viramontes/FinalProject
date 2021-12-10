@@ -4,16 +4,24 @@
     <form class="row g-3" name="registrationForm" id="registrationForm">
       <div class="col-md-6">
         <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" required name="username" [(ngModel)]="newUser.username" />
-        <div *ngIf="duplicateUsername" class="col-md-12" class="alert alert-warning" role="alert">
-          Username already in use!
-          <br *ngIf="!duplicateUsername">
-          <br *ngIf="!duplicateUsername">
+        <br>
+        <div class="input-group">
+          <span id="usernameIcon" class="input-group-text">👤</span>
+          <input type="text" class="form-control" required name="username" [(ngModel)]="newUser.username" />
+          <div *ngIf="duplicateUsername" class="col-md-12" class="alert alert-warning" role="alert">
+            Username already in use!
+            <br *ngIf="!duplicateUsername">
+            <br *ngIf="!duplicateUsername">
+          </div>
         </div>
       </div>
       <div class="col-md-6">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" required name="password" [(ngModel)]="newUser.password" />
+        <br>
+        <div class="input-group">
+          <span class="input-group-text">🔒</span>
+          <input type="password" class="form-control" required name="password" [(ngModel)]="newUser.password" />
+        </div>
       </div>
 
       <div class="col-md-6">
@@ -29,21 +37,43 @@
 
       <div class="col-md-7">
         <label for="email" class="form-label">Email</label>
-        <input type="text" class="form-control" required name="email" [(ngModel)]="newUser.email"
-          (ngModelChange)="update()" />
+        <br>
+        <div class="input-group">
+
+          <span class="input-group-text" id="emailInput">📧</span>
+          <input type="text" class="form-control" required name="email" [(ngModel)]="newUser.email"
+            (ngModelChange)="update()" />
+        </div>
       </div>
       <div class="col-md-5">
         <label for="phoneNumber" class="form-label">Phone Number</label>
-        <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="newUser.phoneNumber"
-          (ngModelChange)="update()" />
+        <br>
+        <div class="input-group">
+          <span class="input-group-text" id="phoneNumberInput">☎</span>
+          <input type="phoneNumber" class="form-control" name="phoneNumber" [(ngModel)]="newUser.phoneNumber"
+            (ngModelChange)="update()" />
+        </div>
       </div>
 
       <div class="col-md-12">
         <label for="imageUrl" class="form-label">Profile Image URL</label>
-        <input type="text" class="form-control" name="imageUrl" [(ngModel)]="newUser.imageUrl"
-          (ngModelChange)="update()" />
+        <br>
+        <div class="input-group">
+          <span class="input-group-text" id="addonImageUrl">📷</span>
+          <input type="text" class="form-control" name="imageUrl" [(ngModel)]="newUser.imageUrl"
+            (ngModelChange)="update()" />
+        </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-12">
+        <label for="employer" class="form-label">Company [if applicable]</label>
+        <br>
+        <div class="input-group">
+          <span class="input-group-text" id="companyInput">💼</span>
+          <input type="text" class="form-control" name="employer" [(ngModel)]="newUser.employer"
+            (ngModelChange)="update()" />
+        </div>
+      </div>
+      <!-- <div class="col-md-4">
       </div>
       <div class="col-md-2">
         <button class="btn btn-success btn-sm" value="Register" (click)="register()">Register</button>
@@ -52,7 +82,13 @@
         <button class="btn btn-danger btn-sm" value="Cancel" (click)="cancel()">Cancel</button>
       </div>
       <div class="col-md-4">
+      </div> -->
+      <div class="btn-group" style="text-align: center;">
+        <a id="registerButton" class="btn btn-md" value="Register" (click)="register()">Register</a>
+        <a id="cancelButton" class="btn btn-md" value="Cancel" (click)="cancel()">Cancel</a>
       </div>
+
+
 
     </form>
   </div>

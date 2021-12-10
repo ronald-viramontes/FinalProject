@@ -1,10 +1,21 @@
 .scrollable {
-  overflow: auto;
-  box-sizing: border-box;
-  position: relative;
-  right: 0;
-  top: 0;
+  overflow-y: auto;
   width: 100%;
   max-height: 100%;
   min-height: 250px;
+}
+.card {
+  width: fit-content;
+  white-space: normal;
+  min-width: 200px;
+}
+#skillSearchButton {
+  background-color: rgb(7, 66, 125);
+  color: white;
+  border-color: white;
+}
+#skillSearchButton:hover {
+  background-color: rgb(190, 212, 234);
+  color: black;
+  border-color: black;
 }

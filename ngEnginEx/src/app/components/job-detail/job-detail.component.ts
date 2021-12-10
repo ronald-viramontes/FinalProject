@@ -30,6 +30,18 @@ export class JobDetailComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  starRatingHallow: string = '⭒⭒⭒⭒⭒⭒⭒⭒⭒⭒';
+  starRatingSolid: string = '⭑⭑⭑⭑⭑⭑⭑⭑⭑⭑';
+  howManyStars(rating: number) {
+    let total = 10 - rating;
+    let hallow: string = '';
+    let solid: string = '';
+    hallow = this.starRatingHallow.slice(0, total);
+    solid = this.starRatingSolid.slice(0, rating);
+    let newStarRating = solid.concat(hallow);
+    return newStarRating;
+  }
+
   create(newJobDetail: JobDetail, app: JobApplication) {
     if (this.app)
       this.jobDetailService.create(newJobDetail, app.id).subscribe(

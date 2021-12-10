@@ -53,6 +53,13 @@
         <br>
         App Date: {{app.date}} <br>
         Status: {{app.appStatus.name}} <br>
+        <div *ngIf="app.detail">
+          {{app.detail.rating}}
+          <br>
+          Job Feedback Rating: {{howManyStars(app.detail.rating)}}
+          <br>
+          Job Feedback: {{app.detail.comment}}
+        </div>
         <hr>
         <div style="text-align: center">
           <strong>Application Comments</strong>

@@ -49,14 +49,18 @@ class JobDetailTest {
 	@Test
 	void test() {
 		assertNotNull(detail);
-		assertEquals("Excellent work!", detail.getComment());
+		assertEquals(2, detail.getApplication().getId());
+		
 	}
 	
 	@Test
 	@DisplayName("test relationship mappings on JobDetail")
 	void test2() {
 		assertNotNull(detail);
-		assertEquals("Approved", detail.getApplication().getAppStatus());
+		assertEquals("Approved", detail.getApplication().getAppStatus().getName());
+		assertEquals("Excellent work on the profile page! Exceeded my expectations", 
+										detail.getComment());
+		assertEquals(10, detail.getRating());
 	}
 
 }

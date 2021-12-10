@@ -1,19 +1,29 @@
-<h1>Job Detail</h1>
+<div>
+  <ngb-accordion [closeOthers]="true">
+    <ngb-panel *ngFor="let app of applications" class="myTemplate">
+      <ng-template ngbPanelTitle *ngIf="app.detail">
+        <span style="white-space: normal; overflow:scroll; overflow-wrap: normal; ">
+          {{app.jobPost.jobRequirements}}</span>
+        <br>
+      </ng-template>
+      <ng-template ngbPanelContent *ngIf="app.detail">
+        <strong>Rating:&nbsp;&nbsp;{{howManyStars(app.detail.rating)}}</strong><br>
+        Requirements:&nbsp;&nbsp;{{app.jobPost.jobRequirements}}<br>
+        Start:&nbsp;&nbsp;{{app.detail.startDate}}<br>
+        Finished:&nbsp;&nbsp;{{app.detail.finishDate}}<br>
+        Feedback:&nbsp;&nbsp;{{app.detail.comment}}<br>
 
-<div *ngIf="activeUser">
-  <ul *ngFor="let app of activeUser.applications">
-    <div *ngIf="app.detail">
-      <li>{{app.jobPost.jobRequirements}}</li>
-      <li>{{app.detail.startDate}}</li>
-      <li>{{app.detail.finishDate}}</li>
-      <li>{{app.detail.comment}}</li>
-      <li>{{app.detail.rating}}</li>
-    </div>
-  </ul>
+        <hr>
 
+
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
 </div>
 
-<div>
+
+
+<!-- <div>
   <div id="addButton">
 
     <button id="addButton" class="badge btn-success" (click)="addButton = true">➕ Experience</button>
@@ -49,4 +59,4 @@
 
     </form>
   </div>
-</div>
+</div> -->
