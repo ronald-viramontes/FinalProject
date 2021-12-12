@@ -21,6 +21,8 @@ export class ChatSentComponent extends ChatComponent implements OnInit {
   ) {
     super(chatService, router, authService, userService, modalService);
   }
+  recipient: string = 'Subject: ';
+  newLine: string = '';
 
   ngOnInit(): void {
     super.ngOnInit();

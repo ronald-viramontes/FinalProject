@@ -1,45 +1,70 @@
 .sidenav-container {
-  position: fixed;
-  top: 220px;
-  bottom: 60px;
-  left: 0;
-  /* background: rgba(255, 0, 0, 0.5); */
+  position: absolute;
+  top: 72px;
+  /* bottom: 1100px; */
+  left: 0px;
+  right: 0px;
+  background-color: none;
 }
 
 .mat-sidenav {
-  align-items: left;
-  justify-content: center;
-  width: 150px;
-  border-radius: 8px;
-  background: rgb(137, 0, 0);
-  font-size: large;
-}
-
-/* .sidenav {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 200px;
+  background-color: gray;
+}
+#searchBox {
+  margin-left: 15px;
+  margin-right: auto;
+  width: 400px;
+}
+
+#sidenavButton {
+  color: white;
+  background-color: rgb(7, 66, 125);
+  border-color: black;
+  text-shadow: -2px -2px 0 black;
   width: 150px;
-} */
+  border-radius: 0 3px 3px 0;
+  margin-top: 5px;
+}
+#searchButton {
+  color: white;
+  background-color: rgb(7, 66, 125);
+  border-color: black;
+  text-shadow: -2px -2px 0 black;
+  width: 150px;
+  border-radius: 0 3px 3px 0;
+}
+#logoutButton {
+  color: white;
+  background-color: rgb(7, 66, 125);
+  border-color: black;
+  text-shadow: -2px -2px 0 black;
+  width: 100px;
+  /* border-radius: 0 3px 3px 0; */
+}
+#imOut {
+  border-color: black;
+  width: 40px;
+}
+#imgSidenav {
+  border-color: black;
+  margin-left: 5px;
+  width: 40px;
+  margin-top: 5px;
+}
+#logoutButton:hover,
+#searchButton:hover {
+  /* background-color: rgb(128, 144, 159); */
+  color: black;
+  border-color: white;
+  text-shadow: none;
+}
 
-.mat-drawer-container {
-  background: none;
+#sidenavButton:hover {
+  color: white;
+  border-color: white;
+  /* border-color: black; */
 }
-.mat-sidenav-content {
-  /* display: fixed; */
-  background: none;
-  border-radius: 8px;
-  position: sticky;
-}
-.mat-toolbar {
-  position: sticky;
-  z-index: 0;
-  background: none;
-  /* color: warn; */
-}
-
-/* position: fixed;
-border-radius: 8px;
-color: black;
-font-size: large;
-width: 150px; */

@@ -1,22 +1,25 @@
 <div>
-  <ngb-accordion [closeOthers]="true">
+  <ngb-accordion [closeOthers]="true" *ngIf="app!.detail!.id > 0 && app!.detail">
+
     <ngb-panel *ngFor="let app of applications" class="myTemplate">
-      <ng-template ngbPanelTitle *ngIf="app.detail">
-        <span style="white-space: normal; overflow:scroll; overflow-wrap: normal; ">
-          {{app.jobPost.jobRequirements}}</span>
-        <br>
-      </ng-template>
-      <ng-template ngbPanelContent *ngIf="app.detail">
-        <strong>Rating:&nbsp;&nbsp;{{howManyStars(app.detail.rating)}}</strong><br>
-        Requirements:&nbsp;&nbsp;{{app.jobPost.jobRequirements}}<br>
-        Start:&nbsp;&nbsp;{{app.detail.startDate}}<br>
-        Finished:&nbsp;&nbsp;{{app.detail.finishDate}}<br>
-        Feedback:&nbsp;&nbsp;{{app.detail.comment}}<br>
+      <div>
+        <ng-template ngbPanelTitle>
+          <span style="white-space: normal; overflow:scroll; overflow-wrap: normal; ">
+            {{app.jobPost.jobRequirements}}</span>
+          <br>
+        </ng-template>
+        <ng-template ngbPanelContent *ngIf="app.detail">
+          <strong>Rating:&nbsp;&nbsp;{{howManyStars(app.detail.rating)}}</strong><br>
+          Requirements:&nbsp;&nbsp;{{app.jobPost.jobRequirements}}<br>
+          Start:&nbsp;&nbsp;{{app.detail.startDate}}<br>
+          Finished:&nbsp;&nbsp;{{app.detail.finishDate}}<br>
+          Feedback:&nbsp;&nbsp;{{app.detail.comment}}<br>
 
-        <hr>
+          <hr>
 
 
-      </ng-template>
+        </ng-template>
+      </div>
     </ngb-panel>
   </ngb-accordion>
 </div>

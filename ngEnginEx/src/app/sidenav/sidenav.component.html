@@ -1,9 +1,108 @@
-<mat-sidenav-container class="sidenav-container" hasBackdrop=false>
-  <mat-sidenav #drawer class="sidenavi" mode="over" fixedTopGap=285 fixedBottomGap=638 fixedInViewport=true
-    role="navigation">
-    <br>
-    <mat-nav-list>
-      <a mat-list-item href="#home"><strong>Home</strong></a>
+<ng-container>
+  <mat-sidenav-container class="sidenav-container" hasBackdrop=true>
+    <mat-sidenav #drawer mode="over" fixedTopGap=135 fixedBottomGap=0 fixedInViewport=true role="navigation">
+      <br>
+      <mat-nav-list>
+        <div class="btn-group" *ngIf="loggedIn()">
+          <a id="imgSidenav" href="#/jobs" class="btn btn-light btn-md">💻</a>
+          <a id="sidenavButton" class="btn btn-md" href="#/jobs"><strong>Job Posts</strong></a>
+
+        </div>
+        <div class="btn-group" *ngIf="loggedIn()">
+          <a id="imgSidenav" href="#/sendchat" class="btn btn-light btn-md">💬</a>
+          <a id="sidenavButton" class="btn btn-md" (click)="sendChat()"><strong>Send Chat</strong></a>
+        </div>
+        <div class="btn-group" *ngIf="loggedIn()">
+          <a id="imgSidenav" href="#/listjob" class="btn btn-light btn-md">📰</a>
+          <a id="sidenavButton" class="btn btn-md" href="#/listjob"><strong>Create Job
+              Post</strong></a>
+        </div>
+        <br>
+        <div class="btn-group" *ngIf="loggedIn()">
+          <a id="imgSidenav" href="#/adminDash" *ngIf="adminRights" class="btn btn-light btn-md">🧰️ </a>
+          <a id="sidenavButton" *ngIf="adminRights" class="btn btn-md" href="#/adminDash"><strong>Admin
+              Dash</strong></a>
+        </div>
+        <br>
+        <div class="btn-group" *ngIf="loggedIn()">
+          <a id="imgSidenav" href="#/editprofile" class="btn btn-light btn-md">👤</a>
+          <a id="sidenavButton" class="btn btn-md" href="#/editprofile"><strong>Edit
+              Profile</strong></a>
+        </div>
+        <br>
+        <div class="btn-group" *ngIf="loggedIn()">
+          <a id="imgSidenav" class="btn btn-light btn-md" href="#/home" (click)="logOut()">➲</a>
+          <a id="sidenavButton" class="btn btn-md" href="#/home" (click)="logOut()"><strong>Logout</strong></a>
+        </div>
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="gray" role="main">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu_open</mat-icon>
+        </button>
+        <div id="searchBox" class="input-group">
+          <span class="input-group-text">🔎</span>
+          <input type="search" class="form-control" placeholder="Skill Keyword Search" aria-label="Search"
+            aria-describedby="search-addon" name="keyword" [(ngModel)]="keyword" />
+          <button id="searchButton" class="btn btn-md" (click)="open(content)"
+            (click)="search(keyword)"><strong>Search</strong></button>
+        </div>
+
+        <div style="margin-right: 10px; margin-left: auto;">
+          <div class="btn-group" *ngIf="loggedIn()">
+            <a id="imOut" class="btn btn-light btn-md" href="#/home" (click)="logOut()">➲</a>
+            <a id="logoutButton" class="btn btn-md" href="#/home" (click)="logOut()"><strong>Logout</strong></a>
+          </div>
+        </div>
+
+      </mat-toolbar>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Developer Search By Skill</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="fluid-container scrollable" *ngIf="searchResults.length > 0">
+      <div *ngFor="let user of searchResults; index as i" [ngClass]="loggedInClass()">
+        <div class="row">
+          <div class="col-auto">
+            <div class="card" *ngIf="i < 6">
+              <div class="card-body">
+                <img src="{{user.imageUrl}}" width="50%">
+                <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Skills</h6>
+                <div *ngFor="let skill of user.skills">
+                  <span class="card-text" *ngIf="checkKeyword(skill.skillTitle)"><strong>{{skill.skillTitle}}</strong>:
+                    {{skill.skillLevel}}</span>
+                </div><br>
+                <a href="mailto:{{user.email}}?subject=Email from {{activeUser.firstName}} {{activeUser.lastName}} on Engineer Exchange
+            &body=I saw your profile on Engineer Exchange and thought your skills might be perfect for my project.  I'd like to discuss a collaboration!"
+                  *ngIf="loggedIn()" style="text-decoration: none; position: absolute; bottom: 0;">Contact Engineer</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+
+
+
+<!-- <a mat-list-item href="#home"><strong>Home</strong></a>
       <div *ngIf="loggedIn()">
         <a mat-list-item href="#editprofile"><strong>Edit Profile</strong></a>
       </div>
@@ -17,14 +116,4 @@
 
       <div *ngIf="loggedIn()">
         <a mat-list-item href="#home" (click)="logOut()"><strong>Logout</strong></a>
-      </div>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary" role="main">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-        <mat-icon aria-label="Side nav toggle icon">menu_open</mat-icon>
-      </button>
-    </mat-toolbar>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      </div> -->

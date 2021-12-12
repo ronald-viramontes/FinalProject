@@ -21,7 +21,7 @@ export class JobApplication {
     jobPost: JobPost = new JobPost(),
     user: User = new User(),
     decisionDate: string = '',
-    detail: JobDetail = new JobDetail(),
+    detail: JobDetail | null = null,
     comments: JobApplicationComment[] = []
   ) {
     this.id = id;

@@ -1,5 +1,12 @@
 <ngb-accordion [closeOthers]="true">
-  <ngb-panel title={{chat.subject}} *ngFor="let chat of receivedChats">
+  <ngb-panel *ngFor="let chat of receivedChats">
+    <ng-template ngbPanelTitle>
+      <span
+        style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 15ch; text-align: left;">Subj:&nbsp;{{chat.subject}}
+        <br>
+        From:&nbsp;&nbsp;{{chat.sender!.username}}
+      </span>
+    </ng-template>
     <ng-template ngbPanelContent>
       <div style="color: blue" style="white-space: normal;">
         <strong>Subject: {{chat.subject}}</strong><br>

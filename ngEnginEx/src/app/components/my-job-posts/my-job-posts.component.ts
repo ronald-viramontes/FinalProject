@@ -188,13 +188,15 @@ export class MyJobPostsComponent implements OnInit {
     );
   }
 
-  updateMyPost(editJob: JobPost) {
-    let postId: number = editJob.id;
+  updateMyPost(editPost: JobPost) {
+    let postId: number = editPost.id;
+    this.editJob = editPost;
+    console.log('EditPost.Job.Name', editPost.type.name);
+    console.log('EditJobTypeName', this.editJob.type.name);
+    // this.job.user = editJob.user;
+    if (this.active) editPost.applications = [];
 
-    this.job.user = editJob.user;
-    if (this.active) editJob.applications = [];
-
-    this.jobSvc.editPost(editJob, postId).subscribe(
+    this.jobSvc.editPost(this.editJob, postId).subscribe(
       (updated) => {
         this.editJob = null;
         this.reloadMyJobs();

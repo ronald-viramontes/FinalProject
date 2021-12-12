@@ -76,7 +76,7 @@
             <li>Job Type: {{selected.type?.name}}</li>
           </ul>
 
-          <div *ngIf="activeUser?.id != selected.user.id">
+          <div *ngIf="activeUser?.id != selected.user.id && selected.status.id == 1">
             <br>
             <button (click)="applyForJob()" class="btn sm btn-success btn-outline-light">Submit
               Application

@@ -12,9 +12,6 @@
     transition: 0.4s;
   }
 
-  .ng-template {
-    white-space: normal;
-  }
 
   .active,
   .accordion:hover {
@@ -38,7 +35,7 @@
     <ngb-panel *ngFor="let app of jobApps" class="myTemplate">
       <ng-template ngbPanelTitle>
         <span
-          style="white-space: normal; overflow:scroll; overflow-wrap: normal; ">{{app.jobPost.jobRequirements}}</span>
+          style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 35ch;">{{app.jobPost.jobRequirements}}</span>
       </ng-template>
       <ng-template ngbPanelContent>
         <strong>{{app.jobPost.jobRequirements}}</strong><br>

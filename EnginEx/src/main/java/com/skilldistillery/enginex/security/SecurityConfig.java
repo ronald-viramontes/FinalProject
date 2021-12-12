@@ -54,28 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	.passwordEncoder(encoder);
     	
     }
-
-   
-    
-    
-    
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	
-//    	http
-//    		.csrf().disable()
-//    			.httpBasic()
-//    			.and()
-//    				.cors()
-//    			.and()
-//    			.authorizeRequests().
-//    			.antMatchers(HttpMethod.PUT, "/api/userapps/**")
-//    			.permitAll()
-//    			.antMatchers(HttpMethod.PUT, "/api/userjobs/**")
-//    			.permitAll()
-//    			;
-    			
+			
     	    	 
     	http
     		.csrf().disable()
@@ -122,111 +104,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                .httpBasic();                          
     	    	
 	                http
-	                .sessionManagement()
-	                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	               
-
-	                
-	             
-	              
-	              
-	                
-		        
-//		        .antMatchers(HttpMethod.GET, "/api/jobstatus/**")
-//		        	.permitAll() 
-//		        .antMatchers(HttpMethod.GET, "/api/comments/**")
-//		        	.permitAll()        
-//		        .antMatchers(HttpMethod.GET, "/api/jobtypes/**")
-//		        	.permitAll()
-//		        .antMatchers(HttpMethod.GET, "/api/jobdetails/**")
-//		        	.permitAll()
-//		        .antMatchers(HttpMethod.GET, "/api/skills/**")
-//		        	.permitAll()
-//		        .antMatchers(HttpMethod.GET, "/api/apps/**")
-//		        	.permitAll()
-//		        .antMatchers(HttpMethod.GET, "/api/users")
-//		        	.permitAll()
-//		        .antMatchers(HttpMethod.GET, "/api/users/**")
-//		        	.permitAll() 
-//		        .antMatchers(HttpMethod.GET, "/api/educations/**")
-//		        	.permitAll() 
-//		        .antMatchers(HttpMethod.GET, "/api/userapps")
-//		        	.permitAll()
-//		        .antMatchers(HttpMethod.GET, "/api/userjobs/**")
-//		        	.permitAll() 
-//        
-//        
-//        .antMatchers(HttpMethod.GET, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.POST, "/api/userapps/new/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.POST, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.PUT, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.DELETE, "/api/userapps/**").permitAll() // Requests for our REST API must be authorized.
-//
-//        .antMatchers(HttpMethod.POST, "/api/userjobs/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.PUT, "/api/userjobs/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.DELETE, "/api/userjobs/**").permitAll() // Requests for our REST API must be authorized.
-//
-//        .antMatchers(HttpMethod.POST, "/api/jobs").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.PUT, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.DELETE, "/api/jobs/**").permitAll() // Requests for our REST API must be authorized.
-//        
-//        .antMatchers(HttpMethod.POST, "/api/apps/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.PUT, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
-//        .antMatchers(HttpMethod.DELETE, "/api/users/**").permitAll() // Requests for our REST API must be authorized.
-//        
-//        .antMatchers(HttpMethod.POST, "/api/comments/**").permitAll() // Requests for our REST API must be authorized.
-//        
-//        
-//        
-//        .antMatchers("/api/**").authenticated() 
-//        .anyRequest().permitAll()           
-//        .and()
-//        .httpBasic();                          
-//
-//        http
-//        .sessionManagement()
-//        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        
-   
-        
+		                .sessionManagement()
+		                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//		                .and()
+//		                .logout()
+//	                	.logoutUrl("http://18.189.87.44:8080/EnginEx/")
+//	                	.deleteCookies("JSESSIONID");
+	                  
     }
-
-   
-
-
-  
-//    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) {
-//      HttpServletResponse response = (HttpServletResponse) res;
-//      HttpServletRequest request = (HttpServletRequest) req;
-//      System.out.println("WebConfig; "+request.getRequestURI());
-//      response.setHeader("Access-Control-Allow-Origin", "*");
-//      response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
-//      response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With,observe");
-//      response.setHeader("Access-Control-Max-Age", "3600");
-//      response.setHeader("Access-Control-Allow-Credentials", "true");
-//      response.setHeader("Access-Control-Expose-Headers", "Authorization");
-//      response.addHeader("Access-Control-Expose-Headers", "USERID");
-//      response.addHeader("Access-Control-Expose-Headers", "ROLE");
-//      response.addHeader("Access-Control-Expose-Headers", "responseType");
-//      response.addHeader("Access-Control-Expose-Headers", "observe");
-//      System.out.println("Request Method: "+request.getMethod());
-//      if (!(request.getMethod().equalsIgnoreCase("OPTIONS"))) {
-//          try {
-//              chain.doFilter(req, res);
-//          } catch(Exception e) {
-//              e.printStackTrace();
-//          }
-//      } else {
-//          System.out.println("Pre-flight");
-//          response.setHeader("Access-Control-Allow-Origin", "*");
-//          response.setHeader("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT");
-//          response.setHeader("Access-Control-Max-Age", "3600");
-//          response.setHeader("Access-Control-Allow-Headers", "Access-Control-Expose-Headers"+"Authorization, content-type," +
-//          "USERID"+"ROLE"+
-//                  "access-control-request-headers,access-control-request-method,accept,origin,authorization,x-requested-with,responseType,observe");
-//          response.setStatus(HttpServletResponse.SC_OK);
-//      }
-//
-//    }
     
 }

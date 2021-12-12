@@ -367,26 +367,17 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_type` (`id`, `name`) VALUES (1, 'Analyst Programmer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (2, 'Product Engineer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (3, 'Backend Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (4, 'Database Administrator');
-INSERT INTO `job_type` (`id`, `name`) VALUES (5, 'Frontend Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (6, 'Mobile Application Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (7, 'Systems Administrator I');
-INSERT INTO `job_type` (`id`, `name`) VALUES (8, 'Web Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (9, 'Desktop Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (10, 'Full Stack Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (11, 'Graphics Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (12, 'UI/UX');
-INSERT INTO `job_type` (`id`, `name`) VALUES (13, 'Business Analysis');
-INSERT INTO `job_type` (`id`, `name`) VALUES (14, 'Game Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (15, 'Data Scientist');
-INSERT INTO `job_type` (`id`, `name`) VALUES (16, 'DevOps Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (17, 'CRM Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (18, 'Security Developer');
-INSERT INTO `job_type` (`id`, `name`) VALUES (19, 'QA');
-INSERT INTO `job_type` (`id`, `name`) VALUES (20, 'Software Integration Engineer');
+INSERT INTO `job_type` (`id`, `name`) VALUES (1, 'Backend Application Development');
+INSERT INTO `job_type` (`id`, `name`) VALUES (2, 'Database Schema Design and Implementation');
+INSERT INTO `job_type` (`id`, `name`) VALUES (3, 'Frontend Application Development');
+INSERT INTO `job_type` (`id`, `name`) VALUES (4, 'Android or iOS Mobile Application');
+INSERT INTO `job_type` (`id`, `name`) VALUES (5, 'Web Application Development');
+INSERT INTO `job_type` (`id`, `name`) VALUES (6, 'Website HTML/CSS Development');
+INSERT INTO `job_type` (`id`, `name`) VALUES (7, 'Full Stack Application Development');
+INSERT INTO `job_type` (`id`, `name`) VALUES (8, 'UI/UX Design / Development');
+INSERT INTO `job_type` (`id`, `name`) VALUES (9, 'Application Security Development  ');
+INSERT INTO `job_type` (`id`, `name`) VALUES (10, 'Application Quality Assurance');
+INSERT INTO `job_type` (`id`, `name`) VALUES (11, 'Other - Software Development Project');
 
 COMMIT;
 
@@ -398,10 +389,9 @@ START TRANSACTION;
 USE `enginexdb`;
 INSERT INTO `job_status` (`id`, `name`) VALUES (1, 'Open');
 INSERT INTO `job_status` (`id`, `name`) VALUES (2, 'In Progress');
-INSERT INTO `job_status` (`id`, `name`) VALUES (3, 'In Review');
-INSERT INTO `job_status` (`id`, `name`) VALUES (4, 'Planning Phase');
-INSERT INTO `job_status` (`id`, `name`) VALUES (5, 'Closed');
-INSERT INTO `job_status` (`id`, `name`) VALUES (6, 'Complete');
+INSERT INTO `job_status` (`id`, `name`) VALUES (3, 'Planning Phase');
+INSERT INTO `job_status` (`id`, `name`) VALUES (4, 'Closed');
+INSERT INTO `job_status` (`id`, `name`) VALUES (5, 'Complete');
 
 COMMIT;
 
@@ -412,15 +402,15 @@ COMMIT;
 START TRANSACTION;
 USE `enginexdb`;
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (1, 'rodfed', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'ADMIN', 'Ronald', 'Viramontes', 'ron@example.com', '286-925-7463', 'https://robohash.org/doloribusutquas.jpg?size=300x400&set=set1', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (2, 'jacob', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Jacob', 'Tweedy', 'tweedy@example.com', '997-653-6462', 'https://robohash.org/temporaundevoluptatem.jpg?size=300x400&set=set1', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (3, 'garrett', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Garrett', 'Pipes', 'pipes@example.com', '506-692-6113', 'https://robohash.org/dolorinsit.jpg?size=300x400&set=set1', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (4, 'fperez', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Fae', 'Pezey', 'fpezey3@va.gov', '242-208-3615', 'https://robohash.org/adipisciatempore.jpg?size=300x400&set=set1', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (2, 'roger', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Roger', 'Willcox', 'rowilcox@example.com', '997-653-6462', 'https://robohash.org/temporaundevoluptatem.jpg?size=300x400&set=set1', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (3, 'terry', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Terry', 'Craymore', 'craymore@example.com', '506-692-6113', 'https://robohash.org/dolorinsit.jpg?size=300x400&set=set1', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (4, 'fperez', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Freddy', 'Pezey', 'fpezey3@va.gov', '242-208-3615', 'https://robohash.org/adipisciatempore.jpg?size=300x400&set=set1', NULL);
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (5, 'beckem', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Bartholomew', 'Ceccoli', 'bceccoli4@tamu.edu', '154-898-5216', 'https://robohash.org/nesciuntetipsa.jpg?size=300x400&set=set1', NULL);
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (6, 'dolton', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Dana', 'Lewin', 'dlewin5@foxnews.com', '100-376-6062', 'https://robohash.org/enimexqui.jpg?size=300x400&set=set1', NULL);
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (7, 'packer', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Colet', 'Whiff', 'cwhiff6@shutterfly.com', '971-858-0562', 'https://robohash.org/aliquidomnisdolorem.jpg?size=300x400&set=set1', NULL);
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (8, 'powerone', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Klement', 'Trude', 'ktrude7@cloudflare.com', '833-270-7719', 'https://robohash.org/debitisdoloribussit.jpg?size=300x400&set=set1', NULL);
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (9, 'happyone', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Hazlett', 'Japp', 'hjapp8@npr.org', '140-770-1673', 'https://robohash.org/vitaevoluptatemoptio.jpg?size=300x400&set=set1', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (10, 'tracker', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Tore', 'Vye', 'tvye9@google.com.br', '171-453-2797', 'https://robohash.org/etvoluptatemnulla.jpg?size=300x400&set=set1', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `email`, `phone_number`, `image_url`, `employer`) VALUES (10, 'tracker', '$2a$10$.bAtAkAx6AIbgO6UImrZYeQTaQSvt5tT5MYdaWyx6hpGNpSoSruim', 1, 'USER', 'Tore', 'Bylor', 'tvye9@google.com.br', '171-453-2797', 'https://robohash.org/etvoluptatemnulla.jpg?size=300x400&set=set1', NULL);
 
 COMMIT;
 
@@ -430,10 +420,21 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (1, 'Simple profile HTML page', '2021-12-05', '2021-12-06', 1, 0, '2021-12-05', '2021-12-06', 8, 6, 1);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (2, 'Develop a SQL database for Amazon EC2 Instance and RDS', '2021-12-06', '2022-01-21', 2, 1, '2021-12-05', NULL, 4, 1, 2);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (3, 'Design a simple website using only HTML CSS and JavaScript', '2021-12-07', '2022-01-22', 1, 1, '2021-12-05', NULL, 8, 1, 3);
-INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (4, 'Full Stack Application using Java, Spring Boot, Gradle, and Angular.  The application is to help with inventory of warehouse stock for non-profit org.', '2021-12-05', '2022-01-20', 3, 1, '2021-12-05', NULL, 10, 1, 1);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (1, 'Webpage for Local Homeless Shelter', '2021-12-05', '2021-12-06', 1, 0, '2021-12-05', '2021-12-07', 6, 5, 1);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (2, 'Develop a SQL database for Amazon EC2 Instance and RDS', '2021-12-06', '2022-01-21', 2, 1, '2021-12-05', NULL, 2, 1, 2);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (3, 'Design a simple website using only HTML CSS and JavaScript', '2021-12-07', '2022-01-22', 1, 1, '2021-12-05', NULL, 3, 1, 3);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (4, 'Application for tracking daily tasks and appointments. Java, Spring Boot, Gradle, and Angular', '2021-12-05', '2022-01-20', 3, 1, '2021-12-05', NULL, 7, 1, 1);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (5, 'Web application for non-profit organization inventory management', '2021-12-10', '2021-12-30', 2, 1, '2021-12-05', NULL, 5, 1, 2);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (6, 'Conduct security vulnerability assessment for non-profit webstore', '2021-12-11', '2022-01-20', 1, 1, '2021-12-05', NULL, 9, 1, 3);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (7, 'J-Unit/QA testing for newly developed web application', '2021-12-12', '2022-01-21', 2, 1, '2021-12-05', NULL, 10, 1, 4);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (8, 'Full stack app for managing medication administration for local cliniic', '2021-12-13', '2022-01-22', 2, 1, '2021-12-05', NULL, 7, 1, 5);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (9, 'Evaluate current database schema', '2021-12-14', '2022-01-19', 3, 1, '2021-12-05', NULL, 2, 1, 6);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (10, 'iOS application for tracking research references', '2021-12-15', '2022-01-20', 2, 1, '2021-12-05', NULL, 4, 1, 4);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (11, 'Design and implement new UI for existing command line application', '2021-12-11', '2022-01-21', 3, 1, '2021-12-05', NULL, 8, 1, 5);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (12, 'Single page web application for school fundraiser donations', '2021-12-17', '2022-01-22', 1, 1, '2021-12-06', NULL, 6, 1, 6);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (13, 'Review current design and security implementation for church website', '2021-12-18', '2022-01-23', 2, 1, '2021-12-07', NULL, 10, 1, 1);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (14, 'Java application for database', '2021-12-12', '2022-01-24', 1, 1, '2021-12-08', NULL, 1, 1, 2);
+INSERT INTO `job_post` (`id`, `job_requirements`, `start_date`, `completion_date`, `developers_needed`, `job_active`, `date_posted`, `date_closed`, `job_type_id`, `job_status_id`, `user_id`) VALUES (15, 'Improve existing web application with bootstrap and compatible Angular components', '2021-12-13', '2022-01-25', 2, 1, '2021-12-09', NULL, 6, 1, 3);
 
 COMMIT;
 
@@ -443,9 +444,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `enginexdb`;
-INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (1, 'Bootcamp', 'Skill Distillery', 'Certificate', '2021-11-08', 1);
-INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (2, 'Bootcamp', 'Skill Distillery', 'Certificate', '2021-11-08', 2);
-INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (3, 'Bootcamp', 'Skill Distillery', 'Certificate', '2021-11-08', 3);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (1, 'Bootcamp', 'Skill Distillery', 'Certificate Program', '2021-11-08', 1);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (2, 'Undergraduate', 'Trident University', 'Bachelor of Science', '2016-01-15', 1);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (3, 'Undergraduate', 'Eastern Illinois University', 'Bachelor of Business Administration', '2021-11-08', 2);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (4, 'Undergraduate', 'Adams State University', 'Bachelor of Science', '2015-05-15', 3);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (5, 'Undergraduate', 'Antioch University', 'Bachelor of Arts', '2017-01-19', 4);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (6, 'Undergraduate', 'Broward College', 'Bachelor of Science', '2014-05-15', 5);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (7, 'Graduate', 'Buena Vista University', 'Master of Science', '2019-09-15', 6);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (8, 'Undergraduate', 'California State University-Sacramento', 'Bachelor of Science', '2005-11-01', 7);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (9, 'Undergraduate', 'Cape Fear Community College', 'Associate of Applied Science', '2020-05-18', 8);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (10, 'Undergraduate', 'Cleveland State University', 'Bachelor of Architecture', '2021-04-10', 9);
+INSERT INTO `developer_education` (`id`, `education_type`, `institution_name`, `degree_certificate_name`, `complete_date`, `user_id`) VALUES (11, 'Graduate', 'Johnson University', 'Bachelor of Science', '2019-10-05', 10);
 
 COMMIT;
 
@@ -456,8 +465,10 @@ COMMIT;
 START TRANSACTION;
 USE `enginexdb`;
 INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `user_id`) VALUES (1, 'Military Paramedic', 'US Air Force', '2000-04-05', '2021-05-31', 1);
-INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `user_id`) VALUES (2, 'Database Administrator', 'Kingland', '2015-11-08', '2021-11-08', 2);
-INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `user_id`) VALUES (3, 'Military Linguist', 'US Air Force', '2005-11-08', '2017-10-08', 3);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `user_id`) VALUES (2, 'Junior Software Developer', 'Oracle', '2015-11-08', '2021-11-08', 2);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `user_id`) VALUES (3, 'Senior Full Stack Developer', 'US Government', '2005-11-08', '2017-10-08', 3);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `user_id`) VALUES (4, 'Database Administrator', 'Amazon', '2010-05-05', '2021-01-12', 4);
+INSERT INTO `work_experience` (`id`, `job_title`, `company_name`, `start_date`, `end_date`, `user_id`) VALUES (5, 'Backend Developer', 'Microsoft', '2005-10-11', '2017-06-07', 5);
 
 COMMIT;
 
@@ -468,11 +479,18 @@ COMMIT;
 START TRANSACTION;
 USE `enginexdb`;
 INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (1, 'Java', 'Entry Level', 1);
-INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (2, 'SQL', 'Entry Level', 2);
-INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (3, 'JavaScript', 'Entry Level', 3);
-INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (4, 'Python', 'Entry Level', 1);
-INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (5, 'Angular', 'Entry Level', 2);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (2, 'SQL', 'Entry Level', 1);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (3, 'JavaScript', 'Entry Level', 2);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (4, 'Python', 'Entry Level', 2);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (5, 'Angular', 'Entry Level', 1);
 INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (6, 'Spring Boot', 'Entry Level', 3);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (7, 'Database Administrator', 'Mid Level', 4);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (8, 'Ruby', 'Expert Level', 5);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (9, 'C++', 'Mid Level', 6);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (10, 'C#', 'Mid Level', 7);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (11, 'PHP', 'Expert Level', 8);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (12, 'GO', 'Mid Level', 9);
+INSERT INTO `developer_skill` (`id`, `skill_title`, `skill_level`, `user_id`) VALUES (13, 'Swift', 'Expert Level', 10);
 
 COMMIT;
 

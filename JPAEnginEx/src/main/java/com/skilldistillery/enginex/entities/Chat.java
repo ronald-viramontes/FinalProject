@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Chat {
@@ -34,17 +35,16 @@ public class Chat {
 	@Column(name="send_timestamp")
 	private LocalDateTime dateTimeStamp;
 	
-//	@JsonIgnoreProperties({ "applications", "educations", 
-//		"skills", "experiences", "posts" })
-	
-	@JsonIgnore
+	@JsonIgnoreProperties({ "applications", "educations", 
+		"skills", "experiences", "posts", "sentMessages",
+		"receivedMessages" })
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User sender;
 	
-//	@JsonIgnoreProperties({ "applications", "educations", 
-//		"skills", "experiences", "posts" })
-	@JsonIgnore
+	@JsonIgnoreProperties({ "applications", "educations", 
+		"skills", "experiences", "posts", "sentMessages",
+		"receivedMessages" })
 	@ManyToOne
 	@JoinColumn(name="reply_user_id")
 	private User receiver;

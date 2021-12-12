@@ -12,7 +12,7 @@
         <form id="newPostForm">
 
           <label class="form-label" for="jobRequirements">Job Description</label>
-          <textarea rows="2" cols="40" class="form-control" placeholder="Job Description" type="text"
+          <textarea rows="4" cols="40" class="form-control" placeholder="Job Description" type="text"
             name="jobRequirements" required [(ngModel)]="newPost.jobRequirements"></textarea>
 
           <label class="form-label" for="startDate">Start Date</label>
@@ -73,7 +73,7 @@
     </div>
     <div class="modal-footer">
       <div class="btn-group">
-        <a id="saveInput" class="btn btn-md" (click)="createAPost(newPost)">Save</a>
+        <a id="saveInput" class="btn btn-md" (click)="createAPost(newPost)" (click)="modal.close('Save click')">Save</a>
         <a id="cancelInput" class="btn btn-md" value="Cancel" (click)="modal.dismiss('Close click')"
           (click)="cancel()">Cancel</a>
       </div>

@@ -9,41 +9,16 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-      <div class="btn-group" *ngIf="!loggedIn()" style="margin-left: auto; margin-right: auto;">
+      <div class="btn-group" *ngIf="!loggedIn()">
         <a id="visitorButton" class="btn btn-md" href="#/visitor-home"><strong>Visitor Home</strong></a>
         <a id="registerButton" class="btn btn-md" (click)="register()"><strong>Register</strong></a>
       </div>
-
-      <div class="input-group" style="margin-left: auto; margin-right: auto; width: 350px;">
-        <span class="input-group-text">🔎</span>
-        <input type="search" class="form-control" placeholder="Skill Keyword Search" aria-label="Search"
-          aria-describedby="search-addon" name="keyword" [(ngModel)]="keyword" />
-        <button id="skillSearchButton" class="btn btn-md" (click)="open(content)"
-          (click)="search(keyword)"><strong>Search</strong></button>
-      </div>
-
-      <div class="btn-group" *ngIf="loggedIn()" style="margin-left: 50px; margin-right: auto;">
-        <a href="#/jobs" class="btn btn-light btn-md">💻</a>
-        <a id="jobsButton" class="btn btn-md" href="#/jobs"><strong>Job Posts</strong></a>
-        <a href="#/sendchat" class="btn btn-light btn-md">💬</a>
-        <a id="sendChatButton" class="btn btn-md" (click)="sendChat()"><strong>Send Chat</strong></a>
-        <a href="#/listjob" class="btn btn-light btn-md">📰</a>
-        <a id="listJobButton" class="btn btn-md" href="#/listjob"><strong>Create Job
-            Post</strong></a>
-      </div>
-
-      <div class="btn-group" *ngIf="loggedIn()" style="margin-left: auto; margin-right: 0px;">
-
-        <a href="#/adminDash" class="btn btn-light btn-md">🧰️ </a>
-        <a id="adminDashboardButton" *ngIf="adminRights" class="btn btn-md" href="#/adminDash"><strong>Admin
-            Dash</strong></a>
-        <a href="#/editprofile" class="btn btn-light btn-md">👤</a>
-        <a id="editProfileButton" class="btn btn-md" href="#/editprofile"><strong>Edit
-            Profile</strong></a>
-        <a id="imOut" class="btn btn-light btn-md" href="#/home" (click)="logOut()">➲</a>
-        <a id="logoutButton" class="btn btn-md" href="#/home" (click)="logOut()"><strong>Logout</strong></a>
-      </div>
+      <!-- <div style="margin-right: 10px; margin-left: auto;">
+        <div class="btn-group" *ngIf="loggedIn()">
+          <a id="imOut" class="btn btn-light btn-md" href="#/home" (click)="logOut()">➲</a>
+          <a id="logoutButton" class="btn btn-md" href="#/home" (click)="logOut()"><strong>Logout</strong></a>
+        </div>
+      </div> -->
 
       <div id="userLoginInline" style="margin-left: auto; margin-right: 10px;">
         <form class="form-inline-md" *ngIf="!loggedIn()">
@@ -66,43 +41,8 @@
     </div>
   </nav>
 </div>
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Developer Search By Skill</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="fluid-container scrollable" *ngIf="searchResults.length > 0">
-      <div *ngFor="let user of searchResults; index as i" [ngClass]="loggedInClass()">
-        <div class="row">
-          <div class="col-auto">
-            <div class="card" *ngIf="i < 6">
-              <div class="card-body">
-                <img src="{{user.imageUrl}}" width="50%">
-                <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Skills</h6>
-                <div *ngFor="let skill of user.skills">
-                  <span class="card-text" *ngIf="checkKeyword(skill.skillTitle)"><strong>{{skill.skillTitle}}</strong>:
-                    {{skill.skillLevel}}</span>
-                </div><br>
-                <a href="mailto:{{user.email}}?subject=Email from {{activeUser.firstName}} {{activeUser.lastName}} on Engineer Exchange
-            &body=I saw your profile on Engineer Exchange and thought your skills might be perfect for my project.  I'd like to discuss a collaboration!"
-                  *ngIf="loggedIn()" style="text-decoration: none; position: absolute; bottom: 0;">Contact Engineer</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template>
 
-<div class="jumbotron jumbotron-fluid" style="text-align: center">
+<div class="jumbotron jumbotron-fluid" style="text-align: center; margin-top: 75px;">
   <div class="container">
     <h1 id="enginExIntro" class="display-4">Welcome to Engineer Exchange</h1>
     <p id="enginExP" style="width: 500px; ">Our sole focus throughout the development of EnginEx was

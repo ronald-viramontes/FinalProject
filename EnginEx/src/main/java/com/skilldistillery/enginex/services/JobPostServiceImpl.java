@@ -56,6 +56,7 @@ public class JobPostServiceImpl implements JobPostService {
 			existingJobPost.setJobActive(jobPost.isJobActive());
 			existingJobPost.setDateClosed(jobPost.getDateClosed());
 			existingJobPost.setStatus(jobPost.getStatus());
+			existingJobPost.setType(jobPost.getType());
 			existingJobPost = jobPostRepo.saveAndFlush(existingJobPost);
 			return existingJobPost;
 		}
@@ -137,8 +138,8 @@ public class JobPostServiceImpl implements JobPostService {
 				dbJob.setStatus(jobPost.getStatus());
 			}
 			
-			jobPost = jobPostRepo.saveAndFlush(jobPost);
-			return jobPost;
+			dbJob = jobPostRepo.saveAndFlush(dbJob);
+			return dbJob;
 			
 		}
 			return null;

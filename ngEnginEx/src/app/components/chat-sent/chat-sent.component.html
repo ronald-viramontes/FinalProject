@@ -1,9 +1,16 @@
 <div>
   <ngb-accordion [closeOthers]="true">
-    <ngb-panel title={{chat.subject}} *ngFor="let chat of sentChats">
+    <ngb-panel *ngFor="let chat of sentChats">
+      <ng-template ngbPanelTitle>
+        <span
+          style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 15ch; text-align: left;">Subj:&nbsp;{{chat.subject}}
+          <br>
+          To:&nbsp;&nbsp;{{chat.receiver!.username}}
+        </span>
+      </ng-template>
       <ng-template ngbPanelContent>
         <div style="color: black; white-space: normal;">
-          <strong>Subject: </strong> {{chat.subject}}<br>
+          <strong>Subj: </strong> {{chat.subject}}<br>
           <b> Message: </b>{{chat.message}} <br>
           <b> Sent: </b>{{chat.dateTimeStamp | date: 'medium'}}<br>
           <button class="badge btn-light btn-sm" (click)="setEditChat(chat)">✏️</button>

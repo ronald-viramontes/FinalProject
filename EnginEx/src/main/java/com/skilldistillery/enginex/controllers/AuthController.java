@@ -19,9 +19,10 @@ import com.skilldistillery.enginex.services.AuthService;
 @RestController
 @CrossOrigin({ "*", "http://localhost:4300" })
 public class AuthController {
-
+	
 	@Autowired
 	private AuthService authSvc;
+	 
 
 	@PostMapping(path = "/register")
 	public User register(@RequestBody User user, HttpServletResponse res) {
@@ -48,4 +49,8 @@ public class AuthController {
 	public User getUser(Principal principal) {
 		return authSvc.getUser(principal.getName());
 	}
+
+	
+
+
 }

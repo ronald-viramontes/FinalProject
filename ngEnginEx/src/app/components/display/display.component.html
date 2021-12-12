@@ -71,15 +71,6 @@
           <app-job-application [applications]="applications" [activeUser]="activeUser"></app-job-application>
         </mat-card-actions>
       </mat-card>
-
-      <br>
-      <mat-card>
-        <mat-card-title>Job Feedback</mat-card-title>
-        <mat-card-actions align="start">
-          <app-job-detail [activeUser]="activeUser" [applications]="applications">
-          </app-job-detail>
-        </mat-card-actions>
-      </mat-card>
     </div>
 
     <div class="col" *ngIf="activeUser && loggedIn() && loggedInClass()">

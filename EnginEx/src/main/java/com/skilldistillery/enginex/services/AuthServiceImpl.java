@@ -19,7 +19,6 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public User register(User user) {
 		User test = userRepo.findByUsername(user.getUsername());
-		System.out.println("----------------------------------------------------------------------------"+test);
 		if (test != null && test.getUsername().equals(user.getUsername())) {
 			return null;
 		} else {
@@ -27,9 +26,7 @@ public class AuthServiceImpl implements AuthService {
 			user.setPassword(encodedPW); // only persist encoded password
 			System.out.println(user);
 			user.setEnabled(true);
-			user.setRole("standard");
-//			user.getDeveloper().setUser(user);
-//			user.getClient().setUser(user);
+			user.setRole("USER");
 			user = userRepo.saveAndFlush(user);
 			return user;
 
